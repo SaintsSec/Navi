@@ -1,4 +1,6 @@
 # Navi - An AI Personal Assistant for Cyber Security
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)  
 Growing up I used to love playing the megaman battle network series on my gameboy advance.  
 The thought of having an AI built into a cell phone like device was always intriguing.  
 At the time it was the works of SciFi but here we are with things like Siri, Google Assistant  
@@ -9,9 +11,7 @@ Till its over I want Navi to be able to learn from its users and adapt its own p
 helping with day to day tasks as well as helping with Cyber Security related topics such as but not limited to: 
 - Threat Inteligence Monitoring
 - Cyber Security Blog updates  
-and of course what NetNavi would be complete without the ability to do virus busting (I want to impliment anti-virus into it)
+- And of course what NetNavi would be complete without the ability to do virus busting (I want to impliment anti-virus into it)
 
 Ideally one day Navi will have its own avatar that would live in the task tray while being able to be clicked on to bring up  
-the main console for chatting and doing all of its main functions. 
-
-Thanks for checking it out, if you want to contribute. Theproject is open source. 
+the main console for chatting and doing all of its main functions.  
