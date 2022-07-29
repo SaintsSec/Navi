@@ -5,22 +5,9 @@ from modules import menus
 import os 
 import sys
 
-banner = """
-    _   __            _ 
-   / | / /___ __   __(_)
-  /  |/ / __ `/ | / / / 
- / /|  / /_/ /| |/ / /  
-/_/ |_/\__,_/ |___/_/   
-                                                                                                                                                            
-"""
-
-
-
 tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
 model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
-print(banner)
-print("\nType 'help' to show a list of commands:\n")
-
+print(menus.banner)
 for steps in range(sys.maxsize**10):
     text = input(">> ")
     if text == "help":
