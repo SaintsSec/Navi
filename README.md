@@ -8,7 +8,7 @@ Navi is my take on the NetNavi AI from the MMBN series while also forming it int
 Till its over I want Navi to be able to learn from its users and adapt its own personality. while of course  
 helping with day to day tasks as well as helping with Cyber Security related topics such as but not limited to: 
 - Threat Inteligence Monitoring
-- Cyber Security Blog updates
+- Cyber Security Blog updates  
 and of course what NetNavi would be complete without the ability to do virus busting (I want to impliment anti-virus into it)
 
 Ideally one day Navi will have its own avatar that would live in the task tray while being able to be clicked on to bring up  
