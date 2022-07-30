@@ -5,17 +5,21 @@ Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
 description: A place to store and refference most of Navi's commonly used menus and banners.    
 """
 
-banner = """
-+--------------------------------+
-|       _   __            _      |
-|      / | / /___ __   __(_)     |
-|     /  |/ / __ `/ | / / /      |
-|    / /|  / /_/ /| |/ / /       |
-|   /_/ |_/\__,_/ |___/_/        |
-|                                |
-|  Type 'help' for command list  |
-+--------------------------------+                                                                                                                                                            
-"""
+banner = '''
++----------------------------------+
+|==================================|
+|         _   __            _      |
+|        / | / /___ __   __(_)     |
+|       /  |/ / __ `/ | / / /      |
+|      / /|  / /_/ /| |/ / /       |
+|     /_/ |_/\__,_/ |___/_/        |
+|         Version:0.0.1            |
+|==================================|
+|   Type 'help' for command list   |
+|  Author: Alex Kollar(@ssgcythes) |
+|https://github.com/AlexKollar/navi|
++----------------------------------+                                                                                                                                                            
+'''
 
 bothelp = """
    +--------------------------------------------+ 

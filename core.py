@@ -5,26 +5,26 @@ Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
 description: Navi is a conversational AI built to be a personal assistant for cyber security.     
 """
 from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
 from os import system
+from modules import personality
 from modules import menus
-import os 
-import sys
+import torch, os, sys
 
 tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
 model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
 print(menus.banner)
+personality.lifelike()
 for steps in range(sys.maxsize**10):
     text = input(">> ")
-    if text == "help":
+    if text == "help" or "-h":
         print("Navi: Maybe this will help you\n")
         print(menus.bothelp)
-    if text == "cls":
+    if text == "cls" or "clear":
         system('clear')
-    if text == "reset":
-        print(f"Navi: I am sorry I let you down, lets try again :D")
+    if text == "reset" or "reboot":
+        print(f"Navi: Rebooting... lets try again :D")
         os.execl(sys.executable, sys.executable, *sys.argv)
-    if text == "exit":
+    if text == "goodbye" or "Goodbye" or "See you later":
         print("Navi: Thank you for talking me! I look forward to seeing you again!")
         exit()
     else:
