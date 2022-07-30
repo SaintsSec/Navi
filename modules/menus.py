@@ -1,3 +1,10 @@
+#!/bin/python3
+"""
+Name:        Navi | menues.py
+Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
+description: A place to store and refference most of Navi's commonly used menus and banners.    
+"""
+
 banner = """
 +--------------------------------+
 |       _   __            _      |

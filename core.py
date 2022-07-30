@@ -1,3 +1,9 @@
+#!/bin/python3
+"""
+Name:        Navi | core.py
+Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
+description: Navi is a conversational AI built to be a personal assistant for cyber security.     
+"""
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from os import system
