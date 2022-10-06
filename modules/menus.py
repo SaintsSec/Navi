@@ -17,7 +17,7 @@ banner = '''
 |==================================|
 |   Type 'help' for command list   |
 |  Author: Alex Kollar(@ssgcythes) |
-|https://github.com/AlexKollar/navi|
+|  https://github.com/SSGOrg/navi  |
 +----------------------------------+                                                                                                                                                            
 '''
 
