@@ -28,5 +28,8 @@ def naviCore():
         #print the output
     output = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)
     print(f"Navi: {output}")
+def help():
+    print(menus.bothelp)
 
-naviCore()
+help()
+#naviCore()
