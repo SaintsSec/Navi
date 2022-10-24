@@ -5,8 +5,7 @@ Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
 description: A place to store and refference most of Navi's commonly used menus and banners.    
 """
 
-banner = '''
-+----------------------------------+
+banner = '''+----------------------------------+
 |==================================|
 |         _   __            _      |
 |        / | / /___ __   __(_)     |
@@ -18,8 +17,7 @@ banner = '''
 |   Type 'help' for command list   |
 |  Author: Alex Kollar(@ssgcythes) |
 |  https://github.com/SSGOrg/navi  |
-+----------------------------------+                                                                                                                                                            
-'''
++----------------------------------+'''
 
 bothelp = """
    +--------------------------------------------+ 
@@ -31,5 +29,4 @@ bothelp = """
    | reset - Resets the chat session back to 0  |
    | cls   - Clears the screen                  |
    | exit  - exits the current session          |
-   +--------------------------------------------+ 
-"""
+   +--------------------------------------------+"""
