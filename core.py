@@ -1,35 +1,65 @@
-#!/bin/python3
-"""
-Name:        Navi | core.py
-Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
-description: Navi is a conversational AI built to be a personal assistant for cyber security.     
-"""
-from transformers import AutoTokenizer, AutoModelForCausalLM
-from os import system
-from modules import personality
-from modules import menus
-import torch, os, sys
+import json 
+import re 
+import os
+import modules.personality
+from modules.mods import banner, bothelp, os
+from modules.mods import clear
 
-tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
-model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
-# personality.lifelike()
-def naviCore():
-    print(menus.banner)
-    for steps in range(sys.maxsize**10):
-        text = input(">> ")
-        input_ids = tokenizer.encode(text + tokenizer.eos_token, return_tensors="pt")
-        bot_input_ids = torch.cat([chat_history_ids, input_ids], dim=-1) if steps > 0 else input_ids
-        # generate a bot response
-        chat_history_ids = model.generate(
-            bot_input_ids,
-            max_length=1000,
-            pad_token_id=tokenizer.eos_token_id,
-        )
-        #print the output
-    output = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)
-    print(f"Navi: {output}")
-def help():
-    print(menus.bothelp)
+personality = modules.personality
+clear()
+print(banner)
+def loadJson(file):
+    with open(file) as personality:
+        #print(f"Loaded {file} successfully!")
+        return json.load(personality)
 
-help()
-#naviCore()
+responsesData = loadJson('intents.json')
+
+def getResponse(inputString):
+    splitMessage = re.split(r'\s+|[,;?!.-]\s*', inputString.lower())
+    scoreList = []
+
+    for response in responsesData:
+        responseScore = 0
+        requiredScore = 0
+        requiredWords = response['required_words']
+
+        if requiredWords:
+            for word in splitMessage:
+                if word in requiredWords:
+                    requiredScore += 1
+
+        if requiredScore == len(requiredWords):
+            for word in splitMessage:
+                if word in response["user_input"]:
+                    responseScore += 1
+
+        scoreList.append(responseScore)
+
+    bestResponse = max(scoreList)
+    responseIndex = scoreList.index(bestResponse)
+
+    if inputString == '':
+        return "Please type something so we can chat :)"
+
+    if bestResponse != 0:
+        return responsesData[responseIndex]["bot_response"]
+
+    return personality.idk()
+
+while True:
+    userInput = input(' > ')
+    if userInput == "help":
+        print("Navi: Here is the basic help information:")
+        print(bothelp)
+        continue
+    elif userInput == 'cls':
+        clear()
+        continue
+    elif userInput == 'cryptex':
+        os.system('python3 ~/.Cryptex/src/main.py')
+    elif userInput == "exit":
+        print("Navi: It was fun talking to you, see yah soon!")
+        exit()
+    else:
+        print(" Navi: ", getResponse(userInput))

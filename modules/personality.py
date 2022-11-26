@@ -1,23 +1,14 @@
-#!/bin/python3
-"""
-Name:        Navi | personality.py
-Author:      Alex Kollar (https://github.com/AlexKollar/navi | @ssgcythes)
-description: custom responses for navi's personality.     
-"""
-import os, sys, random, time
+import random
 
-def lifelike():
-    actions = [
-        "Navi: *brushes hair behind her ear before adjusting glasses.*",
-        "Navi: *Leans back in chair placing her hands behind her head with a sigh*",
-        "Navi: *Goes to make a cup of tea. Returning a few moments later with a happy expression*"               
+def idk():
+    idkList = [
+        "I am not sure how to respond.",
+        "Oh! It appears you wrote something I dont understand yet.",
+        "Do you mind rephrasing that for me? I am still learning",
+        "I'm terribly sorry, I didn't quite catch that..."
     ]
-    for i in actions:
-        time.sleep(30)
-        action = random.choice(actions)
-        print(action)
+    listCount = len(idkList)
+    idkItem = random.randrange(listCount)
+    return idkList[idkItem]
 
-def sayings():
-    comedy = [
-        "The answer to life the universe and everything is 42"
-    ]
+
