@@ -1,6 +1,4 @@
 #! /bin/python3
-#TODO 
-
 import os, subprocess, time
 from mods import mods
 
