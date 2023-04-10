@@ -8,7 +8,7 @@
 Navi got its start for Alex when he was a young teen. While he does not have a direct year of refference the gameboy advance SP had just dropped as well as Megaman Battlenetwork 3. Which is where Navi takes a lot of her inspiration from. Over the many cycles leading up to this. Navi has gone from being a simple if statement based "AI" chatbot to having some models implimented that you can find out in the wild. All the way to what we see today. Navi's GPT based itteration offers all the power of GPT3.5 Davinci with some custom scripting added on to aide in various cybersec tasks.  
   
 ## Important Links: 
-[SSG Discord](https://discord.gg/RtXWsy5uNE)
+[SSG Discord](https://discord.gg/RtXWsy5uNE)  
 [Navi Wiki](https://github.com/SSGorg/Navi/wiki)  
 [Navi Install Guide](https://github.com/SSGorg/Navi/wiki/Installing-Navi-(Linux---Mac))  
   
