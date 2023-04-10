@@ -3,7 +3,9 @@ import os, subprocess, time
 from mods import mods
 
 breakline = mods.breakline
+art = mods.art
 
+print(art)
 def main():
     #Nmap Setup
     scanIP = input("Navi> Give me an IP to scan: ")
