@@ -3,7 +3,7 @@ from mods import mods
 
 
 # [!!] - YOU WILL NEED TO ADD YOUR OWN GPT API KEY HERE!!
-openai.api_key = "YOU WILL NEED TO ADD YOUR OWN GPT API KEY HERE!!"
+openai.api_key = "NO REALLY SYSTEM WILL CRASH IF YOU DONT HAVE A KEY..."
 # [!!] - HEY LOOK TWO LINES UP AND READ TO HERE JUST IN CASE...
 
 art = mods.art
@@ -31,17 +31,17 @@ while True:
         print("Navi> [!!] - Launching recon automation RIGHT NOW!!")
         print(breakline)
         time.sleep(3)
-        subprocess.call(['python3', './recon.py'])
+        subprocess.call(['python3', '.Navi/src/recon.py'])
         break
     if chatText == "/clear":
         print(breakline)
         print("Navi> [!!] - Rebooting, see you in a second!")
         print(breakline)
         time.sleep(3)
-        subprocess.call(['python3', './main.py'])
+        subprocess.call(['python3', '.Navi/src/main.py'])
         break
     if chatText == "/help":
-        subprocess.call(['python3', './help.py'])
+        subprocess.call(['python3', '.Navi/src/help.py'])
         break
     #Generate AI response if /command not present 
     response = openai.Completion.create(

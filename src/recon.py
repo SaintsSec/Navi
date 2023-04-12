@@ -4,7 +4,7 @@ import os, subprocess, time
 from mods import mods
 
 breakline = mods.breakline
-art = mods.art
+art = mods.reconArt
 
 print(art)
 
