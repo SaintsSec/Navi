@@ -32,7 +32,7 @@ def main():
     os.system(f"cat ~/{reportName}.txt")
     print(breakline)
     input("Press enter to continue: ")
-    subprocess.call(['python3', './main.py'])
+    subprocess.call(['python3', '.Navi/src/main.py'])
 
 if __name__ == "__main__":
     main()

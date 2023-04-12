@@ -17,7 +17,7 @@ Command:              Use:
 /stop                 Stops Navi and returns you to your commandline.
 +===================================================+""")
     input("Press enter to continue...")
-    subprocess.call(['python3', './main.py'])
+    subprocess.call(['python3', '.Navi/src/main.py'])
 
 if __name__ == "__main__":
     main()
