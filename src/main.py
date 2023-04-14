@@ -1,5 +1,8 @@
-import openai, os, subprocess, time
+"""Navi."""
+
+import openai
 from mods import mods
+import commands
 
 
 # [!!] - YOU WILL NEED TO ADD YOUR OWN GPT API KEY HERE!!
@@ -10,49 +13,45 @@ art = mods.art
 breakline = mods.breakline
 clearScreen = mods.clearScreen
 
-#Clears the screen and prints out the header
+# Clears the screen and prints out the header
 clearScreen
 print(art)
 
-#Main loop for gpt / commands
+# Main loop for gpt / commands
 while True:
-    #Main input 
-    chatText = input("Navi> Whats up? \n")
-    #Looking out for / commands 
-    if chatText == "/stop":
+    # Main input
+    chatText = input("Navi> Whats up? \n=> ")
+
+    # Looking out for / commands
+    if chatText[0] == '/':
         print(breakline)
-        print("Navi> [!!] - I look forward to seeing you again!")
-        print(breakline)
-        time.sleep(3)
-        clearScreen
-        break
-    if chatText == "/recon":
-        print(breakline)
-        print("Navi> [!!] - Launching recon automation RIGHT NOW!!")
-        print(breakline)
-        time.sleep(3)
-        subprocess.call(['python3', '.Navi/src/recon.py'])
-        break
-    if chatText == "/clear":
-        print(breakline)
-        print("Navi> [!!] - Rebooting, see you in a second!")
-        print(breakline)
-        time.sleep(3)
-        subprocess.call(['python3', '.Navi/src/main.py'])
-        break
-    if chatText == "/help":
-        subprocess.call(['python3', '.Navi/src/help.py'])
-        break
-    #Generate AI response if /command not present 
-    response = openai.Completion.create(
-        model = "text-davinci-003",
-        prompt = chatText,
-        temperature = 0.7,
-        max_tokens = 256,
-        top_p = 1,
-        frequency_penalty = 0,
-        presence_penalty = 0
-    )
-    #Prints out AI response.
-    print(response["choices"][0]["text"])
+
+        if chatText == "/stop":
+            print("Navi> [!!] - I look forward to seeing you again!")
+            clearScreen
+            exit(0)
+        elif chatText == "/clear":
+            print("Navi> [!!] - Rebooting, see you in a second!")
+            clearScreen
+            print(art)
+        elif chatText in commands.modules.keys():
+            print("Navi> [!!] - Runing command:", chatText)
+            commands.modules[chatText].run()
+        else:
+            print(f"Navi> [!!] - Unknown command: '{chatText}'")
+
+    # Generate AI response if /command not present
+    else:
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=chatText,
+            temperature=0.7,
+            max_tokens=256,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        # Prints out AI response.
+        print(response["choices"][0]["text"])
+
     print(breakline)
