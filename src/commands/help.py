@@ -8,8 +8,6 @@ use = "Displays a help message"
 
 def run():
     """Show help menu."""
-    # Todo, make this use __init__.py
-    # and add a command and use variable in all command modules
     print("""+===================================================+
 Navi Help Menu:
 Navi is a simple to use GPT bot that focuses in on assisting with
