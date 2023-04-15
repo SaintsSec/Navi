@@ -52,3 +52,4 @@ while True:
         )
         # Prints out AI response.
         print(response["choices"][0]["text"])
+        print(breakline)
