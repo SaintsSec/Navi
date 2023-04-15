@@ -12,13 +12,13 @@ class Distros:
     def debian():
         return [
             'sudo apt update',
-            'sudo apt-get install -y python3 python3-pip python-dev',
+            'sudo apt-get install -y python3 python3-pip python-dev nmap',
         ]
     @staticmethod
     def arch():
         return [
             'sudo pacman -Syu',
-            'sudo pacman -S python python-pip',
+            'sudo pacman -S python python-pip nmap',
         ]
     @staticmethod
     def void():
@@ -26,7 +26,7 @@ class Distros:
     @staticmethod
     def opensuse():
         return [
-            'sudo zypper in python310',
+            'sudo zypper in python310 nmap',
         ]
         # Do I need to add more here?
 
