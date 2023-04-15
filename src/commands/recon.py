@@ -13,9 +13,12 @@ def run():
     breakline = mods.breakline
 
     # Recon Setup
+    print("Nmap Setup:")
     targetIP = input("Navi> Give me an IP to scan: ")
     scanOptions = input("Navi> What type of scan (ex: -sV): ")
-    reportName = input("Navi> What would you like to name the report(ex: Report1): ")
+    print("WhoIs Setup:")
+    targetUrl = input("Navi> What URL should I look into: ")
+    reportName = input("Navi> Save report as(ex: Report1): ")
     print(breakline + "\n")
 
     # Scan execution
@@ -28,10 +31,17 @@ def run():
     print(f"Navi> [!] - Starting Scan now: nmap {scanOptions} {targetIP}")
     os.system(f"nmap {scanOptions} {targetIP} >> ~/{reportName}.txt")
     print("Navi> [\u2713] - nmap scan complete!!")
+    time.sleep(2)
+    print(f"Navi> [!] - Looking into {targetUrl} now!")
+    os.system(f"echo {breakline} >> ~/{reportName}.txt")
+    os.system(f"whois {targetUrl} >> ~/{reportName}.txt")
+    print(f"Navi> [\u2713] - Whois on {targetUrl} complete")
+    time.sleep(2)
     print("Navi> [\u2713] - Showing generated report now!")
-    print(f"Scan can be viwed anytime at: ~/{reportName}.txt")
+    print(f"\n[!!]View this report anytime at: ~/{reportName}.txt[!!]")
 
     # Show nmap report
     print("\n" + breakline)
+    time.sleep(2)
     os.system(f"cat ~/{reportName}.txt")
     print(breakline)
