@@ -11,10 +11,8 @@ openai.api_key = "NO REALLY SYSTEM WILL CRASH IF YOU DONT HAVE A KEY..."
 
 art = mods.art
 breakline = mods.breakline
-clearScreen = mods.clearScreen
 
 # Clears the screen and prints out the header
-clearScreen
 print(art)
 
 # Main loop for gpt / commands
@@ -24,18 +22,19 @@ while True:
 
     # Looking out for / commands
     if chatText[0] == '/':
-        print(breakline)
 
         if chatText == "/stop":
-            print("Navi> [!!] - I look forward to seeing you again!")
-            clearScreen
+            print(f"{breakline}\nNavi> [!!] - I look forward to seeing you again!\n{breakline}")
             exit(0)
         elif chatText == "/clear":
+            print(breakline)
             print("Navi> [!!] - Rebooting, see you in a second!")
-            clearScreen
+            commands.modules[chatText].run()
             print(art)
         elif chatText in commands.modules.keys():
+            print(breakline)
             print("Navi> [!!] - Runing command:", chatText)
+            print(breakline)
             commands.modules[chatText].run()
         else:
             print(f"Navi> [!!] - Unknown command: '{chatText}'")
@@ -53,5 +52,3 @@ while True:
         )
         # Prints out AI response.
         print(response["choices"][0]["text"])
-
-    print(breakline)

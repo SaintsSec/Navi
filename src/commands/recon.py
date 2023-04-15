@@ -16,7 +16,7 @@ def run():
     targetIP = input("Navi> Give me an IP to scan: ")
     scanOptions = input("Navi> What type of scan (ex: -sV): ")
     reportName = input("Navi> What would you like to name the report(ex: Report1): ")
-    print(breakline + "\n\n")
+    print(breakline + "\n")
 
     # Scan execution
     print("The Process:")
@@ -32,6 +32,6 @@ def run():
     print(f"Scan can be viwed anytime at: ~/{reportName}.txt")
 
     # Show nmap report
-    print("\n\n" + breakline)
+    print("\n" + breakline)
     os.system(f"cat ~/{reportName}.txt")
     print(breakline)
