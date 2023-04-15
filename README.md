@@ -1,5 +1,5 @@
 # Navi - A GPT CyberSecurity AI
-![navi demo](/demo/navi01.gif)    
+![navi demo](/demo/naviDemo.gif)    
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)  
   
@@ -13,7 +13,7 @@ Navi got its start for Alex when he was a young teen. While he does not have a d
 [Navi Wiki](https://github.com/SSGorg/Navi/wiki)  
 [Navi Install Guide](https://github.com/SSGorg/Navi/wiki/Installing-Navi-(Linux---Mac))  
   
-## Current Version - 0.0  
+## Current Version - 0.2  
 Whats implimented:
 - Recon Automation Phase 1 (Nmap)  
 -- Automates Nmap Scans and saves the output to a file you designate
