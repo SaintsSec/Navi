@@ -24,13 +24,12 @@ Navi got its start for Alex when he was a young teen. While he does not have a d
 ## 🗓️ Upcoming Release  
 Navi is a purpose built AI, However we intend to have a lot of fun with this. On top of expanded recon automation we want to see the following: 
 - Expanded recon (WhoIs, Nessus, Nuclei, Shodan to name a few)
-- Inclusion of SSG's tool kit. (Cryptex, Kyber, Walla Cannon for starters) 
-- Our own custom GPT Model or even our own custom trained model.
-- Text to speech and voice input to give it that personal assistant feel
-Quaility of life improvements:
+
+### Future Quaility of life improvements:
 - Commandline access from within Navi
-- Getting it to pause GPT when executing custom scripts
-- Better file archetecture / setup.  
+- Navi history (Pressing the up arrow to cycle navi command / user's chat history)  
+- Our own custom GPT Model or even our own custom trained model.
+- Text to speech and voice input to give it that personal assistant feel  
 
 ## [🛠️Basic Help](https://github.com/SSGorg/Navi/wiki/)
 
