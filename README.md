@@ -1,5 +1,5 @@
 # Navi - A GPT CyberSecurity AI
-![navi demo](/demo/naviDemo.gif)    
+![navi demo](/demo/NaviDemo.gif)    
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)  
   
