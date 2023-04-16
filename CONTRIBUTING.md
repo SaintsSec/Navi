@@ -61,7 +61,7 @@ To start contributing to this project, follow the steps below.
 - Keep a reference to the original project in `upstream` remote.
 
   ```bash
-  cd Cryptex  
+  cd Navi  
   git remote add upstream https://github.com/SSGorg/Navi.git
   ```
 
