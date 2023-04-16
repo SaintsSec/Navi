@@ -28,19 +28,23 @@ def run():
     os.system(f'echo {breakline} >> ~/{reportName}.txt')
     print("Navi> [\u2713] - Ping scan complete!")
     time.sleep(2)
+    
+    #Nmap Execution
     print(f"Navi> [!] - Starting Scan now: nmap {scanOptions} {targetIP}")
     os.system(f"nmap {scanOptions} {targetIP} >> ~/{reportName}.txt")
     print("Navi> [\u2713] - nmap scan complete!!")
     time.sleep(2)
+    
+    #Whois
     print(f"Navi> [!] - Looking into {targetUrl} now!")
     os.system(f"echo {breakline} >> ~/{reportName}.txt")
     os.system(f"whois {targetUrl} >> ~/{reportName}.txt")
     print(f"Navi> [\u2713] - Whois on {targetUrl} complete")
     time.sleep(2)
+  
+    #Show Report
     print("Navi> [\u2713] - Showing generated report now!")
     print(f"\n[!!]View this report anytime at: ~/{reportName}.txt[!!]")
-
-    # Show nmap report
     print("\n" + breakline)
     time.sleep(2)
     os.system(f"cat ~/{reportName}.txt")
