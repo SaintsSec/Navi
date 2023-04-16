@@ -4,7 +4,6 @@
 # Imports.
 import sys # System stuff.
 import os # Operating System functions.
-from colorama import Fore
 
 # Distro package manager commands
 class Distros:
@@ -52,16 +51,16 @@ def handle_distros():
 
     # auto detect
     distro = os.popen('cat /etc/issue').read()
-    auto = f'{Fore.RED}- Unsupported disto'
+    auto = f'- Unsupported disto'
     for k, v in distros.items():
         if k.lower() in distro.lower():
-            auto = f'{Fore.YELLOW}- {k}'
+            auto = f'- {k}'
             break
         else:
             txt = ''
             for sub in v:
                 if sub.lower() in distro.lower():
-                    txt = f'{Fore.YELLOW}- {k} ({sub})'
+                    txt = f'- {k} ({sub})'
                     break
             if txt != '':
                 auto = txt
@@ -69,19 +68,19 @@ def handle_distros():
 
     message = ''
     for key, val in distros.items():
-        message += f'\n\t- {Fore.GREEN}{key}'
+        message += f'\n\t- {key}'
         for sub in val:
-            message += f'\n\t    - {Fore.YELLOW}{sub}'
+            message += f'\n\t    - {sub}'
     
     print(f"""
-        {Fore.GREEN}- auto
+        - auto
             {auto}{message}
-        {Fore.WHITE}""")
+        """)
 
     ans = ''
     while not ans in [k.lower() for k, _ in distros.items()] + ['auto']: 
         # user input to select a distro
-        ans=input(f"{Fore.YELLOW}>_ {Fore.CYAN}What is your operating system?: {Fore.WHITE}").lower()
+        ans=input(f">_ What is your operating system?: ").lower()
 
     if 'auto' in ans:
         ans = auto.split('- ')[1].lower()
@@ -95,7 +94,7 @@ def handle_distros():
     elif 'opensuse' in ans:
         return Distros.opensuse()
     
-    print(f'\n\t{Fore.RED}Unsuported distro: {Fore.WHITE}{ans}\n')
+    print(f'\n\tUnsuported distro: {ans}\n')
     exit(1)
 
 def check_shell_config(location):
@@ -108,7 +107,7 @@ def handle_shell():
     shell = os.readlink(f'/proc/{os.getppid()}/exe')
 
     # Display a unsuported shell message if the shell isn't suported
-    message = f'\n\t\t{Fore.RED}Unsuported shell'
+    message = f'\n\t\tUnsuported shell'
     supported = ['bash', 'zsh', 'fish']
     for s in supported:
         if s in shell:
@@ -118,17 +117,17 @@ def handle_shell():
     # Auto generate the list of shels
     shells = ''
     for s in supported:
-        shells += f'\n\t{Fore.GREEN}- {s}'
+        shells += f'\n\t- {s}'
     print(f"""
-        {Fore.GREEN}- auto
-            {Fore.YELLOW}- {shell}{message}{shells}
-    {Fore.WHITE}""")
+        - auto
+            - {shell}{message}{shells}
+    """)
 
     # Check for input
     ans = ''
     options = ['auto'] + supported
     while ans not in options:
-        ans=input(f"{Fore.YELLOW}>_ {Fore.CYAN}What is your shell?: {Fore.WHITE}").lower()
+        ans=input(f">_ What is your shell?: ").lower()
 
     # If the input was not 'auto' then set the shell to what the user entered
     if 'auto' not in ans:
@@ -144,12 +143,12 @@ def handle_shell():
     elif 'fish' in shell:
         path = f'{user}/.config/fish/config.fish'
     else:
-        print(f'\n\t{Fore.RED}Unsuported shell: {Fore.WHITE}{shell}\n')
+        print(f'\n\tUnsuported shell: {shell}\n')
         exit(1)
 
     # Check if the cyrptex alias already exists in the given shell
     if check_shell_config(path):
-        print(f'\n\t{Fore.BLUE}Alias already exists in config: {Fore.WHITE}{path}\n')
+        print(f'\n\tAlias already exists in config: {path}\n')
         return ''
 
     command = 'echo \'alias navi="python3 ~/.Navi/src/main.py"\'' 
@@ -179,13 +178,13 @@ def main():
     # Run the commands
     for c in commands:
         if len(c) <= 0: continue
-        print(f'\n\t{Fore.GREEN}RUNNING: {Fore.WHITE}{c}\n')
+        print(f'\n\tRUNNING: {c}\n')
         os.system(c)
 
     # End message
     print(f"""
-    {Fore.GREEN}Installation finished.
-    Restart the terminal and type {Fore.YELLOW}navi {Fore.GREEN}to run the program{Fore.WHITE}
+    Installation finished.
+    Restart the terminal and type navi to run the program
     """)
     exit()
 
@@ -193,7 +192,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print(f'\n{Fore.YELLOW}You interrupted the program.{Fore.WHITE}')
+        print(f'\nYou interrupted the program.')
         try:
             sys.exit(0)
         except SystemExit:
