@@ -14,7 +14,7 @@ def run():
     """Do recon."""
     # Recon Setup
     print("Nmap Setup:")
-    targetIP = input("Navi> Give me an IP to scan: ")
+    targetIP = input("Navi> Give me an IP or URL to scan: ")
     scanOptions = input("Navi> What type of scan (ex: -sV): ")
     print("WhoIs Setup:")
     targetUrl = input("Navi> What URL should I look into: ")
