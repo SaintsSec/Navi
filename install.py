@@ -170,6 +170,13 @@ def main():
         'rm -rf ~/.Navi',
         'mkdir ~/.Navi',
         'cp -r . ~/.Navi',
+        'rm -rf ~/.Navi/.git/',
+        'rm -rf ~/.Navi/.github/',
+        'rm -rf ~/.Navi/demo/',
+        'rm ~/.Navi/README.md',
+        'rm ~/.Navi/CONTRIBUTING.md',
+        'rm ~/.Navi/CODE_OF_CONDUCT.md',
+        'rm ~/.Navi/install.py',
     ]
 
     # Shell related commands
