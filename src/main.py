@@ -31,7 +31,6 @@ while True:
         elif chatText == "/clear":
             print(breakline)
             print("Navi> [!!] - Rebooting, see you in a second!")
-            commands.modules[chatText].run()
             print(art)
         elif chatText in commands.modules.keys():
             print(breakline)
