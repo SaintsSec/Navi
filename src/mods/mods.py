@@ -15,6 +15,7 @@ art = f"""{breakline}
 breakline = "+===================================================+ "
 
 # Clear Screen Code
-clearScreen = os.system('cls' if os.name == 'nt' else 'clear')
+def clearScreen():
+  os.system('cls' if os.name == 'nt' else 'clear')
 
 
