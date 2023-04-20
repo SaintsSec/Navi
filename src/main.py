@@ -24,7 +24,9 @@ while True:
     if chatText[0] == '/':
 
         if chatText == "/stop":
-            print(f"{breakline}\nNavi> [!!] - I look forward to seeing you again!\n{breakline}")
+            print(breakline)
+            print("Navi> [!!] - I look forward to seeing you again!")
+            print(breakline)
             exit(0)
         elif chatText == "/clear":
             print(breakline)
