@@ -1,11 +1,13 @@
 """Clear Screen module."""
 
-import os
+from mods import mods
 
 command = "/clear"
 use = "clears the screen"
 
 def run():
     """Clearing Screen."""
-    os.system('cls' if os.name == 'nt' else 'clear')
-
+    print(breakline)
+    print("Navi> [!!] - Rebooting, see you in a second!")
+    mods.clearscreen()
+    print(art)
