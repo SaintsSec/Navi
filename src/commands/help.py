@@ -20,4 +20,3 @@ Here is a list of current useable commands:
 Command:              Use:""")
     for _, module in commands.modules.items():
         print(module.command.ljust(21), module.use)
-    print(breakline)
