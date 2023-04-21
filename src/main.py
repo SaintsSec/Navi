@@ -13,6 +13,7 @@ art = mods.art
 breakline = mods.breakline
 
 # Clears the screen and prints out the header
+mods.clearScreen()
 print(art)
 
 # Main loop for gpt / commands
