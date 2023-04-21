@@ -1,0 +1,17 @@
+import os
+
+macchanger = input('''
+What would you like to do? 
+1. Random Mac 
+2. Custom Mac 
+''' + 'Navi: ')
+
+if macchanger == '1':
+    os.system('ifconfig down && macchanger -r eth0 && ifconfig up')
+elif macchanger == '2':
+    new_mac = input('What Mac address would you like to use? : ')
+    os.system(f'ifconfig down && macchanger --mac="{new_mac}" eth0 && ifconfig up')
+else:
+    print("Invalid option. Please enter 1 or 2.")
+
+os.system('ifconfig eth0')
