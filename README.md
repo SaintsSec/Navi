@@ -12,7 +12,7 @@
  ## Table of Contents
   - [History](#-history)
   - [Upcoming Release](#%EF%B8%8F-upcoming-release)
-  - [Basic Help](#%EF%B8%8Fbasic-help)
+  - [Basic Help / Install Guide](#%EF%B8%8Fbasic-help)
   - [Get in touch](#%EF%B8%8F-get-in-touch)
   - [Issues](#-issues)
   - [Contributing](#-contributing)
@@ -29,9 +29,12 @@ Navi is a purpose built AI, However we intend to have a lot of fun with this. On
 - Commandline access from within Navi
 - Navi history (Pressing the up arrow to cycle navi command / user's chat history)  
 - Our own custom GPT Model or even our own custom trained model.
-- Text to speech and voice input to give it that personal assistant feel  
+- Text to speech and voice input to give it that personal assistant feel
 
-## [🛠️Basic Help](https://github.com/SSGorg/Navi/wiki/)
+## 🖥️ Mac / Windows compatibility: TBA  
+**Navi is built primarily for linux operating systems. However we do plan on expanding into Mac and Windows over time.**
+
+## [🛠️Basic Help / Install Guide](https://github.com/SSGorg/Navi/wiki/)
 
 ## 🖐️ Get in touch
 ### You can join in on chatting with the dev team on our Discord server
