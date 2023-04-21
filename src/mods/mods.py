@@ -1,5 +1,7 @@
 import os
 
+breakline = "+===================================================+"
+
 # The cover art:
 art = f"""{breakline}
 |       _   __            _    __________  ______   |
@@ -11,11 +13,6 @@ art = f"""{breakline}
 {breakline}
 """
 
-# Line Break
-breakline = "+===================================================+ "
-
 # Clear Screen Code
 def clearScreen():
   os.system('cls' if os.name == 'nt' else 'clear')
-
-
