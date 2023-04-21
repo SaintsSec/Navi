@@ -23,13 +23,12 @@ while True:
 
     # Looking out for / commands
     if chatText[0] == '/':
+        print(breakline)
         if chatText == "/stop":
-            print(breakline)
             print("Navi> [!!] - I look forward to seeing you again!")
             print(breakline)
             exit(0)
         elif chatText in commands.modules.keys():
-            print(breakline)
             print("Navi> [!!] - Runing command:", chatText)
             print(breakline)
             commands.modules[chatText].run()
