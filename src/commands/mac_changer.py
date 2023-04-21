@@ -5,27 +5,27 @@ use = "Change your mac adress"
 
 def run():
     print('''
-What would you like to do? 
+Navi> What would you like to do? 
   1. Random Mac 
   2. Custom Mac''')
-    mode = input('Mode => ')
+    mode = input('Navi> Which mode(Ex: 1 / 2) => ')
 	
     if mode in ['1', '2']:
-        print('Please select an interface, for example "eth0"')
-        interface = input('Interface => ')
+        print('Navi> Please select an interface, for example "eth0"')
+        interface = input('Navi> Which interface => ')
         if mode == '1':
             random(interface)
         elif mode == '2':
             custom(interface)
     else:
-        print(f'Invalid input "{mode}"')
+        print(f'Navi> [!!] - Invalid input "{mode}"')
 
 def cmd(cmds):
     cmd = ' && '.join(cmds)
     os.system(cmd)
 
 def random(interface):
-    print('Using random MAC addesss')
+    print('Navi> [\u2713] - Using random MAC addesss')
     cmd([
         'ifconfig down',
         f'macchanger -r {interface}',
@@ -34,7 +34,7 @@ def random(interface):
 
 def custom(interface):
     mac = input('Mac Adress => ')
-    print(f'Using specified mac address "{mac}"')
+    print(f'Navi> [\u2713] - Using specified mac address "{mac}"')
     cmd([
         'ifconfig down',
         f'macchanger --mac="{mac}" {interface}',

@@ -50,10 +50,10 @@ def run():
         print("\n" + breakline)
         time.sleep(2)
         os.system(f"cat ~/{reportName}.txt")
-        print(breakline)
+        #print(breakline)
     if reportChoice == "no":
-        print(f"\nNavi> [\u2713] - That is fair. \nReport contents saved to: ~/{reportName}.txt\n\n{breakline}")
+        print(f"\nNavi> [\u2713] - That is fair. \nReport contents saved to: ~/{reportName}.txt\n\n")
         return
     else:
-        print(f"\nNavi> [!!] - The report can be viewed at: ~/{reportName}.txt\n\n{breakline}")
+        print(f"\nNavi> [!!] - The report can be viewed at: ~/{reportName}.txt\n\n")
         return
