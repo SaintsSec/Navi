@@ -11,13 +11,13 @@ class Distros:
     def debian():
         return [
             'sudo apt update',
-            'sudo apt-get install -y python3 python3-pip python-dev nmap',
+            'sudo apt-get install -y python3 python3-pip python-dev nmap macchanger',
         ]
     @staticmethod
     def arch():
         return [
             'sudo pacman -Syu',
-            'sudo pacman -S python python-pip nmap',
+            'sudo pacman -S python python-pip nmap machanger-git',
         ]
     @staticmethod
     def void():
@@ -25,7 +25,7 @@ class Distros:
     @staticmethod
     def opensuse():
         return [
-            'sudo zypper in python310 nmap',
+            'sudo zypper in python310 nmap macchanger',
         ]
         # Do I need to add more here?
 
