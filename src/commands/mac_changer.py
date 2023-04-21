@@ -11,14 +11,14 @@ What would you like to do?
     mode = input('Mode => ')
 	
     if mode in ['1', '2']:
-	print('Please select an interface, for example "eth0"')
-	interface = input('Interface => ')
-	if mode == '1':
-	    random(interface)
-	elif mode == '2':
-	    custom(interface)
+        print('Please select an interface, for example "eth0"')
+        interface = input('Interface => ')
+        if mode == '1':
+            random(interface)
+        elif mode == '2':
+            custom(interface)
     else:
-	print(f'Invalid input "{mode}"')
+        print(f'Invalid input "{mode}"')
 
 def cmd(cmds):
     cmd = ' && '.join(cmds)
