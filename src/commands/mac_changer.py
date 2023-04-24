@@ -30,7 +30,7 @@ def random(interface):
         'ifconfig down',
         f'macchanger -r {interface}',
         'ifconfig up'
-    ])
+        ])
 
 def custom(interface):
     mac = input('Mac Adress => ')
