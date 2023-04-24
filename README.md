@@ -6,7 +6,11 @@
 ![navi demo](/demo/NaviDemo.gif)    
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)  
-  
+
+## 🤝 Sponsors / Endorsements:   
+I would like to take a moment to thank our Sponsors / Endorsers for all they have done for us.   
+<img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="10%" height="10%">  
+
 ## [!!] - Before you begin will need your own GPT API Key to use Navi.
 
  ## Table of Contents
@@ -45,8 +49,8 @@ If you face any problems while using the application, please open an issue here
   
 ## 🤝 Contributing
 
-Contributions, feedback, and bug reports are welcome! Feel free to check out our [issues page](https://github.com/SSGorg/Navi/issues) to find out what you could do! But before contributing, make sure to check out [CONTRIBUTING.md](./CONTRIBUTING.md).
-  
+Contributions, feedback, and bug reports are welcome! Feel free to check out our [issues page](https://github.com/SSGorg/Navi/issues) to find out what you could do! But before contributing, make sure to check out [CONTRIBUTING.md](./CONTRIBUTING.md).  
+
 ## Our Amazing Contributors🌟
 
 <br>
