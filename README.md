@@ -7,9 +7,10 @@
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)  
 
-## 🤝 Sponsors / Endorsements:   
-I would like to take a moment to thank our Sponsors / Endorsers for all they have done for us.   
+## 🤝 Sponsors / Endorsements: Thank you so much!     
+<div align="center">
 <img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="25%" height="25%">  
+</div>  
 
 ## [!!] - Before you begin will need your own GPT API Key to use Navi.
 
