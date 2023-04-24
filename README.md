@@ -9,7 +9,7 @@
 
 ## 🤝 Sponsors / Endorsements:   
 I would like to take a moment to thank our Sponsors / Endorsers for all they have done for us.   
-<img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="10%" height="10%">  
+<img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="25%" height="25%">  
 
 ## [!!] - Before you begin will need your own GPT API Key to use Navi.
 
