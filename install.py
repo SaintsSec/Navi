@@ -177,6 +177,8 @@ def main():
         'rm ~/.Navi/CONTRIBUTING.md',
         'rm ~/.Navi/CODE_OF_CONDUCT.md',
         'rm ~/.Navi/install.py',
+        'rm ~/Documents/NaviReports',
+        'mkdir ~/Documents/NaviReports',
     ]
 
     # Shell related commands
