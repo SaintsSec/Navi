@@ -27,17 +27,17 @@ def cmd(cmds):
 def random(interface):
     print('Navi> [\u2713] - Using random MAC addesss')
     cmd([
-        'ifconfig down',
+        f'ifconfig down {interface}',
         f'macchanger -r {interface}',
-        'ifconfig up'
+        f'ifconfig up {interface}'
         ])
 
 def custom(interface):
     mac = input('Mac Adress => ')
     print(f'Navi> [\u2713] - Using specified mac address "{mac}"')
     cmd([
-        'ifconfig down',
+        f'ifconfig down {interface}',
         f'macchanger --mac="{mac}" {interface}',
-        'ifconfig up'
+        f'ifconfig up {interface}'
     ])
 
