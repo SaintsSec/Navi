@@ -80,7 +80,7 @@ def handle_distros():
     ans = ''
     while not ans in [k.lower() for k, _ in distros.items()] + ['auto']: 
         # user input to select a distro
-        ans=input(f">_ What is your operating system?: ").lower()
+        ans=input(f"Navi> What is your operating system?: ").lower()
 
     if 'auto' in ans:
         ans = auto.split('- ')[1].lower()
@@ -94,20 +94,20 @@ def handle_distros():
     elif 'opensuse' in ans:
         return Distros.opensuse()
     
-    print(f'\n\tUnsuported distro: {ans}\n')
+    print(f'\n\tNavi> [!!] - Unsuported distro: {ans}\n')
     exit(1)
 
 def check_shell_config(location):
     # check if the navi alias is in the given file
     with open(location, 'rt') as f:
-        check = 'alias navi' in f.read()
+        check = 'alias navi-e1' in f.read()
     return check
     
 def handle_shell():
     shell = os.readlink(f'/proc/{os.getppid()}/exe')
 
     # Display a unsuported shell message if the shell isn't suported
-    message = f'\n\t\tUnsuported shell'
+    message = f'\n\t\tNavi> [!!] - Unsuported shell'
     supported = ['bash', 'zsh', 'fish']
     for s in supported:
         if s in shell:
@@ -127,7 +127,7 @@ def handle_shell():
     ans = ''
     options = ['auto'] + supported
     while ans not in options:
-        ans=input(f">_ What is your shell?: ").lower()
+        ans=input(f"Navi> [!!] - What is your shell?: ").lower()
 
     # If the input was not 'auto' then set the shell to what the user entered
     if 'auto' not in ans:
@@ -143,15 +143,15 @@ def handle_shell():
     elif 'fish' in shell:
         path = f'{user}/.config/fish/config.fish'
     else:
-        print(f'\n\tUnsuported shell: {shell}\n')
+        print(f'\n\tNavi> [!!] - Unsuported shell: {shell}\n')
         exit(1)
 
     # Check if the cyrptex alias already exists in the given shell
     if check_shell_config(path):
-        print(f'\n\tAlias already exists in config: {path}\n')
+        print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
         return ''
 
-    command = 'echo \'alias navi="python3 ~/.Navi/src/main.py"\'' 
+    command = 'echo \'alias navi-e1="cd ~/.Navi-E1/src/ && python3 navi-e1.py && cd"\'' 
     return f'{command} >> {path}'
     
 def main():
@@ -167,16 +167,18 @@ def main():
     # Cryptex related commands
     commands += [
         'pip install -r requirements.txt',
-        'rm -rf ~/.Navi',
-        'mkdir ~/.Navi',
-        'cp -r . ~/.Navi',
-        'rm -rf ~/.Navi/.git/',
-        'rm -rf ~/.Navi/.github/',
-        'rm -rf ~/.Navi/demo/',
-        'rm ~/.Navi/README.md',
-        'rm ~/.Navi/CONTRIBUTING.md',
-        'rm ~/.Navi/CODE_OF_CONDUCT.md',
-        'rm ~/.Navi/install.py',
+        'rm -rf ~/.Navi-E1',
+        'mkdir ~/.Navi-E1',
+        'cp -r . ~/.Navi-E1',
+        'rm -rf ~/.Navi-E1/.git/',
+        'rm -rf ~/.Navi-E1/.github/',
+        'rm -rf ~/.Navi-E1/demo/',
+        'rm ~/.Navi-E1/README.md',
+        'rm ~/.Navi-E1/CONTRIBUTING.md',
+        'rm ~/.Navi-E1/CODE_OF_CONDUCT.md',
+        'rm ~/.Navi-E1/install.py',
+        'chmod +r ~/.Navi-E1/src/intense.json',
+        'python3 ~/.Navi-E1/neuralset.py',
     ]
 
     # Shell related commands
@@ -185,13 +187,13 @@ def main():
     # Run the commands
     for c in commands:
         if len(c) <= 0: continue
-        print(f'\n\tRUNNING: {c}\n')
+        print(f'\n\tNavi> [!!] - RUNNING: {c}\n')
         os.system(c)
 
     # End message
     print(f"""
-    Installation finished.
-    Restart the terminal and type navi to run the program
+    Navi> [!!] - Installation finished.
+    Navi> [!!] - Restart the terminal and type navi-e1 to run the program
     """)
     exit()
 

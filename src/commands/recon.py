@@ -54,7 +54,7 @@ def run():
         time.sleep(2)
         os.system(f"cat {fullPath}")
     if reportChoice == "no":
-        print(f"\nNavi> [\u2713] - That is fair. \nReport contents saved to: ~/Documents/NaviReports/Navi-{timestr}-{reportName}.txt\n\n")
+        print(f"\nNavi> [\u2713] - That is fair. \nReport contents saved to: {fullPath}\n\n")
         return
     else:
         print(f"\nNavi> [!] - The report can be viewed at: {fullPath}\n\n")

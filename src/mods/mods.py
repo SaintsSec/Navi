@@ -4,12 +4,12 @@ breakline = "+===================================================+"
 
 # The cover art:
 art = f"""{breakline}
-|       _   __            _    __________  ______   |
-|      / | / /___ __   __(_)  / ____/ __ \/_  __/   |
-|     /  |/ / __ `/ | / / /  / / __/ /_/ / / /      |
-|    / /|  / /_/ /| |/ / /  / /_/ / ____/ / /       |
-|   /_/ |_/\__,_/ |___/_/   \____/_/v0.4 /_/        |
-|    Type "/help" for help menu "/stop" to exit     |
+|         _   __            _       _________       |
+|        / | / /___ __   __(_)     / ____<  /       |
+|       /  |/ / __ `/ | / / /_____/ __/  / /        |
+|      / /|  / /_/ /| |/ / /_____/ /___ / /         |
+|     /_/ |_/\__,_/ |___/_/ v0.1/_____//_/          |
+|   Type '/help' for help or '/stop' to exit        |
 {breakline}
 """
 
@@ -25,5 +25,5 @@ nMapCommands = """Before you pick your options here are some nmap example's to w
 4. nmap -O (operating system detection) IpAddress/URLHere
 5. nmap -A (aggressive scan) IpAddress/URLHere
 
-Navi> [\u2713] - for example you can chain these: nmap -sSVAO IpAddress/URLHere 
+Navi> [\u2713] - for example you can chain these: nmap -sSVA IpAddress/URLHere 
 """

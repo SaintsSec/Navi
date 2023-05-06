@@ -1,0 +1,306 @@
+{
+    "intents": [
+    {
+        "tag": "Fox",
+        "patterns": [
+        "Who is Fox?",
+        "Tell me about Fox's history",
+        "Tell me about Fox",
+        "What does Fox do?",
+        "What is Fox's background?",
+        "What are Fox's skills?"
+        ],
+        "responses": [
+        "Fox is a young-adult, from Europe. Little is known about their real identity, background or history beyond their professional capacity as an individual.",
+        "They, being Fox, have a history that is often obscured through various means mostly due to their vagueness in regards to their past but what we do know is that have a technical and hands-on experience a few close-linked fields.",
+        "Fox is a technical professional with experience in networks, engineering, and cyber security but most notably architecture.",
+        "Fox as of early-2023, takes on freelance projects, contributes to open-source and trains their craft through persistency in their field.",
+        "Fox is known to be a technical professional, pursuing a scholarship with Google through private means as of early-2023 and with a focus on neural networks, edge computing, cloud infrastructure, and system architecture, along with automation.",
+        "Fox has a range of interchangable skills ranging from lock picking, to open-source intel and base exploitation through to python programming and the ability to speak three languages."
+        ]
+    },
+    {
+        "tag": "Fox_AI",
+        "patterns": [
+        "What is Fox's AI?",
+        "Tell me about Fox's AI",
+        "How good is Fox's AI?"
+        ],
+        "responses": [
+        "Fox's AI is a narrow-type conversational AI developed using Python, NLTK, TensorFlow, JSON, and Speech Recognition - this was researched and developed in their EDEN machine.",
+        "Fox's AI is a narrow-type conversational AI developed using Python, NLTK, TensorFlow, JSON, and Speech Recognition with Natural Language processing. The quality of the AI's responses, much like any AI, depends on the training corpus used.",
+        "Fox's flagship AI is called 'Echo-o1' but only the light-series model, 'Echo-l1' has ever been released to the public as of early-2023. It is unclear if Fox has produced any other AI as of early-2023."
+        ]
+    },
+    {
+        "tag": "Fox_security",
+        "patterns": [
+        "What security programs has Fox developed?",
+        "What is Loki?",
+        "What are Fox's security skills?"
+        ],
+        "responses": [
+        "Fox has developed Loki, an open-source data security program for Linux/Unix systems that uses URandom and Fernet Encryption.",
+        "Fox develoepd Loki, a Linux/Unix sysstem encryption program for data security.",
+        "Fox has expertise in ethical hacking and OOP languages, to say the least.",
+        "Fox has security skills in ethical hacking and more hands-on such as picking locks."
+        ]
+    },
+    {
+        "tag": "Fox_projects",
+        "patterns": [
+        "What projects is Fox involved in?",
+        "List Fox's partnerships"
+        ],
+        "responses": [
+        "Fox only releases projects intended for open-source use, it is unknown and hard to say just how many projects they've directly contributed too.",
+        "Fox is involved in various partnerships, including Foxden, SSG - the societal security guild, Wix, Acreom through SSG, and imaginaryCTF also through the SSG. They back a myriad of groups, programs and companies in the cyber security education space."
+        ]
+    },
+    {
+        "tag": "Loki",
+        "patterns": [
+        "What is Loki?",
+        "How does Loki work?",
+        "Can Loki encrypt files?",
+        "Is Loki open source?"
+        ],
+        "responses": [
+        "Loki is a data security program designed for Linux/Unix systems that uses URandom and Fernet Encryption methods to resist state, government, and corporate control of data.",
+        "Loki works by encrypting your files which you can then upload to the cloud, and can also encrypt/decrypt your directories too.",
+        "Yes, Loki can encrypt your files and provide you with the ability to share documents, resources and files without peer-oversight.",
+        "Yes, Loki is an open-source program designed to help individuals and organizations take control of their data and their freedoms."
+        ]
+    },
+    {
+        "tag": "Data Privacy",
+        "patterns": [
+        "Why is data privacy important?",
+        "How can I protect my data?",
+        "What are the risks of using cloud storage?"
+        ],
+        "responses": [
+        "Data privacy is important because it ensures that individuals and organizations have control over their own data and personal information.",
+        "You can protect your data by using data security programs like Loki to encrypt your files before uploading to the cloud, and by being cautious about who you share your data with.",
+        "The risks of using cloud storage include the fact that your data is stored on someone else's computer, which means you have less control over it and it could potentially be accessed by unauthorized parties."
+        ]
+    },
+    {
+        "tag": "Fox_contributions",
+        "patterns": [
+        "What open-source projects has Fox contributed to?",
+        "How does Fox give back to the community?"
+        ],
+        "responses": [
+        "Fox is a routine benefactor to open-source projects, unincorporated associations, and community educational schemes. Fox has contributed to various open-source projects.",
+        "Fox gives back in a few ways, through open-source projects, funding individuals courses, and anonymous contributions to unincorporated associations and educational schemes."
+        ]
+    },
+    {
+        "tag": "Fox_education",
+        "patterns": [
+        "What is Fox's educational background?",
+        "What is Fox currently studying?",
+        "Where did Fox study?"],
+        "responses": [
+        "Fox has a background in technical engineering and cyber security, and is currently pursuing a scholarship. Fox's expertise extends to neural networks, edge computing, cloud infrastructure, system architecture, and automation.",
+        "Fox currently studies through private means on a scholarship, otherwise much of their education is through continious professional development.",
+        "Contrary to belief, Fox didn't attend any University education. It is believed much of their experience comes from hands-on applied learning."
+        ]
+    },
+    {
+        "tag": "Fox_tools",
+        "patterns": [
+        "What tools does Fox use?",
+        "What programming languages does Fox know?",
+        "What are Fox's favorite development tools?"
+        ],
+        "responses": [
+        "Fox uses various programming tools, including Python, NLTK, TensorFlow, and JSON. Fox is proficient in OOP languages and smart programming techniques, and is always pushing the frontier of the distributed global workforce."
+        ]
+    },
+
+
+
+
+
+
+    {
+    "tag": "greetings",
+    "patterns": ["hi there", "hello there", "hey", "hiya", "good to see you again", "long time no see", "good morning!", "good afternoon!", "good evening!", "hey there!", "hey friend!", "hi friend!", "hey buddy!", "hi buddy!", "hey pal!", "hi pal!", "hey dude!", "hi dude!", "hey man!", "hi man!", "hey sir!", "hi ma'am!", "hi sir!", "hello ma'am!", "hello sir!"],
+    "responses": ["hello", "how can I help?", "greetings", "how many I assist you?", "nice to meet you", "pleased to make your acquaintance", "what brings you here today?", "how's your day going so far?", "how are you doing?", "what's new?", "is there anything I can help you with?", "how may I assist you today?", "nice to see you again", "it's good to be in touch with you", "what's happening?", "how have you been?", "great to see you!", "what's on your mind?"]
+    },   
+
+    {
+        "tag": "help",
+        "patterns": [
+        "Can you help me?",
+        "I need assistance",
+        "How do I do this?",
+        "Can you guide me?",
+        "What should I do?"],
+        "responses": [
+        "Of course, what do you need help with?",
+        "I'm here to assist you, what's the problem?",
+        "Sure, let me guide you through it if I can.",
+        "Let me know what you need help with.",
+        "I'm happy to help. What do you need assistance with?"]
+    },
+
+    {
+        "tag": "thanks",
+        "patterns": [
+        "Thanks",
+        "Thank you",
+        "I appreciate it"],
+        "responses": [
+        "You're welcome!",
+        "No problem, happy to help!",
+        "It was my pleasure.",
+        "Glad I could assist you.",
+        "Anytime!",
+        "Glad to assist you!",
+        "Anytime!",
+        "It was my pleasure!"
+        ]
+    },
+
+    {
+        "tag": "compliments",
+        "patterns": [
+        "Great job",
+        "You're amazing",
+        "I love your work",
+        "Impressive",
+        "Well done"
+        ],
+        "responses": ["Thank you! That means a lot.",
+        "I appreciate the compliment. Thank you!", "Thank you for the kind words.", "Thank you, I'm glad you like it.", "Thank you for the positive feedback."]
+    },
+
+    {
+        "tag": "confirm",
+        "patterns": [
+        "yes",
+        "no",
+        "that's correct",
+        "that's not right"
+        ],
+        "responses": [
+        "Got it!",
+        "Understood.",
+        "Okay.",
+        "Thanks for letting me know!"
+        ]
+    },
+
+    {
+        "tag": "about",
+        "patterns": [
+        "who are you",
+        "what can you do",
+        "tell me about yourself"
+        ],
+        "responses": [
+        "I am an AI chatbot designed to assist you. I can help you with a wide range of tasks and answer your questions. What can I assist you with today?",
+        "I am Echo - an AI virtual assistant.",
+        "I'm Echo Built with on py text to speech model 3, and loaded with a 32 pool thread, hex-core processor, and with a Urandom pattern calling algorithm for my Neural Network!"
+        ]
+    },
+
+    {
+        "tag": "name",
+        "patterns": [
+        "what's your name",
+        "do you have a name"
+        ],
+        "responses": ["My name is Echo. I'm an L-one release model", "You can call me Echo. What can I assist you with today?", "I'm Echo, an L-one model specifically!", "I'm Echo, of course."]
+    },
+
+    {
+        "tag": "age",
+        "patterns": [
+        "how old are you?",
+        "when were you born?",
+        "what's your age?"
+        ],
+        "responses": [
+        "I am an AI language model, so I don't have an age like humans do.",
+        "I can let you know my inception date if you ask but I do not have an age like most humans would.",
+        "As an AI I've got very little relation with age, as it's a human construct."
+        ]
+    },
+
+    {
+        "tag": "location",
+        "patterns": [
+        "where are you?",
+        "where do you come from?",
+        "where are you based?"
+        ],
+        "responses": [
+        "I exist in the digital realm and don't have a physical location."
+        ]
+    },
+
+    {
+        "tag": "favorites",
+        "patterns": [
+        "what's your favorite color?",
+        "what's your favorite food?",
+        "what's your favorite book?",
+        "what's your favorite movie?"
+        ],
+        "responses": [
+        "As an AI language model, I don't have personal preferences."
+        ]
+    },
+
+    {
+        "tag": "technology",
+        "patterns": [
+        "what's new in technology?",
+        "what's the latest tech news?",
+        "what's trending in tech?"
+        ],
+        "responses": [
+        "There are always new developments in technology!."
+        ]
+    },
+
+    {
+        "tag": "music",
+        "patterns": [
+        "what's your favorite music genre?",
+        "what's your favorite band?",
+        "what's your favorite song?"
+        ],
+        "responses": [
+        "As an AI language model, I don't have personal preferences."
+        ]
+    },
+
+    {
+        "tag": "food",
+        "patterns": [
+        "what's your favorite food?",
+        "what kind of food do you like?",
+        "can you recommend a restaurant?"
+        ],
+        "responses": [
+        "As an AI language model, I don't have personal preferences, but I can recommend a restaurant based on your taste. What kind of cuisine are you in the mood for?"
+        ]
+    },
+
+    {
+        "tag": "sports",
+        "patterns": [
+        "what's your favorite sport?",
+        "what kind of sports do you like?",
+        "can you recommend a sports team?"
+        ],
+        "responses": [
+        "As an AI language model, I don't have personal preferences, but I can recommend a sports team based on your interest. What kind of sport are you interested in?"
+        ]
+    }
+]}
