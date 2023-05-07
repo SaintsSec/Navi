@@ -3,6 +3,7 @@
 import os
 import time
 from mods import mods
+from fpdf import FPDF
 
 command = "/recon"
 use = "Recon automation suite"
@@ -11,6 +12,10 @@ use = "Recon automation suite"
 breakline = mods.breakline
 nMapCommands = mods.nMapCommands
 timestr = time.strftime("%m%d%Y-%H:%M")
+pdf = FPDF()
+
+pdf.add_page()
+pdf.set_font("Arial", size = 10)
 
 def run():
     """Do recon."""
@@ -55,7 +60,20 @@ def run():
         os.system(f"cat {fullPath}")
     if reportChoice == "no":
         print(f"\nNavi> [\u2713] - That is fair. \nReport contents saved to: {fullPath}\n\n")
-        return
     else:
         print(f"\nNavi> [!] - The report can be viewed at: {fullPath}\n\n")
+
+    #convert to pdf:
+    pdfChoice = input(f"{breakline}\n\nNavi> [!] - Would you like to export {reportName} into a pdf? (yes / no): ").lower()
+    if pdfChoice == "yes":
+        file = open(f"{fullPath}", "r")
+        for x in file:
+            pdf.cell(2000, 5, txt = x, ln = 1)
+        pdf.output(f"{fullPath}.pdf")
+        print(f"Navi> [u2713] - pdf generated it can be found at: {fullPath}.pdf")
+    if pdfChoice == "no":
+        print("Navi> [!] - Understood cracking on!")
+        return
+    else:
+        print("Navi> [!] - Not a valid option. Moving on...")
         return

@@ -11,3 +11,4 @@ speechrecognition
 pyttsx3
 espeak
 espeak-ng
+fpdf
