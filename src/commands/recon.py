@@ -66,11 +66,11 @@ def run():
     #convert to pdf:
     pdfChoice = input(f"{breakline}\n\nNavi> [!] - Would you like to export {reportName} into a pdf? (yes / no): ").lower()
     if pdfChoice == "yes":
-        file = open(f"{fullPath}", "r")
+        file = open(f"{reportPath}/{reportName}-{timestr}.txt", "r")
         for x in file:
             pdf.cell(2000, 5, txt = x, ln = 1)
-        pdf.output(f"{fullPath}.pdf")
-        print(f"Navi> [u2713] - pdf generated it can be found at: {fullPath}.pdf")
+        pdf.output(f"{reportPath}/{reportName}-{timestr}.pdf")
+        print(f"Navi> [u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf")
     if pdfChoice == "no":
         print("Navi> [!] - Understood cracking on!")
         return
