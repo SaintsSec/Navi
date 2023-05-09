@@ -151,7 +151,7 @@ def handle_shell():
         print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
         return ''
 
-    command = 'echo \'alias navi-e1="cd ~/.Navi-E1/src/ && python3 navi-e1.py && cd"\'' 
+    command = 'echo \'alias navi-e1="cd ~/.Navi-E1 && python3 navi-e1.py && cd"\'' 
     return f'{command} >> {path}'
     
 def main():
@@ -177,7 +177,6 @@ def main():
         'rm ~/.Navi-E1/CONTRIBUTING.md',
         'rm ~/.Navi-E1/CODE_OF_CONDUCT.md',
         'rm ~/.Navi-E1/install.py',
-        'chmod +r ~/.Navi-E1/src/intense.json',
         'python3 ~/.Navi-E1/neuralset.py',
     ]
 
