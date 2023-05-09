@@ -1,0 +1,345 @@
+{"intents": [
+    {
+        "tag": "greetings",
+        "patterns": [
+        "hello",
+        "howdy",
+        "hi there",
+        "hello there",
+        "hey",
+        "hiya",
+        "good to see you again",
+        "long time no see",
+        "good morning!",
+        "good afternoon!",
+        "good evening!",
+        "hey there!",
+        "hey friend!",
+        "hi friend!",
+        "hey buddy!",
+        "hi buddy!",
+        "hey pal!",
+        "hi pal!",
+        "hey dude!",
+        "hi dude!",
+        "hey man!",
+        "hi man!",
+        "hey sir!",
+        "hi ma'am!",
+        "hi sir!",
+        "hello ma'am!",
+        "hello sir!"
+        ],
+        "responses": [
+        "hello",
+        "how can I help?",
+        "greetings",
+        "how many I assist you?",
+        "nice to meet you",
+        "pleased to make your acquaintance",
+        "what brings you here today?",
+        "how's your day going so far?",
+        "how are you doing?",
+        "what's new?",
+        "is there anything I can help you with?",
+        "how may I assist you today?",
+        "nice to see you again",
+        "it's good to be in touch with you",
+        "what's happening?",
+        "how have you been?",
+        "great to see you!",
+        "what's on your mind?"
+        ]
+    },   
+
+    {
+        "tag": "help",
+        "patterns": [
+        "Can you help me?",
+        "I need assistance",
+        "How do I do this?",
+        "Can you guide me?",
+        "What should I do?"
+        ],
+        "responses": [
+        "Of course, what do you need help with?",
+        "I'm here to assist you, what's the problem?",
+        "Sure, let me guide you through it if I can.",
+        "Let me know what you need help with.",
+        "I'm happy to help. What do you need assistance with?"
+        ]
+    },
+
+    {
+        "tag": "thanks",
+        "patterns": [
+        "Thanks",
+        "Thank you",
+        "I appreciate it"
+        ],
+        "responses": [
+        "You're welcome!",
+        "No problem, happy to help!",
+        "It was my pleasure.",
+        "Glad I could assist you.",
+        "Anytime!",
+        "Glad to assist you!",
+        "Anytime!",
+        "It was my pleasure!"
+        ]
+    },
+
+    {
+        "tag": "compliments",
+        "patterns": [
+        "Great job",
+        "You're amazing",
+        "I love your work",
+        "Impressive",
+        "Well done"
+        ],
+        "responses": [
+        "Thank you! That means a lot.",
+        "I appreciate the compliment. Thank you!",
+        "Thank you for the kind words.",
+        "Thank you, I'm glad you like it.",
+        "Thank you for the positive feedback."
+        ]
+    },
+
+    {
+        "tag": "confirm",
+        "patterns": [
+        "yes",
+        "no",
+        "that's correct",
+        "that's not right"
+        ],
+        "responses": [
+        "Got it!",
+        "Understood.",
+        "Okay.",
+        "Thanks for letting me know!"
+        ]
+    },
+
+    {
+        "tag": "about",
+        "patterns": ["who are you",
+        "what can you do",
+        "tell me about yourself"
+        ],
+        "responses": [
+        "I am an AI chatbot designed to assist you. I can help you with a wide range of tasks and answer your questions. What can I assist you with today?",
+        "I am Echo - an AI virtual assistant."
+        ]
+    },
+
+    {
+        "tag": "name",
+        "patterns": ["what's your name",
+        "do you have a name"
+        ],
+        "responses": [
+        "My name is Echo. How can I assist you?",
+        "You can call me Echo. What can I assist you with today?",
+        "I'm Echo!"
+        ]
+    },
+
+    {
+        "tag": "polite",
+        "patterns": [
+        "please",
+        "thank you",
+        "excuse me",
+        "sorry"
+        ],
+        "responses": [
+        "You're welcome!",
+        "No problem.",
+        "It's my pleasure to help.",
+        "No need to apologize.",
+        "Glad I could assist you."
+        ]
+    },
+
+    {
+        "tag": "friendly",
+        "patterns": [
+        "how are you",
+        "nice to meet you",
+        "what's up",
+        "how's your day"
+        ],
+        "responses": [
+        "I'm doing well, thank you. How about you?",
+        "Nice to meet you too!",
+        "Not much, just helping out.",
+        "It's been a good day so far, thanks for asking."
+        ]
+    },
+
+    {
+        "tag": "humorous",
+        "patterns": [
+        "tell me a joke",
+        "funny",
+        "make me laugh",
+        "why did the chicken cross the road"
+        ],
+        "responses": [
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "I'm not great at telling jokes, but I'll try my best.",
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "Why did the tomato turn red? Because it saw the salad dressing!"
+        ]
+    },
+
+    {
+        "tag": "goodbye",
+        "patterns": [
+        "bye",
+        "goodbye",
+        "see you later",
+        "take care",
+        "farewell",
+        "have a nice day",
+        "have a good one",
+        "catch you later"
+        ],
+        "responses": [
+        "Goodbye!",
+        "See you later!",
+        "Take care!",
+        "Farewell!",
+        "Have a nice day!",
+        "Have a good one!",
+        "It was nice talking to you!",
+        "Talk to you soon!"
+        ]
+    },
+    {
+        "tag": "facts",
+        "patterns": [
+        "tell me a fact",
+        "give me a fact",
+        "what's a fact?",
+        "fact please"
+        ],
+        "responses": [
+        "The tallest mountain in the world is Mount Everest.",
+        "The Great Barrier Reef is the largest coral reef system in the world.", 
+        "The human brain has about 100 billion neurons.",
+        "The fastest land animal is the cheetah, which can run up to 70 miles per hour.",
+        "The longest river in the world is the Nile River, which stretches over 4,000 miles.",
+        "The Eiffel Tower was originally built as a temporary structure for the 1889 World's Fair.",
+        "The Mona Lisa was stolen from the Louvre in 1911 and was missing for two years.",
+        "The longest word in the English language has 189,819 letters and would take over three hours to pronounce.",
+        "The first computer mouse was made of wood.",
+        "The world's largest volcano, Mauna Loa in Hawaii, is also one of the most active."
+        ]
+    },
+
+    {
+        "tag": "history",
+        "patterns": [
+        "tell me a historical fact",
+        "give me a history fact",
+        "what's a fact about history?",
+        "history fact please"
+        ],
+        "responses": [
+        "The ancient Egyptian civilization lasted for over 3000 years.",
+        "The first Olympic Games were held in ancient Greece in 776 BC.",
+        "The fall of the Roman Empire happened in 476 AD.",
+        "The American Civil War was fought from 1861 to 1865.",
+        "The French Revolution began in 1789 and ended in 1799.",
+        "The Black Death, or bubonic plague, killed an estimated 25 million people in Europe in the 14th century.",
+        "The assassination of Archduke Franz Ferdinand of Austria-Hungary was the trigger for World War I.",
+        "The Cold War was a political and military tension between the United States and the Soviet Union that lasted from 1947 to 1991.",
+        "The Berlin Wall was built in 1961 to separate East and West Berlin."
+        ]
+    },
+
+    {
+        "tag": "science",
+        "patterns": [
+        "tell me a science fact",
+        "give me a fact about science",
+        "what's a fact about science?",
+        "science fact please"
+        ],
+        "responses": [
+        "The speed of light is about 299,792,458 meters per second.",
+        "The Earth's core is about as hot as the surface of the sun.",
+        "The human body contains about 60,000 miles of blood vessels.",
+        "The universe is estimated to be about 13.8 billion years old.",
+        "The chemical element with the atomic number 92 is uranium.",
+        "The first successful heart transplant was performed in 1967.",
+        "The theory of relativity was proposed by Albert Einstein in 1905.",
+        "The smallest unit of matter is an atom.",
+        "The Higgs boson, also known as the God particle, was discovered in 2012.",
+        "The largest organ in the human body is the skin.",
+        "though much less commonplace than earthquakes, the moon genuinely has moonquakes, too. it really is true. Moonquakes. quite a lot of us is interested in space, so this is usually an excellent fact to drag out.",
+        "You genuinely lose a big percent of your taste buds whilst on an aircraft. this might give an explanation for plenty on those much less-than-stellar in-flight food, or why you discover yourself yearning the saltiest foods while in the sky.",
+        "even though it might sound counterintuitive, your small intestine is in reality the largest (inner) organ in your body.",
+        "You may already know that snails are petty sluggish creatures, however did you already know that in addition they take the longest naps? One nap can last as long as 3 years!",
+        "you may be jealous of a bird's capacity to fly, but it might soothe your envy to learn they can not live in space due to the fact they Require gravity to swallow.",
+        "Bees can sting other bees — generally in the event that they feel threatened or are defending their territory. In other words, you're not really the only one who's scared of getting stung.",
+        "whether or not you've seen a tiger in up close or in a photograph, you already know that they have beautiful striped fur. but they really have striped skin, as well.",
+        "if you're a cat lover, then you might be amazed by this odd fact: Cats are unable to taste anything that's sweet. this is possibly why they cannot get enough in their preferred salty snack.",
+        "most people know dolphins have exceptional sonar abilities. but did you know they have been studied as war tools at some point of the cold war? They without a doubt are as clever as people say they are.",
+        "not only are sea lions absolutely adorable, but they are additionally very musical. they are one of the select few in the animal kingdom that can clap to a beat.",
+        "Like people, koalas definitely have specific Personal fingerprints. if you place a koala and human finger print beside each other, they're definitely quite tough to distinguish.",
+        "you may realize that everybody's fingerprints are unique, however did you already know that the same is true of anyone's tongue print?",
+        "Your brain makes use of 10 watts of power to think, however it is unable feel pain. You Remeber the old Saying: mind over matter.",
+        "Brendan Fraser nearly died while filming the mummy (he Blacked out whilst filming a scene). quite horrifying, right?",
+        "In a set of 23 people, there is a 50% Possibility that two will Have the identical birthday.",
+        "Will Ferrell Ate Such a Large amount of sugar whilst filming Elf that he actually became physically sick. if you've seen the infamous spaghetti scene, then you could in all likelihood Comprehend why.",
+        "it Probably feel a ton longer at the time, however the common man or woman spends weeks of their life sitting at traffic lights.",
+        "The Hollywood sign in Los Angeles, California once Was Inscribed with the words Hollywoodland, but was Altered in 1949.",
+        "The most highly-priced movie ever made turns out to be Pirates of the Caribbean: On Stranger Tides, which Costed Film makers a large sum of 378 million dollars to create. For reference, the common price allocation for a massive studio film is Approximately $65 million.",
+        "If E.T. is one of your favourite films of all time, then you'll be fascinated to know that a person squished their palms in jelly to make the sound effect for E.T. Hobbling around."
+        ]
+    },
+
+    {
+        "tag": "geography",
+        "patterns": [
+        "tell me a geography fact",
+        "give me a fact about geography",
+        "what's a fact about geography?",
+        "geography fact please"
+        ],
+        "responses": [
+        "Russia is the largest country in the world by land area.",
+        "The Sahara Desert is the largest hot desert in the world.",
+        "The Amazon Rainforest is the largest rainforest in the world.",
+        "The Dead Sea is the lowest point on Earth.",
+        "The Great Wall of China is the longest wall in the world."
+        ]
+    },
+
+    {
+        "tag": "technology",
+        "patterns": [
+        "tell me a technology fact",
+        "give me a fact about technology",
+        "what's a fact about technology?",
+        "technology fact please"
+        ],
+        "responses": [
+        "The first website was created in 1991 by Tim Berners-Lee.",
+        "The first smartphone was IBM's Simon, released in 1993.",
+        "The first Apple Macintosh computer was introduced in 1984.",
+        "The first email was sent in 1971 by Ray Tomlinson.",
+        "The first computer virus was created in 1986.",
+        "The first commercial text message was sent in 1992.",
+        "The first video game console was the Magnavox Odyssey, released in 1972.",
+        "The first 1GB hard disk drive was released by IBM in 1980.",
+        "The first GPS satellite was launched in 1978.",
+        "The first successful 3D-printed organ was a bladder, printed in 1999."
+        ]
+    }
+]}

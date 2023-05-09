@@ -11,17 +11,16 @@ from nltk.stem import WordNetLemmatizer # Used in lemmatization.
 import threading
 from mods import mods
 import commands
-import os
 
 # Instantiate WordNetLemmatizer for lemmatization.
 lemmatizer = WordNetLemmatizer()
 # Load intents from the training data file.
-intents = json.loads(open("./intense.json").read())
+intents = json.loads(open("src/training-data.json").read())
 # Load preprocessed words and classes from pickle files.
-words = pickle.load(open('words.pkl', 'rb'))
-classes = pickle.load(open('classes.pkl', 'rb'))
+words = pickle.load(open('src/words.pkl', 'rb'))
+classes = pickle.load(open('src/classes.pkl', 'rb'))
 # Load the trained model from disk.
-model = load_model('echo-l1.h5')
+model = load_model('src/echo.h5')
 
 # Tokenize the words in the sentence and lemmatize them.
 def clean_up_sentences(sentence):
