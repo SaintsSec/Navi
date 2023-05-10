@@ -12,8 +12,9 @@ def run():
     """Show help menu."""
     print("""
 Navi Help Menu:
-Navi is a simple to use GPT bot that focuses in on assisting with
-tasks related to the field of cybersecurity.
+Navi is a simple to use customizable interface for CLI
+AI models. Built with cybersecurity professionals in mind. 
+
 [!!] - All commands are preceeded by a '/'
 Here is a list of current useable commands:
 

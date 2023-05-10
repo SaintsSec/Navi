@@ -70,7 +70,7 @@ def run():
         for x in file:
             pdf.cell(2000, 5, txt = x, ln = 1)
         pdf.output(f"{reportPath}/{reportName}-{timestr}.pdf")
-        print(f"Navi> [u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf")
+        print(f"Navi> [\u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf")
     if pdfChoice == "no":
         print("Navi> [!] - Understood cracking on!")
         return
