@@ -3,7 +3,6 @@ from os.path import dirname, basename, isfile, join
 import glob
 import importlib
 
-
 def load_module(name):
     """Load module with the given name."""
     try:
@@ -14,13 +13,11 @@ def load_module(name):
     else:
         return module
 
-
 __all__ = [
     basename(f)[:-3]
     for f in glob.glob(join(dirname(__file__), "*.py"))
     if isfile(f) and not f.endswith('__init__.py')
 ]
-
 
 modules = {}
 for module in __all__:

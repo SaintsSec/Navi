@@ -1,7 +1,5 @@
 # Imports.
 import datetime
-from datetime import date
-import time
 import json
 import nltk
 import numpy as np
@@ -11,11 +9,12 @@ import psutil
 import pyttsx3
 import random
 import speech_recognition as sr
+from datetime import date
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 import threading
 
-#Navi Imports
+#Navi Imports.
 from mods import mods
 import commands
 
@@ -37,7 +36,7 @@ operator_nicks = random.choice(operator_nicks_list)
 def ai_config():
     os.system("python3 ./src/modules/config.py"); exit()
 
-# Logging -- You can ignore this, it's for making 'memories'.
+## Logging -- You can ignore this, it's for making 'memories'.
 # Sets time and date.
 current_time = datetime.datetime.now().strftime("%H:%M:%S")
 current_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -214,16 +213,16 @@ def AI():
     print("Ready to assist."); speak("Ready to assist.")
     while True:
         try:
-            message = "" # If uncommented, it'll always respond without a wake word!
+            message = f"{ai_name}" # If uncommented, it'll always respond without a wake word!
             #message = takeCommand(); print(f"\n{ai_name} is listening!") # Uncomment if you wish to speak to wake it.
 
-            if "" in message or "Hey echo" in message: # Wake words.
+            if f"{ai_name}" in message or f"Hey {ai_name}" in message: # Wake words.
 
                 message = input("\n=> ") # If uncommented, it'll take an input sentence instead of voice!
                 #message = takeCommand() # Uncomment if you wish to speak to wake it.
                 
-                # Precoded commands.
-                #Navi Section
+                ## Precoded commands.
+                # Navi Section.
                 if message[0] == '/':
                     print(mods.breakline)
                 if message == "/stop":
@@ -242,7 +241,7 @@ def AI():
                     print(f"{ai_name}> [!!] - Unknown command: '{message}'")
                     print(mods.breakline)
                 
-                    #Echo Section
+                    # Echo Section.
                     if any(keyword in message for keyword in ["killswitch", "kill switch", "exit"]):
                         killswitch()
                     elif any(keyword in message for keyword in ["how are you","you feeling", "how do you feel", "how are you feeling"]):
