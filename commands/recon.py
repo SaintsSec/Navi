@@ -24,7 +24,7 @@ def run():
     targetIP = input("Navi> [!] - Give me an IP or URL to scan => ")
     scanOptions = input(f"\nNavi> {nMapCommands}\nNavi> [!!] - What type of scan (ex: -sV) => ")
     print("\nReport Setup:")
-    reportPath = input(f"Navi> [!] - Where do you want to save the report(ex: ~/Cases): ")
+    reportPath = input("Navi> [!] - Where do you want to save the report(ex: ~/Cases): ")
     os.system(f'mkdir {reportPath}')
     reportName = input("Navi> [!] - Save report as(ex: Report1) => ")
     fullPath = f"{reportPath}/{reportName}-{timestr}.txt"

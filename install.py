@@ -51,7 +51,7 @@ def handle_distros():
 
     # auto detect
     distro = os.popen('cat /etc/issue').read()
-    auto = f'- Unsupported disto'
+    auto = '- Unsupported disto'
     for k, v in distros.items():
         if k.lower() in distro.lower():
             auto = f'- {k}'
@@ -80,7 +80,7 @@ def handle_distros():
     ans = ''
     while not ans in [k.lower() for k, _ in distros.items()] + ['auto']: 
         # user input to select a distro
-        ans=input(f"Navi> What is your operating system?: ").lower()
+        ans=input("Navi> What is your operating system?: ").lower()
 
     if 'auto' in ans:
         ans = auto.split('- ')[1].lower()
@@ -107,7 +107,7 @@ def handle_shell():
     shell = os.readlink(f'/proc/{os.getppid()}/exe')
 
     # Display a unsuported shell message if the shell isn't suported
-    message = f'\n\t\tNavi> [!!] - Unsuported shell'
+    message = '\n\t\tNavi> [!!] - Unsuported shell'
     supported = ['bash', 'zsh', 'fish']
     for s in supported:
         if s in shell:
@@ -127,7 +127,7 @@ def handle_shell():
     ans = ''
     options = ['auto'] + supported
     while ans not in options:
-        ans=input(f"Navi> [!!] - What is your shell?: ").lower()
+        ans=input("Navi> [!!] - What is your shell?: ").lower()
 
     # If the input was not 'auto' then set the shell to what the user entered
     if 'auto' not in ans:
@@ -190,7 +190,7 @@ def main():
         os.system(c)
 
     # End message
-    print(f"""
+    print("""
     Navi> [!!] - Installation finished.
     Navi> [!!] - Restart the terminal and type navi-e1 to run the program
     """)
@@ -200,7 +200,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print(f'\nYou interrupted the program.')
+        print('\nYou interrupted the program.')
         try:
             sys.exit(0)
         except SystemExit:
