@@ -3,8 +3,6 @@
   <h1>v0.1 - Released</h1>
 </div>
 
-https://user-images.githubusercontent.com/89718570/236408994-9f33f8d3-a4e3-4c71-ba40-0cbfcbd4d657.mp4
-
 ## 🤝 Sponsors / Endorsements: Thank you so much!     
 <div align="center">
 <img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="25%" height="25%">  
@@ -14,7 +12,7 @@ https://user-images.githubusercontent.com/89718570/236408994-9f33f8d3-a4e3-4c71-
 
 ## Before you begin you will want to run the neuralset.py script included with Navi.
 
-## 🚀 About Navi-E1
+## 🚀 About Navi-E1 | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 Navi got its start for Alex when he was a young teen. It started with a game. Megaman Battlenetwork 3 which is where Navi takes a lot of its inspiration from. Over the many cycles leading up to this. Navi has gone from being a simple if statement based "AI" chatbot to having some models implimented that you can find out in the wild. All the way to what we see today.   
   
 Navi's Echo based itteration brings together to talent of Alex as well as Fox to bring together a purpose built AI for cybersecurity professionala. Capable of automating many of the common taaks professionals will run into starting with recon. 
