@@ -1,7 +1,6 @@
 # Imports.
 import datetime
 from datetime import date
-import time
 import json
 import nltk
 import numpy as np
@@ -18,6 +17,8 @@ import threading
 #Navi Imports
 from mods import mods
 import commands
+
+dt = datetime.datetime.now()
 
 ## Configuration!
 # Loading the configuration json.
@@ -37,23 +38,10 @@ operator_nicks = random.choice(operator_nicks_list)
 def ai_config():
     os.system("python3 ./src/modules/config.py"); exit()
 
-# Logging -- You can ignore this, it's for making 'memories'.
-# Sets time and date.
-current_time = datetime.datetime.now().strftime("%H:%M:%S")
-current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-mem_gen = current_date + ".mem"
-mem_path = os.path.join("./var/log/memories/", mem_gen)
-# Generates 'memories' directory, then creates the dir and file before confirming.
-os.makedirs("./var/log/memories/", exist_ok=True)
-with open(mem_path, 'w') as file:
-    file.write(">> START OF MEMORY <<\n")
-if os.path.isfile(mem_path):
-    print(f"File '{mem_path}' created successfully.")
-else:
-    print(f"Failed to create the file '{mem_path}', one might already exist.")
-# Allows the reading and writing for 'memories'.
-log_file = open(f"./var/log/memories/{date.today()}.mem", "a")
-log_file.write(f">> SESSION | {date.today()}-{current_time}\n")
+## Logging -- You can ignore this, it's for making 'memories'.
+#current_time = dt.strftime("%H:%M:%S")
+#log_file = open(f"./var/log/memories/{date.today()}.mem", "a")
+#log_file.write(f">> SESSION START | {date.today()}-{current_time} <<\n")
 
 ## Neural segment -- This is where the AI magic happens.
 # Downloads any updates.
@@ -242,27 +230,27 @@ def AI():
                     print(f"{ai_name}> [!!] - Unknown command: '{message}'")
                     print(mods.breakline)
                 
-                    #Echo Section
-                    if any(keyword in message for keyword in ["killswitch", "kill switch", "exit"]):
-                        killswitch()
-                    elif any(keyword in message for keyword in ["how are you","you feeling", "how do you feel", "how are you feeling"]):
-                        get_wellness()
-                    elif any(keyword in message for keyword in ["I want to configure you", "neural config"]):
-                        ai_config()
+                #Echo Section
+                if any(keyword in message for keyword in ["killswitch", "kill switch", "exit"]):
+                    killswitch()
+                elif any(keyword in message for keyword in ["how are you","you feeling", "how do you feel", "how are you feeling"]):
+                    get_wellness()
+                elif any(keyword in message for keyword in ["I want to configure you", "neural config"]):
+                    ai_config()
 
-                    # Response segment.
-                    else:
-                        # Checks intents / responses.
-                        ints = predict_class(message)
-                        res = get_response(ints, intents)
-                        # Neural variables -- You can make your own neural variables by adding onto the list, and doing a replace check for a hard-coded variable!
-                        if any(neural_variable in res for neural_variable in ["operator_name","operator_nicks","ai_name"]):
-                            res = res.replace("operator_name", operator_name)
-                            res = res.replace("operator_nicks", operator_nicks)
-                            res = res.replace("ai_name", ai_name)
+                # Response segment.
+                else:
+                    # Checks intents / responses.
+                    ints = predict_class(message)
+                    res = get_response(ints, intents)
+                    # Neural variables -- You can make your own neural variables by adding onto the list, and doing a replace check for a hard-coded variable!
+                    if any(neural_variable in res for neural_variable in ["operator_name","operator_nicks","ai_name"]):
+                        res = res.replace("operator_name", operator_name)
+                        res = res.replace("operator_nicks", operator_nicks)
+                        res = res.replace("ai_name", ai_name)
 
-                        # Respond appropriately.
-                        print(f"{ai_name_rep} {res}"); speak(res)
+                    # Respond appropriately.
+                    print(f"{ai_name_rep} {res}"); speak(res)
                     
                     # Appends to mems.
                     log_file.write(f"PATTERN  | {operator_name}: {message}\n")

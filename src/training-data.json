@@ -147,7 +147,7 @@
                 ],
                 "responses": [
                     "I am an AI chatbot designed to assist you. I can help you with a wide range of tasks and answer your questions. What can I assist you with today?",
-                    "I am Echo - an AI virtual assistant."
+                    "I am ai_name - an AI virtual assistant."
                 ]
             },
             {
@@ -157,9 +157,9 @@
                     "do you have a name"
                 ],
                 "responses": [
-                    "My name is Echo. How can I assist you?",
-                    "You can call me Echo. What can I assist you with today?",
-                    "I'm Echo!"
+                    "My name is ai_name. How can I assist you?",
+                    "You can call me ai_name. What can I assist you with today?",
+                    "I'm ai_name!"
                 ]
             },
             {
