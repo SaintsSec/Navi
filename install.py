@@ -151,7 +151,7 @@ def handle_shell():
         print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
         return ''
 
-    command = 'echo \'alias navi-e1="cd ~/.Navi-E1 && python3 navi-e1.py && cd"\'' 
+    command = 'echo \'alias navi="cd ~/.Navi && python3 navi.py && cd"\'' 
     return f'{command} >> {path}'
     
 def main():
@@ -167,17 +167,18 @@ def main():
     # Cryptex related commands
     commands += [
         'pip install -r requirements.txt',
-        'rm -rf ~/.Navi-E1',
-        'mkdir ~/.Navi-E1',
-        'cp -r . ~/.Navi-E1',
-        'rm -rf ~/.Navi-E1/.git/',
-        'rm -rf ~/.Navi-E1/.github/',
-        'rm -rf ~/.Navi-E1/demo/',
-        'rm ~/.Navi-E1/README.md',
-        'rm ~/.Navi-E1/CONTRIBUTING.md',
-        'rm ~/.Navi-E1/CODE_OF_CONDUCT.md',
-        'rm ~/.Navi-E1/install.py',
-        'python3 ~/.Navi-E1/neuralset.py',
+        'rm -rf ~/.Navi',
+        'mkdir ~/.Navi',
+        'cp -r . ~/.Navi',
+        'rm -rf ~/.Navi/.git/',
+        'rm -rf ~/.Navi/.github/',
+        'rm -rf ~/.Navi/demo/',
+        'rm ~/.Navi/README.md',
+        'rm ~/.Navi/CONTRIBUTING.md',
+        'rm ~/.Navi/CODE_OF_CONDUCT.md',
+        'rm ~/.Navi/install.py',
+        'rm -rf ~/.Navi/RAD',
+        'python3 ~/.Navi/neuralset.py',
     ]
 
     # Shell related commands
