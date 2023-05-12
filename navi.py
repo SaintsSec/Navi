@@ -14,6 +14,10 @@ from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 import threading
 
+#Navi Imports
+from mods import mods
+import commands 
+
 ## Configuration!
 # Loading the configuration json.
 with open('./var/pipes/config.json') as config_file:
@@ -21,7 +25,7 @@ with open('./var/pipes/config.json') as config_file:
 
 # Access the variables from the loaded configuration.
 ai_name = config['ai']['name']
-ai_name_rep = (f"{ai_name}:")
+ai_name_rep = (f"{ai_name}>")
 ai_gender = config['gender'][config['ai']['gender']]
 ai_volume = config['ai']['volume']
 ai_speed = config['ai']['speed']
@@ -204,16 +208,17 @@ def takeCommand():
 
 def AI():
     os.system("clear")
+    print(mods.art)
     # Run forever, until cancelled.
-    print("Ready to assist."); speak("Ready to assist.")
+    #print("Ready to assist."); speak("Ready to assist.")
     while True:
         try:
             message = f"{ai_name}" # If uncommented, it'll always respond without a wake word!
             #message = takeCommand(); print(f"\n{ai_name} is listening!") # Uncomment if you wish to speak to wake it.
 
             if f"{ai_name}" in message or f"Hey {ai_name}" in message: # Wake words.
-
-                message = input("\nInput: ") # If uncommented, it'll take an input sentence instead of voice!
+                print(f"{ai_name_rep} Whats up?")
+                message = input("=> ") # If uncommented, it'll take an input sentence instead of voice!
                 #message = takeCommand() # Uncomment if you wish to speak to wake it.
 
                 # Precoded commands.
@@ -223,9 +228,15 @@ def AI():
                     get_wellness()
                 elif any(keyword in message for keyword in ["I want to configure you", "neural config"]):
                     ai_config()
-
+                #Navi Script Engine
+                elif message[0] == '/':
+                    if message in commands.modules.keys():
+                        print(f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{message}'\n{mods.breakline}")
+                        commands.modules[message].run()
+                    else:
+                        print(f"{mods.breakline}\n{ai_name_rep} [!] - Unknown Command '{message}'\n{mods.breakline}")
                 # Response segment.
-                else:
+                else: 
                     # Checks intents / responses.
                     ints = predict_class(message)
                     res = get_response(ints, intents)
@@ -235,17 +246,17 @@ def AI():
                         res = res.replace("operator_nicks", operator_nicks)
                         res = res.replace("ai_name", ai_name)
 
-                    # Respond appropriately.
-                    print(f"{ai_name_rep} {res}"); speak(res)
+                    # Respond appropriately. Uncomment #speak(res) if you want audio output.
+                    print(f"{ai_name_rep} {res}\n"); #speak(res)
                     
                     # Appends to mems.
                     log_file.write(f"PATTERN  | {operator_name}: {message}\n")
-                    log_file.write(f"RESPONSE | {ai_name}: {res}\n")
+                    log_file.write(f"RESPONSE | {ai_name}: {res}\n{mods.breakline}\n")
                     log_file.flush()
 
         except KeyboardInterrupt:
             # If the user interrupts the program.
-            print("\nINTERRUPTED"); exit()
+            print(f"\n{ai_name_rep} [!!] - I look forward to seeing you soon!"); exit()
 
 if __name__ == '__main__':
     AI()
