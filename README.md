@@ -12,8 +12,6 @@
 <img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="25%" height="25%">  
 </div>  
 
-## [!!] - Before you begin will need your own GPT API Key to use Navi.
-
  ## Table of Contents
   - [History](#-history)
   - [Upcoming Release](#%EF%B8%8F-upcoming-release)
@@ -25,6 +23,8 @@
   
 ## 📖 History
 Navi got its start for Alex when he was a young teen. While he does not have a direct year of refference the gameboy advance SP had just dropped as well as Megaman Battlenetwork 3. Which is where Navi takes a lot of her inspiration from. Over the many cycles leading up to this. Navi has gone from being a simple if statement based "AI" chatbot to having some models implimented that you can find out in the wild. All the way to what we see today. Navi's GPT based itteration offers all the power of GPT3.5 Davinci with some custom scripting added on to aide in various cybersec tasks.  
+
+Navi was moved over completely to the Echo-AI framework on 12/05/2023!
 
 ## 🗓️ Upcoming Release  
 Navi is a purpose built AI, However we intend to have a lot of fun with this. On top of expanded recon automation we want to see the following: 
