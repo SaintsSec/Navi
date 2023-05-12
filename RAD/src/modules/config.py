@@ -23,4 +23,4 @@ print(json.dumps(config, indent=4))
 time.sleep(5)
 
 # Pause execution to allow the user to read the output
-os.system("python3 ./navi.py"); exit()
+os.system("python3 ./echo-ai.py"); exit()

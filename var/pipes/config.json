@@ -4,8 +4,8 @@
         "female": 0
     },
     "ai": {
-        "name": "Echo",
-        "gender": "male",
+        "name": "Navi",
+        "gender": "female",
         "volume": 100,
         "speed": 170
     },
