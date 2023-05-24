@@ -9,23 +9,27 @@ import psutil
 import pyttsx3
 import random
 import speech_recognition as sr
+import sys
+import threading
 from datetime import date
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
-import threading
 
-#Navi Imports
 from mods import mods
-import commands 
+import commands
 
-## Configuration!
+# Pre-run.
+os.system("clear")
+# Hide tracebacks - change to 1 for dev mode.
+sys.tracebacklimit = 0
+
 # Loading the configuration json.
 with open('./var/pipes/config.json') as config_file:
     config = json.load(config_file)
 
 # Access the variables from the loaded configuration.
 ai_name = config['ai']['name']
-ai_name_rep = (f"{ai_name}>")
+ai_name_rep = (f"{ai_name}> ")
 ai_gender = config['gender'][config['ai']['gender']]
 ai_volume = config['ai']['volume']
 ai_speed = config['ai']['speed']
@@ -175,11 +179,11 @@ def get_wellness():
 
     # Choose a response at random from the possible responses.
     response = random.choice(responses)
-    print(f"{ai_name_rep} {response}"); speak(response)
+    print(f"{ai_name_rep} {response}"); #speak(response)
 
 # Kills on kill request.
 def killswitch():
-    print(f"{ai_name_rep} Please hold, I'm shutting down."); speak("Please hold, I'm shutting down."); exit()
+    print(f"{ai_name_rep} Please hold, I'm shutting down."); #speak("Please hold, I'm shutting down."); exit()
 
 ## Operational segment -- Responsible for actual operational functionality, such as taking commends, or talking!
 # Taking a vocal command.
@@ -210,7 +214,7 @@ def AI():
     os.system("clear")
     print(mods.art)
     # Run forever, until cancelled.
-    #print("Ready to assist."); speak("Ready to assist.")
+    #print("Ready to assist."); #speak("Ready to assist.")
     while True:
         try:
             message = f"{ai_name}" # If uncommented, it'll always respond without a wake word!
@@ -226,7 +230,7 @@ def AI():
                     killswitch()
                 elif any(keyword in message for keyword in ["how are you","you feeling", "how do you feel", "how are you feeling"]):
                     get_wellness()
-                elif any(keyword in message for keyword in ["I want to configure you", "neural config"]):
+                elif any(keyword in message for keyword in ["I want to configure you", "neural config", "config"]):
                     ai_config()
                 #Navi Script Engine
                 elif message[0] == '/':
@@ -236,7 +240,7 @@ def AI():
                     else:
                         print(f"{mods.breakline}\n{ai_name_rep} [!] - Unknown Command '{message}'\n{mods.breakline}")
                 # Response segment.
-                else: 
+                else:
                     # Checks intents / responses.
                     ints = predict_class(message)
                     res = get_response(ints, intents)
@@ -246,17 +250,24 @@ def AI():
                         res = res.replace("operator_nicks", operator_nicks)
                         res = res.replace("ai_name", ai_name)
 
-                    # Respond appropriately. Uncomment #speak(res) if you want audio output.
-                    print(f"{ai_name_rep} {res}\n"); #speak(res)
+                    # Respond appropriately.
+                    print(f"{ai_name_rep} {res}"); #speak(res)
                     
                     # Appends to mems.
                     log_file.write(f"PATTERN  | {operator_name}: {message}\n")
-                    log_file.write(f"RESPONSE | {ai_name}: {res}\n{mods.breakline}\n")
+                    log_file.write(f"RESPONSE | {ai_name}: {res}\n")
                     log_file.flush()
 
+        # Error handling.
         except KeyboardInterrupt:
-            # If the user interrupts the program.
-            print(f"\n{ai_name_rep} [!!] - I look forward to seeing you soon!"); exit()
+            print("\nInturrupted with keyboard, exiting."); exit()
+        except FileNotFoundError as e:
+            if str(e).endswitch("training-data.json"):
+                print("\n[!] The specific file 'training-data.json' is not found.")
+            else:
+                print("\n[!] File not found.")
+        except json.decoder.JSONDecodeError as e:
+            print("\n[!] Error decoding JSON or training data:", e)
 
 if __name__ == '__main__':
     AI()

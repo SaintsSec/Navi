@@ -9,7 +9,7 @@ def load_module(name):
         module = importlib.import_module(f".{name}", '.commands')
     except ModuleNotFoundError:
         print(f"Module '{name}' not found")
-        exit(1)
+        #exit(1)
     else:
         return module
 
