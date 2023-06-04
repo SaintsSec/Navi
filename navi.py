@@ -217,12 +217,16 @@ def AI():
     #print("Ready to assist."); #speak("Ready to assist.")
     while True:
         try:
-            message = f"{ai_name}" # If uncommented, it'll always respond without a wake word!
+            #message = f"{ai_name}" # If uncommented, it'll always respond without a wake word!
+            message = "hey navi"
             #message = takeCommand(); print(f"\n{ai_name} is listening!") # Uncomment if you wish to speak to wake it.
 
-            if f"{ai_name}" in message or f"Hey {ai_name}" in message: # Wake words.
-                print(f"{ai_name_rep} Whats up?")
-                message = input("=> ") # If uncommented, it'll take an input sentence instead of voice!
+            if f"{ai_name}" in message or f"hey navi" in message: # Wake words.
+                #print(f"{ai_name_rep} Hey {operator_name} whats up?")
+                greetInts = predict_class(message)
+                greetRes = get_response(greetInts, intents)
+                print(f"{ai_name_rep} {greetRes}")
+                message = input(f"=> ") # If uncommented, it'll take an input sentence instead of voice!
                 #message = takeCommand() # Uncomment if you wish to speak to wake it.
 
                 # Precoded commands.
@@ -251,7 +255,7 @@ def AI():
                         res = res.replace("ai_name", ai_name)
 
                     # Respond appropriately.
-                    print(f"{ai_name_rep} {res}"); #speak(res)
+                    print(f"\n{ai_name_rep} {res}\n"); #speak(res)
                     
                     # Appends to mems.
                     log_file.write(f"PATTERN  | {operator_name}: {message}\n")
