@@ -228,7 +228,7 @@ def AI():
                 print(f"{ai_name_rep} {greetRes}")
                 message = input(f"=> ") # If uncommented, it'll take an input sentence instead of voice!
                 #message = takeCommand() # Uncomment if you wish to speak to wake it.
-
+                
                 # Precoded commands.
                 if any(keyword in message for keyword in ["killswitch", "kill switch", "exit"]):
                     killswitch()

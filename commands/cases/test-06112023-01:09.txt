@@ -1,0 +1,24 @@
+PING example.com(2606:2800:220:1:248:1893:25c8:1946 (2606:2800:220:1:248:1893:25c8:1946)) 56 data bytes
+64 bytes from 2606:2800:220:1:248:1893:25c8:1946 (2606:2800:220:1:248:1893:25c8:1946): icmp_seq=1 ttl=57 time=18.6 ms
+64 bytes from 2606:2800:220:1:248:1893:25c8:1946 (2606:2800:220:1:248:1893:25c8:1946): icmp_seq=2 ttl=57 time=16.2 ms
+64 bytes from 2606:2800:220:1:248:1893:25c8:1946 (2606:2800:220:1:248:1893:25c8:1946): icmp_seq=3 ttl=57 time=15.7 ms
+64 bytes from 2606:2800:220:1:248:1893:25c8:1946 (2606:2800:220:1:248:1893:25c8:1946): icmp_seq=4 ttl=57 time=14.1 ms
+
+--- example.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3003ms
+rtt min/avg/max/mdev = 14.105/16.163/18.625/1.620 ms
++===================================================+
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-06-11 01:10 EDT
+Nmap scan report for example.com (93.184.216.34)
+Host is up (0.030s latency).
+Other addresses for example.com (not scanned): 2606:2800:220:1:248:1893:25c8:1946
+Not shown: 996 filtered ports
+PORT     STATE  SERVICE  VERSION
+80/tcp   open   http     Edgecast CDN httpd (nyb/1DCD)
+443/tcp  open   ssl/http Edgecast CDN httpd (nyb/1DCD)
+1119/tcp closed bnetgame
+1935/tcp closed rtmp
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 19.34 seconds
++===================================================+

@@ -1,3 +1,4 @@
+#!/bin/python3
 """Recon module."""
 
 import os
@@ -70,10 +71,10 @@ def run():
         for x in file:
             pdf.cell(2000, 5, txt = x, ln = 1)
         pdf.output(f"{reportPath}/{reportName}-{timestr}.pdf")
-        print(f"Navi> [\u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf\n{breakline}")
-    elif pdfChoice == "no":
-        print(f"Navi> [!] - Understood cracking on!\n{breakline}")
+        print(f"Navi> [\u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf")
+    if pdfChoice == "no":
+        print("Navi> [!] - Understood cracking on!")
         return
     else:
-        print(f"Navi> [!] - Not a valid option. Moving on...\nReport contents saved to: {fullPath}\n{breakline}")
+        print("Navi> [!] - Not a valid option. Moving on...")
         return

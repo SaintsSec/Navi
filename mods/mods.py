@@ -26,5 +26,5 @@ nMapCommands = """Before you pick your options here are some nmap example's to w
 4. nmap -O (operating system detection) IpAddress/URLHere
 5. nmap -A (aggressive scan) IpAddress/URLHere
 
-Navi> [\u2713] - for example you can chain these: nmap -sSVA IpAddress/URLHere 
+Navi> [\u2713] - for example you can chain these: nmap -sSV IpAddress/URLHere 
 """

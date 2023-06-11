@@ -178,7 +178,6 @@ def main():
         'rm ~/.Navi/CODE_OF_CONDUCT.md',
         'rm ~/.Navi/install.py',
         'rm -rf ~/.Navi/RAD',
-        'python3 ~/.Navi/neuralset.py',
     ]
 
     # Shell related commands
@@ -193,7 +192,7 @@ def main():
     # End message
     print("""
     Navi> [!!] - Installation finished.
-    Navi> [!!] - Restart the terminal and type navi-e1 to run the program
+    Navi> [!!] - Restart the terminal and MAKE SURE YOU RUN neuralset.py before launching.
     """)
     exit()
 
