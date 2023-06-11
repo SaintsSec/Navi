@@ -21,8 +21,8 @@ sys.tracebacklimit = 0
 
 try:
 	# Asks training variables.
-	epv = int(input("\n[?] How many epochs do you want to cycle?: "))
-	tmv = input("\n[?] Which model do you want to use [SGD/Adam]?: ").lower()
+	epv = int(input("\nNavi> [?] - How many epochs do you want to cycle?: "))
+	tmv = input("\nNavi> [?] - Which model do you want to use [SGD/Adam]?: ").lower()
 
 	# Compile and clean the training data.
 	directory = "intenses_db/"
@@ -144,7 +144,7 @@ try:
 	model.save("echo.h5", hist)
 
 	# Prints training complete and opens web panel.
-	print("\nTraining session complete!\n")
+	print("\nNavi> [!] - Training session complete! \nNavi> [!] - After you're done looking at that nifty data visualization run me using the navi command\n")
 	os.system("tensorboard --logdir=./tlogs --port=6006")
 
 except json.decoder.JSONDecodeError as e:

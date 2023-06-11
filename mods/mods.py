@@ -13,6 +13,23 @@ art = f"""{breakline}
 |   Type '/help' for help or '/stop' to exit        |
 {breakline}
 """
+vbusterArt = f"""{breakline}
+|         _    ______             __                |           
+|        | |  / / __ )__  _______/ /____  _____     |
+|        | | / / __  / / / / ___/ __/ _ \/ ___/     |
+|        | |/ / /_/ / /_/ (__  ) /_/  __/ /         |
+|        |___/_____/\__,_/____/\__/\___/_/          |
+|                Powered by ClamAV                  |
+{breakline}
+"""
+reconArt = f"""{breakline}
+|         ____                                      |                     
+|        / __ \___  _________  ____                 |
+|       / /_/ / _ \/ ___/ __ \/ __ \\               |
+|      / _, _/  __/ /__/ /_/ / / / /                |
+|     /_/ |_|\___/\___/\____/_/ /_/                 |                                
+{breakline}
+"""
 
 # Clear Screen Code
 def clearScreen():

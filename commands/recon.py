@@ -11,6 +11,7 @@ use = "Recon automation suite"
 
 #Global Vars
 breakline = mods.breakline
+art = mods.reconArt
 nMapCommands = mods.nMapCommands
 timestr = time.strftime("%m%d%Y-%H:%M")
 pdf = FPDF()
@@ -21,6 +22,7 @@ pdf.set_font("Arial", size = 10)
 def run():
     """Do recon."""
     # Recon Setup
+    print(art)
     print("\nNmap Setup:")
     targetIP = input("Navi> [!] - Give me an IP or URL to scan => ")
     scanOptions = input(f"\nNavi> {nMapCommands}\nNavi> [!!] - What type of scan (ex: -sV) => ")
