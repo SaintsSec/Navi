@@ -1,0 +1,97 @@
+{"intents": [
+    {
+        "tag": "example",
+        "patterns": [
+            "example"
+            ],
+        "responses": [
+            "example"
+        ]
+    },
+    {
+        "tag": "example2",
+        "patterns": [
+            "example2"
+            ],
+        "responses": [
+            "example2"
+        ]
+    },
+    {
+        "tag": "Linux Commands",
+        "patterns": [
+            "Tell me a linux commands?",
+            "Give me a random linux command?",
+            "What is a random linux command?",
+            "Teach me a random linux command",
+            "What is an interesting linux command",
+            "Linux command",
+            "Command on linux"
+            ],
+        "responses": [
+            "cat is a linux command that displays the text of a file.",
+            "ls is a linux command that list directories and files in a directory.",
+            "cd is a linux command that allows the user to change directories.",
+            "nano is a linux command that allowa the user to edit the contents of a file",
+            "pwd is a linux command that displays the current directory the use is in",
+            "passwd is a linux command that allows a user to change the password.",
+            "ifconfig is a linux command used to display networking information.",
+            "man is a linux command that gives indepth information about a command like help.",
+            "echo is a linux command that displays text in the terminal.",
+            "exit is a linux command that closes the terminal."
+        ]
+    },
+    {
+        "tag": "Programming Languages",
+        "patterns": [
+            "What are some Programing languages?",
+            "Give me a random Programming language",
+            "Tell me about a programming language",
+            "Give me a programming language fact",
+            "Give me an example of a programming language",
+            "Programming language"
+            ],
+        "responses": [
+            "Python is a programming language created by Guido Van Rossum. Python is commonly used for developing websites, software, task automation, data analysis, and data visualization. Python is one of the easier programs to learn.",
+            "Html or hyper text markup language, was created by whatwg. Html is the standard markup language for documents designed to be displayed in a web browser. Html is often assisted by cascading style sheets or CSS and languages such as JavaScript.",
+            "JavaScript sometimes abbreviated as JS is a programming language created by Brendan Eich. JavaScript enables the ability to create dynamically updating content, control multimedia, animate images, and anythin else in that category.",
+            "C++ is an object-oriented programming language created by Bjarne Stroustrup. C++ gives clear structure to programs and allows code to be reused lowering development costs. C++ is portable and can be used to develop applications that can be adapted to muiltiple platforms.",
+            "Assembly is a programming language created by Kathleen and Andrew Donald Booth. Assembly communicates with the hardware of a computer directly. This language allows software developers to code using words and expressions that can be eassier to understand and interpret than the binary or hexadecimal data the computer reads."
+        ]
+    },
+    {
+   	"tag": "Linux Distributions",
+    	"patterns": [
+        	"What are some linux distributions?",
+        	"Linux Distributions",
+        	"Linux Distros",
+        	"Tell me about a random linux distribution",
+        	"Name one linux distribution",
+        	"Give me a random linux distro"
+    	    ],
+    	"responses": [
+            "Ubuntu is a Linux distribution created by Canonical. It is based on Debian and composed mostly of free and open-source software. Ubuntu has three different editions: Desktop, Server, and Core for IoT devices.",
+            "Fedora is a community-supported Linux distribution sponsored by Red Hat. It serves as a testing ground for new technologies that might eventually make their way into Red Hat's commercial products. Fedora is known for its frequent (approximately every six months) releases.",
+            "Debian is a free and open-source Linux distribution known for its commitment to stability and security. It is maintained by a global community of volunteers and serves as the basis for many other distributions, including Ubuntu.",
+            "CentOS is a Linux distribution that aims to provide a free, enterprise-class, community-supported computing platform. It is functionally compatible with its upstream source, Red Hat Enterprise Linux (RHEL).",
+            "Arch Linux is a Linux distribution for computers with x86-64 processors. It is known for its simplicity and full control to the end-user. It adheres to the KISS principle (Keep It Simple, Stupid) and is a rolling release distro which means updates are rolled out regularly."
+   	 ]
+    },
+    {
+        "tag": "Pentesting Tools",
+        "patterns": [
+            "Give me an example of a pentesting tool",
+            "Give me an example of a tool used for pentesting",
+            "Tell me about a random tool pentesters use.",
+            "What are some common pentesting tools?",
+            "What are some tools I can learn to get better at pentesting?"
+        ],
+        "responses": [
+            "Nmap is a tool created by Gordon Lyon. Nmap is used for network reconnaissance and works by sending packets and analyzing the response of those sent packets. This program has the ability to check hosts for information such as OS, open ports, and what processes are running on those ports.",
+            "Wireshark is a tool created by the Wireshark Foundation. This tool is a free open source packet analyzer used for troubleshooting, analysis, software, and communications protocol development. Wireshark was originally named Ethereal but was renamed in May 2006 due to trademark issues.",
+            "Metasploit is a penetration testing framework that makes hacking simple. It's an essential tool for many attackers and defenders. It was created by H.D. Moore in 2003 as a portable network tool using Perl. It was later developed into a full-fledged exploitation tool.",
+            "John the Ripper is a free password cracking software tool. It's one of the most popular password testing and breaking programs as it combines several password crackers into one package, auto-detects password hash types, and includes a customizable cracker.",
+            "Burp Suite is a reliable and practical platform that provides you with a simple means of performing security testing of web applications. It gives you full control, letting you combine advanced manual techniques with various tools that seamlessly work together to support the entire testing process."
+        ]
+    }
+]}

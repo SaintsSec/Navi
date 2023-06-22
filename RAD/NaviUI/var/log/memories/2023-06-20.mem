@@ -1,0 +1,6 @@
+>> START OF MEMORY <<
+>> SESSION | 2023-06-20-20:57:48
+PATTERN  | Operator: advertising
+RESPONSE | Navi: What brings you here today?
+PATTERN  | Operator: tell me about linux
+RESPONSE | Navi: Debian is a free and open-source Linux distribution known for its commitment to stability and security. It is maintained by a global community of volunteers and serves as the basis for many other distributions, including Ubuntu.

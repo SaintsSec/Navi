@@ -1,0 +1,12 @@
+tensorflow==2.11.0
+keras==2.11.0
+numpy==1.24.2
+matplotlib==3.7.1
+nltk==3.8.1
+scikit-learn==1.2.2
+pandas==2.0.1
+pickle5==0.0.11
+joblib==1.2.0
+speechrecognition==3.9.0
+pyttsx3==2.90
+fpdf

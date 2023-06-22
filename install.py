@@ -11,13 +11,13 @@ class Distros:
     def debian():
         return [
             'sudo apt update',
-            'sudo apt-get install -y python3 python3-pip python-dev nmap macchanger',
+            'sudo apt-get install -y python3 python3-pip python-dev nmap macchanger clamav',
         ]
     @staticmethod
     def arch():
         return [
             'sudo pacman -Syu',
-            'sudo pacman -S python python-pip nmap machanger-git',
+            'sudo pacman -S python python-pip nmap machanger-git clamav',
         ]
     @staticmethod
     def void():
@@ -25,7 +25,7 @@ class Distros:
     @staticmethod
     def opensuse():
         return [
-            'sudo zypper in python310 nmap macchanger',
+            'sudo zypper in python310 nmap macchanger clamav',
         ]
         # Do I need to add more here?
 
@@ -166,7 +166,7 @@ def main():
 
     # Cryptex related commands
     commands += [
-        'pip install -r requirements.txt',
+        'sudo freshclam',
         'rm -rf ~/.Navi',
         'mkdir ~/.Navi',
         'cp -r . ~/.Navi',
