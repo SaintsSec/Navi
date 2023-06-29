@@ -10,3 +10,4 @@ joblib==1.2.0
 speechrecognition==3.9.0
 pyttsx3==2.90
 fpdf
+openai

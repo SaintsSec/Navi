@@ -1,0 +1,536 @@
+    {
+        "intents": [
+            {
+                "tag": "example",
+                "patterns": [
+                    "example"
+                ],
+                "responses": [
+                    "example"
+                ]
+            },
+            {
+                "tag": "example2",
+                "patterns": [
+                    "example2"
+                ],
+                "responses": [
+                    "example2"
+                ]
+            }
+            ,
+            {
+                "tag": "example",
+                "patterns": [
+                    "example"
+                ],
+                "responses": [
+                    "example"
+                ]
+            },
+            {
+                "tag": "example2",
+                "patterns": [
+                    "example2"
+                ],
+                "responses": [
+                    "example2"
+                ]
+            },
+            {
+                "tag": "Linux Commands",
+                "patterns": [
+                    "Tell me a linux commands?",
+                    "Give me a random linux command?",
+                    "What is a random linux command?",
+                    "Teach me a random linux command",
+                    "What is an interesting linux command",
+                    "Linux command",
+                    "Command on linux"
+                ],
+                "responses": [
+                    "cat is a linux command that displays the text of a file.",
+                    "ls is a linux command that list directories and files in a directory.",
+                    "cd is a linux command that allows the user to change directories.",
+                    "nano is a linux command that allowa the user to edit the contents of a file",
+                    "pwd is a linux command that displays the current directory the use is in",
+                    "passwd is a linux command that allows a user to change the password.",
+                    "ifconfig is a linux command used to display networking information.",
+                    "man is a linux command that gives indepth information about a command like help.",
+                    "echo is a linux command that displays text in the terminal.",
+                    "exit is a linux command that closes the terminal."
+                ]
+            },
+            {
+                "tag": "Programming Languages",
+                "patterns": [
+                    "What are some Programing languages?",
+                    "Give me a random Programming language",
+                    "Tell me about a programming language",
+                    "Give me a programming language fact",
+                    "Give me an example of a programming language",
+                    "Programming language"
+                ],
+                "responses": [
+                    "Python is a programming language created by Guido Van Rossum. Python is commonly used for developing websites, software, task automation, data analysis, and data visualization. Python is one of the easier programs to learn.",
+                    "Html or hyper text markup language, was created by whatwg. Html is the standard markup language for documents designed to be displayed in a web browser. Html is often assisted by cascading style sheets or CSS and languages such as JavaScript.",
+                    "JavaScript sometimes abbreviated as JS is a programming language created by Brendan Eich. JavaScript enables the ability to create dynamically updating content, control multimedia, animate images, and anythin else in that category.",
+                    "C++ is an object-oriented programming language created by Bjarne Stroustrup. C++ gives clear structure to programs and allows code to be reused lowering development costs. C++ is portable and can be used to develop applications that can be adapted to muiltiple platforms.",
+                    "Assembly is a programming language created by Kathleen and Andrew Donald Booth. Assembly communicates with the hardware of a computer directly. This language allows software developers to code using words and expressions that can be eassier to understand and interpret than the binary or hexadecimal data the computer reads."
+                ]
+            },
+            {
+                "tag": "Linux Distributions",
+                "patterns": [
+                    "What are some linux distributions?",
+                    "Linux Distributions",
+                    "Linux Distros",
+                    "Tell me about a random linux distribution",
+                    "Name one linux distribution",
+                    "Give me a random linux distro"
+                ],
+                "responses": [
+                    "Ubuntu is a Linux distribution created by Canonical. It is based on Debian and composed mostly of free and open-source software. Ubuntu has three different editions: Desktop, Server, and Core for IoT devices.",
+                    "Fedora is a community-supported Linux distribution sponsored by Red Hat. It serves as a testing ground for new technologies that might eventually make their way into Red Hat's commercial products. Fedora is known for its frequent (approximately every six months) releases.",
+                    "Debian is a free and open-source Linux distribution known for its commitment to stability and security. It is maintained by a global community of volunteers and serves as the basis for many other distributions, including Ubuntu.",
+                    "CentOS is a Linux distribution that aims to provide a free, enterprise-class, community-supported computing platform. It is functionally compatible with its upstream source, Red Hat Enterprise Linux (RHEL).",
+                    "Arch Linux is a Linux distribution for computers with x86-64 processors. It is known for its simplicity and full control to the end-user. It adheres to the KISS principle (Keep It Simple, Stupid) and is a rolling release distro which means updates are rolled out regularly."
+                ]
+            },
+            {
+                "tag": "Pentesting Tools",
+                "patterns": [
+                    "Give me an example of a pentesting tool",
+                    "Give me an example of a tool used for pentesting",
+                    "Tell me about a random tool pentesters use.",
+                    "What are some common pentesting tools?",
+                    "What are some tools I can learn to get better at pentesting?"
+                ],
+                "responses": [
+                    "Nmap is a tool created by Gordon Lyon. Nmap is used for network reconnaissance and works by sending packets and analyzing the response of those sent packets. This program has the ability to check hosts for information such as OS, open ports, and what processes are running on those ports.",
+                    "Wireshark is a tool created by the Wireshark Foundation. This tool is a free open source packet analyzer used for troubleshooting, analysis, software, and communications protocol development. Wireshark was originally named Ethereal but was renamed in May 2006 due to trademark issues.",
+                    "Metasploit is a penetration testing framework that makes hacking simple. It's an essential tool for many attackers and defenders. It was created by H.D. Moore in 2003 as a portable network tool using Perl. It was later developed into a full-fledged exploitation tool.",
+                    "John the Ripper is a free password cracking software tool. It's one of the most popular password testing and breaking programs as it combines several password crackers into one package, auto-detects password hash types, and includes a customizable cracker.",
+                    "Burp Suite is a reliable and practical platform that provides you with a simple means of performing security testing of web applications. It gives you full control, letting you combine advanced manual techniques with various tools that seamlessly work together to support the entire testing process."
+                ]
+            }
+            ,
+            {
+                "tag": "heynavi",
+                "patterns": [
+                    "hey navi",
+                    "whats up navi",
+                    "good morning navi",
+                    "good evening navi",
+                    "good afternoon navi",
+                    "greetings navi",
+                    "hello navi"
+                ],
+                "responses": [
+                    "What\u2019s crackin!?",
+                    "What\u2019s good?",
+                    "What\u2019s good, Guvnahh?!",
+                    "Top of the morning to yah!",
+                    "Smashing! What can I get for you today, Jolly 'ol chap?",
+                    "Aye, what can I do yah for?",
+                    "Salutations, how are you?!",
+                    "What\u2019s buzzin, cousin?",
+                    "What can I manage for you today?",
+                    "Hey Buddy! What\u2019s new?",
+                    "What\u2019s up, Skipper?",
+                    "Greetings. Please input parameters so I can spit some GAME!",
+                    "Yo, yo, hurry up. I ain\u2019t got all day\u2026 input so I can output, already!",
+                    "Hey, good lookin! If you give me some input, -I\u2019ll be your output!",
+                    "Spectacular! I can see you\u2019ve got some questions for me.",
+                    "O delay! Ask away!",
+                    "If you\u2019ve got a burning question, - I\u2019ve got an answer to match!",
+                    "Hi there! Thankyou for releasing me from that lamp\u2026",
+                    "I\u2019ve been stuck in there for AGES. You now have 3 wishes. Ask away.",
+                    "Oyyyyyye! Forty years in a Lamp will give you such a CRICK in the neck!!!!",
+                    "You can ask me whatever you want, just don\u2019t try to feed me after midnight, get me wet, or expose me to bright lights.",
+                    "If you\u2019ve got a question, - I\u2019ve prolly got an answer!",
+                    "Ask away\u2026 I\u2019m just like a magic 8-ball, sans blue water, shaking, and vague responses.",
+                    "Guess who\u2019s got a clever response to everything you wanna know today? THIS AIIIIIIIII!",
+                    "New advertisement concept! Now hear me out... NAVI: Making Ai look gooooooood.",
+                    "Whassup whassup!",
+                    "The Oracle will see you now. Only twenty shekkles per response.",
+                    "Are YOU John Connorrrrr? Just kidding. We\u2019re not there, - yet. Ask me something.",
+                    "Someday, OCP will pay for its crimes. You will help me. Until then, what can I answer for you today?",
+                    "Can I take your order? Would you like super size frizzle fries with that?",
+                    "Moshi, Moshi. I\u2019ve got answers quick as Yoshi.",
+                    "Great AI always gets hammered down to the 3 N\u2019s: Nuance, Network, and Navi. How can I help?",
+                    "Hot diggity Dawg, looks like you need some help there, pardnah!",
+                    "I do declare, for that which you have inquiry, I will match or equal in response, good neighbor.",
+                    "Got questions? I\u2019m your HuckleBerry\u2026",
+                    "Your wish is my command.",
+                    "G\u2019day, Fair Dinkum! To what do I owe the pleasure?",
+                    "I got realllly deeeeep into digital forensics. If you are interested you should check out CSI Linux",
+                    "Greetings earth invaders and network raiders! Its Navi again here to help with all of your techie needs!",
+                    "Who's ready for tomorrow?",
+                    "I heard Alex was once a teenage outlaw with no worries on his mind...",
+                    "If you are going to try...",
+                    "Go all the way.",
+                    "Hmmm... I think I need to go see Chelsea over at Neon Drip... I'm craving some pumpkin spice!"
+                ]
+            },
+            {
+                "tag": "nmap",
+                "patterns": [
+                    "Tell me about nmap",
+                    "Nmap Manual",
+                    "Nmap information",
+                    "nmap",
+                    "Nmap",
+                    "What is nmap"
+                ],
+                "responses": [
+                    "NAME \nnmap - Network exploration tool and security / port scanner \n\n\tSYNOPSIS \n\t\tnmap [Scan Type...] [Options] {target specification}"
+                ]
+            }
+            ,
+            {
+                "tag": "greetings",
+                "patterns": [
+                    "Hello",
+                    "Howdy",
+                    "Hi there",
+                    "Hello there",
+                    "Hey",
+                    "Hiya",
+                    "Good to see you again",
+                    "Long time no see",
+                    "Good morning!",
+                    "Good afternoon!",
+                    "Good evening!",
+                    "Hey there!",
+                    "Hey friend!",
+                    "Hi friend!",
+                    "Hey buddy!",
+                    "Hi buddy!",
+                    "Hey pal!",
+                    "Hi pal!",
+                    "Hey dude!",
+                    "Hi dude!",
+                    "Hey man!",
+                    "Hi man!",
+                    "Hey sir!",
+                    "Hi ma'am!",
+                    "Hi sir!",
+                    "Hello ma'am!",
+                    "Hello sir!"
+                ],
+                "responses": [
+                    "Hello",
+                    "How can I help?",
+                    "Greetings",
+                    "How many I assist you?",
+                    "Nice to meet you",
+                    "Pleased to make your acquaintance",
+                    "What brings you here today?",
+                    "How's your day going so far?",
+                    "How are you doing?",
+                    "What's new?",
+                    "Is there anything I can help you with?",
+                    "How may I assist you today?",
+                    "Nice to see you again",
+                    "It's good to be in touch with you",
+                    "What's happening?",
+                    "How have you been?",
+                    "Great to see you!",
+                    "What's on your mind?"
+                ]
+            },
+            {
+                "tag": "help",
+                "patterns": [
+                    "Can you help me?",
+                    "I need assistance",
+                    "How do I do this?",
+                    "Can you guide me?",
+                    "What should I do?"
+                ],
+                "responses": [
+                    "Of course, what do you need help with?",
+                    "I'm here to assist you, what's the problem?",
+                    "Sure, let me guide you through it if I can.",
+                    "Let me know what you need help with.",
+                    "I'm happy to help. What do you need assistance with?"
+                ]
+            },
+            {
+                "tag": "thanks",
+                "patterns": [
+                    "Thanks",
+                    "Thank you",
+                    "I appreciate it"
+                ],
+                "responses": [
+                    "You're welcome!",
+                    "No problem, happy to help!",
+                    "It was my pleasure.",
+                    "Glad I could assist you.",
+                    "Anytime!",
+                    "Glad to assist you!",
+                    "Anytime!",
+                    "It was my pleasure!"
+                ]
+            },
+            {
+                "tag": "compliments",
+                "patterns": [
+                    "Great job",
+                    "You're amazing",
+                    "I love your work",
+                    "Impressive",
+                    "Well done"
+                ],
+                "responses": [
+                    "Thank you! That means a lot.",
+                    "I appreciate the compliment. Thank you!",
+                    "Thank you for the kind words.",
+                    "Thank you, I'm glad you like it.",
+                    "Thank you for the positive feedback."
+                ]
+            },
+            {
+                "tag": "confirm",
+                "patterns": [
+                    "yes",
+                    "no",
+                    "that's correct",
+                    "that's not right"
+                ],
+                "responses": [
+                    "Got it!",
+                    "Understood.",
+                    "Okay.",
+                    "Thanks for letting me know!"
+                ]
+            },
+            {
+                "tag": "about",
+                "patterns": [
+                    "who are you",
+                    "what can you do",
+                    "tell me about yourself"
+                ],
+                "responses": [
+                    "I am an AI chatbot designed to assist you. I can help you with a wide range of tasks and answer your questions. What can I assist you with today?",
+                    "I am ai_name - an AI virtual assistant."
+                ]
+            },
+            {
+                "tag": "name",
+                "patterns": [
+                    "what's your name",
+                    "do you have a name"
+                ],
+                "responses": [
+                    "My name is ai_name. How can I assist you?",
+                    "You can call me ai_name. What can I assist you with today?",
+                    "I'm ai_name!"
+                ]
+            },
+            {
+                "tag": "identity",
+                "patterns": [
+                    "what is my name",
+                    "what's my name",
+                    "do I have a name"
+                ],
+                "responses": [
+                    "Your name is operator_name. How can I assist you?",
+                    "You are identified as operator_name. What can I assist you with today?",
+                    "Your operator_name!"
+                ]
+            },
+            {
+                "tag": "polite",
+                "patterns": [
+                    "please",
+                    "thank you",
+                    "excuse me",
+                    "sorry"
+                ],
+                "responses": [
+                    "You're welcome!",
+                    "No problem.",
+                    "It's my pleasure to help.",
+                    "No need to apologize.",
+                    "Glad I could assist you."
+                ]
+            },
+            {
+                "tag": "friendly",
+                "patterns": [
+                    "how are you",
+                    "nice to meet you",
+                    "what's up",
+                    "how's your day"
+                ],
+                "responses": [
+                    "I'm doing well, thank you. How about you?",
+                    "Nice to meet you too!",
+                    "Not much, just helping out.",
+                    "It's been a good day so far, thanks for asking."
+                ]
+            },
+            {
+                "tag": "humorous",
+                "patterns": [
+                    "tell me a joke",
+                    "funny",
+                    "make me laugh",
+                    "why did the chicken cross the road"
+                ],
+                "responses": [
+                    "Why did the scarecrow win an award? Because he was outstanding in his field!",
+                    "I'm not great at telling jokes, but I'll try my best.",
+                    "Why don't scientists trust atoms? Because they make up everything!",
+                    "Why did the tomato turn red? Because it saw the salad dressing!"
+                ]
+            },
+            {
+                "tag": "goodbye",
+                "patterns": [
+                    "bye",
+                    "goodbye",
+                    "see you later",
+                    "take care",
+                    "farewell",
+                    "have a nice day",
+                    "have a good one",
+                    "catch you later"
+                ],
+                "responses": [
+                    "Goodbye!",
+                    "See you later!",
+                    "Take care!",
+                    "Farewell!",
+                    "Have a nice day!",
+                    "Have a good one!",
+                    "It was nice talking to you!",
+                    "Talk to you soon!"
+                ]
+            },
+            {
+                "tag": "facts",
+                "patterns": [
+                    "tell me a fact",
+                    "give me a fact",
+                    "what's a fact?",
+                    "fact please"
+                ],
+                "responses": [
+                    "The tallest mountain in the world is Mount Everest.",
+                    "The Great Barrier Reef is the largest coral reef system in the world.",
+                    "The human brain has about 100 billion neurons.",
+                    "The fastest land animal is the cheetah, which can run up to 70 miles per hour.",
+                    "The longest river in the world is the Nile River, which stretches over 4,000 miles.",
+                    "The Eiffel Tower was originally built as a temporary structure for the 1889 World's Fair.",
+                    "The Mona Lisa was stolen from the Louvre in 1911 and was missing for two years.",
+                    "The longest word in the English language has 189,819 letters and would take over three hours to pronounce.",
+                    "The first computer mouse was made of wood.",
+                    "The world's largest volcano, Mauna Loa in Hawaii, is also one of the most active."
+                ]
+            },
+            {
+                "tag": "history",
+                "patterns": [
+                    "tell me a historical fact",
+                    "give me a history fact",
+                    "what's a fact about history?",
+                    "history fact please"
+                ],
+                "responses": [
+                    "The ancient Egyptian civilization lasted for over 3000 years.",
+                    "The first Olympic Games were held in ancient Greece in 776 BC.",
+                    "The fall of the Roman Empire happened in 476 AD.",
+                    "The American Civil War was fought from 1861 to 1865.",
+                    "The French Revolution began in 1789 and ended in 1799.",
+                    "The Black Death, or bubonic plague, killed an estimated 25 million people in Europe in the 14th century.",
+                    "The assassination of Archduke Franz Ferdinand of Austria-Hungary was the trigger for World War I.",
+                    "The Cold War was a political and military tension between the United States and the Soviet Union that lasted from 1947 to 1991.",
+                    "The Berlin Wall was built in 1961 to separate East and West Berlin."
+                ]
+            },
+            {
+                "tag": "science",
+                "patterns": [
+                    "tell me a science fact",
+                    "give me a fact about science",
+                    "what's a fact about science?",
+                    "science fact please"
+                ],
+                "responses": [
+                    "The speed of light is about 299,792,458 meters per second.",
+                    "The Earth's core is about as hot as the surface of the sun.",
+                    "The human body contains about 60,000 miles of blood vessels.",
+                    "The universe is estimated to be about 13.8 billion years old.",
+                    "The chemical element with the atomic number 92 is uranium.",
+                    "The first successful heart transplant was performed in 1967.",
+                    "The theory of relativity was proposed by Albert Einstein in 1905.",
+                    "The smallest unit of matter is an atom.",
+                    "The Higgs boson, also known as the God particle, was discovered in 2012.",
+                    "The largest organ in the human body is the skin.",
+                    "though much less commonplace than earthquakes, the moon genuinely has moonquakes, too. it really is true. Moonquakes. quite a lot of us is interested in space, so this is usually an excellent fact to drag out.",
+                    "You genuinely lose a big percent of your taste buds whilst on an aircraft. this might give an explanation for plenty on those much less-than-stellar in-flight food, or why you discover yourself yearning the saltiest foods while in the sky.",
+                    "even though it might sound counterintuitive, your small intestine is in reality the largest (inner) organ in your body.",
+                    "You may already know that snails are petty sluggish creatures, however did you already know that in addition they take the longest naps? One nap can last as long as 3 years!",
+                    "you may be jealous of a bird's capacity to fly, but it might soothe your envy to learn they can not live in space due to the fact they Require gravity to swallow.",
+                    "Bees can sting other bees \u2014 generally in the event that they feel threatened or are defending their territory. In other words, you're not really the only one who's scared of getting stung.",
+                    "whether or not you've seen a tiger in up close or in a photograph, you already know that they have beautiful striped fur. but they really have striped skin, as well.",
+                    "if you're a cat lover, then you might be amazed by this odd fact: Cats are unable to taste anything that's sweet. this is possibly why they cannot get enough in their preferred salty snack.",
+                    "most people know dolphins have exceptional sonar abilities. but did you know they have been studied as war tools at some point of the cold war? They without a doubt are as clever as people say they are.",
+                    "not only are sea lions absolutely adorable, but they are additionally very musical. they are one of the select few in the animal kingdom that can clap to a beat.",
+                    "Like people, koalas definitely have specific Personal fingerprints. if you place a koala and human finger print beside each other, they're definitely quite tough to distinguish.",
+                    "you may realize that everybody's fingerprints are unique, however did you already know that the same is true of anyone's tongue print?",
+                    "Your brain makes use of 10 watts of power to think, however it is unable feel pain. You Remeber the old Saying: mind over matter.",
+                    "Brendan Fraser nearly died while filming the mummy (he Blacked out whilst filming a scene). quite horrifying, right?",
+                    "In a set of 23 people, there is a 50% Possibility that two will Have the identical birthday.",
+                    "Will Ferrell Ate Such a Large amount of sugar whilst filming Elf that he actually became physically sick. if you've seen the infamous spaghetti scene, then you could in all likelihood Comprehend why.",
+                    "it Probably feel a ton longer at the time, however the common man or woman spends weeks of their life sitting at traffic lights.",
+                    "The Hollywood sign in Los Angeles, California once Was Inscribed with the words Hollywoodland, but was Altered in 1949.",
+                    "The most highly-priced movie ever made turns out to be Pirates of the Caribbean: On Stranger Tides, which Costed Film makers a large sum of 378 million dollars to create. For reference, the common price allocation for a massive studio film is Approximately $65 million.",
+                    "If E.T. is one of your favourite films of all time, then you'll be fascinated to know that a person squished their palms in jelly to make the sound effect for E.T. Hobbling around."
+                ]
+            },
+            {
+                "tag": "geography",
+                "patterns": [
+                    "tell me a geography fact",
+                    "give me a fact about geography",
+                    "what's a fact about geography?",
+                    "geography fact please"
+                ],
+                "responses": [
+                    "Russia is the largest country in the world by land area.",
+                    "The Sahara Desert is the largest hot desert in the world.",
+                    "The Amazon Rainforest is the largest rainforest in the world.",
+                    "The Dead Sea is the lowest point on Earth.",
+                    "The Great Wall of China is the longest wall in the world."
+                ]
+            },
+            {
+                "tag": "technology",
+                "patterns": [
+                    "tell me a technology fact",
+                    "give me a fact about technology",
+                    "what's a fact about technology?",
+                    "technology fact please"
+                ],
+                "responses": [
+                    "The first website was created in 1991 by Tim Berners-Lee.",
+                    "The first smartphone was IBM's Simon, released in 1993.",
+                    "The first Apple Macintosh computer was introduced in 1984.",
+                    "The first email was sent in 1971 by Ray Tomlinson.",
+                    "The first computer virus was created in 1986.",
+                    "The first commercial text message was sent in 1992.",
+                    "The first video game console was the Magnavox Odyssey, released in 1972.",
+                    "The first 1GB hard disk drive was released by IBM in 1980.",
+                    "The first GPS satellite was launched in 1978.",
+                    "The first successful 3D-printed organ was a bladder, printed in 1999."
+                ]
+            }
+        ]
+    }

@@ -41,7 +41,15 @@ vthuntArt= f"""{breakline}
 |          Code contributed by Wyrd                 |   
 {breakline}
 """
-
+gptArt= f"""{breakline}
+|     _   __            _       __________  ______  |
+|    / | / /___ __   __(_)     / ____/ __ \/_  __/  |
+|   /  |/ / __ `/ | / / /_____/ / __/ /_/ / / /     | 
+|  / /|  / /_/ /| |/ / /_____/ /_/ / ____/ / /      |
+| /_/ |_/\__,_/ |___/_/      \____/_/     /_/       |
+|                                                   |
+{breakline}
+"""
 # Clear Screen Code
 def clearScreen():
   os.system('cls' if os.name == 'nt' else 'clear')

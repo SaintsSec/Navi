@@ -51,10 +51,24 @@
             "I got realllly deeeeep into digital forensics. If you are interested you should check out CSI Linux",
             "Greetings earth invaders and network raiders! Its Navi again here to help with all of your techie needs!",
             "Who's ready for tomorrow?",
-            "I heared Alex was once a teenage outlaw with no worries on his mind...",
+            "I heard Alex was once a teenage outlaw with no worries on his mind...",
             "If you are going to try...",
             "Go all the way.",
             "Hmmm... I think I need to go see Chelsea over at Neon Drip... I'm craving some pumpkin spice!"
+        ]
+    },
+    {
+        "tag":"nmap",
+        "patterns":[
+            "Tell me about nmap",
+            "Nmap Manual",
+            "Nmap information",
+            "nmap",
+            "Nmap",
+            "What is nmap"
+        ],
+        "responses":[
+            "NAME \nnmap - Network exploration tool and security / port scanner \n\n\tSYNOPSIS \n\t\tnmap [Scan Type...] [Options] {target specification}"
         ]
     }
 ]}
