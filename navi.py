@@ -18,8 +18,10 @@ from nltk.stem import WordNetLemmatizer
 from mods import mods
 import commands
 
+user = os.getlogin()
+
 # Pre-run.
-os.chdir("/home/alex/.Navi/")
+os.chdir(f"/home/{user}/.Navi/")
 os.system("clear")
 # Hide tracebacks - change to 1 for dev mode.
 sys.tracebacklimit = 0
