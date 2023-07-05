@@ -6,6 +6,7 @@ import os
 import pickle
 import random
 import sys
+import time
 from keras.models import Sequential
 from keras.callbacks import TensorBoard
 from keras.layers import Activation, Dense, Dropout
@@ -13,16 +14,37 @@ from keras.models import Sequential
 from keras.optimizers import Adam, SGD
 from nltk.stem import WordNetLemmatizer
 
+art = """
+  ______           _       _                _____           _       __ 
+ /_  __/________ _(_)___  (_)___  ____ _   / ___/__________(_)___  / /_
+  / / / ___/ __ `/ / __ \/ / __ \/ __ `/   \__ \/ ___/ ___/ / __ \/ __/
+ / / / /  / /_/ / / / / / / / / / /_/ /   ___/ / /__/ /  / / /_/ / /_  
+/_/ /_/   \__,_/_/_/ /_/_/_/ /_/\__, /   /____/\___/_/  /_/ .___/\__/  
+                               /____/                    /_/           
+"""
 
 # Pre-run.
 os.system("clear")
+user = os.getlogin()
+print(art)
 # Hide tracebacks - change to 1 for dev mode.
 sys.tracebacklimit = 0
+def type_text(text):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(0.1)  # Adjust the sleep duration as desired
+    print()
 
 try:
 	# Asks training variables.
-	epv = int(input("\nNavi> [?] - How many epochs do you want to cycle?: "))
-	tmv = input("\nNavi> [?] - Which model do you want to use [SGD/Adam]?: ").lower()
+	naviText = "Navi> In order to get the most out of me, you need to train me. How many cycles or epochs do you want?"
+	type_text(naviText)
+	epv = int(input("Number of Epochs: "))
+	naviText = "\nNavi> I come with two training models each serving its own purpose SGD and Adam... Pick one."
+	type_text(naviText)
+	tmv = input("SGD or Adam: ").lower()
+	naviText = "Navi> Lets plug this brain in and boot it up! Beginning training seqence now!\n"
+	type_text(naviText)
 
 	# Compile and clean the training data.
 	directory = "intenses_db/"
@@ -144,8 +166,21 @@ try:
 	model.save("echo.h5", hist)
 
 	# Prints training complete and opens web panel.
-	print("\nNavi> [!] - Training session complete! \nNavi> [!] - After you're done looking at that nifty data visualization run me using the navi command\n")
-	os.system("tensorboard --logdir=./tlogs --port=6006")
+	naviChoice = f"\n\nNavi> Oh wow {user}! I feel smarter... Do you wish to see the output of the training I just did?"
+	type_text(naviChoice)
+	tensorChoice = input("Yes or No? ").lower()
+	if tensorChoice == "yes":
+		naviText = "Navi> Understood, I will get that booted up for you now!"
+		type_text(naviText)
+		os.system("tensorboard --logdir=./tlogs --port=6006")
+	if tensorChoice == "no":
+		naviText = "Navi> Shame! But I guess you are in a rush, I cant blame you. Next time you run the training script check it out!"
+		type_text(naviText)
+	else:
+		naviText = "Navi> That is not an option, try again next time!"
+		type_text(naviText)
 
+	naviText = f"\nNavi> Training complete! \nNavi> Now to run me... restart the terminal and type navi into the command prompt. \n\nNavi> I look forward to working with you {user}!"
+	type_text(naviText)
 except json.decoder.JSONDecodeError as e:
 	print("\n[!] Error decoding JSON or training data:", e)

@@ -186,14 +186,8 @@ def main():
     # Run the commands
     for c in commands:
         if len(c) <= 0: continue
-        print(f'\n\tNavi> [!!] - RUNNING: {c}\n')
         os.system(c)
 
-    # End message
-    print("""
-    Navi> [!!] - Installation finished.
-    Navi> [!!] - Restart the terminal and MAKE SURE YOU RUN neuralset.py before launching.
-    """)
     exit()
 
 if __name__ == '__main__':
