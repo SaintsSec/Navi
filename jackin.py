@@ -17,10 +17,10 @@ print(art)
 def type_text(text):
     for char in text:
         print(char, end='', flush=True)
-        time.sleep(0.1)  # Adjust the sleep duration as desired
+        time.sleep(0.05)  # Adjust the sleep duration as desired
     print()
 
-naviChoice = "Navi> So you want to install me huh?"
+naviChoice = "Navi> H..Hello is this thing on? Can you see me?\nNavi> I see... I don't mean to intrude...\nNavi> I need a place to call home... May I attach myself to your system?\nNavi> In return, as I grow I will offer you as much assistance as possible..."
 type_text(naviChoice)
 install = input("Yes or No: ").lower()
 

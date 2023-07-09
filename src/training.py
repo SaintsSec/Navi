@@ -14,6 +14,7 @@ from keras.models import Sequential
 from keras.optimizers import Adam, SGD
 from nltk.stem import WordNetLemmatizer
 
+breakline = "+===================================================+"
 art = """
   ______           _       _                _____           _       __ 
  /_  __/________ _(_)___  (_)___  ____ _   / ___/__________(_)___  / /_
@@ -32,7 +33,7 @@ sys.tracebacklimit = 0
 def type_text(text):
     for char in text:
         print(char, end='', flush=True)
-        time.sleep(0.1)  # Adjust the sleep duration as desired
+        time.sleep(0.05)  # Adjust the sleep duration as desired
     print()
 
 try:
@@ -43,8 +44,9 @@ try:
 	naviText = "\nNavi> I come with two training models each serving its own purpose SGD and Adam... Pick one."
 	type_text(naviText)
 	tmv = input("SGD or Adam: ").lower()
-	naviText = "Navi> Lets plug this brain in and boot it up! Beginning training seqence now!\n"
+	naviText = "Navi> Lets plug this brain in and boot it up! Beginning training sequence now!"
 	type_text(naviText)
+	print(breakline)
 
 	# Compile and clean the training data.
 	directory = "intenses_db/"
@@ -166,7 +168,8 @@ try:
 	model.save("echo.h5", hist)
 
 	# Prints training complete and opens web panel.
-	naviChoice = f"\n\nNavi> Oh wow {user}! I feel smarter... Do you wish to see the output of the training I just did?"
+	print(breakline)
+	naviChoice = f"Navi> Oh wow {user}! I feel smarter... Do you wish to see the output of the training I just did?"
 	type_text(naviChoice)
 	tensorChoice = input("Yes or No? ").lower()
 	if tensorChoice == "yes":
