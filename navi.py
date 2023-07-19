@@ -15,8 +15,11 @@ from datetime import date
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 
-from mods import mods
+from mods import mods 
+from mods import typewriter
 import commands
+
+tw = typewriter.typewriter
 
 user = os.getlogin()
 
@@ -228,8 +231,8 @@ def AI():
                 #print(f"{ai_name_rep} Hey {operator_name} whats up?")
                 greetInts = predict_class(message)
                 greetRes = get_response(greetInts, intents)
-                print(f"{ai_name_rep} {greetRes}")
-                message = input(f"=> ") # If uncommented, it'll take an input sentence instead of voice!
+                tw(f"{ai_name_rep} {greetRes}")
+                message = input(f"\n=> ") # If uncommented, it'll take an input sentence instead of voice!
                 #message = takeCommand() # Uncomment if you wish to speak to wake it.
                 
                 # Precoded commands.
@@ -258,7 +261,8 @@ def AI():
                         res = res.replace("ai_name", ai_name)
 
                     # Respond appropriately.
-                    print(f"\n{ai_name_rep} {res}\n"); #speak(res)
+                    tw(f"{ai_name_rep} {res}\n"); #speak(res)
+                    #print(f"\n{ai_name_rep} {res}\n"); #speak(res)
                     
                     # Appends to mems.
                     log_file.write(f"PATTERN  | {operator_name}: {message}\n")
