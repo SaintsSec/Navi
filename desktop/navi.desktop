@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Navi
+Comment=Launches Navi
+Exec=/usr/bin/python3 ~/.Navi/navi.py
+Icon=~/.Navi/desktop/navi.png
+Terminal=true
+Type=Application
+Categories=Accessories;

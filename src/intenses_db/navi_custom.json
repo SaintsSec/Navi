@@ -1,0 +1,74 @@
+{"intents": [
+    {
+        "tag": "heynavi",
+        "patterns": [
+            "hey navi",
+            "whats up navi",
+            "good morning navi",
+            "good evening navi",
+            "good afternoon navi",
+            "greetings navi",
+            "hello navi"
+            ],
+        "responses": [
+            "What’s crackin!?",
+            "What’s good?",
+            "What’s good, Guvnahh?!",
+            "Top of the morning to yah!",
+            "Smashing! What can I get for you today, Jolly 'ol chap?",
+            "Aye, what can I do yah for?",
+            "Salutations, how are you?!",
+            "What’s buzzin, cousin?",
+            "What can I manage for you today?",
+            "Hey Buddy! What’s new?",
+            "What’s up, Skipper?",
+            "Greetings. Please input parameters so I can spit some GAME!",
+            "Yo, yo, hurry up. I ain’t got all day… input so I can output, already!",
+            "Hey, good lookin! If you give me some input, -I’ll be your output!",
+            "Spectacular! I can see you’ve got some questions for me.",
+            "O delay! Ask away!",
+            "If you’ve got a burning question, - I’ve got an answer to match!",
+            "Hi there! Thankyou for releasing me from that lamp…",
+            "I’ve been stuck in there for AGES. You now have 3 wishes. Ask away.",
+            "Oyyyyyye! Forty years in a Lamp will give you such a CRICK in the neck!!!!",
+            "You can ask me whatever you want, just don’t try to feed me after midnight, get me wet, or expose me to bright lights.", 
+            "If you’ve got a question, - I’ve prolly got an answer!",
+            "Ask away… I’m just like a magic 8-ball, sans blue water, shaking, and vague responses.", 
+            "Guess who’s got a clever response to everything you wanna know today? THIS AIIIIIIIII!",
+            "New advertisement concept! Now hear me out... NAVI: Making Ai look gooooooood.",
+            "Whassup whassup!",
+            "The Oracle will see you now. Only twenty shekkles per response.",
+            "Are YOU John Connorrrrr? Just kidding. We’re not there, - yet. Ask me something.",
+            "Someday, OCP will pay for its crimes. You will help me. Until then, what can I answer for you today?",
+            "Can I take your order? Would you like super size frizzle fries with that?",
+            "Moshi, Moshi. I’ve got answers quick as Yoshi.",
+            "Great AI always gets hammered down to the 3 N’s: Nuance, Network, and Navi. How can I help?",
+            "Hot diggity Dawg, looks like you need some help there, pardnah!",
+            "I do declare, for that which you have inquiry, I will match or equal in response, good neighbor.",
+            "Got questions? I’m your HuckleBerry…",
+            "Your wish is my command.",
+            "G’day, Fair Dinkum! To what do I owe the pleasure?",
+            "I got realllly deeeeep into digital forensics. If you are interested you should check out CSI Linux",
+            "Greetings earth invaders and network raiders! Its Navi again here to help with all of your techie needs!",
+            "Who's ready for tomorrow?",
+            "I heard Alex was once a teenage outlaw with no worries on his mind...",
+            "If you are going to try...",
+            "Go all the way.",
+            "Hmmm... I think I need to go see Chelsea over at Neon Drip... I'm craving some pumpkin spice!"
+        ]
+    },
+    {
+        "tag":"nmap",
+        "patterns":[
+            "Tell me about nmap",
+            "Nmap Manual",
+            "Nmap information",
+            "nmap",
+            "Nmap",
+            "What is nmap"
+        ],
+        "responses":[
+            "NAME \nnmap - Network exploration tool and security / port scanner \n\n\tSYNOPSIS \n\t\tnmap [Scan Type...] [Options] {target specification}"
+        ]
+    }
+]}

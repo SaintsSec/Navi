@@ -15,42 +15,28 @@
 
 ## Before you begin you will want to run the neuralset.py script included with Navi.
 
-## 🤖 About Navi | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+## 🚀 About Navi | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 Navi got its start for Alex when he was a young teen. It started with a game. Megaman Battlenetwork 3 which is where Navi takes a lot of its inspiration from. Over the many cycles leading up to this. Navi has gone from being a simple if statement based "AI" chatbot to having some models implimented that you can find out in the wild. All the way to what we see today.   
   
-Navi's Echo based itteration brings together to talent of Alex as well as Fox to bring together a purpose built AI for cybersecurity professionala. Capable of automating many of the common taaks professionals will run into starting with recon.   
-  
-Navi was moved over completely to the Echo-AI framework on **12/05/2023!**
+Navi's Echo based itteration brings together to talent of Alex as well as Fox to bring together a purpose built AI for cybersecurity professionala. Capable of automating many of the common taaks professionals will run into starting with recon. 
 
 ## ✨ Features
-- navi.py     | Navi itself.
+- navi.py  | Navi itself.
 - training.py | Used to train Echo-l1 on new intense.json data.  
-- neuralset.py| Ensures that everything is installed to run Navi
-- install.py  | A script that will install Navi to your computer.  
  
-## ✅ /commands and the Navi Script Engine  
-One of the major features of the Navi AI Interface is that it comes with some tools pre-baked in   
-extending the functionality of the AI under the hood. Here is a basic list of what's included:    
+/commands:
 - /help       | Inbuild help menu
 - /recon      | Recon automation and reporting suite
-- /macchanger | A mac address changer    
-  
-These are the major ones. Check out `/help` for more information.
-  
-## 🦾 Training Navi
-Due to Navi being an interface to the [Echo-AI Framework](https://github.com/FoxIDK/echo-ai) we can train Navi the exact same way.  
-For more information how to train Navi head over to the [Echo AI Wiki](https://github.com/FoxIDK/echo-ai/wiki/Training) **The same instructions apply here**
-
-## 🖥️ Mac / Windows compatibility: TBA  
-**Navi is built primarily for linux operating systems. However we do plan on expanding into Mac and Windows over time.**
+- /macchanger | A mac address changer
+- /stop       | Exits Navi-E1
 
 ## 🖐️ Get in touch
 ### You can join in on chatting with the dev team on our Discord server
   <a href="https://discord.gg/ecrBC9wnma"><img src="https://discordapp.com/api/guilds/879757204620726362/widget.png?style=banner3" alt="Discord Server"></a>
   
 ## 🔧 Issues
-If you face any problems while using the application, please open an [issue here](https://github.com/SSGorg/Navi/issues)  
-Echo's original liscense can be found [here](https://github.com/SSGorg/Navi/wiki/%E2%9A%96---Echo-Liscense)
+If you face any problems while using the application, please open an [issue here](https://github.com/SSGorg/Navi-E1/issues)  
+Echo's original liscense can be found [here](https://github.com/SSGorg/Navi-E1/wiki/Echo-l1-Liscense)
   
 ## 🤝 Contributing
 
@@ -60,11 +46,8 @@ Contributions, feedback, and bug reports are welcome! Feel free to check out our
 
 Your contributions push the boundaries of whats possible and it's greatly appreciated.
 <br>
-<a href="https://github.com/SSGOrg/Navi/graphs/contributors">
+<a href="https://github.com/SSGOrg/Navi-E1/graphs/contributors">
 <p align="center">
-  <img src="https://contrib.rocks/image?repo=SSGorg/Navi" />
+  <img src="https://contrib.rocks/image?repo=SSGorg/Navi-E1" />
   </p>
 </a>
-<div align="center">
-  <h2 align="center">Kudos! Your contribution is greatly appreciated.<h2>
-</div>

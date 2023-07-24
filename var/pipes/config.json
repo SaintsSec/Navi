@@ -11,6 +11,9 @@
     },
     "operator": {
         "name": "Operator",
-        "nicks": ["Op", "Oppy"]
+        "nicks": [
+            "Op",
+            "Oppy"
+        ]
     }
 }
