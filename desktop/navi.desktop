@@ -6,4 +6,4 @@ Exec=/usr/bin/python3 ~/.Navi/navi.py
 Icon=~/.Navi/desktop/navi.png
 Terminal=true
 Type=Application
-Categories=Education;
+Categories=Accessories;

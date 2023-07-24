@@ -4,6 +4,7 @@ import json
 import nltk
 import numpy as np
 import os
+import getpass
 import pickle
 import psutil
 import pyttsx3
@@ -21,7 +22,7 @@ import commands
 
 tw = typewriter.typewriter
 
-user = os.getlogin()
+user = getpass.getuser()
 
 # Pre-run.
 os.chdir(f"/home/{user}/.Navi/")

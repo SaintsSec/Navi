@@ -11,13 +11,13 @@ class Distros:
     def debian():
         return [
             'sudo apt update',
-            'sudo apt-get install -y python3 python3-pip python-dev nmap macchanger clamav',
+            'sudo apt-get install -y python3 python3-pip python-dev nmap macchanger clamav clamav-daemon',
         ]
     @staticmethod
     def arch():
         return [
             'sudo pacman -Syu',
-            'sudo pacman -S python python-pip nmap machanger-git clamav',
+            'sudo pacman -S python python-pip nmap machanger-git clamav clamav-daemon',
         ]
     @staticmethod
     def void():
@@ -100,7 +100,7 @@ def handle_distros():
 def check_shell_config(location):
     # check if the navi alias is in the given file
     with open(location, 'rt') as f:
-        check = 'alias navi-e1' in f.read()
+        check = 'alias navi' in f.read()
     return check
     
 def handle_shell():
@@ -151,7 +151,7 @@ def handle_shell():
         print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
         return ''
 
-    command = 'echo \'alias navi="cd ~/.Navi && python3 navi.py && cd"\'' 
+    command = 'echo \'alias navi="cd /opt/Navi && python3 navi.py && cd"\'' 
     return f'{command} >> {path}'
     
 def main():
@@ -166,18 +166,21 @@ def main():
 
     # Cryptex related commands
     commands += [
+        'sudo systemctl stop clamav-freshclam',         
         'sudo freshclam',
-        'rm -rf ~/.Navi',
-        'mkdir ~/.Navi',
-        'cp -r . ~/.Navi',
-        'rm -rf ~/.Navi/.git/',
-        'rm -rf ~/.Navi/.github/',
-        'rm -rf ~/.Navi/demo/',
-        'rm ~/.Navi/README.md',
-        'rm ~/.Navi/CONTRIBUTING.md',
-        'rm ~/.Navi/CODE_OF_CONDUCT.md',
-        'rm ~/.Navi/install.py',
-        'rm -rf ~/.Navi/RAD',
+        'sudo systemctl start clamav-freshclam',
+        'sudo rm -rf /opt/Navi',
+        'sudo mkdir /opt/Navi',
+        'sudo cp -r . /opt/Navi',
+        'sudo cp desktop/navi.desktop /usr/share/applications/navi.desktop',
+        'sudo cp desktop/navi.png /usr/share/icons/navi.png',
+        'sudo rm -rf /opt/Navi/.git/',
+        'sudo rm -rf /opt/Navi/.github/',
+        'sudo rm -rf /opt/Navi/demo/',
+        'sudo rm /opt/Navi/README.md',
+        'sudo rm /opt/Navi/CONTRIBUTING.md',
+        'sudo rm /opt/Navi/CODE_OF_CONDUCT.md',
+        'sudo rm /opt/Navi/install.py',
     ]
 
     # Shell related commands
