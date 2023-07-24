@@ -1,6 +1,5 @@
 import openai
 from mods import mods
-import json
 import datetime
 import os
 
@@ -33,20 +32,23 @@ def run():
     completion = generate_completion(prompt)
     print("Navi> ")
     print(completion)
-    #check if logs folder exists
+    # check if logs folder exists
     if not os.path.exists("logs/"):
         os.system("mkdir logs/")
-    #check if log file exists
+    # check if log file exists
     if not os.path.exists("logs/gpt.json"):
         os.system("touch logs/gpt.json")
-    #write to log file
+    # write to log file
     with open("logs/gpt.json", "a") as f:
         now = datetime.datetime.now()
         date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         f.write(f"Date: {date_time}\n")
         f.write(f"Prompt: {prompt}\n")
-        completion = "\n".join(completion[i:i+80] for i in range(0, len(completion), 80))
+        completion = "\n".join(completion[i:i+80]
+                               for i in range(0, len(completion), 80))
         f.write(f"Completion: {completion}\n")
         f.write("\n")
+
+
 if __name__ == "__main__":
     run()
