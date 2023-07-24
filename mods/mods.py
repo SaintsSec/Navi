@@ -1,5 +1,4 @@
 import os
-import random
 
 breakline = "+===================================================+"
 
@@ -31,7 +30,7 @@ reconArt = f"""{breakline}
 |     /_/ |_|\___/\___/\____/_/ /_/                 |                                
 {breakline}
 """
-gptArt= f"""{breakline}
+gptArt = f"""{breakline}
 |     _   __            _       __________  ______  |
 |    / | / /___ __   __(_)     / ____/ __ \/_  __/  |
 |   /  |/ / __ `/ | / / /_____/ / __/ /_/ / / /     | 
@@ -41,10 +40,13 @@ gptArt= f"""{breakline}
 {breakline}
 """
 # Clear Screen Code
-def clearScreen():
-  os.system('cls' if os.name == 'nt' else 'clear')
 
-## Nmap Commands
+
+def clearScreen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# Nmap Commands
 nMapCommands = """Before you pick your options here are some nmap example's to work with.
 1. nmap -sV (service version detection) IpAddress/URLHere
 2. nmap -sS (TCP SYN scan) IpAddress/URLHere

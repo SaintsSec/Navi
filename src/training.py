@@ -7,11 +7,10 @@ import pickle
 import random
 import time
 import sys
-import time
 import getpass
 from keras.models import Sequential
 from keras.callbacks import TensorBoard
-from keras.layers import Activation, Dense, Dropout
+from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.optimizers import Adam, SGD
 from nltk.stem import WordNetLemmatizer
@@ -38,7 +37,7 @@ def type_text(text):
     for char in text:
         print(char, end="", flush=True,)
         # generate a random number between 0 and 1
-        random_num = random.random()
+        random_num = random.uniform(0, 1)
         # if the random number is less than .1
         if random_num < .1:
             # sleep for 1 second

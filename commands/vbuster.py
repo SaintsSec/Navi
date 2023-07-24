@@ -1,38 +1,45 @@
 #!/bin/python3
 
-#TODO - Add rkhunter
+# TODO - Add rkhunter
 
-#imports
+# imports
 import os
 from mods import mods
-import commands
 
 command = "/vbuster"
 use = "Virus removal suite"
 
-#global variables
+# global variables
 breakline = mods.breakline
 art = mods.vbusterArt
 
+
 def run():
     print(art)
-    #Setup
-    scanOptions = input("Navi> What options do you want to scan with (ex: -r)\n=> ")
+    # Setup
+    scanOptions = input(
+        "Navi> What options do you want to scan with (ex: -r)\n=> ")
     scanDir = input("Navi> Where do you want to scan (ex: ~/)\n=> ")
-    outputChoice = input("Navi> Do you want to save a report (yes/no)\n=> ").lower()
+    outputChoice = input(
+        "Navi> Do you want to save a report (yes/no)\n=> ").lower()
     if outputChoice == "yes":
-        outputDir = input("Navi> Where do you want you save the report(ex: vbusterOut)\n=>  ")
-        outputName = input("Navi> What do you want the report to be called (ex: testReport)\n=> ")
+        outputDir = input(
+            "Navi> Where do you want you save the report(ex: vbusterOut)\n=>  ")
+        outputName = input(
+            "Navi> What do you want the report to be called (ex: testReport)\n=> ")
         os.system(f"mkdir {outputDir}")
         os.system(f"touch {outputDir}/{outputName}.txt")
         print("Navi> [!] - Starting scan now... Just a sec.")
-        #Start
-        os.system(f"clamscan {scanOptions} {scanDir} >> {outputDir}/{outputName}.txt")
-        viewReport = input("Navi> Scan Complete do you want to see the report now (yes/no)\n=> ").lower()
+        # Start
+        os.system(
+            f"clamscan {scanOptions} {scanDir} >> {outputDir}/{outputName}.txt")
+        viewReport = input(
+            "Navi> Scan Complete do you want to see the report now (yes/no)\n=> ").lower()
         if viewReport == "yes":
             os.system(f"cat {outputDir}/{outputName}.txt\n{breakline}\n")
         elif viewReport == "no":
-            print(f"Navi> Understood, the report can be viewed at: {outputDir}/{outputName}.txt \n{breakline}\n")
+            print(
+                f"Navi> Understood, the report can be viewed at: {outputDir}/{outputName}.txt \n{breakline}\n")
         else:
             print(f"Navi> Invalid option... Try again...\n{breakline}\n")
     elif outputChoice == "no":
@@ -41,4 +48,3 @@ def run():
         print(f"Navi> Scan complete! Results above! \n{breakline}\n")
     else:
         print(f"Navi> Invalid option! Try again! \n{breakline}\n")
-

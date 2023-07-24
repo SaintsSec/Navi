@@ -10,7 +10,7 @@ use = "Displays a help message"
 
 def run():
     """Show help menu."""
-    print(f"""
+    print("""
 Navi Help Menu:
 Navi is a simple to use customizable interface for CLI
 AI models. Built with cybersecurity professionals in mind. 

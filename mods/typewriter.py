@@ -1,12 +1,12 @@
 import time
 import random
-import sys
+
 
 def typewriter(text):
-    for char in text: 
+    for char in text:
         print(char, end="", flush=True,)
         # generate a random number between 0 and 1
-        random_num = random.random()
+        random_num = random.uniform(0, 1)
         # if the random number is less than .1
         if random_num < .1:
             # sleep for 1 second
