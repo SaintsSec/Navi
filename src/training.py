@@ -100,12 +100,32 @@ task.
 
 try:
     # Asks training variables.
-    type_text(epochExplain)
-    epv = int(
-        input("\nNavi> Now that we know what epochs are how many do you want to do: "))
-    type_text(trainexplain)
-    tmv = input(
-        "\nNavi> Now that we know about SGD and Adam Which would you like to use? \nSGD or Adam: ").lower()
+    naviText = "Navi> Would you like to know more about epochs and training models?"
+    type_text(naviText)
+    explanationChoice = input("\nYes or No: ").lower()
+
+    if explanationChoice == "yes":
+        type_text(epochExplain)
+        epv = int(
+            input("\nNavi> Now that we know what epochs are how many do you want to do: "))
+        type_text(trainexplain)
+        tmv = input(
+            "\nNavi> Now that we know about SGD and Adam Which would you like to use? \nSGD or Adam: ").lower()
+    if explanationChoice == "no":
+        naviText = "\nNavi> Understood, lets get started then!\n"
+        type_text(naviText)
+        naviText = "\nNavi> How many epochs do you want to do: "
+        type_text(naviText)
+        naviChoice = input("")
+        epv = int(naviChoice)
+        naviText = "\nNavi> We can choose between the SGD and Adam training models \nWhich would you like to use: "
+        type_text(naviText)
+        naviChoice = input("").lower()
+        tmv = naviChoice
+    else:
+        naviText = "\nNavi> That is not an option, try again next time!"
+        type_text(naviText)
+
     naviText = "\nNavi> Lets plug this brain in and boot it up! Beginning training sequence now!\n"
     type_text(naviText)
     print(breakline)

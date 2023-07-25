@@ -176,11 +176,12 @@ def main():
         'sudo cp desktop/navi.png /usr/share/icons/navi.png',
         'sudo rm -rf /opt/Navi/.git/',
         'sudo rm -rf /opt/Navi/.github/',
-        'sudo rm -rf /opt/Navi/demo/',
+        'sudo rm -rf /opt/Navi/desktop/',
         'sudo rm /opt/Navi/README.md',
         'sudo rm /opt/Navi/CONTRIBUTING.md',
         'sudo rm /opt/Navi/CODE_OF_CONDUCT.md',
         'sudo rm /opt/Navi/install.py',
+        'sudo chmod -R 777 /opt/Navi',
     ]
 
     # Shell related commands
