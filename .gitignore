@@ -1,2 +1,6 @@
 __pycache__/
 .vscode/settings.json
+/src/training-data.json
+/src/tlogs/
+src/classes.pkl
+.gitignore
