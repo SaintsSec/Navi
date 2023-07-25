@@ -25,7 +25,7 @@ tw = typewriter.typewriter
 user = getpass.getuser()
 
 # Pre-run.
-os.chdir(f"/home/{user}/.Navi/")
+os.chdir("/opt/Navi/")
 os.system("clear")
 # Hide tracebacks - change to 1 for dev mode.
 sys.tracebacklimit = 0
