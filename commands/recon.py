@@ -3,6 +3,7 @@
 
 import os
 import time
+import getpass
 from mods import mods
 from fpdf import FPDF
 
@@ -15,10 +16,10 @@ art = mods.reconArt
 nMapCommands = mods.nMapCommands
 timestr = time.strftime("%m%d%Y-%H:%M")
 pdf = FPDF()
+user = getpass.getuser()
 
 pdf.add_page()
 pdf.set_font("Arial", size=10)
-
 
 def run():
     """Do recon."""
@@ -75,7 +76,8 @@ def run():
     pdfChoice = input(
         f"{breakline}\n\nNavi> [!] - Would you like to export {reportName} into a pdf? (yes / no): ").lower()
     if pdfChoice == "yes":
-        file = open(f"{reportPath}/{reportName}-{timestr}.txt", "r")
+        os.chdir("/home/{user}/{reportPath}")
+        file = open(f"./{reportName}-{timestr}.txt", "r")
         for x in file:
             pdf.cell(2000, 5, txt=x, ln=1)
         pdf.output(f"{reportPath}/{reportName}-{timestr}.pdf")
@@ -83,7 +85,7 @@ def run():
             f"Navi> [\u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf")
     if pdfChoice == "no":
         print("Navi> [!] - Understood cracking on!")
-        return
+        os.chdir("/opt/Navi")
     else:
         print("Navi> [!] - Not a valid option. Moving on...")
         return
