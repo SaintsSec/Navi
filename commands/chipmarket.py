@@ -3,6 +3,13 @@ import requests
 
 command = "/chipmarket"
 use = "Navi chip market v0.0.1"
+art = """   ________    _          __  ___           __        __ 
+  / ____/ /_  (_)___     /  |/  /___ ______/ /_____  / /_
+ / /   / __ \/ / __ \   / /|_/ / __ `/ ___/ //_/ _ \/ __/
+/ /___/ / / / / /_/ /  / /  / / /_/ / /  / ,< /  __/ /_  
+\____/_/ /_/_/ .___/  /_/  /_/\__,_/_/  /_/|_|\___/\__/  
+    v0.0.1  /_/ https://github.com/SSGorg/navichipmarket                                         
+"""
 
 
 def list_python_files_in_repo(owner, repo_name):
@@ -38,8 +45,8 @@ def run():
 
     try:
         python_files = list_python_files_in_repo(owner, repo_name)
-
-        print("Navi> Welcome to the Chip Market: \nHere you will find community contributed custom scripts... Or chips\n\nNavi>Current files in the repository:")
+        print(art)
+        print("Navi> Welcome to the Chip Market: \nHere you will find community contributed custom scripts...\n\nNavi>Current files in the repository:")
         for file_name in python_files:
             print(file_name)
 
