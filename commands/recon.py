@@ -21,6 +21,7 @@ user = getpass.getuser()
 pdf.add_page()
 pdf.set_font("Arial", size=10)
 
+
 def run():
     """Do recon."""
     # Recon Setup
@@ -71,21 +72,4 @@ def run():
             f"\nNavi> [\u2713] - That is fair. \nReport contents saved to: {fullPath}\n\n")
     else:
         print(f"\nNavi> [!] - The report can be viewed at: {fullPath}\n\n")
-
-    # convert to pdf:
-    pdfChoice = input(
-        f"{breakline}\n\nNavi> [!] - Would you like to export {reportName} into a pdf? (yes / no): ").lower()
-    if pdfChoice == "yes":
-        os.chdir("/home/{user}/{reportPath}")
-        file = open(f"./{reportName}-{timestr}.txt", "r")
-        for x in file:
-            pdf.cell(2000, 5, txt=x, ln=1)
-        pdf.output(f"{reportPath}/{reportName}-{timestr}.pdf")
-        print(
-            f"Navi> [\u2713] - pdf generated it can be found at: {reportPath}/{reportName}-{timestr}.pdf")
-    if pdfChoice == "no":
-        print("Navi> [!] - Understood cracking on!")
-        os.chdir("/opt/Navi")
-    else:
-        print("Navi> [!] - Not a valid option. Moving on...")
         return
