@@ -2,7 +2,7 @@ import os
 import requests
 
 command = "/chipmarket"
-use = "Navi chip market v0.0.1"
+use = "Navi chip market v0.0.2"
 art = """   ________    _          __  ___           __        __ 
   / ____/ /_  (_)___     /  |/  /___ ______/ /_____  / /_
  / /   / __ \/ / __ \   / /|_/ / __ `/ ___/ //_/ _ \/ __/
@@ -11,8 +11,15 @@ art = """   ________    _          __  ___           __        __
     v0.0.1  /_/ https://github.com/SSGorg/navichipmarket                                         
 """
 
+# Replace with the GitHub repository URL
+REPO_URL = "https://github.com/SSGorg/navichipmarket"
+# Replace with the directory for Python files
+PYTHON_DOWNLOAD_DIR = "/opt/Navi/commands"
+# Replace with the directory for JSON files
+JSON_DOWNLOAD_DIR = "/opt/Navi/src/intenses_db"
 
-def list_python_files_in_repo(owner, repo_name):
+
+def list_files_in_repo(owner, repo_name):
     url = f"https://api.github.com/repos/{owner}/{repo_name}/contents"
     response = requests.get(url)
 
@@ -20,7 +27,9 @@ def list_python_files_in_repo(owner, repo_name):
         files = response.json()
         python_files = [file_info["name"]
                         for file_info in files if file_info["name"].endswith(".py")]
-        return python_files
+        json_files = [file_info["name"]
+                      for file_info in files if file_info["name"].endswith(".json")]
+        return python_files, json_files
     else:
         raise Exception(
             f"Failed to fetch files. Status Code: {response.status_code}")
@@ -39,29 +48,41 @@ def download_file(url, filename, download_dir):
 
 
 def run():
-    repo_url = "https://github.com/ssgorg/navichipmarket"
-    parts = repo_url.strip("/").split("/")
+    parts = REPO_URL.strip("/").split("/")
     owner, repo_name = parts[-2], parts[-1]
+    python_files, json_files = list_files_in_repo(owner, repo_name)
 
     try:
-        python_files = list_python_files_in_repo(owner, repo_name)
         print(art)
         print("Navi> Welcome to the Chip Market: \nHere you will find community contributed custom scripts...\n\nNavi>Current files in the repository:")
         for file_name in python_files:
-            print(file_name)
+            print(f"[PY] {file_name}")
+        for file_name in json_files:
+            print(f"[JSON] {file_name}")
 
         download_dir = "/opt/Navi/commands"
         if not os.path.exists(download_dir):
             os.makedirs(download_dir)
 
         download = input(
-            "\nNavi> Enter the filename to download (leave blank to skip): ")
-        if download and download in python_files:
-            file_url = f"https://raw.githubusercontent.com/{owner}/{repo_name}/main/{download}"
-            download_file(file_url, download, download_dir)
-            print(
-                f"Navi> {download} has been downloaded to {download_dir}.\n\nNavi> You will need to reload me to use the new chip.")
-        elif download and download not in python_files:
-            print(f"File '{download}' is not a Python file.")
+            "\nNavi> Enter the filename to download (leave blank to skip): ").strip()
+        if download:
+            if download in python_files or download in json_files:
+                file_url = f"https://raw.githubusercontent.com/{owner}/{repo_name}/main/{download}"
+                if download.endswith(".json"):
+                    download_dir = JSON_DOWNLOAD_DIR
+                elif download.endswith(".py"):
+                    download_dir = PYTHON_DOWNLOAD_DIR
+                else:
+                    print(
+                        f"Navi> File type not supported for '{download}'. Skipping.")
+                    return
+                if not os.path.exists(download_dir):
+                    os.makedirs(download_dir)
+                download_file(file_url, download, download_dir)
+                print(
+                    f"Navi> '{download}' has been downloaded to {download_dir}.")
+            else:
+                print(f"Navi> File '{download}' not found in the repository.")
     except Exception as e:
         print(f"Error: {e}")
