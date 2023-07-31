@@ -38,7 +38,7 @@ Navi's Echo based itteration brings together to talent of Alex as well as Fox to
   <a href="https://discord.gg/ecrBC9wnma"><img src="https://discordapp.com/api/guilds/879757204620726362/widget.png?style=banner3" alt="Discord Server"></a>
   
 ## 🔧 Issues
-If you face any problems while using the application, please open an [issue here](https://github.com/SSGorg/Navi-E1/issues)  
+If you face any problems while using the application, please open an [issue here](https://github.com/SSGorg/Navi/issues)  
 Echo's original liscense can be found [here](https://github.com/SSGorg/Navi-E1/wiki/Echo-l1-Liscense)
   
 ## 🤝 Contributing
