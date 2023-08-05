@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 # Imports.
-import sys # System stuff.
-import os # Operating System functions.
+import sys  # System stuff.
+import os  # Operating System functions.
 
 # Distro package manager commands
+
+
 class Distros:
     @staticmethod
     def debian():
@@ -13,21 +15,25 @@ class Distros:
             'sudo apt update',
             'sudo apt-get install -y python3 python3-pip python-dev nmap macchanger clamav clamav-daemon',
         ]
+
     @staticmethod
     def arch():
         return [
             'sudo pacman -Syu',
             'sudo pacman -S python python-pip nmap machanger-git clamav clamav-daemon',
         ]
+
     @staticmethod
     def void():
         return Distros.debian()
+
     @staticmethod
     def opensuse():
         return [
             'sudo zypper in python310 nmap macchanger clamav',
         ]
         # Do I need to add more here?
+
 
 def handle_distros():
     # Distros
@@ -42,7 +48,7 @@ def handle_distros():
             'Garuda',
             'Manjaro',
         ],
-        'Void' : [],
+        'Void': [],
         'openSUSE': [
             'openSUSE Tumbleweed',
             'openSUSE Leap',
@@ -71,16 +77,16 @@ def handle_distros():
         message += f'\n\t- {key}'
         for sub in val:
             message += f'\n\t    - {sub}'
-    
+
     print(f"""
         - auto
             {auto}{message}
         """)
 
     ans = ''
-    while not ans in [k.lower() for k, _ in distros.items()] + ['auto']: 
+    while not ans in [k.lower() for k, _ in distros.items()] + ['auto']:
         # user input to select a distro
-        ans=input("Navi> What is your operating system?: ").lower()
+        ans = input("Navi> What is your operating system?: ").lower()
 
     if 'auto' in ans:
         ans = auto.split('- ')[1].lower()
@@ -93,16 +99,18 @@ def handle_distros():
         return Distros.void()
     elif 'opensuse' in ans:
         return Distros.opensuse()
-    
+
     print(f'\n\tNavi> [!!] - Unsuported distro: {ans}\n')
     exit(1)
+
 
 def check_shell_config(location):
     # check if the navi alias is in the given file
     with open(location, 'rt') as f:
         check = 'alias navi' in f.read()
     return check
-    
+
+
 def handle_shell():
     shell = os.readlink(f'/proc/{os.getppid()}/exe')
 
@@ -127,7 +135,7 @@ def handle_shell():
     ans = ''
     options = ['auto'] + supported
     while ans not in options:
-        ans=input("Navi> [!!] - What is your shell?: ").lower()
+        ans = input("Navi> [!!] - What is your shell?: ").lower()
 
     # If the input was not 'auto' then set the shell to what the user entered
     if 'auto' not in ans:
@@ -151,13 +159,14 @@ def handle_shell():
         print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
         return ''
 
-    command = 'echo \'alias navi="cd /opt/Navi && python3 navi.py && cd"\'' 
+    command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
     return f'{command} >> {path}'
-    
+
+
 def main():
     # Check for updates
-    #from src import Update
-    #Update()
+    # from src import Update
+    # Update()
 
     # List over commands to run
     commands = []
@@ -166,7 +175,7 @@ def main():
 
     # Cryptex related commands
     commands += [
-        'sudo systemctl stop clamav-freshclam',         
+        'sudo systemctl stop clamav-freshclam',
         'sudo freshclam',
         'sudo systemctl start clamav-freshclam',
         'sudo rm -rf /opt/Navi',
@@ -189,10 +198,12 @@ def main():
 
     # Run the commands
     for c in commands:
-        if len(c) <= 0: continue
+        if len(c) <= 0:
+            continue
         os.system(c)
 
     exit()
+
 
 if __name__ == '__main__':
     try:
