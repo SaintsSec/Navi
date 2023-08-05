@@ -408,3 +408,4 @@ speak_thread.join()
 command_thread.join()
 wellness_thread.join()
 AI_thread.join()
+# this should work...
