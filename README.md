@@ -1,34 +1,27 @@
 <div align="center">
   <h1> Navi | An SSG Community Project</h1>
-  <h1>v0.0.5 - Released</h1>
+  <h1>v0.1.0 - Released</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!     
 <div align="center">
-<img src="https://user-images.githubusercontent.com/89718570/234070674-51080b9a-be10-476f-9bbf-3e1e2a6cca9e.png" width="25%" height="25%">  
-<img src="https://media.discordapp.net/attachments/1053895661629751397/1078449255481610280/base_rebuilt_hq_profile_rounded.png" width="25%" height="25%">
-<img src="https://user-images.githubusercontent.com/89718570/236381302-dc3dcf75-a48d-4846-ae33-2007109bf7c2.png" width="40%" height="40%">
+<img src= https://github.com/SSGOrg/Navi/assets/89718570/5596418e-3fa3-4528-8a07-d00aeece1590 height=25% width=25%><img src= https://github.com/SSGOrg/Navi/assets/89718570/35f4a862-c31d-4445-bccf-1c08d91492a2 height=50% width=45%>
 </div>   
-
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)  
-
-## Before you begin you will want to run the neuralset.py script included with Navi.
 
 ## 🚀 About Navi | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 Navi got its start for Alex when he was a young teen. It started with a game. Megaman Battle Network 3 which is where Navi takes a lot of its inspiration from. Over the many cycles leading up to this. Navi has gone from being a simple if statement based "AI" chatbot to having some models implimented that you can find out in the wild. All the way to what we see today.   
   
 Navi's Echo based itteration brings together to talent of Alex as well as Fox to bring together a purpose built AI for cybersecurity professionala. Capable of automating many of the common taaks professionals will run into starting with recon. 
 
-## ✨ Navi v0.0.5 Features
+## ✨ Navi v0.1.0 Features
 - navi.py     | Navi itself.
 - jackin.py   | Easy to use single stop install script
-- training.py | Used to train Echo on new intense.json data.  
+- training.py | Used to train Echo on new intense.json data.
  
 /commands:
 - /help       | help menu
 - /recon      | Recon automation and reporting suite
-- /macchanger | A mac address changer
+- /chipmarket | Navi community custom software, training and personality repo  
 - /gpt        | Access to GPT API
 - /vbuster    | ClamAV powered Antivirus
 - /stop       | Exits Navi
