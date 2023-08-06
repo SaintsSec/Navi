@@ -12,6 +12,7 @@ import random
 import speech_recognition as sr
 import sys
 import threading
+import argparse
 from datetime import date
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
@@ -239,6 +240,63 @@ def takeCommand():
     return message
 
 
+class VerticalHelpFormatter(argparse.HelpFormatter):
+    def _format_action(self, action):
+        parts = super()._format_action(action)
+        if action.choices and action.option_strings:
+            choices_str = "\n" + \
+                "\n".join(f"  {choice}" for choice in action.choices)
+            parts = parts.replace(
+                f"{action.option_strings[0]} ", f"{action.option_strings[0]}{choices_str} ")
+        return parts
+
+
+def get_command_names():
+    command_directory = "/opt/Navi/commands"
+    command_files = [file for file in os.listdir(
+        command_directory) if file.endswith(".py") and file != "__init__.py"]
+    commands_info = []
+    for file in command_files:
+        with open(os.path.join(command_directory, file), "r") as f:
+            for line in f:
+                if line.startswith("use = "):
+                    use = line.strip().split("use = ")[1].strip().strip('"')
+                    commands_info.append(
+                        {"command": f"/{os.path.splitext(file)[0]}", "use": use})
+                    break
+    return commands_info
+
+
+def get_args():
+    mods.clearScreen()
+    print(mods.art)
+    parser = argparse.ArgumentParser(
+        description="Navi AI Argument System")
+    parser.add_argument("--configure", action="store_true",
+                        help="Configure Navi's settings")
+    parser.add_argument("--wellness", action="store_true",
+                        help="Check Navi's wellness status")
+    parser.add_argument(
+        "script", nargs="?", help="Run a custom command")
+
+    # Get the vertical list of choices as a formatted string
+    choices_str = "\n".join(f"  {choice}" for choice in get_command_names())
+    # Add the choices_str to the help message
+    parser._positionals.title = f"Possible commands:\n{choices_str}"
+
+    return parser.parse_args()
+
+
+def run_script(script_name):
+    if script_name not in commands.modules:
+        print(
+            f"{mods.breakline}\n{ai_name_rep} [!] - Unknown Command '{script_name}'\n{mods.breakline}")
+        return
+    print(
+        f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{script_name}'\n{mods.breakline}")
+    commands.modules[script_name].run()
+
+
 def AI():
     os.system("clear")
     print(mods.art)
@@ -287,7 +345,8 @@ def AI():
                         res = res.replace("ai_name", ai_name)
 
                     # Respond appropriately.
-                    tw(f"{ai_name_rep} {res}\n")  # speak(res)
+                    tw(f"{ai_name_rep} {res}\n")
+                    # speak(res)
                     # print(f"\n{ai_name_rep} {res}\n"); #speak(res)
 
                     # Appends to mems.
@@ -309,6 +368,18 @@ def AI():
 
 
 if __name__ == '__main__':
+    args = get_args()
+
+    if args.configure:
+        ai_config()
+        exit()
+    elif args.wellness:
+        get_wellness()
+        exit()
+    elif args.script:
+        run_script(args.script)
+        exit()
+
     AI()
 
 # Threading segment -- If you make a new def or module, you can thread it.
@@ -338,3 +409,4 @@ speak_thread.join()
 command_thread.join()
 wellness_thread.join()
 AI_thread.join()
+# this should work...
