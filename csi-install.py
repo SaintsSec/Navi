@@ -5,31 +5,9 @@
 import sys  # System stuff.
 import os  # Operating System functions.
 
-
-def check_shell_config(location):
-    # check if the navi alias is in the given file
-    with open(location, 'rt') as f:
-        check = 'alias navi' in f.read()
-    return check
-
-
-# set the path to the config based on what shell you are setting it up for
 user = os.environ['HOME']
-path = f'{user}/.bashrc'  # default to bashrc
+path = f'{user}/.bashrc'
 
-# Check if the cyrptex alias already exists in the given shell
-
-
-def add_alias():
-    if check_shell_config(path):
-        print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
-        return
-    print("Adding alias to ~/.bashrc")
-    command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
-    return f'{command} >> {path}'
-
-
-add_alias()
 print("Cleaning up....")
 
 
@@ -43,6 +21,8 @@ def main():
 
     # Navi related commands
     commands += [
+        # add navi alias to bashrc
+        f'echo "alias navi=\'python3 /opt/Navi/navi.py\'" >> {path}',
         'sudo apt install -y python3 python3-pip python-dev nmap macchanger clamav clamav-daemon',
         'sudo systemctl stop clamav-freshclam',
         'sudo freshclam',
