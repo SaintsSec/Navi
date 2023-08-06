@@ -12,17 +12,20 @@ def check_shell_config(location):
         check = 'alias navi' in f.read()
     return check
 
-    # set the path to the config based on what shell you are setting it up for
-    user = os.environ['HOME']
-    path = f'{user}/.bashrc'  # default to bashrc
 
-    # Check if the cyrptex alias already exists in the given shell
-    if check_shell_config(path):
-        print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
-        return ''
+# set the path to the config based on what shell you are setting it up for
+user = os.environ['HOME']
+path = f'{user}/.bashrc'  # default to bashrc
 
-    command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
-    return f'{command} >> {path}'
+# Check if the cyrptex alias already exists in the given shell
+if check_shell_config(path):
+    print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
+    return ''
+print("Adding alias to ~/.bashrc")
+command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
+return f'{command} >> {path}'
+
+print("Cleaning up....")
 
 
 def main():
