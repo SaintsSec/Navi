@@ -173,7 +173,7 @@ def main():
 
     commands += handle_distros()
 
-    # Cryptex related commands
+    # Navi related commands
     commands += [
         'sudo systemctl stop clamav-freshclam',
         'sudo freshclam',

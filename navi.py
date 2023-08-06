@@ -345,7 +345,8 @@ def AI():
                         res = res.replace("ai_name", ai_name)
 
                     # Respond appropriately.
-                    tw(f"{ai_name_rep} {res}\n")  # speak(res)
+                    tw(f"{ai_name_rep} {res}\n")
+                    # speak(res)
                     # print(f"\n{ai_name_rep} {res}\n"); #speak(res)
 
                     # Appends to mems.
