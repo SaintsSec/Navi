@@ -18,13 +18,18 @@ user = os.environ['HOME']
 path = f'{user}/.bashrc'  # default to bashrc
 
 # Check if the cyrptex alias already exists in the given shell
-if check_shell_config(path):
-    print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
-    return ''
-print("Adding alias to ~/.bashrc")
-command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
-return f'{command} >> {path}'
 
+
+def add_alias():
+    if check_shell_config(path):
+        print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
+        return
+    print("Adding alias to ~/.bashrc")
+    command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
+    return f'{command} >> {path}'
+
+
+add_alias()
 print("Cleaning up....")
 
 
