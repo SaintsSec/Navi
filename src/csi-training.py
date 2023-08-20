@@ -17,12 +17,12 @@ from nltk.stem import WordNetLemmatizer
 
 breakline = "+===================================================+"
 art = """
-  ______           _       _                _____           _       __ 
- /_  __/________ _(_)___  (_)___  ____ _   / ___/__________(_)___  / /_
-  / / / ___/ __ `/ / __ \/ / __ \/ __ `/   \__ \/ ___/ ___/ / __ \/ __/
- / / / /  / /_/ / / / / / / / / / /_/ /   ___/ / /__/ /  / / /_/ / /_  
-/_/ /_/   \__,_/_/_/ /_/_/_/ /_/\__, /   /____/\___/_/  /_/ .___/\__/  
-                               /____/                    /_/           
+   ___________ ____            ______           _       _            
+  / ____/ ___//  _/           /_  __/________ _(_)___  (_)___  ____ _
+ / /    \__ \ / /   ______     / / / ___/ __ `/ / __ \/ / __ \/ __ `/
+/ /___ ___/ // /   /_____/    / / / /  / /_/ / / / / / / / / / /_/ / 
+\____//____/___/             /_/ /_/   \__,_/_/_/ /_/_/_/ /_/\__, /  
+                                                            /____/   
 """
 
 # Pre-run.
@@ -34,7 +34,7 @@ user = getpass.getuser()
 print(art)
 # Hide tracebacks - change to 1 for dev mode.
 sys.tracebacklimit = 0
-epv = int(850)
+epv = int(500)
 tmv = "adam"
 
 try:
@@ -147,9 +147,10 @@ try:
 
     # Compiling the model.
     if tmv == "sgd":
-        optimizer = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
+        optimizer = SGD(learning_rate=0.001, decay=1e-6,
+                        momentum=0.9, nesterov=True)
     if tmv == "adam":
-        optimizer = Adam(lr=0.001, decay=1e-6)
+        optimizer = Adam(learning_rate=0.001, decay=1e-6)
 
     model.compile(loss='categorical_crossentropy',
                   optimizer=tmv, metrics=['accuracy'])

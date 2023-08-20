@@ -239,9 +239,10 @@ try:
 
     # Compiling the model.
     if tmv == "sgd":
-        optimizer = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
+        optimizer = SGD(learning_rate=0.001, decay=1e-6,
+                        momentum=0.9, nesterov=True)
     if tmv == "adam":
-        optimizer = Adam(lr=0.001, decay=1e-6)
+        optimizer = Adam(learning_rate=0.001, decay=1e-6)
 
     model.compile(loss='categorical_crossentropy',
                   optimizer=tmv, metrics=['accuracy'])
