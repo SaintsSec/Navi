@@ -330,6 +330,9 @@ def AI():
                         print(
                             f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{message}'\n{mods.breakline}")
                         commands.modules[message].run()
+                    if message == "":
+                        print(
+                            "Navi> [!!] - I did not catch that. Please try again.")
                     else:
                         print(
                             f"{mods.breakline}\n{ai_name_rep} [!] - Unknown Command '{message}'\n{mods.breakline}")

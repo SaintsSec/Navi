@@ -188,6 +188,8 @@ def main():
         'sudo rm /opt/Navi/CONTRIBUTING.md',
         'sudo rm /opt/Navi/CODE_OF_CONDUCT.md',
         'sudo rm /opt/Navi/install.py',
+        'sudo rm /opt/Navi/csi-jackin.py',
+        'sudo rm /opt/Navi/csi-install.py',
         'sudo chmod -R 777 /opt/Navi',
     ]
 
