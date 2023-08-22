@@ -159,7 +159,7 @@ def handle_shell():
         print(f'\n\tNavi> [!!] - Alias already exists in config: {path}\n')
         return ''
 
-    command = 'echo \'alias navi="python3 /opt/Navi/navi.py"\''
+    command = 'echo \'alias navi="cd /opt/Navi && python3 navi.py && cd"\''
     return f'{command} >> {path}'
 
 

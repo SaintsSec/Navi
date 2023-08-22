@@ -3,15 +3,17 @@ from os.path import dirname, basename, isfile, join
 import glob
 import importlib
 
+
 def load_module(name):
     """Load module with the given name."""
     try:
         module = importlib.import_module(f".{name}", '.commands')
     except ModuleNotFoundError:
         print(f"Module '{name}' not found")
-        #exit(1)
+        # exit(1)
     else:
         return module
+
 
 __all__ = [
     basename(f)[:-3]

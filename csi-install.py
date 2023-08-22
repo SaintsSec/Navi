@@ -22,7 +22,7 @@ def main():
     # Navi related commands
     commands += [
         # add navi alias to bashrc
-        f'echo "alias navi=\'python3 /opt/Navi/navi.py\'" >> {path}',
+        f'echo "alias navi=\'cd /opt/Navi && python3 navi.py && cd\'" >> {path}',
         'sudo apt install -y python3 python3-pip python-dev nmap macchanger clamav clamav-daemon',
         'sudo systemctl stop clamav-freshclam',
         'sudo freshclam',
