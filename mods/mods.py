@@ -2,13 +2,16 @@ import os
 
 breakline = "+===================================================+"
 
+versionNum = "0.1.1"
+
+
 # The cover art:
 art = f"""{breakline}
 |               _   __            _                 |
 |              / | / /___ __   __(_)                |
 |             /  |/ / __ `/ | / / /                 |
 |            / /|  / /_/ /| |/ / /                  |
-|           /_/ |_/\__,_/ |___/_/ v0.1.3            |
+|           /_/ |_/\__,_/ |___/_/ v{versionNum}            |
 |     Type 'run' for chips or '/stop' to exit       |
 |    Otherwise type a prompt to talk to the AI      |
 {breakline}

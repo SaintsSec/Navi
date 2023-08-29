@@ -12,6 +12,7 @@ import speech_recognition as sr
 import sys
 import threading
 import subprocess
+import requests
 from datetime import date
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
@@ -178,6 +179,47 @@ def chip_engine():
             print(
                 "Navi> [!!] - I did not catch that. Please try again.")
 
+
+def get_latest_release(repo_owner, repo_name):
+    api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        tag_name = data.get('tag_name')
+        release_name = data.get('name')
+        html_url = data.get('html_url')
+
+        return {
+            'tag_name': tag_name,
+            'release_name': release_name,
+            'html_url': html_url
+        }
+    else:
+        return None
+
+
+def is_new_release(current_version, latest_version):
+    return current_version < latest_version
+
+
+def check_for_new_release(current_version, repo_owner, repo_name):
+    latest_release = get_latest_release(repo_owner, repo_name)
+
+    if latest_release and is_new_release(current_version, latest_release['tag_name']):
+        return f"{ai_name_rep} - [!!] New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}"
+    else:
+        return f"{ai_name_rep} - [!!] You are running the latest version!"
+
+
+def checkVersion():
+    current_version = "0.1.1"  # Replace with your actual current version
+    repo_owner = "SSGOrg"  # Replace with the actual owner name
+    repo_name = "Navi"  # Replace with the actual repository name
+
+    result = check_for_new_release(current_version, repo_owner, repo_name)
+    print(result)
+
 # Wellness.
 
 
@@ -277,7 +319,8 @@ def takeCommand():
 
 def AI():
     os.system("clear")
-    print(art)
+    print(f"{art}")
+    checkVersion()
     # Run forever, until cancelled.
     while True:
         try:
