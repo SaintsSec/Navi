@@ -190,6 +190,9 @@ def main():
         'sudo rm /opt/Navi/install.py',
         'sudo rm /opt/Navi/csi-jackin.py',
         'sudo rm /opt/Navi/csi-install.py',
+        'sudo rm /opt/Navi/neuralset.py',
+        'sudo rm /opt/Navi/jackin.py',
+        'sudo rm /opt/Navi/requirements.txt',
         'sudo chmod -R 777 /opt/Navi',
     ]
 
@@ -202,7 +205,7 @@ def main():
             continue
         os.system(c)
 
-    exit()
+    exit(0)
 
 
 if __name__ == '__main__':

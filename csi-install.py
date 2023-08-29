@@ -21,9 +21,6 @@ def main():
 
     # Navi related commands
     commands += [
-        # add navi alias to bashrc
-        f'echo "alias navi=\'cd /opt/Navi && python3 navi.py && cd\'" >> {path}',
-        'sudo apt install -y python3 python3-pip python-dev nmap macchanger clamav clamav-daemon',
         'sudo systemctl stop clamav-freshclam',
         'sudo freshclam',
         'sudo systemctl start clamav-freshclam',
@@ -39,6 +36,9 @@ def main():
         'sudo rm /opt/Navi/install.py',
         'sudo rm /opt/Navi/csi-jackin.py',
         'sudo rm /opt/Navi/csi-install.py',
+        'sudo rm /opt/Navi/neuralset.py',
+        'sudo rm /opt/Navi/jackin.py',
+        'sudo rm /opt/Navi/requirements.txt',
         'sudo chmod -R 777 /opt/Navi',
     ]
 

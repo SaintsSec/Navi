@@ -22,11 +22,11 @@ install = input("\nYes or No: ").lower()
 
 if install == "yes":
     print(mods.breakline)
-    naviText = "Navi> Time to make sure the rest of me is here. \nNavi> Running Neuralset!"
+    naviText = "Navi> Time to make sure the rest of my requirements are installed.. \nNavi> Running Neuralset!"
     type_text(naviText)
     os.system("python3 neuralset.py")
     print(mods.breakline)
-    naviText = "Navi> The last thing we need to do is hook up my cyberbrain. \nNavi> Lets do some training!"
+    naviText = "Navi> The next thing we need to do is hook up my cyberbrain. \nNavi> Lets do some training!"
     type_text(naviText)
     os.chdir("src/")
     os.system("python3 training.py")
