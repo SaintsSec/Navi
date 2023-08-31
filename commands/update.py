@@ -82,11 +82,11 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                     continue
                 os.system(c)
             
-                print(f"{ai_name_rep} [!!] - Update complete, to see changes you will need to restart me.")
-                exit(0)
+            print(f"{ai_name_rep} [!!] - Update complete, to see changes you will need to restart me.")
+            exit(0)
 
-            if updateChoice == "no":
-                return f"{ai_name_rep} You really should consider updating."
+        if updateChoice == "no":
+            return f"{ai_name_rep} You really should consider updating."
 
     else:
         return f"{ai_name_rep} - [!!] You are running the latest version!"
