@@ -26,6 +26,9 @@ art = """
 """
 
 # Pre-run.
+nltk.download('omw-1.4')
+nltk.download('punkt')
+nltk.download('wordnet')
 os.system("clear")
 user = getpass.getuser()
 print(art)

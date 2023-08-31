@@ -1,25 +1,6 @@
     {
         "intents": [
             {
-                "tag": "example",
-                "patterns": [
-                    "example"
-                ],
-                "responses": [
-                    "example"
-                ]
-            },
-            {
-                "tag": "example2",
-                "patterns": [
-                    "example2"
-                ],
-                "responses": [
-                    "example2"
-                ]
-            }
-            ,
-            {
                 "tag": "greetings",
                 "patterns": [
                     "Hello",
@@ -361,6 +342,25 @@
                     "The first 1GB hard disk drive was released by IBM in 1980.",
                     "The first GPS satellite was launched in 1978.",
                     "The first successful 3D-printed organ was a bladder, printed in 1999."
+                ]
+            }
+            ,
+            {
+                "tag": "example",
+                "patterns": [
+                    "example"
+                ],
+                "responses": [
+                    "example"
+                ]
+            },
+            {
+                "tag": "example2",
+                "patterns": [
+                    "example2"
+                ],
+                "responses": [
+                    "example2"
                 ]
             }
         ]
