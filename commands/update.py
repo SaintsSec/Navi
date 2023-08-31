@@ -55,7 +55,6 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm -rf /opt/Navi',
                 'sudo mkdir /opt/Navi',
                 'sudo cp -r /tmp/Navi /opt/',
-                'sudo cp desktop/navi.desktop /usr/share/applications/navi.desktop',
                 'sudo rm -rf /opt/Navi/.git/',
                 'sudo rm -rf /opt/Navi/.github/',
                 'sudo rm /opt/Navi/README.md',
