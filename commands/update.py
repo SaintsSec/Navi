@@ -68,6 +68,7 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm /opt/Navi/jackin.py',
                 'sudo rm -rf /opt/Navi/var && sudo mv /tmp/Navi_Update/var /opt/Navi',
                 'sudo rm -rf /opt/Navi/src && sudo mv /tmp/Navi_Update/src /opt/Navi',
+                'sudo rm -rf /tmp/Navi'
                 'sudo chmod -R 777 /opt/Navi',
 
             ]
