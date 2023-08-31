@@ -55,7 +55,6 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm -rf /opt/Navi',
                 'sudo mkdir /opt/Navi',
                 'sudo cp -r /tmp/Navi /opt/',
-                'sudo cp desktop/navi.desktop /usr/share/applications/navi.desktop',
                 'sudo rm -rf /opt/Navi/.git/',
                 'sudo rm -rf /opt/Navi/.github/',
                 'sudo rm /opt/Navi/README.md',
@@ -66,6 +65,7 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm /opt/Navi/csi-install.py',
                 'sudo rm -rf /opt/Navi/var && sudo mv /tmp/Navi_Update/var /opt/Navi',
                 'sudo rm -rf /opt/Navi/src && sudo mv /tmp/Navi_Update/src /opt/Navi',
+                'sudo rm -rf /tmp/Navi'
                 'sudo chmod -R 777 /opt/Navi',
 
             ]
