@@ -45,20 +45,13 @@ def check_for_new_release(current_version, repo_owner, repo_name):
 
             # Navi related commands
             commands += [
-                'echo Navi> Cleaning up update folders',
-                'sudo rm -rf /tmp/Navi_Update',
-                'sudo rm -rf /tmp/Navi',
-                'echo Navi> Creating fresh update folders',
-                'mkdir /tmp/Navi_Update',
-                'echo Navi> Backing up my present data.',
-                'sudo cp -r /opt/Navi/var/ /tmp/Navi_Update',
-                'sudo cp -r /opt/Navi/src /tmp/Navi_Update',
-                'echo Navi> Removing old copy and cloning new version'
+                'mkdir ~/NaviUpdate',
+                'sudo cp -r /opt/Navi/var/ ~/NaviUpdate',
+                'sudo cp -r /opt/Navi/src ~/NaviUpdate',
                 'sudo rm -rf /opt/Navi',
-                'sudo git clone https://github.com/SSGOrg/Navi /tmp/',
-                'echo Navi> Migrating new version',
-                'sudo mv /tmp/Navi /opt/',
-                'echo Navi> Cleaning up install folder',
+                'sudo mkdir ~/NaviUpdate/Navi',
+                'sudo git clone https://github.com/SSGOrg/Navi ~/NaviUpdate/Navi',
+                'sudo mv ~/NaviUpdate/Navi /opt/',
                 'sudo rm -rf /opt/Navi/.git/',
                 'sudo rm -rf /opt/Navi/.github/',
                 'sudo rm /opt/Navi/README.md',
@@ -70,12 +63,12 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm /opt/Navi/neuralset.py',
                 'sudo rm /opt/Navi/requirements.txt',
                 'sudo rm /opt/Navi/jackin.py',
-                'echo Navi> Moving persistent data back into place.',
-                'sudo rm -rf /opt/Navi/var && sudo mv /tmp/Navi_Update/var /opt/Navi',
-                'sudo rm -rf /opt/Navi/src && sudo mv /tmp/Navi_Update/src /opt/Navi',
-                'sudo rm -rf /tmp/Navi'
+                'sudo rm -rf /opt/Navi/var',
+                'sudo mv ~/NaviUpdate/var /opt/Navi',
+                'sudo rm -rf /opt/Navi/src',
+                'sudo mv ~/NaviUpdate/src /opt/Navi',
+                'sudo rm -rf ~/NaviUpdate',
                 'sudo chmod -R 777 /opt/Navi',
-                'echo Navi> Update complete, you will need to restart me for changes to take effect!',
             ]
 
             # Shell related commands
@@ -86,7 +79,8 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 if len(c) <= 0:
                     continue
                 os.system(c)
-                exit(0)
+            print(f"\n\n{ai_name_rep} Update complete, type 'navi' in the CLI for update to take effect!")
+            exit(0)
 
         if updateChoice == "no":
             return f"{ai_name_rep} You really should consider updating."
