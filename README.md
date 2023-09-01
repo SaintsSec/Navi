@@ -13,7 +13,7 @@ Navi got its start for Alex when he was a young teen. It started with a game. Me
   
 Navi's Echo based itteration brings together to talent of Alex as well as Fox to bring together a purpose built AI for cybersecurity professionala. Capable of automating many of the common taaks professionals will run into starting with recon. 
 
-## ✨ Navi v0.1.0 Features
+## ✨ Navi v0.1.1 Features
 - navi.py     | Navi itself.
 - jackin.py   | Easy to use single stop install script
 - training.py | Used to train Echo on new intense.json data.
@@ -24,7 +24,7 @@ Navi's Echo based itteration brings together to talent of Alex as well as Fox to
 - /chipmarket | Navi community custom software, training and personality repo  
 - /gpt        | Access to GPT API
 - /vbuster    | ClamAV powered Antivirus
-- /stop       | Exits Navi
+- /update     | Updates Navi to the latest release on github.
 
 ## 🖐️ Get in touch
 ### You can join in on chatting with the dev team on our Discord server
