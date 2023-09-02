@@ -2,14 +2,18 @@ import os
 
 breakline = "+===================================================+"
 
+versionNum = "0.1.1"
+
+
 # The cover art:
 art = f"""{breakline}
 |               _   __            _                 |
 |              / | / /___ __   __(_)                |
 |             /  |/ / __ `/ | / / /                 |
 |            / /|  / /_/ /| |/ / /                  |
-|           /_/ |_/\__,_/ |___/_/ v0.1.2            |
-|   Type '/help' for help or '/stop' to exit        |
+|           /_/ |_/\__,_/ |___/_/ v{versionNum}            |
+|     Type 'run' for chips or '/stop' to exit       |
+|    Otherwise type a prompt to talk to the AI      |
 {breakline}
 """
 vbusterArt = f"""{breakline}
@@ -37,6 +41,16 @@ gptArt = f"""{breakline}
 |  / /|  / /_/ /| |/ / /_____/ /_/ / ____/ / /      |
 | /_/ |_/\__,_/ |___/_/      \____/_/     /_/       |
 |                                                   |
+{breakline}
+"""
+
+helpArt = f"""{breakline}
+      _   __            _    __  __     __    
+     / | / /___ __   __(_)  / / / /__  / /___ 
+    /  |/ / __ `/ | / / /  / /_/ / _ \/ / __ \\
+   / /|  / /_/ /| |/ / /  / __  /  __/ / /_/ /
+  /_/ |_/\__,_/ |___/_/  /_/ /_/\___/_/ .___/ 
+                                     /_/      
 {breakline}
 """
 # Clear Screen Code

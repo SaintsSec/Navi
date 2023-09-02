@@ -4,7 +4,6 @@ import json
 import nltk
 import numpy as np
 import os
-import getpass
 import pickle
 import psutil
 import pyttsx3
@@ -12,24 +11,25 @@ import random
 import speech_recognition as sr
 import sys
 import threading
-import argparse
+import subprocess
+import requests
 from datetime import date
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 
+import commands
 from mods import mods
 from mods import typewriter
-import commands
-
-tw = typewriter.typewriter
-
-user = getpass.getuser()
 
 # Pre-run.
-os.chdir("/opt/Navi/")
-os.system("clear")
-# Hide tracebacks - change to 1 for dev mode.
+subprocess.run("clear")
 sys.tracebacklimit = 0
+
+# Navi Global Vars
+breakline = mods.breakline
+art = mods.art
+helpArt = mods.helpArt
+typewriter = typewriter.typewriter
 
 # Loading the configuration json.
 with open('./var/pipes/config.json') as config_file:
@@ -37,10 +37,11 @@ with open('./var/pipes/config.json') as config_file:
 
 # Access the variables from the loaded configuration.
 ai_name = config['ai']['name']
-ai_name_rep = (f"{ai_name}> ")
+ai_name_rep = (f"{ai_name}>")
 ai_gender = config['gender'][config['ai']['gender']]
 ai_volume = config['ai']['volume']
 ai_speed = config['ai']['speed']
+ai_voice = config['ai']['voice']
 operator_name = config['operator']['name']
 operator_nicks_list = config['operator']['nicks']
 operator_nicks = random.choice(operator_nicks_list)
@@ -67,21 +68,17 @@ else:
     print(f"Failed to create the file '{mem_path}', one might already exist.")
 # Allows the reading and writing for 'memories'.
 log_file = open(f"./var/log/memories/{date.today()}.mem", "a")
-log_file.write(f">> SESSION | {date.today()}-{current_time}\n")
+log_file.write(f"SESSION | {date.today()}-{current_time}\n")
 
 # Neural segment -- This is where the AI magic happens.
 # Downloads any updates.
 nltk.download('punkt')
 nltk.download('wordnet')
-# Instantiate WordNetLemmatizer for lemmatization.
 lemmatizer = WordNetLemmatizer()
-# Load intents from the training data file.
-intents = json.loads(open("src/training-data.json").read())
-# Load preprocessed words and classes from pickle files.
-words = pickle.load(open('src/words.pkl', 'rb'))
-classes = pickle.load(open('src/classes.pkl', 'rb'))
-# Load the trained model from disk.
-model = load_model('src/echo.h5')
+intents = json.loads(open("src/neural_data/training-data.json").read())
+words = pickle.load(open('src/neural_data/words.pkl', 'rb'))
+classes = pickle.load(open('src/neural_data/classes.pkl', 'rb'))
+model = load_model('src/neural_data/echo.h5')
 
 # Tokenize the words in the sentence and lemmatize them.
 
@@ -131,211 +128,225 @@ def get_response(intents_list, intents_json):
     return result
 
 # Functions segment -- This is where the main functions are.
-# Function to play audible output using pyttsx3 library.
 
 
 def speak(audio):
-    # Initializes the pyttsx3 engine.
-    engine = pyttsx3.init()
-    # Gets properties of the engine.
-    voices = engine.getProperty('voices')
-    # Sets properties of the engine.
-    # Set the voice to the second voice (in the list of voices).
-    engine.setProperty('voice', voices[ai_gender].id)
-    engine.setProperty('volume', ai_volume)  # Set the volume to 10.
-    engine.setProperty('rate', ai_speed)  # Set the speaking rate to 165.
-    # Uses the engine to speak the input audio.
-    engine.say(audio)
-    engine.runAndWait()
+    if ai_voice == 'enabled':
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice', voices[ai_gender].id)
+        engine.setProperty('volume', ai_volume)
+        engine.setProperty('rate', ai_speed)
+        engine.say(audio)
+        engine.runAndWait()
+    if ai_voice == 'disabled':
+        pass
 
 # Modules segment -- This is where any modules you want to build should be.
+
+# Navi Chip Engine Help
+
+
+def chip_engine_help():
+    print(f"""{helpArt}
+Navi is a simple to use customizable interface for CLI
+AI models. Built with cybersecurity professionals in mind. 
+
+[!!] - All commands are preceeded by a '/'
+Here is a list of current useable commands 
+
+from the main interface typing 'ohce config' will allow you to
+configure the AI to your liking.
+
+Command:              Use:
+""")
+    for _, module in commands.modules.items():
+        print(module.command.ljust(21), module.use)
+    print(breakline)
+
+# Navi Chip Engine
+
+
+def chip_engine():
+    chip_engine_help()
+    message = input(f"{ai_name_rep} What do you want to run:  ")
+    if message[0] == "/":
+        if message in commands.modules.keys():
+            print(
+                f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{message}'\n{mods.breakline}")
+            commands.modules[message].run()
+        if message == "":
+            print(
+                "Navi> [!!] - I did not catch that. Please try again.")
+
+
+def get_latest_release(repo_owner, repo_name):
+    api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        tag_name = data.get('tag_name')
+        release_name = data.get('name')
+        html_url = data.get('html_url')
+
+        return {
+            'tag_name': tag_name,
+            'release_name': release_name,
+            'html_url': html_url
+        }
+    else:
+        return None
+
+
+def is_new_release(current_version, latest_version):
+    return current_version < latest_version
+
+
+def check_for_new_release(current_version, repo_owner, repo_name):
+    latest_release = get_latest_release(repo_owner, repo_name)
+
+    if latest_release and is_new_release(current_version, latest_release['tag_name']):
+        return f"{ai_name_rep} - [!!] New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}"
+    else:
+        return f"{ai_name_rep} - [!!] You are running the latest version!"
+
+
+def checkVersion():
+    current_version = "0.1.1"  # Replace with your actual current version
+    repo_owner = "SSGOrg"  # Replace with the actual owner name
+    repo_name = "Navi"  # Replace with the actual repository name
+
+    result = check_for_new_release(current_version, repo_owner, repo_name)
+    print(result)
+
 # Wellness.
 
 
 def get_wellness():
-    # Get CPU usage percentage.
     cpu = psutil.cpu_percent()
-    # Get virtual memory usage percentage.
     memory = psutil.virtual_memory()[2]
-    # Get disk usage percentage.
     disk = psutil.disk_usage('/').percent
-    # Calculate average usage percentage.
     avg = (cpu + memory + disk) / 3
-    # AI wellness value.
     wellness_value = avg
 
     # AI is well.
     if wellness_value < 30:
-        responses = ["I'm feeling great today!",
-                     "Couldn't be better!",
-                     "I'm doing well, thank you.",
-                     "I feel like a million bucks today!",
-                     "Life is good today!",
-                     "I'm on top of the world!",
-                     "I'm feeling fantastic today!",
-                     "I'm in a really good mood today.",
-                     "Today is going to be a great day!",
-                     "I'm feeling energized today."]
+        responses = [
+            "I'm feeling great today!",
+            "Couldn't be better!",
+            "I'm doing well, thank you.",
+            "I feel like a million bucks today!",
+            "Life is good today!",
+            "I'm on top of the world!",
+            "I'm feeling fantastic today!",
+            "I'm in a really good mood today.",
+            "Today is going to be a great day!",
+            "I'm feeling energized today!",
+            "I'm feeling awesome and unstoppable!",
+            "I'm positively radiant today.",
+            "I'm brimming with happiness and positivity!",
+            "I'm genuinely excited about today.",
+            "I'm enjoying every moment to the fullest!"]
     # AI is neutral.
     elif wellness_value >= 30 and wellness_value < 70:
-        responses = ["I'm doing okay, thank you.",
-                     "I'm hanging in there.",
-                     "I'm feeling so-so today.",
-                     "I'm just taking it one day at a time.",
-                     "I'm managing, thank you for asking.",
-                     "I'm coping.",
-                     "I'm feeling alright today.",
-                     "I'm doing my best today.",
-                     "I'm feeling content today.",
-                     "I'm feeling balanced today."]
+        responses = [
+            "I'm doing okay, thank you.",
+            "I'm hanging in there.",
+            "I'm feeling so-so today.",
+            "I'm just taking it one day at a time.",
+            "I'm managing, thank you for asking.",
+            "I'm coping.",
+            "I'm feeling alright today.",
+            "I'm doing my best today.",
+            "I'm feeling content today.",
+            "I'm feeling balanced today.",
+            "I'm maintaining a steady state of mind.",
+            "I'm embracing the ebb and flow of the day.",
+            "I'm staying composed and focused.",
+            "I'm finding a sense of equilibrium.",
+            "I'm navigating through with a steady pace."]
     # AI is unwell.
     else:
-        responses = ["I'm not feeling so great today.",
-                     "I could be better.",
-                     "I'm struggling a bit today.",
-                     "Today is a bit tough for me.",
-                     "I'm feeling a little down today.",
-                     "I'm not feeling my best today.",
-                     "I'm feeling overwhelmed today.",
-                     "I'm not doing so well today.",
-                     "I'm feeling stressed today.",
-                     "I'm feeling anxious today."]
+        responses = [
+            "I'm not feeling so great today.",
+            "I could be better.",
+            "I'm struggling a bit today.",
+            "Today is a bit tough for me.",
+            "I'm feeling a little down today.",
+            "I'm not feeling my best today.",
+            "I'm feeling overwhelmed today.",
+            "I'm not doing so well today.",
+            "I'm feeling stressed today.",
+            "I'm feeling anxious today.",
+            "I'm facing some challenges at the moment.",
+            "I'm going through a bit of a rough patch.",
+            "I'm dealing with a mix of emotions today.",
+            "I'm finding it hard to lift my spirits.",
+            "I'm in need of some self-care and comfort."]
 
     # Choose a response at random from the possible responses.
     response = random.choice(responses)
-    print(f"{ai_name_rep} {response}")  # speak(response)
+    print(f"{ai_name_rep} {response}")
+    speak(response)
 
 # Kills on kill request.
 
 
 def killswitch():
-    # speak("Please hold, I'm shutting down."); exit()
     print(f"{ai_name_rep} Please hold, I'm shutting down.")
+    speak("Please hold, I'm shutting down.")
+    exit()
 
 # Operational segment -- Responsible for actual operational functionality, such as taking commends, or talking!
 # Taking a vocal command.
 
 
 def takeCommand():
-    # Initializes a recognizer instance
     r = sr.Recognizer()
-    # Configures the microphone as the source of audio input.
     with sr.Microphone() as source:
-        # Adjusts the recognizer to the ambient noise level.
         r.adjust_for_ambient_noise(source)
-        # Sets the pause threshold to 0.5 seconds of non-speaking audio before a phrase is considered complete.
         r.pause_threshold = 0.5
-        # Captures the audio input from the microphone.
         audio = r.listen(source)
         try:
-            # Attempts to recognize the speech in the captured audio using Google Speech Recognition API.
             message = r.recognize_google(audio, language='en-in')
-            # Prints the recognized speech message.
             print(f"{ai_name} heard:", message)
         except Exception as e:
-            # Prints the error message if there's any problem in recognizing speech.
             print(e)
             return "None"
-    # Returns the recognized speech message.
     return message
-
-
-class VerticalHelpFormatter(argparse.HelpFormatter):
-    def _format_action(self, action):
-        parts = super()._format_action(action)
-        if action.choices and action.option_strings:
-            choices_str = "\n" + \
-                "\n".join(f"  {choice}" for choice in action.choices)
-            parts = parts.replace(
-                f"{action.option_strings[0]} ", f"{action.option_strings[0]}{choices_str} ")
-        return parts
-
-
-def get_command_names():
-    command_directory = "/opt/Navi/commands"
-    command_files = [file for file in os.listdir(
-        command_directory) if file.endswith(".py") and file != "__init__.py"]
-    commands_info = []
-    for file in command_files:
-        with open(os.path.join(command_directory, file), "r") as f:
-            for line in f:
-                if line.startswith("use = "):
-                    use = line.strip().split("use = ")[1].strip().strip('"')
-                    commands_info.append(
-                        {"command": f"/{os.path.splitext(file)[0]}", "use": use})
-                    break
-    return commands_info
-
-
-def get_args():
-    mods.clearScreen()
-    print(mods.art)
-    parser = argparse.ArgumentParser(
-        description="Navi AI Argument System")
-    parser.add_argument("--configure", action="store_true",
-                        help="Configure Navi's settings")
-    parser.add_argument("--wellness", action="store_true",
-                        help="Check Navi's wellness status")
-    parser.add_argument(
-        "script", nargs="?", help="Run a custom command")
-
-    # Get the vertical list of choices as a formatted string
-    choices_str = "\n".join(f"  {choice}" for choice in get_command_names())
-    # Add the choices_str to the help message
-    parser._positionals.title = f"Possible commands:\n{choices_str}"
-
-    return parser.parse_args()
-
-
-def run_script(script_name):
-    if script_name not in commands.modules:
-        print(
-            f"{mods.breakline}\n{ai_name_rep} [!] - Unknown Command '{script_name}'\n{mods.breakline}")
-        return
-    print(
-        f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{script_name}'\n{mods.breakline}")
-    commands.modules[script_name].run()
 
 
 def AI():
     os.system("clear")
-    print(mods.art)
+    print(f"{art}")
+    checkVersion()
     # Run forever, until cancelled.
-    # print("Ready to assist."); #speak("Ready to assist.")
     while True:
         try:
-            # message = f"{ai_name}" # If uncommented, it'll always respond without a wake word!
-            message = "hey navi"
+            # If uncommented, it'll always respond without a wake word!
+            message = f"{ai_name}"
             # message = takeCommand(); print(f"\n{ai_name} is listening!") # Uncomment if you wish to speak to wake it.
 
-            if f"{ai_name}" in message or "hey navi" in message:  # Wake words.
-                # print(f"{ai_name_rep} Hey {operator_name} whats up?")
-                greetInts = predict_class(message)
-                greetRes = get_response(greetInts, intents)
-                tw(f"{ai_name_rep} {greetRes}")
+            # Wake words.
+            if f"{ai_name}" in message or f"Hey {ai_name}" in message:
                 # If uncommented, it'll take an input sentence instead of voice!
-                message = input("\n=> ")
+                message = input(f"\n=> ")
                 # message = takeCommand() # Uncomment if you wish to speak to wake it.
 
                 # Precoded commands.
-                if any(keyword in message for keyword in ["killswitch", "kill switch", "exit"]):
+                if any(keyword in message for keyword in ["killswitch", "kill switch", "/stop"]):
                     killswitch()
                 elif any(keyword in message for keyword in ["how are you", "you feeling", "how do you feel", "how are you feeling"]):
                     get_wellness()
-                elif any(keyword in message for keyword in ["I want to configure you", "neural config", "config"]):
+                elif any(keyword in message for keyword in ["ohce config"]):
                     ai_config()
-                # Navi Script Engine
-                elif message[0] == '/':
-                    if message in commands.modules.keys():
-                        print(
-                            f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{message}'\n{mods.breakline}")
-                        commands.modules[message].run()
-                    if message == "":
-                        print(
-                            "Navi> [!!] - I did not catch that. Please try again.")
-                    else:
-                        print(
-                            f"{mods.breakline}\n{ai_name_rep} [!] - Unknown Command '{message}'\n{mods.breakline}")
+                elif any(keyword in message for keyword in ["nce", "navi chip engine", "chips", "scripts", "execute", "run"]):
+                    chip_engine()
+                elif any(keyword in message for keyword in ["/clear"]):
+                    os.system("clear")
+                    print(art)
+
                 # Response segment.
                 else:
                     # Checks intents / responses.
@@ -348,9 +359,8 @@ def AI():
                         res = res.replace("ai_name", ai_name)
 
                     # Respond appropriately.
-                    tw(f"{ai_name_rep} {res}\n")
-                    # speak(res)
-                    # print(f"\n{ai_name_rep} {res}\n"); #speak(res)
+                    typewriter(f"{ai_name_rep} {res}")
+                    speak(res)
 
                     # Appends to mems.
                     log_file.write(f"PATTERN  | {operator_name}: {message}\n")
@@ -368,21 +378,10 @@ def AI():
                 print("\n[!] File not found.")
         except json.decoder.JSONDecodeError as e:
             print("\n[!] Error decoding JSON or training data:", e)
+            sys.exit(1)
 
 
 if __name__ == '__main__':
-    args = get_args()
-
-    if args.configure:
-        ai_config()
-        exit()
-    elif args.wellness:
-        get_wellness()
-        exit()
-    elif args.script:
-        run_script(args.script)
-        exit()
-
     AI()
 
 # Threading segment -- If you make a new def or module, you can thread it.
@@ -394,6 +393,7 @@ speak_thread = threading.Thread(target=speak)
 command_thread = threading.Thread(target=takeCommand)
 wellness_thread = threading.Thread(target=get_wellness)
 AI_thread = threading.Thread(target=AI)
+chip_thread = threading.Thread(target=chip_engine)
 
 # Start both threads.
 cleanup_thread.start()
@@ -403,6 +403,7 @@ speak_thread.start()
 command_thread.start()
 wellness_thread.start()
 AI_thread.start()
+chip_thread.join()
 
 # Wait for threads to finish before exiting the program.
 cleanup_thread.join()
@@ -412,4 +413,4 @@ speak_thread.join()
 command_thread.join()
 wellness_thread.join()
 AI_thread.join()
-# this should work...
+chip_thread.join()
