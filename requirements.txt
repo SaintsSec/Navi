@@ -218,3 +218,6 @@ yarl==1.9.2
 zipp==1.0.0
 fpdf
 openai
+faker
+requests
+python-docx

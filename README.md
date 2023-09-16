@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Navi | An SSG Community Project</h1>
-  <h1>v0.1.2 - Released</h1>
+  <h1>v0.1.2 "Rasa" Released</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
