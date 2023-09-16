@@ -1,0 +1,124 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - malware
+  - phishing
+  - hello_there
+  - bot_challenge
+  - explain_cryptography
+  - types_of_cryptography
+  - symmetric_encryption
+  - asymmetric_encryption
+  - encryption_algorithms
+  - digital_signatures
+  - key_management
+  - cryptographic_protocols
+  - blockchain_and_cryptography
+  - quantum_cryptography
+  - pun_jokes
+  - dad_jokes
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "*Pukes Binary* I am Navi, an open source cybersecurity AI created by Saints Security Group, LLC"
+
+  utter_malware:
+    - text: "Malware, short for malicious software, is any software specifically designed to harm or exploit computer systems. It includes viruses, worms, Trojans, and ransomware. Malware can damage, steal, or encrypt data, and it's essential to have robust cybersecurity measures to protect against it."
+    - text: "Malware, a portmanteau of 'malicious' and 'software,' is a term used to describe a broad category of software designed with malicious intent. This includes viruses, which attach themselves to legitimate programs; worms, which spread independently; Trojans, which appear harmless but carry hidden threats; and ransomware, which encrypts your data until a ransom is paid. Protecting your devices with antivirus software and regularly updating your systems is crucial to defend against malware."
+    - text: "Dealing with malware can be challenging. Malware refers to any software that aims to harm your computer or data. It encompasses viruses, worms, Trojans, and ransomware. To safeguard your devices, keep your software updated, use strong and unique passwords, and be cautious when downloading files or clicking on suspicious links. Regular backups of your important data can also save you from the impact of malware attacks."
+
+  utter_phishing:
+    - text: "Phishing is a cyberattack method where attackers impersonate legitimate entities to deceive users into revealing sensitive information, such as login credentials or financial data. They often use fake emails or websites. To prevent phishing, be cautious about clicking links or providing personal information online."
+
+  utter_explain_cryptography:
+    - text: "Cryptography is the science of securing communication and information through the use of codes and ciphers. It involves converting plain text into a secret code to protect the confidentiality, integrity, and authenticity of data. Cryptography plays a vital role in ensuring data privacy and security in various applications."
+    - text: "Cryptography, in simple terms, is the art of secret writing. It encompasses techniques to secure information by converting it into a form that is unreadable without the correct decryption key. It's used in everything from secure messaging apps to online banking transactions."
+    - text: "Cryptography is the practice of making information secure by transforming it into an unreadable format using encryption techniques. It's a fundamental tool in modern information security, and it's used to protect data during transmission and storage."
+
+  utter_types_of_cryptography:
+    - text: "There are two main types of cryptography: symmetric and asymmetric. Symmetric cryptography uses a single key for both encryption and decryption, while asymmetric cryptography uses a pair of public and private keys. Each type has its unique advantages and use cases."
+    - text: "Cryptography can be categorized into two types: symmetric and asymmetric. Symmetric cryptography uses the same key for both encryption and decryption, while asymmetric cryptography uses a pair of keys—one public and one private. These methods are essential for secure communication and data protection."
+    - text: "When it comes to cryptography, there are two primary types: symmetric and asymmetric. Symmetric encryption uses a shared key for both encoding and decoding, whereas asymmetric encryption employs a pair of keys—public and private—for enhanced security."
+
+  utter_symmetric_encryption:
+    - text: "Symmetric encryption is a method where the same secret key is used for both encrypting and decrypting data. It's fast and efficient, making it suitable for bulk data encryption. However, key distribution can be a challenge in symmetric encryption."
+    - text: "Symmetric encryption is a straightforward encryption technique that uses the same key for both encoding and decoding data. It's known for its speed and is commonly used for encrypting large volumes of data."
+    - text: "In symmetric encryption, a single secret key is used for both encrypting and decrypting data. It's fast and efficient but requires a secure method for sharing the key between parties."
+
+  utter_asymmetric_encryption:
+    - text: "Asymmetric encryption, also known as public-key encryption, uses a pair of keys: a public key for encryption and a private key for decryption. This method offers strong security but is slower than symmetric encryption due to the complex math involved."
+    - text: "In asymmetric encryption, two keys are used: a public key for encrypting data and a private key for decryption. This approach is secure and allows for secure communication over untrusted networks."
+    - text: "Asymmetric encryption, also called public-key encryption, employs a pair of keys—a public key for encryption and a private key for decryption. While it offers enhanced security, it's typically slower than symmetric encryption."
+
+  utter_encryption_algorithms:
+    - text: "Encryption algorithms are mathematical procedures used to convert plain text into ciphertext and vice versa. Popular encryption algorithms include Advanced Encryption Standard (AES), RSA, and Triple Data Encryption Standard (3DES). These algorithms determine how data is transformed for security."
+    - text: "Encryption algorithms are essential in the world of cryptography. They define how data is transformed into an unreadable format and back again. Some well-known encryption algorithms include AES, RSA, and DES."
+    - text: "Encryption algorithms are at the core of data security. They dictate how data is transformed into a secure format. Examples of encryption algorithms include AES, RSA, and Blowfish."
+
+  utter_digital_signatures:
+    - text: "Digital signatures are cryptographic techniques that ensure the authenticity and integrity of digital documents or messages. They use a private key to sign the document, and anyone with the corresponding public key can verify the signature. Digital signatures are vital for secure online transactions."
+    - text: "Digital signatures provide a way to verify the origin and integrity of digital documents. They use asymmetric cryptography, with a private key to sign and a public key to verify. This technology is widely used in secure online communication."
+    - text: "Digital signatures are like electronic seals that guarantee the authenticity of digital documents. They use cryptographic keys to sign and verify messages, ensuring they have not been tampered with."
+
+  utter_key_management:
+    - text: "Key management in cryptography involves the secure generation, distribution, storage, and rotation of cryptographic keys. Proper key management is crucial for maintaining the security of encrypted data."
+    - text: "Key management is the process of handling cryptographic keys throughout their lifecycle. It includes key generation, distribution, storage, and rotation. Effective key management is vital for encryption security."
+    - text: "Cryptographic key management is the practice of managing keys used in encryption. This includes generating, distributing, storing, and regularly updating keys to maintain the security of encrypted data."
+
+  utter_cryptographic_protocols:
+    - text: "Cryptographic protocols are sets of rules and procedures used to secure communication over networks. Examples include SSL/TLS for secure web browsing and SSH for secure remote access. These protocols ensure data confidentiality and integrity."
+    - text: "Cryptographic protocols are essential for secure communication over the internet. They govern how data is encrypted and decrypted during transmission. Examples include HTTPS for web security and IPsec for network protection."
+    - text: "Cryptographic protocols are the foundation of secure online communication. They dictate how data is encrypted and transmitted over networks. Examples include SSL/TLS for secure web browsing and PGP for email encryption."
+
+  utter_blockchain_and_cryptography:
+    - text: "Cryptography plays a crucial role in blockchain technology by ensuring the security and immutability of transaction data. It's used to create cryptographic hashes and digital signatures to protect the integrity of blockchain records."
+    - text: "Blockchain technology relies heavily on cryptography to secure transactions and maintain the integrity of the blockchain ledger. Cryptographic hashes and digital signatures are used to ensure data remains tamper-proof."
+    - text: "In the world of blockchain, cryptography is the cornerstone of security. It's used to create secure transactions, protect data integrity, and verify the authenticity of participants in a decentralized network."
+
+  utter_quantum_cryptography:
+    - text: "Quantum cryptography is a cutting-edge field that leverages the principles of quantum mechanics to provide secure communication. It uses quantum key distribution (QKD) to protect data from quantum computer attacks, offering unprecedented security."
+    - text: "Quantum cryptography harnesses the unique properties of quantum mechanics to create unbreakable encryption. Quantum key distribution (QKD) ensures that data remains secure even in the face of quantum computer threats."
+    - text: "Quantum cryptography is at the forefront of data security."
+
+  utter_general_kenobi:
+    - text: "GENERAL KENOBI!!!!"
+
+  utter_pun_jokes:
+    - text: "Why did the scarecrow win an award? Because he was outstanding in his field!"
+    - text: "I'd tell you a construction joke, but I'm still working on it."
+    - text: "Did you hear about the guy who invented Lifesavers? He made a mint!"
+    - text: "Why was the math book sad? It had too many problems."
+    - text: "I used to play piano by ear, but now I use my hands."
+
+  utter_dad_jokes:
+    - text: "Why did the coffee file a police report? It got mugged."
+    - text: "Did you hear about the cheese factory explosion? There was nothing left but de-brie."
+    - text: "How does a penguin build its house? Igloos it together!"
+    - text: "Why don't skeletons fight each other? They don't have the guts."
+    - text: "When does a joke become a dad joke? When it becomes apparent."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

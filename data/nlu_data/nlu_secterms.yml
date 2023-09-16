@@ -1,0 +1,14 @@
+version: "3.1"
+
+nlu:
+  - intent: malware
+    examples: |
+      - What is malware?
+      - Explain malware.
+      - Types of malware.
+
+  - intent: phishing
+    examples: |
+      - What is phishing?
+      - How does phishing work?
+      - Preventing phishing attacks.

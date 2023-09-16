@@ -1,0 +1,14 @@
+[Unit]
+Description=Rasa-Core
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/Navi
+ExecStart=/usr/bin/python3 -m rasa run --enable-api --endpoints /opt/Navi/endpoints.yml
+User=root
+Group=daemon
+
+[Install]
+WantedBy=multi-user.target
+

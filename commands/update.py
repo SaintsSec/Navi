@@ -48,29 +48,28 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm -rf /tmp/Navi_Update',
                 'sudo rm -rf /tmp/Navi',
                 'mkdir /tmp/Navi_Update',
-                'sudo cp -r /opt/Navi/var/ /tmp/Navi_Update',
-                'sudo cp -r /opt/Navi/src /tmp/Navi_Update',
                 'mkdir /tmp/Navi',
                 'git clone https://github.com/SSGOrg/Navi /tmp/Navi',
+                'sudo cp -r /opt/Navi/models /tmp/Navi_Update',
+                'sudo cp -r /opt/Navi/data /tmp/Navi_Update',
+                'sudo cp -r /opt/Navi/logs /tmp/Navi_Update',
                 'sudo rm -rf /opt/Navi',
                 'sudo mkdir /opt/Navi',
                 'sudo cp -r /tmp/Navi /opt/',
-                'sudo cp desktop/navi.desktop /usr/share/applications/navi.desktop',
                 'sudo rm -rf /opt/Navi/.git/',
                 'sudo rm -rf /opt/Navi/.github/',
                 'sudo rm /opt/Navi/README.md',
                 'sudo rm /opt/Navi/CONTRIBUTING.md',
                 'sudo rm /opt/Navi/CODE_OF_CONDUCT.md',
-                'sudo rm /opt/Navi/install.py',
-                'sudo rm /opt/Navi/csi-jackin.py',
-                'sudo rm /opt/Navi/csi-install.py',
-                'sudo rm /opt/Navi/neuralset.py',
-                'sudo rm /opt/Navi/requirements.txt',
+                'sudo rm /opt/Navi/requirments.txt',
                 'sudo rm /opt/Navi/jackin.py',
-                'sudo rm -rf /opt/Navi/var && sudo mv /tmp/Navi_Update/var /opt/Navi',
-                'sudo rm -rf /opt/Navi/src && sudo mv /tmp/Navi_Update/src /opt/Navi',
+                'sudo rm /opt/Navi/rasa-core.service',
+                'sudo cp -r /tmp/Navi_Update/models /opt/Navi',
+                'sudo cp -r /tmp/Navi_Update/data /opt/Navi',
+                'sudo cp -r /tmp/Navi_Update/logs /opt/Navi',
+                'sudo rm -rf /tmp/Navi_Update',
+                'sudo rm -rf /tmp/Navi',
                 'sudo chmod -R 777 /opt/Navi',
-
             ]
 
             # Shell related commands
@@ -90,7 +89,7 @@ def check_for_new_release(current_version, repo_owner, repo_name):
 
 
 def checkVersion():
-    current_version = "0.1.1"  # Replace with your actual current version
+    current_version = "0.1.2"  # Replace with your actual current version
     repo_owner = "SSGOrg"  # Replace with the actual owner name
     repo_name = "Navi"  # Replace with the actual repository name
 

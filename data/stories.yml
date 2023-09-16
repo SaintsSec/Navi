@@ -1,0 +1,99 @@
+version: "3.1"
+
+stories:
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: User asks about malware
+    steps:
+      - intent: malware
+      - action: utter_malware
+
+  - story: User asks about phishing
+    steps:
+      - intent: phishing
+      - action: utter_phishing
+
+  - story: Explain Cryptography
+    steps:
+      - intent: explain_cryptography
+      - action: utter_explain_cryptography
+
+  - story: Types of Cryptography
+    steps:
+      - intent: types_of_cryptography
+      - action: utter_types_of_cryptography
+
+  - story: Symmetric Encryption
+    steps:
+      - intent: symmetric_encryption
+      - action: utter_symmetric_encryption
+
+  - story: Asymmetric Encryption
+    steps:
+      - intent: asymmetric_encryption
+      - action: utter_asymmetric_encryption
+
+  - story: Encryption Algorithms
+    steps:
+      - intent: encryption_algorithms
+      - action: utter_encryption_algorithms
+
+  - story: Digital Signatures
+    steps:
+      - intent: digital_signatures
+      - action: utter_digital_signatures
+
+  - story: Key Management
+    steps:
+      - intent: key_management
+      - action: utter_key_management
+
+  - story: Cryptographic Protocols
+    steps:
+      - intent: cryptographic_protocols
+      - action: utter_cryptographic_protocols
+
+  - story: Blockchain and Cryptography
+    steps:
+      - intent: blockchain_and_cryptography
+      - action: utter_blockchain_and_cryptography
+
+  - story: Quantum Cryptography
+    steps:
+      - intent: quantum_cryptography
+      - action: utter_quantum_cryptography
+
+  - story: pun jokes
+    steps:
+      - intent: pun_jokes
+      - action: utter_pun_jokes
+
+  - story: dad jokes
+    steps:
+      - intent: dad_jokes
+      - action: utter_dad_jokes

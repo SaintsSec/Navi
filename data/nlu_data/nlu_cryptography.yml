@@ -1,0 +1,84 @@
+# data/nlu_cryptography.yml
+
+version: "2.0"
+
+nlu:
+  - intent: explain_cryptography
+    examples: |
+      - What is cryptography?
+      - Explain the concept of cryptography.
+      - Can you give me an overview of cryptography?
+      - Tell me about cryptography.
+      - What does cryptography mean?
+
+  - intent: types_of_cryptography
+    examples: |
+      - What are the different types of cryptography?
+      - Explain the various cryptography methods.
+      - Tell me about cryptography algorithms.
+      - Types of encryption techniques.
+      - Different cryptography approaches.
+
+  - intent: symmetric_encryption
+    examples: |
+      - How does symmetric encryption work?
+      - Explain symmetric cryptography.
+      - Tell me about symmetric key encryption.
+      - Give me an example of symmetric encryption.
+      - Pros and cons of symmetric encryption.
+
+  - intent: asymmetric_encryption
+    examples: |
+      - What is asymmetric encryption?
+      - Explain asymmetric cryptography.
+      - How does public key encryption work?
+      - Tell me about asymmetric key pairs.
+      - Differences between symmetric and asymmetric encryption.
+
+  - intent: encryption_algorithms
+    examples: |
+      - Tell me about encryption algorithms.
+      - Explain the AES encryption algorithm.
+      - What are popular encryption techniques?
+      - How does RSA encryption work?
+      - Cryptographic hash functions.
+
+  - intent: digital_signatures
+    examples: |
+      - How do digital signatures work?
+      - Explain the concept of digital signatures.
+      - Tell me about the importance of digital signatures.
+      - Can you provide an example of a digital signature?
+      - Verify digital signatures.
+
+  - intent: key_management
+    examples: |
+      - What is key management in cryptography?
+      - Explain key distribution.
+      - How to securely manage cryptographic keys?
+      - Importance of key rotation.
+      - Key storage best practices.
+
+  - intent: cryptographic_protocols
+    examples: |
+      - Tell me about cryptographic protocols.
+      - Explain the SSL/TLS protocol.
+      - What is HTTPS and how does it work?
+      - Cryptographic protocols in network security.
+      - Differences between SSH and SSL.
+
+  - intent: blockchain_and_cryptography
+    examples: |
+      - How is cryptography used in blockchain technology?
+      - Explain blockchain cryptography.
+      - Cryptography in cryptocurrencies.
+      - Role of hashing in blockchain.
+      - Consensus algorithms in blockchain.
+
+  - intent: quantum_cryptography
+    examples: |
+      - What is quantum cryptography?
+      - Explain the concept of quantum key distribution.
+      - How are quantum computers affecting cryptography?
+      - Quantum-resistant cryptography.
+      - Quantum encryption methods.

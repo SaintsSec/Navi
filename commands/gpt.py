@@ -54,13 +54,13 @@ def run():
     print("Navi> ")
     typewriter(completion)
     # check if logs folder exists
-    if not os.path.exists("var/log/navi"):
-        os.system("mkdir var/log/navi")
+    if not os.path.exists("logs/navi"):
+        os.system("mkdir logs/navi")
     # check if log file exists
-    if not os.path.exists("var/log/navi/gpt.json"):
-        os.system("touch var/log/navi/gpt.json")
+    if not os.path.exists("logs/navi/gpt.json"):
+        os.system("touch logs/navi/gpt.json")
     # write to log file
-    with open("var/log/navi/gpt.json", "a") as f:
+    with open("logs/navi/gpt.json", "a") as f:
         now = datetime.datetime.now()
         date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         f.write(f"Date: {date_time}\n")
