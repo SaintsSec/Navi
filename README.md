@@ -9,49 +9,46 @@
 <img src= https://github.com/SSGOrg/Navi/assets/89718570/5596418e-3fa3-4528-8a07-d00aeece1590 height=25% width=25%>
 </div>
 
-## 🚀 About Navi | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+## ✨ **Key Features of Navi v0.1.2**
 
-Navi got its start for Alex when he was a young teen. It started with a game. Megaman Battle Network 3 which is where Navi takes a lot of its inspiration from. Over the many cycles leading up to this. Navi has gone from being a simple if statement based "AI" chatbot to having some models implimented that you can find out in the wild. All the way to what we see today.
+- **Navi Shell Interface** (`navi-shell.py`): A robust, full-featured shell for direct interactions.
+- **Web Access** (`navi-web.py`): Engage with Navi's chatbot anytime, anywhere via a web interface.
+- **Simplified Installation** (`jackin.py`): An intuitive single-stop installation script streamlining the setup process.
+- **Dynamic Model Switching** (`uploadModel.py`): Transition between Navi models with ease, directly to Rasa's local server.
+- **Instant Availability**: Powered by Rasa's backend, Navi ensures a seamless experience with its built-in system service—eliminating the wait with zero loading screens.
 
-### 🤖 The Move to Rasa
+### **Commands**
 
-In early September of 2023, the decision to move from Echo to [Rasa](https://rasa.com/) was made by the Director of SSG in order to bring more features forward for Navi. Including the ability to be granular with training (interactive mode) and near seamless AI updating.
+- **Reconnaissance Suite** (`/recon`): Automated tools and reporting for thorough digital exploration.
+- **GPT Integration** (`/gpt`): Direct access to the advanced capabilities of the GPT API.
+- **Virus Protection** (`/vbuster`): Empower your digital space with ClamAV's robust antivirus defense mechanisms.
 
-## ✨ Navi v0.1.2 Features
+## 🚀 About Navi 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-- navi-shell.py | Navi's full featured shell.
-- navi-web.py | Access to Navi's chatbot through the web
-- jackin.py | Easy to use single stop install script
-- uploadModel.py | Easily hot swap Navi models to rasa's local server
-- Always ready | Navi's built in system service built on rasa's backend. (No more loading screens)
+Navi was conceptualized by Alex during his formative years, with its foundational ideas rooted in the complexities of the game, Megaman Battle Network 3. From a humble beginning as a basic AI chatbot governed by rudimentary logic, Navi has matured into an advanced platform, now integrated with state-of-the-art models utilized in various digital domains.
 
-/commands:
+### 🤖 The Strategic Shift to Rasa
 
-- /recon | Recon automation and reporting suite
-- /gpt | Access to GPT API
-- /vbuster | ClamAV powered Antivirus
+In September 2023, as a visionary decision by the SSG's Director, Navi underwent a transformation from the Echo framework to [Rasa](https://rasa.com/). One of the pivotal advantages of this move was Rasa's ability to enable Navi to be perpetually available. By leveraging Rasa's local host server, Navi has been seamlessly integrated as a system service, initiating automatically upon user login. This ensures that Navi is consistently on hand, ready to assist users without delay. This continuous availability, combined with enhanced training capabilities and efficient AI updates, positions Navi at the forefront of AI chatbot solutions.
 
 ## 🖐️ Get in touch
 
-### You can join in on chatting with the dev team on our Discord server
+Engage with our development team on Discord!
 
-<a href="https://discord.gg/ecrBC9wnma"><img src="https://discordapp.com/api/guilds/879757204620726362/widget.png?style=banner3" alt="Discord Server"></a>
+[![Discord Server](https://discordapp.com/api/guilds/879757204620726362/widget.png?style=banner3)](https://discord.gg/ecrBC9wnma)
 
 ## 🔧 Issues
 
-If you face any problems while using the application, please open an [issue here](https://github.com/SSGorg/Navi/issues)  
+Encountering any challenges with the application? Kindly open an [issue here](https://github.com/SSGorg/Navi/issues).
 
 ## 🤝 Contributing
 
-Contributions, feedback, and bug reports are welcome! Feel free to check out our [issues page](https://github.com/SSGorg/Navi/issues) to find out what you could do! But before contributing, make sure to check out [CONTRIBUTING.md](./CONTRIBUTING.md).
+We value your input! Whether it's contributions, feedback, or bug reports, we're all ears. Visit our [issues page](https://github.com/SSGorg/Navi/issues) for collaboration opportunities. But, please read [CONTRIBUTING.md](./CONTRIBUTING.md) before taking action.
 
 ## 🕸 Contributors
 
-Your contributions push the boundaries of whats possible and it's greatly appreciated.
-<br>
-<a href="https://github.com/SSGOrg/Navi/graphs/contributors">
+Your invaluable contributions propel the boundaries of innovation. Thank you!
 
-<p align="center">
-  <img src="https://contrib.rocks/image?repo=SSGorg/Navi" />
-  </p>
-</a>
+[![Contributors Image](https://contrib.rocks/image?repo=SSGorg/Navi)](https://github.com/SSGOrg/Navi/graphs/contributors)
+
