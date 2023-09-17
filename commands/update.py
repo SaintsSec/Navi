@@ -45,7 +45,6 @@ def check_for_new_release(current_version, repo_owner, repo_name):
 
             # Navi related commands
             commands += [
-<<<<<<< HEAD
                 'sudo rm -rf /tmp/Navi_Update',
                 'sudo rm -rf /tmp/Navi',
                 'mkdir /tmp/Navi_Update',
@@ -57,15 +56,6 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm -rf /opt/Navi',
                 'sudo mkdir /opt/Navi',
                 'sudo cp -r /tmp/Navi /opt/',
-=======
-                'mkdir ~/NaviUpdate',
-                'sudo cp -r /opt/Navi/var/ ~/NaviUpdate',
-                'sudo cp -r /opt/Navi/src ~/NaviUpdate',
-                'sudo rm -rf /opt/Navi',
-                'sudo mkdir ~/NaviUpdate/Navi',
-                'sudo git clone https://github.com/SSGOrg/Navi ~/NaviUpdate/Navi',
-                'sudo mv ~/NaviUpdate/Navi /opt/',
->>>>>>> 941f9cf27b5615485396690f6a2061e286419650
                 'sudo rm -rf /opt/Navi/.git/',
                 'sudo rm -rf /opt/Navi/.github/',
                 'sudo rm /opt/Navi/README.md',
@@ -73,20 +63,12 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 'sudo rm /opt/Navi/CODE_OF_CONDUCT.md',
                 'sudo rm /opt/Navi/requirments.txt',
                 'sudo rm /opt/Navi/jackin.py',
-<<<<<<< HEAD
                 'sudo rm /opt/Navi/rasa-core.service',
                 'sudo cp -r /tmp/Navi_Update/models /opt/Navi',
                 'sudo cp -r /tmp/Navi_Update/data /opt/Navi',
                 'sudo cp -r /tmp/Navi_Update/logs /opt/Navi',
                 'sudo rm -rf /tmp/Navi_Update',
                 'sudo rm -rf /tmp/Navi',
-=======
-                'sudo rm -rf /opt/Navi/var',
-                'sudo mv ~/NaviUpdate/var /opt/Navi',
-                'sudo rm -rf /opt/Navi/src',
-                'sudo mv ~/NaviUpdate/src /opt/Navi',
-                'sudo rm -rf ~/NaviUpdate',
->>>>>>> 941f9cf27b5615485396690f6a2061e286419650
                 'sudo chmod -R 777 /opt/Navi',
             ]
 
@@ -98,12 +80,8 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 if len(c) <= 0:
                     continue
                 os.system(c)
-<<<<<<< HEAD
             print(
                 f"\n\n{ai_name_rep} Update complete, type 'navi' in the CLI for update to take effect!")
-=======
-            print(f"\n\n{ai_name_rep} Update complete, type 'navi' in the CLI for update to take effect!")
->>>>>>> 941f9cf27b5615485396690f6a2061e286419650
             exit(0)
 
         if updateChoice == "no":
