@@ -2,7 +2,7 @@ import os
 import subprocess
 import re
 
-model_dir = os.path.expanduser("~/ssg/Zero/models")
+model_dir = os.path.expanduser("/opt/Navi/models")
 models = [os.path.join(model_dir, f) for f in os.listdir(model_dir)]
 model_count = len(models)
 
