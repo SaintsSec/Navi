@@ -37,7 +37,7 @@ For AI projects like Navi, open source provides an ecosystem where models and te
 
 ### 🤖 The Strategic Shift to Rasa
 
-In September 2023, as a visionary decision by the SSG's Director, Navi underwent a transformation from the Echo framework to [Rasa](https://rasa.com/). One of the pivotal advantages of this move was Rasa's ability to enable Navi to be perpetually available. By leveraging Rasa's local host server, Navi has been seamlessly integrated as a system service, initiating automatically upon user login. This ensures that Navi is consistently on hand, ready to assist users without delay. This continuous availability, combined with enhanced training capabilities and efficient AI updates, positions Navi at the forefront of AI chatbot solutions.
+In September 2023, Navi underwent a transformation from the Echo framework to [Rasa](https://rasa.com/). One of the pivotal advantages of this move was Rasa's ability to enable Navi to be perpetually available. By leveraging Rasa's local host server, Navi has been seamlessly integrated as a system service, initiating automatically upon user login. This ensures that Navi is consistently on hand, ready to assist users without delay. This continuous availability, combined with enhanced training capabilities and efficient AI updates, positions Navi at the forefront of AI chatbot solutions.
 
 ## 🖐️ Get in touch
 
