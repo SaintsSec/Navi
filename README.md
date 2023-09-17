@@ -40,7 +40,6 @@ In early September of 2023, the decision to move from Echo to [Rasa](https://ras
 ## 🔧 Issues
 
 If you face any problems while using the application, please open an [issue here](https://github.com/SSGorg/Navi/issues)  
-Echo's original liscense can be found [here](https://github.com/SSGorg/Navi-E1/wiki/Echo-l1-Liscense)
 
 ## 🤝 Contributing
 
