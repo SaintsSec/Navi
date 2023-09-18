@@ -57,7 +57,7 @@ def setup_aliases(shell_choice):
         config_files.get(shell_choice, "~/.bashrc"))
 
     aliases = {
-        "navishell": "cd /opt/Navi/ && python3 /opt/Navi/navi-shell.py && cd",
+        "navi": "python3 /opt/Navi/navi-shell.py",
         "naviweb": "python3 /opt/Navi/navi-web.py"
     }
 
