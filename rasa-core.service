@@ -6,8 +6,7 @@ After=multi-user.target
 Type=simple
 WorkingDirectory=/opt/Navi
 ExecStart=/usr/bin/python3 -m rasa run --enable-api --endpoints /opt/Navi/endpoints.yml
-User=$USER
-Group=daemon
+Group=navi
 
 [Install]
 WantedBy=multi-user.target
