@@ -80,7 +80,7 @@ cleanup_install_directory() {
 
 set_permissions_recursive() {
     sudo chown -R :navi /opt/Navi/
-    sudo chmod -R 750 /opt/Navi/
+    sudo chmod -R 070 /opt/Navi/
     echo "Set permissions for /opt/Navi."
 }
 
