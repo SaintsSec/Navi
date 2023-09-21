@@ -52,9 +52,20 @@ setup_aliases() {
 
 setup_service() {
     sudo rm /etc/systemd/system/rasa.service
-    sudo cp ./rasa.service /etc/systemd/system/
+    sudo cp /rasa.service /etc/systemd/system/
     sudo systemctl enable rasa.service
-    echo "rasa.service enabled."
+    sudo systemctl daemon-reload
+    sudo systemctl start rasa.service
+    sudo systemctl status rasa.service
+}
+
+setup_csi_service() {
+    sudo rm /etc/systemd/system/rasa-csi.service
+    sudo cp rasa-csi.service /etc/systemd/system/
+    sudo systemctl enable rasa-csi.service 
+    sudo systemctl daemon-reload
+    sudo systemctl start rasa-csi.service
+    sudo systemctl status rasa-csi.service 
 }
 
 delete_navi() {
@@ -71,7 +82,7 @@ copy_navi() {
 
 cleanup_install_directory() {
     cd /opt/Navi || exit 1
-    declare -a files_to_remove=("jackin.py" "requirements.txt" "rasa.service" "README.md" ".git" ".gitignore")
+    declare -a files_to_remove=("jackin.py" "requirements.txt" "rasa.service" "rasa-csi.service" "README.md" ".git" ".gitignore")
     
     for item in "${files_to_remove[@]}"; do
         if [ -e "$item" ]; then
@@ -130,11 +141,7 @@ csi_install(){
     copy_navi
     install_requirements
     set_permissions_recursive
-    if shell_choice == "bash"; then
-        echo "/usr/local/bin/rasa -start'" >> /home/$USER/.bashrc
-    else
-        echo "/usr/local/bin/rasa -start'" >> /home/$USER/.zshrc
-    fi
+    setup_csi_service
     cleanup_install_directory
     echo "CSI Installation completed!"
 }
