@@ -52,7 +52,7 @@ setup_aliases() {
 
 setup_service() {
     sudo rm /etc/systemd/system/rasa.service
-    sudo cp /rasa.service /etc/systemd/system/
+    sudo cp ./rasa.service /etc/systemd/system/
     sudo systemctl enable rasa.service
     sudo systemctl daemon-reload
     sudo systemctl start rasa.service
