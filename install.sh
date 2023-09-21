@@ -26,12 +26,12 @@ install_pip() {
 }
 
 install_requirements() {
-    pip3 install -r requirements.txt
+    sudo pip3 install -r requirements.txt
 }
 
 setup_aliases() {
     local shell_choice="$1"
-    declare -A config_files=( ["bash"]="~/.bashrc" ["zsh"]="~/.zshrc" )
+    declare -A config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     local config_path="${config_files[$shell_choice]}"
 
     declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["naviweb"]="python3 /opt/Navi/navi-web.py" )
@@ -49,9 +49,10 @@ setup_aliases() {
 }
 
 setup_service() {
-    sudo cp ./rasa-core.service /etc/systemd/system/
-    sudo systemctl enable rasa-core.service
-    echo "rasa-core.service enabled."
+    sudo rm /etc/systemd/system/rasa.service
+    sudo cp ./rasa.service /etc/systemd/system/
+    sudo systemctl enable rasa.service
+    echo "rasa.service enabled."
 }
 
 delete_navi() {
@@ -68,7 +69,7 @@ copy_navi() {
 
 cleanup_install_directory() {
     cd /opt/Navi || exit 1
-    declare -a files_to_remove=("jackin.py" "requirements.txt" "rasa-core.service" "README.md" ".git" ".gitignore")
+    declare -a files_to_remove=("jackin.py" "requirements.txt" "rasa.service" "README.md" ".git" ".gitignore")
     
     for item in "${files_to_remove[@]}"; do
         if [ -e "$item" ]; then
@@ -124,8 +125,8 @@ done
 delete_navi
 copy_navi
 install_requirements
+set_permissions_recursive
 setup_service
 cleanup_install_directory
-set_permissions_recursive
 
 echo "Installation completed!"
