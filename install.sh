@@ -17,6 +17,8 @@ install_pip() {
     local distribution="$1"
     case "$distribution" in
         "ubuntu") sudo apt-get install python3-pip -y ;;
+        "CSI") sudo apt-get install python3-pip -y ;;
+        "Arch") sudo pacman -S python-pip -y ;;
         "fedora") sudo dnf install python3-pip -y ;;
         "centos") sudo yum install python3-pip -y ;;
         *) echo "Sorry, this distribution is not supported yet."
@@ -99,10 +101,12 @@ echo "Added user '$USER' to group 'navi'."
 
 # Distribution choice
 echo "Choose your Linux distribution:"
-options=("Ubuntu/Debian" "Fedora" "CentOS")
+options=("Ubuntu/Debian" "CSI" "Arch" "Fedora" "CentOS")
 select distribution in "${options[@]}"; do
     case $distribution in
         "Ubuntu/Debian") install_pip "ubuntu" ;;
+        "Arch") install_pip "arch" ;;
+        "CSI") install_pip "CSI" ;;
         "Fedora") install_pip "fedora" ;;
         "CentOS") install_pip "centos" ;;
         *) echo "Invalid choice!"; exit 1 ;;
@@ -120,6 +124,26 @@ select shell_choice in "${shells[@]}"; do
     esac
     break
 done
+
+csi_install(){
+    delete_navi
+    copy_navi
+    install_requirements
+    set_permissions_recursive
+    if shell_choice == "bash"; then
+        echo "/usr/local/bin/rasa -start'" >> /home/$USER/.bashrc
+    else
+        echo "/usr/local/bin/rasa -start'" >> /home/$USER/.zshrc
+    fi
+    cleanup_install_directory
+    echo "CSI Installation completed!"
+}
+
+#check if distribution is CSI and install CSI dependencies
+if [ "$distribution" == "CSI" ]; then
+    csi_install
+    exit 0
+fi
 
 # Installation steps
 delete_navi
