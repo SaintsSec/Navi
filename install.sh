@@ -27,6 +27,19 @@ install_pip() {
     esac
 }
 
+dependency_install() {
+    local distribution="$1"
+    case "$distribution" in
+        "ubuntu" | "CSI")sudo apt-get install nmap clamav -y ;;
+        "Arch")sudo pacman -S nmap clamav -y ;;
+        "fedora")sudo dnf install nmap clamav -y ;;
+        "centos")sudo yum install nmap clamav -y ;;
+        *) echo "Sorry, this distribution is not supported yet for dependency installation."
+            exit 1
+            ;;
+    esac
+}
+
 install_requirements() {
     sudo pip3 install -r requirements.txt
 }
@@ -115,12 +128,13 @@ echo "Choose your Linux distribution:"
 options=("Ubuntu/Debian" "CSI" "Arch" "Fedora" "CentOS")
 select distribution in "${options[@]}"; do
     case $distribution in
-        "Ubuntu/Debian") install_pip "ubuntu" ;;
-        "Arch") install_pip "arch" ;;
-        "CSI") install_pip "CSI" ;;
-        "Fedora") install_pip "fedora" ;;
-        "CentOS") install_pip "centos" ;;
-        *) echo "Invalid choice!"; exit 1 ;;
+        "Ubuntu/Debian" | "CSI" | "Arch" | "Fedora" | "CentOS") 
+            install_pip "$distribution"
+            dependency_install "$distribution"
+            ;;
+        *) echo "Invalid choice!"
+            exit 1
+            ;;
     esac
     break
 done
