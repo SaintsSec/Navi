@@ -13,22 +13,35 @@ clear_screen() {
     clear
 }
 
-install_pip() {
+install_reqs() {
     local distribution="$1"
     case "$distribution" in
-        "ubuntu") sudo apt-get install python3-pip -y ;;
-        "CSI") sudo apt-get install python3-pip -y ;;
-        "Arch") sudo pacman -S python-pip -y ;;
-        "fedora") sudo dnf install python3-pip -y ;;
-        "centos") sudo yum install python3-pip -y ;;
-        *) echo "Sorry, this distribution is not supported yet."
-           exit 1
-           ;;
+        "ubuntu" | "debian" | "Pop!_OS") 
+            sudo apt-get update
+            sudo apt-get install -y python3-pip nmap clamav
+            ;;
+        "CSI") 
+            sudo apt-get update
+            sudo apt-get install -y python3-pip nmap clamav
+            ;;
+        "Arch") 
+            sudo pacman -S python-pip nmap clamav -y 
+            ;;
+        "fedora") 
+            sudo dnf install -y python3-pip nmap clamav
+            ;;
+        "centos") 
+            sudo yum install -y python3-pip nmap clamav
+            ;;
+        #*) 
+        #    echo "Sorry, this distribution is not supported yet."
+        #    exit 1
+        #    ;;
     esac
 }
 
-install_requirements() {
-    sudo pip3 install -r requirements.txt
+fresh_clam() {
+    sudo freshclam
 }
 
 setup_aliases() {
@@ -40,9 +53,11 @@ setup_aliases() {
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
+            echo
             echo "alias $alias_name='${aliases[$alias_name]}'" >> "$config_path"
             echo "Alias '$alias_name' added."
         else
+            echo 
             echo "Alias '$alias_name' already exists."
         fi
     done
@@ -56,7 +71,9 @@ setup_service() {
     sudo systemctl enable rasa.service
     sudo systemctl daemon-reload
     sudo systemctl start rasa.service
-    sudo systemctl status rasa.service
+    echo 
+    echo Checking rasa service:
+    sudo systemctl check rasa.service
 }
 
 setup_csi_service() {
@@ -65,6 +82,8 @@ setup_csi_service() {
     sudo systemctl enable rasa-csi.service 
     sudo systemctl daemon-reload
     sudo systemctl start rasa-csi.service
+    echo 
+    echo checking rasa service:
     sudo systemctl status rasa-csi.service 
 }
 
@@ -89,12 +108,14 @@ cleanup_install_directory() {
             sudo rm -rf "$item"
         fi
     done
+    echo 
     echo "Cleaned up installation directory."
 }
 
 set_permissions_recursive() {
     sudo chown -R :navi /opt/Navi/
     sudo chmod -R 070 /opt/Navi/
+    echo 
     echo "Set permissions for /opt/Navi."
 }
 
@@ -112,14 +133,15 @@ echo "Added user '$USER' to group 'navi'."
 
 # Distribution choice
 echo "Choose your Linux distribution:"
-options=("Ubuntu/Debian" "CSI" "Arch" "Fedora" "CentOS")
+options=("Ubuntu/Debian" "Pop!_OS" "CSI" "Arch" "Fedora" "CentOS")
 select distribution in "${options[@]}"; do
     case $distribution in
-        "Ubuntu/Debian") install_pip "ubuntu" ;;
-        "Arch") install_pip "arch" ;;
-        "CSI") install_pip "CSI" ;;
-        "Fedora") install_pip "fedora" ;;
-        "CentOS") install_pip "centos" ;;
+        "Ubuntu/Debian") install_reqs "ubuntu" ;;
+        "Pop!_OS") install_reqs "ubuntu" ;;
+        "Arch") install_reqs "arch" ;;
+        "CSI") install_reqs "CSI" ;;
+        "Fedora") install_reqs "fedora" ;;
+        "CentOS") install_reqs "centos" ;;
         *) echo "Invalid choice!"; exit 1 ;;
     esac
     break
@@ -139,7 +161,8 @@ done
 csi_install(){
     delete_navi
     copy_navi
-    install_requirements
+    install_reqs
+    fresh_clam
     set_permissions_recursive
     setup_csi_service
     cleanup_install_directory
@@ -155,9 +178,10 @@ fi
 # Installation steps
 delete_navi
 copy_navi
-install_requirements
 set_permissions_recursive
 setup_service
 cleanup_install_directory
+install_reqs
+fresh_clam
 
 echo "Installation completed!"
