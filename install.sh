@@ -20,27 +20,29 @@ install_reqs() {
             sudo apt-get update
             sudo apt-get install -y python3-pip nmap clamav
             pip3 install -r requirements.txt
+            sudo pip3 install -r requirements.txt
             ;;
         "CSI") 
             sudo apt-get update
             sudo apt-get install -y python3-pip nmap clamav
             pip3 install -r requirements.txt
+            sudo pip3 install -r requirements.txt
             ;;
         "Arch") 
             sudo pacman -S python-pip nmap clamav -y
             pip3 install -r requirements.txt
+            sudo pip3 install -r requirements.txt
+
             ;;
         "fedora") 
             sudo dnf install -y python3-pip nmap clamav
             pip3 install -r requirements.txt
+            sudo pip3 install -r requirements.txt
             ;;
         "centos") 
             sudo yum install -y python3-pip nmap clamav
             pip3 install -r requirements.txt
-            ;;
-        *) 
-            echo "Sorry, this distribution is not supported yet."
-            exit 1
+            sudo pip3 install -r requirements.txt
             ;;
     esac
 }
@@ -78,7 +80,7 @@ setup_service() {
     sudo systemctl start rasa.service
     echo 
     echo Checking rasa service:
-    sudo systemctl check rasa.service
+    sudo systemctl status rasa.service
 }
 
 setup_csi_service() {
