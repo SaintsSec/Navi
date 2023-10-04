@@ -73,25 +73,25 @@ setup_aliases() {
 }
 
 setup_service() {
-    sudo rm /etc/systemd/system/navi.service
-    sudo cp ./navi.service /etc/systemd/system/
-    sudo systemctl enable navi.service
+    sudo rm /etc/systemd/system/rasa.service
+    sudo cp ./rasa.service /etc/systemd/system/
+    sudo systemctl enable rasa.service
     sudo systemctl daemon-reload
-    sudo systemctl start navi.service
+    sudo systemctl start rasa.service
     echo 
     echo Checking rasa service:
-    sudo systemctl status navi.service
+    sudo systemctl status rasa.service
 }
 
 setup_csi_service() {
-    sudo rm /etc/systemd/system/navi-csi.service
-    sudo cp navi-csi.service /etc/systemd/system/
-    sudo systemctl enable navi-csi.service 
+    sudo rm /etc/systemd/system/rasa-csi.service
+    sudo cp rasa-csi.service /etc/systemd/system/
+    sudo systemctl enable rasa-csi.service 
     sudo systemctl daemon-reload
-    sudo systemctl start navi-csi.service
+    sudo systemctl start rasa-csi.service
     echo 
     echo checking rasa service:
-    sudo systemctl status navi-csi.service 
+    sudo systemctl status rasa-csi.service 
 }
 
 delete_navi() {

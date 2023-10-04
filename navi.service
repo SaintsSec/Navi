@@ -1,5 +1,5 @@
 [Unit]
-Description=Rasa-Core
+Description=Navi-Backend
 After=multi-user.target
 
 [Service]

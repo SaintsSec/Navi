@@ -1,5 +1,5 @@
 [Unit]
-Description=Rasa-Core
+Description=Navi-CSI-Backend
 After=multi-user.target
 
 [Service]
@@ -7,7 +7,7 @@ Type=simple
 WorkingDirectory=/opt/Navi
 ExecStart=/usr/bin/python3 -m rasa run --enable-api
 User=csi
-Group=navi
+Group=csi
 
 [Install]
 WantedBy=multi-user.target
