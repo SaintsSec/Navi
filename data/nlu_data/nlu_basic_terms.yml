@@ -1,0 +1,62 @@
+version: "3.1"
+
+nlu:
+  - intent: explain_firewall
+    examples: |
+      - What is a firewall?
+      - Explain the purpose of a firewall.
+      - Tell me about firewall security.
+
+  - intent: define_malware
+    examples: |
+      - What is malware?
+      - Explain different types of malware.
+      - Tell me about malware protection.
+
+  - intent: discuss_phishing
+    examples: |
+      - What is phishing?
+      - Explain how phishing attacks work.
+      - Tell me about phishing prevention.
+
+  - intent: describe_antivirus
+    examples: |
+      - What is antivirus software?
+      - Explain how antivirus programs work.
+      - Tell me about selecting antivirus tools.
+
+  - intent: cybersecurity_tips
+    examples: |
+      - Give me some cybersecurity tips.
+      - How can I improve my online security?
+      - Tell me about best practices for staying safe online.
+
+  - intent: define_cryptography
+    examples: |
+      - What is cryptography?
+      - Explain encryption and decryption.
+      - Tell me about the role of cryptography in cybersecurity.
+
+  - intent: network_security
+    examples: |
+      - How can I secure my home network?
+      - Explain network security basics.
+      - Tell me about setting up a secure Wi-Fi network.
+
+  - intent: discuss_vulnerability
+    examples: |
+      - What is a software vulnerability?
+      - Explain common vulnerabilities.
+      - Tell me about vulnerability scanning.
+
+  - intent: two_factor_authentication
+    examples: |
+      - What is two-factor authentication (2FA)?
+      - Explain how 2FA enhances security.
+      - Tell me about enabling 2FA for online accounts.
+
+  - intent: cybersecurity_career
+    examples: |
+      - How can I start a career in cybersecurity?
+      - Tell me about cybersecurity job roles.
+      - Explain the skills needed for a cybersecurity career.

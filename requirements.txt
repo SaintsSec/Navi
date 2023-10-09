@@ -2,3 +2,4 @@ rasa
 fpdf
 openai
 pyfiglet
+flask

@@ -2,19 +2,39 @@ import requests
 import subprocess
 import os
 import getpass
+import random
+import time 
 import commands
 import argparse
 import importlib.util
 from mods import mods
-
+from mods import typewriter
 
 art = mods.art
 helpArt = mods.helpArt
 user = getpass.getuser()
 breakline = mods.breakline
 
+
 ai_name_rep = "Navi> "
 
+def tr(text):
+    for char in text:
+        print(char, end="", flush=True,)
+        # generate a random number between 0 and 1
+        random_num = random.uniform(0, 1)
+        # if the random number is less than .1
+        if random_num < .1:
+            # sleep for 1 second
+            time.sleep(.0)
+        # else if the rando
+        elif random_num < .2:
+            # sleep for .5 seconds
+            time.sleep(.050)
+        # else
+        else:
+            # sleep for .1 seconds
+            time.sleep(.010)
 
 def parse_arguments():
     """Parse command-line arguments and return the parsed args object."""
@@ -201,9 +221,9 @@ def query_rasa_and_print(query):
     if isinstance(response_data, list) and response_data and 'text' in response_data[0]:
         message_text = response_data[0]['text']
         formatted_response = f"{ai_name_rep} {message_text}"
-        print(formatted_response)
+        tr(formatted_response)
     else:
-        print(f"{ai_name_rep} I'm sorry, I couldn't understand that.")
+        tr(f"{ai_name_rep} How can I help you {user}")
 
 
 def chat_with_rasa(initial_query=None):
@@ -216,21 +236,23 @@ def chat_with_rasa(initial_query=None):
     while True:
         # Get user input
         try:
-            user_message = input(f"{user}> ")
+            user_message = input(f"\n{user}> ")
         except EOFError:
             print("Encountered an unexpected end of input.")
             break
 
         # Exit loop if the user types 'exit' or 'quit'
         if user_message.lower() in ['/stop', 'quit']:
-            print(f"{ai_name_rep} Goodbye!")
+            tr(f"{ai_name_rep} Thank you for stopping by! {user}")
             break
         if user_message.lower() in ['/clear', 'cls']:
             preRun()
-            print(f"{ai_name_rep} How can I help you {user}")
+            tr(f"{ai_name_rep} How can I help you {user}")
             continue
         if user_message.lower() in ['run', 'chips', 'execute']:
             chip_engine()
+            preRun()
+
 
         # Send user message to Rasa
         data = {"sender": "user", "message": user_message}
@@ -246,9 +268,9 @@ def chat_with_rasa(initial_query=None):
 
             # Format and print Rasa's response
             formatted_response = f"{ai_name_rep} {message_text}"
-            print(formatted_response)
+            tr(formatted_response)
         else:
-            print(f"{ai_name_rep} I'm sorry, I couldn't understand that.")
+            tr(f"{ai_name_rep} How can I help you {user}")
 
 
 def main():
@@ -258,7 +280,7 @@ def main():
 
     preRun()
     checkVersion()
-    print(f"{ai_name_rep} How can I help you {user}")
+    tr(f"{ai_name_rep} How can I help you {user}")
     chat_with_rasa()
 
 

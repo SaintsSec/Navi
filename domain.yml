@@ -23,6 +23,96 @@ intents:
   - quantum_cryptography
   - pun_jokes
   - dad_jokes
+  - explain_firewall
+  - define_malware
+  - discuss_phishing
+  - describe_antivirus
+  - cybersecurity_tips
+  - define_cryptography
+  - network_security
+  - discuss_vulnerability
+  - two_factor_authentication
+  - cybersecurity_career
+  - linux_distribution
+  - debian
+  - ubuntu
+  - fedora
+  - centos
+  - red_hat
+  - opensuse
+  - arch_linux
+  - gentoo
+  - slackware
+  - linux_mint
+  - zorin_os
+  - elementary_os
+  - kali_linux
+  - fedora_workstation
+  - opensuse_leap
+  - manjaro
+  - pop_os
+  - solus
+  - mx_linux
+  - antergos
+  - elementary_os_luna
+  - peppermint_os
+  - deepin
+  - oracle_linux
+  - shell
+  - kernel
+  - distribution
+  - terminal
+  - filesystem
+  - root
+  - sudo
+  - package_manager
+  - shell_scripting
+  - process
+  - permissions
+  - grep
+  - SSH
+  - filesystem_permission
+  - cron
+  - shell_variables
+  - GUI
+  - bootloader
+  - init
+  - filesystem_hierarchy
+  - user_account
+  - file_permissions
+  - daemon
+  - shell_prompt
+  - server_hardware
+  - CPU
+  - RAM
+  - hard_drive
+  - SSD
+  - RAID
+  - motherboard
+  - network_card
+  - power_supply
+  - rack_mount
+  - hot_swappable
+  - ECC_memory
+  - GPU
+  - virtualization
+  - blade_server
+  - CPU_cores
+  - cooling_system
+  - server_chassis
+  - redundant_power
+  - hardware_RAID_controller
+  - server_firmware
+  - server_scalability
+  - data_center_racks
+  - server_cooling_fans
+  - server_security
+  - server_maintenance
+  - what_is_nmap
+  - nmap_usage
+  - nmap_features
+  - nmap_installation
+  - nmap_common_commands
 
 responses:
   utter_greet:
@@ -42,7 +132,7 @@ responses:
     - text: "Bye"
 
   utter_iamabot:
-    - text: "*Pukes Binary* I am Navi, an open source cybersecurity AI created by Saints Security Group, LLC"
+    - text: "I am Navi, an open source cybersecurity assistant created by Alex Kollar, Director of Saints Security Group, LLC"
 
   utter_malware:
     - text: "Malware, short for malicious software, is any software specifically designed to harm or exploit computer systems. It includes viruses, worms, Trojans, and ransomware. Malware can damage, steal, or encrypt data, and it's essential to have robust cybersecurity measures to protect against it."
@@ -118,6 +208,212 @@ responses:
     - text: "How does a penguin build its house? Igloos it together!"
     - text: "Why don't skeletons fight each other? They don't have the guts."
     - text: "When does a joke become a dad joke? When it becomes apparent."
+  
+  utter_explain_firewall:
+    - text: "A firewall is like a security guard for your computer. It keeps an eye on the traffic coming in and going out, making sure only safe data gets through."
+    - text:  "Think of a firewall as a protective barrier that shields your computer from online threats by filtering network traffic."
+
+  utter_define_malware:
+    - text: "Malware is the bad guy in the world of computers. It includes viruses, spyware, and other nasty software designed to harm your system."
+    - text: "Malware is short for 'malicious software.' It's software that's up to no good, like viruses and worms."
+
+  utter_discuss_phishing:
+    - text: "Phishing is like a trickster's game. Scammers pretend to be someone you trust to steal your personal information."
+    - text: "Phishing is an online scam where attackers impersonate trusted entities to trick you into revealing sensitive data."
+
+  utter_describe_antivirus:
+    - text: "Antivirus is your digital bodyguard. It scans your computer for threats and fights off viruses and malware to keep you safe."
+    - text: "Antivirus software is like a shield for your computer, protecting it from harmful software."
+
+  utter_cybersecurity_tips:
+    - text: "Stay safe online by using strong, unique passwords for each account. Don't share them, and change them regularly."
+    - text: "Be cautious about clicking on suspicious links or downloading attachments from unknown sources. It might be a trap."
+
+  utter_define_cryptography:
+    - text: "Cryptography is the art of secret codes. It helps keep your online communication private and secure."
+    - text: "Cryptography uses mathematical techniques to hide information from prying eyes. It's like a secret language for computers."
+
+  utter_network_security:
+    - text: "Securing your home network is like locking your front door. Set strong passwords, update your router's firmware, and use encryption."
+    - text: "Don't leave your Wi-Fi network unprotected. Keep it safe with strong passwords and security settings."
+
+  utter_discuss_vulnerability:
+    - text: "A software vulnerability is like an open window for hackers. It's a weakness in a program that they can exploit."
+    - text: "Hackers look for software vulnerabilities to sneak into your computer. Regular updates help patch these holes."
+
+  utter_two_factor_authentication:
+    - text: "Two-factor authentication (2FA) adds an extra layer of security. It's like needing two keys to open a vault."
+    - text: "With 2FA, you'll need something you know (like a password) and something you have (like a phone) to access your accounts."
+
+  utter_cybersecurity_career:
+    - text: "Starting a cybersecurity career is like becoming a digital detective. You'll learn to protect and investigate in the online world."
+    - text: "Cybersecurity careers are in high demand. Developing skills in this field can open up exciting opportunities."
+
+  utter_linux_distribution:
+    - text: "A Linux distribution, often called a distro, is a complete and pre-packaged Linux operating system that includes the Linux kernel, system utilities, and software applications."
+  utter_debian:
+    - text: "Debian is a widely respected and influential Linux distribution known for its commitment to free and open-source software principles. It serves as the basis for many other distributions."
+  utter_ubuntu:
+    - text: "Ubuntu is a popular Linux distribution known for its ease of use and strong community support. It is based on Debian and comes in various flavors for different use cases."
+  utter_fedora:
+    - text: "Fedora is a cutting-edge Linux distribution sponsored by Red Hat. It features the latest software and technologies and is often used for testing and development."
+  utter_centos:
+    - text: "CentOS is a free and open-source Linux distribution based on the source code of Red Hat Enterprise Linux (RHEL). It is known for its stability and compatibility with RHEL."
+  utter_red_hat:
+    - text: "Red Hat Enterprise Linux (RHEL) is a commercial Linux distribution known for its robustness and support. It is widely used in enterprise environments."
+  utter_opensuse:
+    - text: "openSUSE is a community-driven Linux distribution known for its user-friendly approach and powerful system configuration tools."
+  utter_arch_linux:
+    - text: "Arch Linux is a rolling-release Linux distribution known for its simplicity and customization options. It follows a 'do-it-yourself' philosophy."
+  utter_gentoo:
+    - text: "Gentoo is a source-based Linux distribution that allows users to compile software from source code, enabling high customization and performance optimization."
+  utter_slackware:
+    - text: "Slackware is one of the oldest Linux distributions known for its simplicity, stability, and adherence to Unix principles."
+  utter_linux_mint:
+    - text: "Linux Mint is a user-friendly Linux distribution based on Ubuntu. It aims to provide a polished and comfortable desktop experience."
+  utter_zorin_os:
+    - text: "Zorin OS is a Linux distribution designed to provide a familiar and user-friendly interface, making it a suitable choice for Windows users transitioning to Linux."
+  utter_elementary_os:
+    - text: "elementary OS is a Linux distribution that emphasizes design and user experience. It offers a clean and elegant desktop environment."
+  utter_kali_linux:
+    - text: "Kali Linux is a specialized Linux distribution for penetration testing and cybersecurity professionals. It comes with a wide range of security tools."
+  utter_fedora_workstation:
+    - text: "Fedora Workstation is a desktop-focused variant of Fedora, tailored for general users and developers. It includes the GNOME desktop environment."
+  utter_opensuse_leap:
+    - text: "openSUSE Leap is a stable and reliable Linux distribution based on SUSE Linux Enterprise. It offers long-term support and is suitable for servers and workstations."
+  utter_manjaro:
+    - text: "Manjaro is a user-friendly Linux distribution based on Arch Linux. It aims to provide the power of Arch with an easier installation process and automatic updates."
+  utter_pop_os:
+    - text: "Pop!_OS is a Linux distribution developed by System76, designed for compatibility with System76 hardware and optimized for productivity and gaming."
+  utter_solus:
+    - text: "Solus is an independent, desktop-focused Linux distribution known for its simplicity and curated selection of software."
+  utter_mx_linux:
+    - text: "MX Linux is a lightweight and user-friendly Linux distribution based on Debian. It is designed for ease of use and system performance."
+  utter_antergos:
+    - text: "Antergos was a user-friendly Linux distribution based on Arch Linux. Note that Antergos has been discontinued, and users are encouraged to explore other options."
+  utter_elementary_os_luna:
+    - text: "elementary OS Luna is an earlier version of elementary OS, known for its clean and intuitive user interface."
+  utter_peppermint_os:
+    - text: "Peppermint OS is a lightweight Linux distribution designed for speed and efficiency. It combines cloud and web app integration."
+  utter_deepin:
+    - text: "Deepin is a Linux distribution from China known for its visually appealing desktop environment and user-friendly features."
+  utter_oracle_linux:
+    - text: "Oracle Linux is an enterprise-grade Linux distribution offered by Oracle Corporation. It is designed for use in enterprise environments with Oracle products."
+  utter_shell:
+    - text: "In Linux, a shell is a command-line interface that allows users to interact with the operating system by typing commands."
+  utter_kernel:
+    - text: "The Linux kernel is the core part of the Linux operating system. It manages hardware resources and provides essential services for other software."
+  utter_distribution:
+    - text: "A Linux distribution, often called a distro, is a complete and pre-packaged Linux operating system that includes the Linux kernel, system utilities, and software applications."
+  utter_terminal:
+    - text: "A terminal in Linux is a text-based interface used for executing commands and interacting with the operating system."
+  utter_filesystem:
+    - text: "The Linux filesystem is the structure used to organize and store files and directories on a Linux system."
+  utter_root:
+    - text: "The root user in Linux has superuser privileges and can perform administrative tasks. It is the highest-level user with full access to the system."
+  utter_sudo:
+    - text: "The sudo command in Linux allows users to execute commands with elevated privileges, typically requiring a password."
+  utter_package_manager:
+    - text: "A package manager in Linux is a tool that simplifies the installation, updating, and removal of software packages on a Linux system."
+  utter_shell_scripting:
+    - text: "Shell scripting in Linux involves writing scripts or programs using shell commands to automate tasks or perform specific actions."
+  utter_process:
+    - text: "In Linux, a process is an executing instance of a program that can perform tasks and consume system resources."
+  utter_permissions:
+    - text: "File permissions in Linux determine who can access, modify, or execute a file or directory. They are essential for security."
+  utter_grep:
+    - text: "The grep command in Linux is used for searching and matching patterns within text files. It is a powerful text-processing tool."
+  utter_SSH:
+    - text: "SSH, or Secure Shell, is a cryptographic network protocol used for secure remote access and communication in Linux and other systems."
+  utter_filesystem_permission:
+    - text: "Filesystem permissions in Linux define access rights for users and processes to files and directories within the filesystem."
+  utter_cron:
+    - text: "A cron job in Linux is a scheduled task that automatically runs at specified times or intervals using the cron scheduling system."
+  utter_shell_variables:
+    - text: "Shell variables in Linux are used to store data and configuration settings for shell scripts and commands."
+  utter_GUI:
+    - text: "The Linux GUI, or Graphical User Interface, provides a visual way for users to interact with the operating system using windows, icons, and menus."
+  utter_bootloader:
+    - text: "A bootloader in Linux is a program that loads the operating system into memory when a computer is started or rebooted."
+  utter_init:
+    - text: "The init process in Linux is the first process started by the kernel and is responsible for initializing the system and managing system services."
+  utter_filesystem_hierarchy:
+    - text: "The Linux filesystem hierarchy is a standard directory structure that organizes files and directories in a logical and consistent manner."
+  utter_user_account:
+    - text: "Creating a user account in Linux involves setting up a user with a username and password, allowing them to log in and use the system."
+  utter_file_permissions:
+    - text: "Changing file permissions in Linux allows users to modify who can read, write, or execute a specific file or directory."
+  utter_daemon:
+    - text: "A daemon in Linux is a background process that runs without direct user interaction, often providing specific system services."
+  utter_shell_prompt:
+    - text: "The shell prompt in Linux is the text or symbol that appears in the terminal, indicating that the shell is ready to accept commands."
+  utter_server_hardware:
+    - text: "Server hardware refers to the physical components and equipment used in server systems to process and store data."
+  utter_CPU:
+    - text: "A CPU (Central Processing Unit) in server hardware is the primary processing unit responsible for executing instructions and calculations in a server."
+  utter_RAM:
+    - text: "RAM (Random Access Memory) in server hardware provides temporary storage for data and instructions that the CPU needs for processing."
+  utter_hard_drive:
+    - text: "Hard drives in server hardware are storage devices used to store data, applications, and the server's operating system."
+  utter_SSD:
+    - text: "SSDs (Solid-State Drives) in server hardware offer fast and reliable storage using NAND flash memory, ideal for high-speed data access."
+  utter_RAID:
+    - text: "RAID (Redundant Array of Independent Disks) in server hardware is a storage technology that combines multiple disks for performance and data redundancy."
+  utter_motherboard:
+    - text: "A motherboard in server hardware is the main circuit board that connects and integrates all server components, including CPU, RAM, and peripherals."
+  utter_network_card:
+    - text: "Network cards in server hardware enable servers to connect to networks, facilitating communication and data transfer."
+  utter_power_supply:
+    - text: "A power supply unit (PSU) in server hardware converts electrical power from an outlet into a form suitable for server components."
+  utter_rack_mount:
+    - text: "Rack-mounted hardware in server systems is designed to fit into standard server racks, optimizing space and organization."
+  utter_hot_swappable:
+    - text: "Hot-swappable components in server hardware are parts that can be replaced while the server is running, minimizing downtime."
+  utter_ECC_memory:
+    - text: "ECC (Error-Correcting Code) memory in server hardware detects and corrects memory errors, enhancing server reliability."
+  utter_GPU:
+    - text: "GPUs (Graphics Processing Units) in server hardware accelerate graphical and computational tasks, useful for AI and graphics-intensive workloads."
+  utter_virtualization:
+    - text: "Server virtualization in hardware allows multiple virtual servers to run on a single physical server, optimizing resource utilization."
+  utter_blade_server:
+    - text: "Blade servers in server hardware are compact, modular servers that fit into a chassis, making them space-efficient and scalable."
+  utter_CPU_cores:
+    - text: "CPU cores in server hardware represent individual processing units within a CPU, enhancing parallel processing capability."
+  utter_cooling_system:
+    - text: "A cooling system in server hardware maintains optimal temperature levels, preventing overheating and ensuring server performance."
+  utter_server_chassis:
+    - text: "A server chassis in server hardware is the enclosure that houses and protects server components, providing physical security."
+  utter_redundant_power:
+    - text: "Redundant power supplies in server hardware offer backup power sources, reducing the risk of server downtime due to power failures."
+  utter_hardware_RAID_controller:
+    - text: "A hardware RAID controller in server hardware is a dedicated card that manages RAID configurations, improving storage performance and reliability."
+  utter_server_firmware:
+    - text: "Server firmware in hardware includes software embedded in server components, requiring updates to enhance functionality and security."
+  utter_server_scalability:
+    - text: "Server scalability in hardware refers to the ability to expand server resources and capacity to meet growing demands."
+  utter_data_center_racks:
+    - text: "Data center racks in server hardware are storage units that house multiple servers and network equipment, optimizing space and organization."
+  utter_server_cooling_fans:
+    - text: "Server cooling fans in hardware help dissipate heat generated by server components, ensuring stable and efficient server operation."
+  utter_server_security:
+    - text: "Server security in hardware involves physical and hardware-based measures to protect servers from unauthorized access and threats."
+  utter_server_maintenance:
+    - text: "Server maintenance in hardware includes regular tasks such as cleaning, component replacement, and firmware updates to ensure server reliability."
+  
+  utter_what_is_nmap:
+  - text: "Nmap, which stands for Network Mapper, is a free and open-source utility used for network discovery and security auditing. It can be used to discover devices running on a network and find open ports along with various attributes of the network."
+
+  utter_nmap_usage:
+  - text: "Nmap is used primarily for network discovery and vulnerability scanning. To use Nmap, you typically specify a target (like an IP address or range of addresses) and a scan type. There are many different scan types, each providing different information."
+
+  utter_nmap_installation:
+  - text: "You can install Nmap from its official website or use package managers like `apt` for Debian/Ubuntu or `brew` for MacOS. For instance, on Ubuntu, you'd use the command: `sudo apt-get install nmap`."
+
+  utter_nmap_features:
+  - text: "Nmap has several features including host discovery, port scanning, version detection, OS detection, scriptable interactions with the target, and more."
+
+  utter_nmap_common_commands:
+  - text: "Some common Nmap commands are:\n- `nmap <target>`: Basic scan\n- `nmap -sP <target>`: Ping scan\n- `nmap -sV <target>`: Service version detection\n- `nmap -O <target>`: OS detection\nRemember to use Nmap ethically and only on networks you have permission to scan."
 
 session_config:
   session_expiration_time: 60

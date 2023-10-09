@@ -1,0 +1,36 @@
+version: "3.1"
+
+nlu:
+- intent: what_is_nmap
+  examples: |
+    - What is Nmap?
+    - Can you tell me about Nmap?
+    - Define Nmap for me.
+    - What's Nmap?
+
+- intent: nmap_usage
+  examples: |
+    - How do I use Nmap?
+    - Tell me how to use Nmap.
+    - Walk me through using Nmap.
+    - Usage of Nmap?
+
+- intent: nmap_installation
+  examples: |
+    - How can I install Nmap?
+    - Installation steps for Nmap?
+    - Tell me how to get Nmap on my machine.
+    - How to download and install Nmap?
+
+- intent: nmap_features
+  examples: |
+    - What are the features of Nmap?
+    - Can you list down Nmap's features?
+    - What can I do with Nmap?
+
+- intent: nmap_common_commands
+  examples: |
+    - Common Nmap commands?
+    - What are the basic Nmap commands?
+    - List down some frequently used Nmap commands.
+    - How to scan with Nmap?
