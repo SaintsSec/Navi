@@ -102,7 +102,7 @@ delete_navi() {
 }
 
 copy_navi() {
-    sudo cp -r . /opt/Navi
+    sudo cp -r ../ /opt/Navi
     echo "Copied Navi to /opt."
 }
 

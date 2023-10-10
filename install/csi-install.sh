@@ -52,13 +52,13 @@ delete_navi() {
 }
 
 copy_navi() {
-    sudo cp -r . /opt/Navi
+    sudo cp -r ../ /opt/Navi
     echo "Copied Navi to /opt."
 }
 
 cleanup_install_directory() {
     cd /opt/Navi || exit 1
-    declare -a files_to_remove=("jackin.py" "requirements.txt" "rasa.service" "rasa-csi.service" "README.md" ".git" ".gitignore")
+    declare -a files_to_remove=("install" "README.md" ".git" ".gitignore")
 
     for item in "${files_to_remove[@]}"; do
         if [ -e "$item" ]; then
