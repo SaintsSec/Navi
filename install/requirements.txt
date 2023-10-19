@@ -3,3 +3,4 @@ fpdf
 openai
 pyfiglet
 flask
+requests

@@ -121,14 +121,14 @@ cleanup_install_directory() {
 
 set_permissions_csi(){
     sudo chown -R :csi /opt/Navi
-    sudo chmod 770 /opt/Navi
+    sudo chmod 777 /opt/Navi
     echo
     echo "Permissions set for CSI"
 }
 
 set_permissions_All() {
     sudo chown -R :navi /opt/Navi/
-    sudo chmod -R 770 /opt/Navi/
+    sudo chmod -R 777 /opt/Navi/
     echo 
     echo "Set permissions for $distribution."
 }
