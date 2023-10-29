@@ -18,29 +18,29 @@ install_reqs() {
     case "$distribution" in
         "ubuntu" | "debian" | "Pop!_OS") 
             sudo apt-get update
-            sudo apt-get install -y python3-pip nmap clamav
+            sudo apt-get install -y python3-pip whois nmap clamav
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
             ;;
         "CSI") 
             sudo apt-get update
-            sudo apt-get install -y python3-pip nmap clamav
+            sudo apt-get install -y python3-pip whois nmap clamav
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
             ;;
         "Arch") 
-            sudo pacman -S python-pip nmap clamav -y
+            sudo pacman -S python-pip whois nmap clamav -y
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
 
             ;;
         "fedora") 
-            sudo dnf install -y python3-pip nmap clamav
+            sudo dnf install -y python3-pip whois nmap clamav
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
             ;;
         "centos") 
-            sudo yum install -y python3-pip nmap clamav
+            sudo yum install -y python3-pip whois nmap clamav
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
             ;;
