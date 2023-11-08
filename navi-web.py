@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify, json
-import os
 import requests
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
@@ -17,7 +16,7 @@ def extract():
     payload = json.dumps({"sender": "Rasa", "message": text})
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     response = requests.request(
-        "POST", url="http://localhost:5005/webhooks/rest/webhook", headers=headers, data=payload)
+        "POST", url="http://127.0.0.1:5005/webhooks/rest/webhook", headers=headers, data=payload)
     response = response.json()
 
     resp = [msg['text'] for msg in response if 'text' in msg]
@@ -27,7 +26,7 @@ def extract():
 
 def get_current_model():
     try:
-        response = requests.get("http://localhost:5005/model")
+        response = requests.get("http://127.0.0.1:5005/model")
         if response.status_code == 200:
             return response.json().get("model_file", "Unknown Model").split("/")[-1]
     except Exception as e:
@@ -36,4 +35,4 @@ def get_current_model():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host='127.0.0.1', port=5000)

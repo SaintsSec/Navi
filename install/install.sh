@@ -83,6 +83,17 @@ setup_service() {
     sudo systemctl status navi.service
 }
 
+navi_web_service() {
+    sudo rm /etc/systemd/system/naviweb.service
+    sudo cp ./naviweb.service /etc/systemd/system/
+    sudo systemctl enable naviweb.service
+    sudo systemctl daemon-reload
+    sudo systemctl start naviweb.service
+    echo
+    echo Checking Navi Web Service
+    sudo systemctl status naviweb.service
+}
+
 setup_csi_service() {
     sudo rm /etc/systemd/system/navi-csi.service
     sudo cp navi-csi.service /etc/systemd/system/
@@ -197,6 +208,7 @@ delete_navi
 copy_navi
 set_permissions_All
 setup_service
+navi_web_service
 cleanup_install_directory
 install_reqs
 fresh_clam
