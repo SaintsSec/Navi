@@ -212,5 +212,5 @@ navi_web_service
 cleanup_install_directory
 install_reqs
 fresh_clam
-
+echo
 echo "Navi> $distribution Installation completed!"

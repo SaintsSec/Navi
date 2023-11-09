@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=simple
 WorkingDirectory=/opt/Navi
-ExecStart=/usr/bin/python3 navi-web.py
+ExecStart=gunicorn -w 4 -b 0.0.0.0 'navi-web:app'
 Group=navi
 
 [Install]
