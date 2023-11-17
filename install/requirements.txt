@@ -4,4 +4,4 @@ openai
 pyfiglet
 flask
 requests
-guinicorn
+gunicorn

@@ -18,31 +18,46 @@ install_reqs() {
     case "$distribution" in
         "ubuntu" | "debian" | "Pop!_OS") 
             sudo apt-get update
-            sudo apt-get install -y python3-pip whois nmap clamav
+            sudo apt-get install -y python3 python3-pip whois nmap clamav
+            python3 -m pip install --upgrade pip
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
+            pip install -U pyopenssl cryptography
+            sudo pip install -U pyopenssl cryptography
+
             ;;
         "CSI") 
             sudo apt-get update
             sudo apt-get install -y python3-pip whois nmap clamav
+            python -m pip install --upgrade pip
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
+            pip install -U pyopenssl cryptography
+            sudo pip install -U pyopenssl cryptography
             ;;
         "Arch") 
             sudo pacman -S python-pip whois nmap clamav -y
+            python -m pip install --upgrade pip
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
-
+            pip install -U pyopenssl cryptography
+            sudo pip install -U pyopenssl cryptography
             ;;
         "fedora") 
             sudo dnf install -y python3-pip whois nmap clamav
+            python -m pip install --upgrade pip
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
+            pip install -U pyopenssl cryptography
+            sudo pip install -U pyopenssl cryptography
+
             ;;
         "centos") 
             sudo yum install -y python3-pip whois nmap clamav
             pip3 install -r requirements.txt
             sudo pip3 install -r requirements.txt
+            pip install -U pyopenssl cryptography
+            sudo pip install -U pyopenssl cryptography
             ;;
     esac
 }
