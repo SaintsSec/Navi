@@ -9,18 +9,14 @@
 <img src= https://github.com/SSGOrg/Navi/assets/89718570/5596418e-3fa3-4528-8a07-d00aeece1590 height=25% width=25%>
 </div>
 
-## ✨ **Key Features of Navi v0.1.2**
+## ✨ **Key Features of Navi v0.1.3**
 
 - **Navi Shell Interface** (`navi-shell.py`): A robust, full-featured shell for direct interactions.
-- **Web Access** (`navi-web.py`): Engage with Navi's chatbot anytime, anywhere via a web interface.
 - **Simplified Installation** (`jackin.py`): An intuitive single-stop installation script streamlining the setup process.
-- **Dynamic Model Switching** (`uploadModel.py`): Transition between Navi models with ease, directly to Rasa's local server.
-- **Instant Availability**: Powered by Rasa's backend, Navi ensures a seamless experience with its built-in system service—eliminating the wait with zero loading screens.
 
 ### **Commands**
 
 - **Reconnaissance Suite** (`/recon`): Automated tools and reporting for thorough digital exploration.
-- **GPT Integration** (`/gpt`): Direct access to the advanced capabilities of the GPT API.
 - **Virus Protection** (`/vbuster`): Empower your digital space with ClamAV's robust antivirus defense mechanisms.
 
 ## 🚀 About Navi 
@@ -33,11 +29,6 @@ Navi was conceptualized by Alex during his formative years, with its foundationa
 In the rapidly evolving domains of AI and cybersecurity, open source stands as a beacon of collaborative innovation. The transparency inherent in open-source projects offers a platform for collective problem-solving, allowing experts from diverse backgrounds to collaboratively tackle complex challenges. This communal approach accelerates advancements and ensures robustness in solutions.
 
 For AI projects like Navi, open source provides an ecosystem where models and techniques are continually refined, reviewed, and validated by the global community. In cybersecurity, transparency is crucial. Open source tools undergo rigorous scrutiny, often leading to more secure and reliable solutions. Adopting an open-source ethos, as Navi has, aligns with the commitment to harness collective intelligence for building secure, efficient, and cutting-edge AI tools.
-
-
-### 🤖 The Strategic Shift to Rasa
-
-In September 2023, Navi underwent a transformation from the Echo framework to [Rasa](https://rasa.com/). One of the pivotal advantages of this move was Rasa's ability to enable Navi to be perpetually available. By leveraging Rasa's local host server, Navi has been seamlessly integrated as a system service, initiating automatically upon user login. This ensures that Navi is consistently on hand, ready to assist users without delay. This continuous availability, combined with enhanced training capabilities and efficient AI updates, positions Navi at the forefront of AI chatbot solutions.
 
 ## 🖐️ Get in touch
 
