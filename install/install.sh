@@ -71,7 +71,7 @@ setup_aliases() {
     declare -A config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     local config_path="${config_files[$shell_choice]}"
 
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["naviweb"]="python3 /opt/Navi/navi-web.py" )
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" )
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
@@ -85,39 +85,6 @@ setup_aliases() {
     done
 
     echo "You may need to source $config_path or restart your terminal/shell."
-}
-
-setup_service() {
-    sudo rm /etc/systemd/system/navi.service
-    sudo cp ./navi.service /etc/systemd/system/
-    sudo systemctl enable navi.service
-    sudo systemctl daemon-reload
-    sudo systemctl start navi.service
-    echo 
-    echo Checking rasa service:
-    sudo systemctl status navi.service
-}
-
-navi_web_service() {
-    sudo rm /etc/systemd/system/naviweb.service
-    sudo cp ./naviweb.service /etc/systemd/system/
-    sudo systemctl enable naviweb.service
-    sudo systemctl daemon-reload
-    sudo systemctl start naviweb.service
-    echo
-    echo Checking Navi Web Service
-    sudo systemctl status naviweb.service
-}
-
-setup_csi_service() {
-    sudo rm /etc/systemd/system/navi-csi.service
-    sudo cp navi-csi.service /etc/systemd/system/
-    sudo systemctl enable navi-csi.service 
-    sudo systemctl daemon-reload
-    sudo systemctl start navi-csi.service
-    echo 
-    echo checking rasa service:
-    sudo systemctl status navi-csi.service 
 }
 
 delete_navi() {
@@ -206,7 +173,6 @@ csi_install(){
     install_reqs
     fresh_clam
     set_permissions_csi
-    setup_csi_service
     cleanup_install_directory
     echo "CSI Installation completed!"
 }
@@ -222,8 +188,6 @@ create_navi_group
 delete_navi
 copy_navi
 set_permissions_All
-setup_service
-navi_web_service
 cleanup_install_directory
 install_reqs
 fresh_clam

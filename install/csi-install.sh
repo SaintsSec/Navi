@@ -22,7 +22,7 @@ install_reqs() {
 
 setup_aliases() {
     local config_path="/home/$USER/.bashrc"
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["naviweb"]="python3 /opt/Navi/navi-web.py" )
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
@@ -34,14 +34,6 @@ setup_aliases() {
     done
 
     echo "You may need to source $config_path or restart your terminal/shell."
-}
-
-create_navi_group() {
-    if ! grep -q "^navi:" /etc/group; then
-        sudo groupadd navi
-    fi
-    sudo usermod -aG navi "$USER"
-    echo "Added user '$USER' to group 'navi'."
 }
 
 delete_navi() {
@@ -74,16 +66,6 @@ set_permissions_csi() {
     echo "Permissions set for CSI"
 }
 
-setup_csi_service() {
-    sudo rm /etc/systemd/system/navi-csi.service 2>/dev/null
-    sudo cp navi-csi.service /etc/systemd/system/
-    sudo systemctl enable navi-csi.service
-    sudo systemctl daemon-reload
-    sudo systemctl start navi-csi.service
-    echo "Checking rasa service:"
-    sudo systemctl check navi-csi.service
-}
-
 fresh_clam() {
     sudo freshclam
 }
@@ -100,5 +82,5 @@ setup_csi_service
 cleanup_install_directory
 fresh_clam
 
-echo "Navi CSI Installation completed!"
+echo "Navi: CSI Linux Installation completed!"
 

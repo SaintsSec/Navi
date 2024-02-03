@@ -1,21 +1,19 @@
-import requests
-import subprocess
+import requests 
 import os
 import getpass
 import random
 import time 
 import commands
-import argparse
+import argparse 
 import importlib.util
-from mods import mods
-from mods import typewriter
+import openai 
+from mods import mods 
 
 art = mods.art
 helpArt = mods.helpArt
 user = getpass.getuser()
 breakline = mods.breakline
-
-
+client = openai.OpenAI()
 ai_name_rep = "Navi> "
 
 def tr(text):
@@ -44,10 +42,10 @@ def parse_arguments():
         description="Navi shell arguments.", formatter_class=argparse.RawTextHelpFormatter)
 
     # Help and usage strings
-    q_help = (
-        "Quickly query the AI and print the response.\n"
-        "Use: navi -q \"Hello there\""
-    )
+    #q_help = (
+    #    "Quickly query the AI and print the response.\n"
+    #    "Use: navi -q "
+    #)
 
     nh_help = (
         "List currently installed Navi custom scripts.\n"
@@ -59,7 +57,7 @@ def parse_arguments():
         "Use: navi -r /<command>"
     )
 
-    parser.add_argument('-q', type=str, help=q_help)
+    #parser.add_argument('-q', type=str, help=q_help)
     parser.add_argument('-nh', action='store_true', help=nh_help)
     parser.add_argument('-r', type=str, help=r_help)
 
@@ -69,10 +67,6 @@ def parse_arguments():
 
 def handle_arguments(args):
     """Handle the actions based on the provided arguments."""
-    if args.q:
-        query_rasa_and_print(args.q)
-        return True  # Indicate that we've handled an argument and may not need to proceed to the main chat
-
     if args.r:
         # Handle the -r argument logic here
         if args.r in commands.modules.keys():
@@ -122,24 +116,12 @@ def handle_arguments(args):
     return False  # Indicate that no specific argument actions were handled
 
 
-def is_rasa_responsive(url):
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            return True
-    except requests.ConnectionError:
-        pass
-    return False
-
-
 def preRun():
     # Clear the screen
     os.system('cls' if os.name == 'nt' else 'clear')
     print(art)
 
-# Navi Script Engine
-
-
+# Navi Script Engine 
 def chip_engine_help():
     print(f"""{helpArt}
 Navi is a simple to use customizable interface for CLI
@@ -200,39 +182,18 @@ def check_for_new_release(current_version, repo_owner, repo_name):
     if latest_release and is_new_release(current_version, latest_release['tag_name']):
         return f"{ai_name_rep} - [!!] New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n"
     else:
-        return f"{ai_name_rep} - [!!] You are running the latest version!\n"
+        return f"{ai_name_rep} - [!!] You are running the latest version"
 
 
 def checkVersion():
     current_version = "0.1.2"  # Replace with your actual current version
-    repo_owner = "SSGOrg"  # Replace with the actual owner name
+    repo_owner = "SaintsSec"  # Replace with the actual owner name
     repo_name = "Navi"  # Replace with the actual repository name
 
     result = check_for_new_release(current_version, repo_owner, repo_name)
     print(result)
 
-
-def query_rasa_and_print(query):
-    url = "http://localhost:5005/webhooks/rest/webhook"
-    data = {"sender": "user", "message": query}
-    response = requests.post(url, json=data)
-
-    response_data = response.json()
-    if isinstance(response_data, list) and response_data and 'text' in response_data[0]:
-        message_text = response_data[0]['text']
-        formatted_response = f"{ai_name_rep} {message_text}"
-        tr(formatted_response)
-    else:
-        tr(f"{ai_name_rep} How can I help you {user}")
-
-
-def chat_with_rasa(initial_query=None):
-    url = "http://localhost:5005/webhooks/rest/webhook"
-
-    if initial_query:
-        query_rasa_and_print(initial_query)
-        return
-
+def chat_with_navi(): #Keep this just in case. (initial_query=None):
     while True:
         # Get user input
         try:
@@ -252,36 +213,24 @@ def chat_with_rasa(initial_query=None):
         if user_message.lower() in ['run', 'chips', 'execute']:
             chip_engine()
             preRun()
-
-
-        # Send user message to Rasa
-        data = {"sender": "user", "message": user_message}
-        response = requests.post(url, json=data)
-
-        # Parse the JSON response
-        response_data = response.json()
-
-        # Check if response_data is a list, it's not empty, and the first item has the 'text' key
-        if isinstance(response_data, list) and response_data and 'text' in response_data[0]:
-            # Extract the 'text' from the 'messages' list
-            message_text = response_data[0]['text']
-
-            # Format and print Rasa's response
-            formatted_response = f"{ai_name_rep} {message_text}"
-            tr(formatted_response)
         else:
-            tr(f"{ai_name_rep} How can I help you {user}")
+            response = client.chat.completions.create(
+                model = "gpt-3.5-turbo",
+                messages = [
+                        {"role": "user", "content": f"{user_message}"}
+                ]
+            )
+            tr(f"{ai_name_rep}{response.choices[0].message.content}")
 
 
 def main():
     args = parse_arguments()
     if handle_arguments(args):
-        return
-
+        return 
     preRun()
     checkVersion()
     tr(f"{ai_name_rep} How can I help you {user}")
-    chat_with_rasa()
+    chat_with_navi()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,4 @@
-rasa
 fpdf
 openai
 pyfiglet
-flask
 requests
-gunicorn
