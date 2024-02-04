@@ -12,12 +12,16 @@
 ## ✨ **Key Features of Navi v0.1.3**
 
 - **Navi Shell Interface** (`navi-shell.py`): A robust, full-featured shell for direct interactions.
-- **Simplified Installation** (`jackin.py`): An intuitive single-stop installation script streamlining the setup process.
+- **Simplified Installation Folder** (`install.sh` + `csi-install.sh`): An intuitive single-stop installation script streamlining the setup process.
 
 ### **Commands**
 
 - **Reconnaissance Suite** (`/recon`): Automated tools and reporting for thorough digital exploration.
 - **Virus Protection** (`/vbuster`): Empower your digital space with ClamAV's robust antivirus defense mechanisms.
+
+### **Work In Progress**  
+- **[Navi Roadmap](https://github.com/orgs/SaintsSec/projects/7)**
+- **[Navi Issues](https://github.com/SaintsSec/Navi/issues)**
 
 ## 🚀 About Navi 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/63a04af9b14f41179b567637c4ab77a6)](https://app.codacy.com/gh/SSGorg/Navi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
