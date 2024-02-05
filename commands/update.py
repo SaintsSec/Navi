@@ -1,11 +1,18 @@
 import os
-import sys
 import requests
+import pyfiglet
+import click 
 
 command = "/update"
 use = "Updates navi"
 ai_name_rep = "Navi>"
 
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def headerArt():
+    header = pyfiglet.figlet_format("Navi Updates", font="slant")
+    click.echo(click.style(header, fg="cyan", bold=True))
 
 def get_latest_release(repo_owner, repo_name):
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
@@ -92,4 +99,6 @@ def checkVersion():
 
 
 def run():
+    clear_screen()
+    headerArt()
     checkVersion()

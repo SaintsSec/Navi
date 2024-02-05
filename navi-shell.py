@@ -130,9 +130,6 @@ AI models. Built with cybersecurity professionals in mind.
 [!!] - All commands are preceeded by a '/'
 Here is a list of current useable commands 
 
-from the main interface typing 'ohce config' will allow you to
-configure the AI to your liking.
-
 Command:              Use:
 """)
     for _, module in commands.modules.items():
@@ -203,14 +200,14 @@ def chat_with_navi(): #Keep this just in case. (initial_query=None):
             break
 
         # Exit loop if the user types 'exit' or 'quit'
-        if user_message.lower() in ['/stop', 'quit']:
+        if user_message.lower() in ['/stop', 'quit', 'exit', 'goodbye']:
             tr(f"{ai_name_rep} Thank you for stopping by! {user}")
             break
         if user_message.lower() in ['/clear', 'cls']:
             preRun()
             tr(f"{ai_name_rep} How can I help you {user}")
             continue
-        if user_message.lower() in ['run', 'chips', 'execute']:
+        if user_message.lower() in ['run', 'chips', 'execute', 'scripts', 'load']:
             chip_engine()
             preRun()
         else:
