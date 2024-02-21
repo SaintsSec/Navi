@@ -38,7 +38,7 @@ For AI projects like Navi, open source provides an ecosystem where models and te
 
 Engage with our development team on Discord!
 
-[![Discord Server](https://discordapp.com/api/guilds/879757204620726362/widget.png?style=banner3)](https://discord.gg/ecrBC9wnma)
+[![Discord Server](https://discordapp.com/api/guilds/879757204620726362/widget.png?style=banner3)](https://discord.gg/7dXPrRCRMy)
 
 ## 🔧 Issues
 
