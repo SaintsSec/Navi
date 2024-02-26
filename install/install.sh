@@ -17,45 +17,46 @@ install_reqs() {
     local distribution="$1"
     case "$distribution" in
         "ubuntu" | "debian" | "Pop!_OS") 
-            sudo apt-get update
-            sudo apt-get install -y python3 python3-pip whois nmap clamav
-            python3 -m pip install --upgrade pip
-            pip3 install -r requirements.txt
-            sudo pip3 install -r requirements.txt
+            sudo apt update
+            sudo apt install -y python3 python3-pip whois nmap
+            sudo apt install clamav
+            python3 -m pip install --upgrade pip 
+            sudo pip install requests fpdf pyfiglet click tabulate openai
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
 
             ;;
         "CSI") 
-            sudo apt-get update
-            sudo apt-get install -y python3-pip whois nmap clamav
-            python -m pip install --upgrade pip
-            pip3 install -r requirements.txt
-            sudo pip3 install -r requirements.txt
+            sudo apt update
+            sudo apt install -y python3 python3-pip whois nmap 
+            sudo apt install clamav
+            python3 -m pip install --upgrade pip 
+            sudo pip install requests fpdf pyfiglet click tabulate openai
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
             ;;
         "Arch") 
-            sudo pacman -S python-pip whois nmap clamav -y
-            python -m pip install --upgrade pip
-            pip3 install -r requirements.txt
-            sudo pip3 install -r requirements.txt
+            sudo pacman -S python3 python3-pip whois nmap -y
+            sudo pacman -S clamav 
+            python3 -m pip install --upgrade pip 
+            sudo pip install requests fpdf pyfiglet click tabulate openai
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
             ;;
         "fedora") 
-            sudo dnf install -y python3-pip whois nmap clamav
-            python -m pip install --upgrade pip
-            pip3 install -r requirements.txt
-            sudo pip3 install -r requirements.txt
+            sudo dnf install -y python3 python3-pip whois nmap 
+            sudo dnf install -y clamav
+            python3 -m pip install --upgrade pip 
+            sudo pip install requests fpdf pyfiglet click tabulate openai
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
 
             ;;
         "centos") 
-            sudo yum install -y python3-pip whois nmap clamav
-            pip3 install -r requirements.txt
-            sudo pip3 install -r requirements.txt
+            sudo yum install -y python3 python3-pip whois nmap 
+            sudo yum install -y clamav
+            python3 -m pip install --upgrade pip 
+            sudo pip install requests fpdf pyfiglet click tabulate openai
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
             ;;
@@ -63,6 +64,7 @@ install_reqs() {
 }
 
 fresh_clam() {
+    sudo systemctl stop clamav-freshclam.service
     sudo freshclam
 }
 

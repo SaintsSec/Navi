@@ -14,10 +14,13 @@ clear
 echo "$art"
 
 install_reqs() {
-    sudo apt-get update
-    sudo apt-get install -y python3-pip nmap clamav
-    pip3 install -r requirements.txt
-    sudo pip3 install -r requirements.txt
+    sudo apt update
+    sudo apt install -y python3 python3-pip whois nmap 
+    sudo apt install clamav
+    python3 -m pip install --upgrade pip 
+    sudo pip install requests fpdf pyfiglet click tabulate openai
+    pip install -U pyopenssl cryptography
+    sudo pip install -U pyopenssl cryptography    
 }
 
 setup_aliases() {
@@ -67,6 +70,7 @@ set_permissions_csi() {
 }
 
 fresh_clam() {
+    sudo systemctl stop clamav-freshclam.service
     sudo freshclam
 }
 
