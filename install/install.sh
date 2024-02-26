@@ -36,8 +36,8 @@ install_reqs() {
             sudo pip install -U pyopenssl cryptography
             ;;
         "Arch") 
-            sudo pacman -S python3 python3-pip whois nmap -y
-            sudo pacman -S clamav 
+            sudo pacman -Sy python3 python3-pip whois nmap
+            sudo pacman -Sy clamav 
             python3 -m pip install --upgrade pip 
             sudo pip install requests fpdf pyfiglet click tabulate openai
             pip install -U pyopenssl cryptography
