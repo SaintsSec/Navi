@@ -1,13 +1,4 @@
-#!/bin/bash
-
-art=="
-    _   __            _                 __           __      ____         _____           _       __ 
-   / | / /___ __   __(_)               / /___ ______/ /__   /  _/___     / ___/__________(_)___  / /_
-  /  |/ / __ `/ | / / /  ______   __  / / __ `/ ___/ //_/   / // __ \    \__ \/ ___/ ___/ / __ \/ __/
- / /|  / /_/ /| |/ / /  /_____/  / /_/ / /_/ / /__/ ,<    _/ // / / /   ___/ / /__/ /  / / /_/ / /_  
-/_/ |_/\__,_/ |___/_/            \____/\__,_/\___/_/|_|  /___/_/ /_/   /____/\___/_/  /_/ .___/\__/  
-                                                                                       /_/           
-"
+#!/bin/bash 
 
 clear_screen() {
     clear
@@ -127,7 +118,7 @@ set_permissions_All() {
 # Script execution starts here:
 
 clear_screen
-echo "$art"
+cat installart.txt
 
 # Create navi group and add the current user to it
 create_navi_group(){
