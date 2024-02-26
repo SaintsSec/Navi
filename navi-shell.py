@@ -212,7 +212,7 @@ def chat_with_navi(): #Keep this just in case. (initial_query=None):
             preRun()
         else:
             response = client.chat.completions.create(
-                model = "gpt-3.5-turbo",
+                model = "gpt-4",
                 messages = [
                         {"role": "user", "content": f"{user_message}"}
                 ]
