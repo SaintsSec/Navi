@@ -58,7 +58,7 @@ def parse_arguments():
     )
 
     parser.add_argument('-q', type=str, nargs='+', default=None,
-                        help=q_help)
+                        help='Initial query/messages to start the conversation')
     parser.add_argument('-nh', action='store_true', help=nh_help)
     parser.add_argument('-r', type=str, help=r_help)
 
@@ -70,10 +70,11 @@ def handle_arguments(args):
     """Handle the actions based on the provided arguments."""
    
     if args.q:
-        responses = query_navi(args.q)
+        responses = chat_with_navi(args.q)
         for response in responses:
             tr(response)
-        return True  
+    else:
+        print("No initial query/messages provided.")
 
     if args.r:
         # Handle the -r argument logic here
@@ -122,6 +123,12 @@ def handle_arguments(args):
         return True
 
     return False  # Indicate that no specific argument actions were handled
+
+
+def preRun():
+    # Clear the screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(art)
 
 # Navi Script Engine 
 def chip_engine_help():
@@ -192,35 +199,7 @@ def checkVersion():
     result = check_for_new_release(current_version, repo_owner, repo_name)
     print(result)
 
-def preRun():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print(art)
-
-
-def query_navi(messages):
-    responses = []
-    for user_message in messages:
-        if user_message.lower() in ['/stop', 'quit', 'exit', 'goodbye']:
-            responses.append(f"{ai_name_rep} Thank you for stopping by! {user}")
-            break
-        if user_message.lower() in ['/clear', 'cls']:
-            preRun()
-            responses.append(f"{ai_name_rep} How can I help you {user}")
-            continue
-        if user_message.lower() in ['run', 'chips', 'execute', 'scripts', 'load']:
-            chip_engine()
-            preRun()
-        else:
-            response = client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "user", "content": f"{user_message}"}
-                ]
-            )
-            responses.append(f"{ai_name_rep}{response.choices[0].message.content}")
-    return responses
-
-def chat_with_navi():
+def chat_with_navi(q=None): #Keep this just in case. (initial_query=None):
     while True:
         # Get user input
         try:
@@ -242,12 +221,13 @@ def chat_with_navi():
             preRun()
         else:
             response = client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "user", "content": f"{user_message}"}
+                model = "gpt-4",
+                messages = [
+                        {"role": "user", "content": f"{user_message}"}
                 ]
             )
             tr(f"{ai_name_rep}{response.choices[0].message.content}")
+
 
 def main():
     args = parse_arguments()
@@ -257,6 +237,7 @@ def main():
     checkVersion()
     tr(f"{ai_name_rep} How can I help you {user}")
     chat_with_navi()
+
 
 if __name__ == "__main__":
     main()
