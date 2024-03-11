@@ -7,15 +7,11 @@ clear_screen() {
 install_reqs() {
     local distribution="$1"
     case "$distribution" in
-        "ubuntu" | "debian" | "Pop!_OS") 
+        "ubuntu" | "Pop!_OS") 
             sudo apt update
-            sudo apt install -y python3 python3-pip whois nmap
-            sudo apt install clamav
-            python3 -m pip install --upgrade pip 
-            sudo pip install requests fpdf pyfiglet click tabulate openai
-            pip install -U pyopenssl cryptography
-            sudo pip install -U pyopenssl cryptography
-
+            sudo apt install -y python3 python3-pip
+            pip install -r requirements.txt 
+            sudo apt install clamav whois nmap
             ;;
         "CSI") 
             sudo apt update
@@ -29,23 +25,6 @@ install_reqs() {
         "Arch") 
             sudo pacman -Sy python3 python3-pip whois nmap sudo pacman -Sy python python-pip python-requests python-fpdf python-pyfiglet python-click python-tabulate python-openai clamav 
             python3 -m pip install --upgrade pip
-            ;;
-        "fedora") 
-            sudo dnf install -y python3 python3-pip whois nmap 
-            sudo dnf install -y clamav
-            python3 -m pip install --upgrade pip 
-            sudo pip install requests fpdf pyfiglet click tabulate openai
-            pip install -U pyopenssl cryptography
-            sudo pip install -U pyopenssl cryptography
-
-            ;;
-        "centos") 
-            sudo yum install -y python3 python3-pip whois nmap 
-            sudo yum install -y clamav
-            python3 -m pip install --upgrade pip 
-            sudo pip install requests fpdf pyfiglet click tabulate openai
-            pip install -U pyopenssl cryptography
-            sudo pip install -U pyopenssl cryptography
             ;;
     esac
 }
@@ -72,8 +51,6 @@ setup_aliases() {
             echo "Alias '$alias_name' already exists."
         fi
     done
-
-    echo "You may need to source $config_path or restart your terminal/shell."
 }
 
 delete_navi() {
@@ -131,15 +108,13 @@ create_navi_group(){
 
 # Distribution choice
 echo "Choose your Linux distribution:"
-options=("Ubuntu/Debian" "Pop!_OS" "CSI" "Arch" "Fedora" "CentOS")
+options=("Ubuntu" "Pop!_OS" "CSI" "Arch")
 select distribution in "${options[@]}"; do
     case $distribution in
-        "Ubuntu/Debian") install_reqs "ubuntu" ;;
+        "Ubuntu") install_reqs "ubuntu" ;;
         "Pop!_OS") install_reqs "ubuntu" ;;
         "Arch") install_reqs "arch" ;;
         "CSI") install_reqs "CSI" ;;
-        "Fedora") install_reqs "fedora" ;;
-        "CentOS") install_reqs "centos" ;;
         *) echo "Invalid choice!"; exit 1 ;;
     esac
     break
@@ -181,4 +156,5 @@ cleanup_install_directory
 install_reqs
 fresh_clam
 echo
-echo "Navi> $distribution Installation completed!"
+echo "Navi> Good news $USER I have been installed on your $distribution system!"
+echo "Navi> [!!] - PLEASE RESTART YOUR TERMINAL OR SOURCE YOUR SHELL CONFIG."

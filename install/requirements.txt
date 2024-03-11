@@ -2,3 +2,5 @@ fpdf
 openai
 pyfiglet
 requests
+pyopenssl 
+cryptography

@@ -1,26 +1,16 @@
-#!/bin/bash
+#!/bin/bash 
 
-art="
-   ___________ ____         __           __         ____         _____           _       __ 
-  / ____/ ___//  _/        / /___ ______/ /__      /  _/___     / ___/__________(_)___  / /_
- / /    \__ \ / /(_)  __  / / __ `/ ___/ //_/_____ / // __ \    \__ \/ ___/ ___/ / __ \/ __/
-/ /___ ___/ // /_    / /_/ / /_/ / /__/ ,< /_____// // / / /   ___/ / /__/ /  / / /_/ / /_  
-\____//____/___(_)   \____/\__,_/\___/_/|_|     /___/_/ /_/   /____/\___/_/  /_/ .___/\__/  
-                                                                              /_/           
-"
-
-clear
-
-echo "$art"
+pregame(){
+    clear
+    cat csiart.txt
+}
 
 install_reqs() {
     sudo apt update
-    sudo apt install -y python3 python3-pip whois nmap 
-    sudo apt install clamav
+    sudo apt install -y python3 python3-pip
     python3 -m pip install --upgrade pip 
-    sudo pip install requests fpdf pyfiglet click tabulate openai
-    pip install -U pyopenssl cryptography
-    sudo pip install -U pyopenssl cryptography    
+    pip install -r requirements.txt 
+    sudo apt install clamav whois nmap    
 }
 
 setup_aliases() {
@@ -35,20 +25,18 @@ setup_aliases() {
             echo "Alias '$alias_name' already exists."
         fi
     done
-
-    echo "You may need to source $config_path or restart your terminal/shell."
 }
 
 delete_navi() {
     if [ -d "/opt/Navi" ]; then
         sudo rm -rf "/opt/Navi"
-        echo "Removed existing /opt/Navi directory."
+        echo "Navi> Removed existing /opt/Navi directory."
     fi
 }
 
 copy_navi() {
     sudo cp -r ../ /opt/Navi
-    echo "Copied Navi to /opt."
+    echo "Navi> Copied myself to /opt."
 }
 
 cleanup_install_directory() {
@@ -60,13 +48,13 @@ cleanup_install_directory() {
             sudo rm -rf "$item"
         fi
     done
-    echo "Cleaned up installation directory."
+    echo "Navi> Cleaned up installation directory."
 }
 
 set_permissions_csi() {
     sudo chown -R :csi /opt/Navi
     sudo chmod 770 /opt/Navi
-    echo "Permissions set for CSI"
+    echo "Navi> Permissions set for CSI"
 }
 
 fresh_clam() {
@@ -75,16 +63,16 @@ fresh_clam() {
 }
 
 # Execution starts here
-
+pregame 
 install_reqs
 setup_aliases
 create_navi_group
 delete_navi
 copy_navi
 set_permissions_csi
-setup_csi_service
 cleanup_install_directory
 fresh_clam
 
-echo "Navi: CSI Linux Installation completed!"
+echo "Navi> CSI Linux Installation completed!"
+echo "Navi> [!!] - Please restart your terminal"
 
