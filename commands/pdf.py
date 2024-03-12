@@ -1,16 +1,13 @@
 import os
 import fpdf
 import readline
+import click
+import pyfiglet
 
 # Import readline library for tab completion
 # make ascii art for pdf converter using text "Pdf Converter" in figlet
 
-art = """    ____  ____  ______   ______                           __           
-   / __ \/ __ \/ ____/  / ____/___  ____ _   _____  _____/ /____  _____
-  / /_/ / / / / /_     / /   / __ \/ __ \ | / / _ \/ ___/ __/ _ \/ ___/
- / ____/ /_/ / __/    / /___/ /_/ / / / / |/ /  __/ /  / /_/  __/ /    
-/_/   /_____/_/       \____/\____/_/ /_/|___/\___/_/   \__/\___/_/     
-"""
+
 command = "/pdf"
 use = "text to pdf conversion"
 
@@ -20,9 +17,12 @@ def complete(text, state):
     options = [i for i in os.listdir('.') if i.startswith(text)]
     return options[state] if state < len(options) else None
 
+def headerArt():
+    header = pyfiglet.figlet_format("PDF Converter", font="slant")
+    click.echo(click.style(header, fg="cyan", bold=True))
 
 def pdf_convert():
-    print(art)
+    headerArt()
     readline.set_completer_delims(' \t\n')
     readline.parse_and_bind("tab: complete")
     readline.set_completer(complete)
@@ -47,8 +47,8 @@ def pdf_convert():
         for line in text_file:
             pdf_file.cell(200, 10, txt=line, ln=1, align="L")
         pdf_file.output(pdf_file_path)
-        print("Navi> The text file was converted to a PDF file.")
-
+        print("\nNavi> The text file was converted to a PDF file.")
+        input("\nNavi> Press enter to return to main chat.")
 
 def run():
     pdf_convert()

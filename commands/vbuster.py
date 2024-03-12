@@ -5,17 +5,25 @@
 # imports
 import os
 from mods import mods
+import pyfiglet
+import click 
 
 command = "/vbuster"
 use = "Virus removal suite"
 
 # global variables
 breakline = mods.breakline
-art = mods.vbusterArt
 
+def headerArt():
+    header = pyfiglet.figlet_format("VBuster", font="slant")
+    click.echo(click.style(header, fg="cyan", bold=True))
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
 
 def run():
-    print(art)
+    clear_screen()
+    headerArt()
     # Setup
     scanOptions = input(
         "Navi> What options do you want to scan with (ex: -r)\n=> ")
@@ -37,14 +45,17 @@ def run():
             "Navi> Scan Complete do you want to see the report now (yes/no)\n=> ").lower()
         if viewReport == "yes":
             os.system(f"cat {outputDir}/{outputName}.txt\n{breakline}\n")
+            input("\nNavi> Press enter to return to chat.")
         elif viewReport == "no":
             print(
                 f"Navi> Understood, the report can be viewed at: {outputDir}/{outputName}.txt \n{breakline}\n")
+            input("\nNavi> Press enter to return to chat.")
         else:
             print(f"Navi> Invalid option... Try again...\n{breakline}\n")
     elif outputChoice == "no":
         print("Navi> Understood, starting scan now!")
         os.system(f"clamscan {scanOptions} {scanDir}")
         print(f"Navi> Scan complete! Results above! \n{breakline}\n")
+        input("\nNavi> Press enter to return to chat")
     else:
         print(f"Navi> Invalid option! Try again! \n{breakline}\n")

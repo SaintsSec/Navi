@@ -1,11 +1,18 @@
 import os
-import sys
 import requests
+import pyfiglet
+import click 
 
 command = "/update"
 use = "Updates navi"
 ai_name_rep = "Navi>"
 
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def headerArt():
+    header = pyfiglet.figlet_format("Navi Updates", font="slant")
+    click.echo(click.style(header, fg="cyan", bold=True))
 
 def get_latest_release(repo_owner, repo_name):
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
@@ -45,29 +52,21 @@ def check_for_new_release(current_version, repo_owner, repo_name):
 
             # Navi related commands
             commands += [
-                'mkdir ~/NaviUpdate',
-                'sudo cp -r /opt/Navi/var/ ~/NaviUpdate',
-                'sudo cp -r /opt/Navi/src ~/NaviUpdate',
+                'sudo rm -rf /tmp/Navi_Update',
+                'sudo rm -rf /tmp/Navi',
+                'mkdir /tmp/Navi_Update',
+                'mkdir /tmp/Navi',
+                'git clone https://github.com/SaintsSec/Navi /tmp/Navi',
                 'sudo rm -rf /opt/Navi',
-                'sudo mkdir ~/NaviUpdate/Navi',
-                'sudo git clone https://github.com/SSGOrg/Navi ~/NaviUpdate/Navi',
-                'sudo mv ~/NaviUpdate/Navi /opt/',
+                'sudo mkdir /opt/Navi',
+                'sudo cp -r /tmp/Navi /opt/',
                 'sudo rm -rf /opt/Navi/.git/',
                 'sudo rm -rf /opt/Navi/.github/',
                 'sudo rm /opt/Navi/README.md',
                 'sudo rm /opt/Navi/CONTRIBUTING.md',
                 'sudo rm /opt/Navi/CODE_OF_CONDUCT.md',
-                'sudo rm /opt/Navi/install.py',
-                'sudo rm /opt/Navi/csi-jackin.py',
-                'sudo rm /opt/Navi/csi-install.py',
-                'sudo rm /opt/Navi/neuralset.py',
-                'sudo rm /opt/Navi/requirements.txt',
-                'sudo rm /opt/Navi/jackin.py',
-                'sudo rm -rf /opt/Navi/var',
-                'sudo mv ~/NaviUpdate/var /opt/Navi',
-                'sudo rm -rf /opt/Navi/src',
-                'sudo mv ~/NaviUpdate/src /opt/Navi',
-                'sudo rm -rf ~/NaviUpdate',
+                'sudo rm -rf /tmp/Navi_Update',
+                'sudo rm -rf /tmp/Navi',
                 'sudo chmod -R 777 /opt/Navi',
             ]
 
@@ -79,7 +78,8 @@ def check_for_new_release(current_version, repo_owner, repo_name):
                 if len(c) <= 0:
                     continue
                 os.system(c)
-            print(f"\n\n{ai_name_rep} Update complete, type 'navi' in the CLI for update to take effect!")
+            print(
+                f"\n\n{ai_name_rep} Update complete, type 'navi' in the CLI for update to take effect!")
             exit(0)
 
         if updateChoice == "no":
@@ -90,8 +90,8 @@ def check_for_new_release(current_version, repo_owner, repo_name):
 
 
 def checkVersion():
-    current_version = "0.1.1"  # Replace with your actual current version
-    repo_owner = "SSGOrg"  # Replace with the actual owner name
+    current_version = "0.1.3"  # Replace with your actual current version
+    repo_owner = "SaintsSec"  # Replace with the actual owner name
     repo_name = "Navi"  # Replace with the actual repository name
 
     result = check_for_new_release(current_version, repo_owner, repo_name)
@@ -99,4 +99,6 @@ def checkVersion():
 
 
 def run():
+    clear_screen()
+    headerArt()
     checkVersion()

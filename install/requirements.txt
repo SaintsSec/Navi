@@ -1,0 +1,7 @@
+fpdf
+openai
+pyfiglet
+requests
+pyopenssl 
+tabulate
+cryptography
