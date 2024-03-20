@@ -6,14 +6,14 @@ import time
 import commands
 import argparse 
 import importlib.util
-import openai 
+import json
 from mods import mods 
 
 art = mods.art
 helpArt = mods.helpArt
 user = getpass.getuser()
 breakline = mods.breakline
-client = openai.OpenAI()
+#client = openai.OpenAI()
 ai_name_rep = "Navi> "
 
 def tr(text):
@@ -196,7 +196,6 @@ def preRun():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(art)
 
-
 def query_navi(messages):
     responses = []
     for user_message in messages:
@@ -211,13 +210,39 @@ def query_navi(messages):
             chip_engine()
             preRun()
         else:
-            response = client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "user", "content": f"{user_message}"}
-                ]
-            )
-            responses.append(f"{ai_name_rep}{response.choices[0].message.content}")
+            # Define the API endpoint and payload
+            url = "http://labs.saintssec.com:11434/api/chat"
+            payload = {
+                "model": "navi-main",
+                "messages": [{"role": "user", "content": user_message}]
+            }
+            headers = {'Content-Type': 'application/json'}
+
+            # Send the POST request
+            response = requests.post(url, headers=headers, json=payload)
+
+            # Check if the response is valid
+            if response.status_code == 200:
+                response_text = response.text
+
+                # Split the response into lines and parse each line as JSON
+                messages = [line for line in response_text.split('\n') if line]
+                extracted_responses = []
+
+                for msg in messages:
+                    try:
+                        json_msg = json.loads(msg)
+                        if json_msg.get('message', {}).get('role') == 'assistant':
+                            extracted_responses.append(json_msg['message']['content'])
+                    except json.JSONDecodeError as e:
+                        print("Error decoding JSON:", e)
+
+                # Concatenate the extracted messages
+                full_response = "".join(extracted_responses)
+                tr(f"Navi> {full_response}")
+            else:
+                print("Failed to get response from the server:", response.status_code)
+
     return responses
 
 def chat_with_navi():
@@ -241,13 +266,40 @@ def chat_with_navi():
             chip_engine()
             preRun()
         else:
-            response = client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "user", "content": f"{user_message}"}
-                ]
-            )
-            tr(f"{ai_name_rep}{response.choices[0].message.content}")
+            # Define the API endpoint and payload
+            url = "http://labs.saintssec.com:11434/api/chat"
+            payload = {
+                "model": "navi-main",
+                "messages": [{"role": "user", "content": user_message}]
+            }
+            headers = {'Content-Type': 'application/json'}
+
+            # Send the POST request
+            response = requests.post(url, headers=headers, json=payload)
+
+            # Check if the response is valid
+            if response.status_code == 200:
+                response_text = response.text
+
+                # Split the response into lines and parse each line as JSON
+                messages = [line for line in response_text.split('\n') if line]
+                extracted_responses = []
+
+                for msg in messages:
+                    try:
+                        json_msg = json.loads(msg)
+                        if json_msg.get('message', {}).get('role') == 'assistant':
+                            extracted_responses.append(json_msg['message']['content'])
+                    except json.JSONDecodeError as e:
+                        print("Error decoding JSON:", e)
+
+                # Concatenate the extracted messages
+                full_response = "".join(extracted_responses)
+                tr(f"Navi> {full_response}")
+            else:
+                print("Failed to get response from the server:", response.status_code)
+
+            
 
 def main():
     args = parse_arguments()

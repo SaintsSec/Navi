@@ -1,5 +1,5 @@
 fpdf
-openai
+json
 pyfiglet
 requests
 pyopenssl 
