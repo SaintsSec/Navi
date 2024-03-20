@@ -2,7 +2,7 @@ import os
 
 breakline = "+===================================================+"
 
-versionNum = "0.1.4"
+versionNum = "0.1.5"
 
 
 # The cover art:

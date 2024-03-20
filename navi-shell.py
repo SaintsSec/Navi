@@ -185,7 +185,7 @@ def check_for_new_release(current_version, repo_owner, repo_name):
 
 
 def checkVersion():
-    current_version = "0.1.4"  # Replace with your actual current version
+    current_version = "0.1.5"  # Replace with your actual current version
     repo_owner = "SaintsSec"  # Replace with the actual owner name
     repo_name = "Navi"  # Replace with the actual repository name
 
