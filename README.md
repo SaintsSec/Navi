@@ -9,15 +9,18 @@
 <img src= https://github.com/SSGOrg/Navi/assets/89718570/5596418e-3fa3-4528-8a07-d00aeece1590 height=25% width=25%>
 </div>
 
-## ✨ **Key Features of Navi v0.1.3**
+## ✨ **Key Features of Navi v0.1.5**
 
 - **Navi Shell Interface** (`navi-shell.py`): A robust, full-featured shell for direct interactions.
 - **Simplified Installation Folder** (`install.sh` + `csi-install.sh`): An intuitive single-stop installation script streamlining the setup process.
+- **New CLI Macro** (`@Navi`): This one formed of a joke based on being able to @mention Navi on discord.
+- **Discord Integration**: Navi is now live on discord. We did this so we could test out Navi's core model as its being built out.
 
 ### **Commands**
 
 - **Reconnaissance Suite** (`/recon`): Automated tools and reporting for thorough digital exploration.
 - **Virus Protection** (`/vbuster`): Empower your digital space with ClamAV's robust antivirus defense mechanisms.
+- **Update** (`/update`): Now when Navi gets a new release it will tell you inside of the main cli program.
 
 ### **Work In Progress**  
 - **[Navi Roadmap](https://github.com/orgs/SaintsSec/projects/7)**
