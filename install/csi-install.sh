@@ -15,7 +15,7 @@ install_reqs() {
 
 setup_aliases() {
     local config_path="/home/$USER/.bashrc"
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py")
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["@Navi"]="python3 /opt/Navi/navi-shell.py -q" )
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
