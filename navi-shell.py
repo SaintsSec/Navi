@@ -217,7 +217,7 @@ def query_navi(messages):
             # Define the API endpoint and payload
             url = f"http://{server}:{port}/api/chat"
             payload = {
-                "model": "envoy-test",
+                "model": "envoy-8x7",
                 "messages": [{"role": "user", "content": user_message}]
             }
             headers = {'Content-Type': 'application/json'}
@@ -273,7 +273,7 @@ def chat_with_navi():
             # Define the API endpoint and payload
             url = f"http://{server}:{port}/api/chat"
             payload = {
-                "model": "envoy-test",
+                "model": "envoy-8x7",
                 "messages": [{"role": "user", "content": user_message}]
             }
             headers = {'Content-Type': 'application/json'}
