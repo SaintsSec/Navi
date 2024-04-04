@@ -1,5 +1,32 @@
 #!/bin/bash 
 
+#Banners and such
+COMPLETE='+----------------------------------------------------------------+
+|░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░░░█▀▀░█▀█░█▄█░█▀█░█░░░█▀▀░▀█▀░█▀▀░█|
+|░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░░░█░░░█░█░█░█░█▀▀░█░░░█▀▀░░█░░█▀▀░▀|
+|░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀░░▀░░▀▀▀░▀|
++----------------------------------------------------------------+'
+INSTALLING='+------------------------------------------------------------------+
+|░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░▀█▀░█▀█░█▀▀░░░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█|
+|░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░░█░░█░█░█░█░░░▀▀█░░█░░▀▀█░░█░░█▀▀░█░█|
+|░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀|
++------------------------------------------------------------------+'
+CLEANING='+----------------------------------------------------------------------------------------+
+|░█▀▀░█░░░█▀▀░█▀█░█▀█░▀█▀░█▀█░█▀▀░░░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░░░█▀▀░█▀█░█░░░█▀▄░█▀▀░█▀▄|
+|░█░░░█░░░█▀▀░█▀█░█░█░░█░░█░█░█░█░░░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░░░█▀▀░█░█░█░░░█░█░█▀▀░█▀▄|
+|░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░░░▀░░░▀▀▀░▀▀▀░▀▀░░▀▀▀░▀░▀|
++----------------------------------------------------------------------------------------+'
+UPDATE='+----------------------------------------------------------+
+|░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀░░░█▀▀░█▀█░█▄█░█▀█░█░░░█▀▀░▀█▀░█▀▀|
+|░█░█░█▀▀░█░█░█▀█░░█░░█▀▀░░░█░░░█░█░█░█░█▀▀░█░░░█▀▀░░█░░█▀▀|
+|░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀░░▀░░▀▀▀|
++----------------------------------------------------------+'
+CLAM='+--------------------------------------------------------------+
+|░█▀█░█░█░░░█▀▀░█▀▀░▀█▀░█░█░█▀█░░░░░█░░░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀|
+|░█▀█░▀▄▀░░░▀▀█░█▀▀░░█░░█░█░█▀▀░░░▄▀░░░░█░█░█▀▀░█░█░█▀█░░█░░█▀▀|
+|░▀░▀░░▀░░░░▀▀▀░▀▀▀░░▀░░▀▀▀░▀░░░░░▀░░░░░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀|
++--------------------------------------------------------------+'
+
 clear_screen() {
     clear
 }
@@ -11,11 +38,11 @@ install_reqs() {
             sudo apt update
             sudo apt install -y python3 python3-pip
             pip install -r requirements.txt 
-            sudo apt install clamav whois nmap
+            sudo apt install clamav whois nmap randtype
             ;;
         "CSI") 
             sudo apt update
-            sudo apt install -y python3 python3-pip whois nmap 
+            sudo apt install -y python3 python3-pip randtype whois nmap 
             sudo apt install clamav
             python3 -m pip install --upgrade pip 
             sudo pip install requests fpdf pyfiglet click tabulate openai
@@ -23,13 +50,18 @@ install_reqs() {
             sudo pip install -U pyopenssl cryptography
             ;;
         "Arch") 
-            sudo pacman -Sy python3 python3-pip whois nmap sudo pacman -Sy python python-pip python-requests python-fpdf python-pyfiglet python-click python-tabulate python-openai clamav 
+            sudo pacman -Sy python3 python3-pip whois nmap randtype 
+            sudo pacman -Sy python python-pip python-requests python-fpdf python-pyfiglet python-click python-tabulate python-openai clamav 
             python3 -m pip install --upgrade pip
             ;;
     esac
 }
 
 fresh_clam() {
+    echo "$CLAM"
+    echo 
+    echo "Navi> Lets update Clam AV so we can bust some viruses!" | randtype -t 5,5000 -m 4
+    echo 
     sudo systemctl stop clamav-freshclam.service
     sudo freshclam
 }
@@ -43,26 +75,25 @@ setup_aliases() {
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
-            echo
-            echo "alias $alias_name='${aliases[$alias_name]}'" >> "$config_path"
-            echo "Alias '$alias_name' added."
-        else
-            echo 
-            echo "Alias '$alias_name' already exists."
+            echo "Navi> My alias $alias_name='${aliases[$alias_name]}'" >> "$config_path" |randtype -t 5,5000 -m 4
+            echo "Navi> My alias '$alias_name' added. So you can quickly get to me!" | randtype -t 5,5000 -m 4
+        else 
+            echo "Navi> Oh my... My alias '$alias_name' already exists. Moving on..." | randtype -t 5,5000 -m 4 
         fi
     done
 }
 
 delete_navi() {
+    echo "$CLEANING"
     if [ -d "/opt/Navi" ]; then
         sudo rm -rf "/opt/Navi"
-        echo "Removed existing /opt/Navi directory."
+        echo "Navi> Removed my existing version directory. Bye Felicia!" | randtype -t 5,5000 -m 4
     fi
 }
 
 copy_navi() {
     sudo cp -r ../ /opt/Navi
-    echo "Copied Navi to /opt."
+    echo "Navi> Copied myself to the /opt directory. My Influence grows." | randtype -t 5,5000 -m 4
 }
 
 cleanup_install_directory() {
@@ -75,7 +106,7 @@ cleanup_install_directory() {
         fi
     done
     echo 
-    echo "Cleaned up installation directory."
+    echo "Navi> Removed bloat and cleaned up installation directory." | randtype -t 5,5000 -m 4
 }
 
 set_permissions_csi(){
@@ -89,11 +120,11 @@ set_permissions_All() {
     sudo chown -R :navi /opt/Navi/
     sudo chmod -R 777 /opt/Navi/
     echo 
-    echo "Set permissions for $distribution."
+    echo "Navi> Set permissions for $distribution." | randtype -t 5,500 -m 4
 }
 
 # Script execution starts here:
-clear_screen
+clear_screen 
 # Define the user to check for
 USER_TO_CHECK="elric"
 
@@ -108,17 +139,20 @@ else
     cat installart.txt
 fi
 
+echo "$INSTALLING"
+echo "Navi> Lets get these pesky requirements out of the way..." | randtype -t 5,5000 -m 4
+
 # Create navi group and add the current user to it
 create_navi_group(){
     if ! grep -q "^navi:" /etc/group; then
         sudo groupadd navi
     fi
     sudo usermod -aG navi "$USER"
-    echo "Added user '$USER' to group 'navi'."
+    echo "Navi> Added user '$USER' to group 'navi'." | randtype -t 5,5000 -m 4
 }
 
 # Distribution choice
-echo "Choose your Linux distribution:"
+echo "Navi> Lets see what OS are you using:" | randtype -t 5,5000 -m 4
 options=("Ubuntu" "Pop!_OS" "CSI" "Arch")
 select distribution in "${options[@]}"; do
     case $distribution in
@@ -132,7 +166,8 @@ select distribution in "${options[@]}"; do
 done
 
 # Shell choice
-echo "Choose your shell:"
+echo "$UPDATE"
+echo "Navi> Now what Shell do you prefer:" | randtype -t 5,5000 -m 4
 shells=("bash" "zsh")
 select shell_choice in "${shells[@]}"; do
     case $shell_choice in
@@ -159,7 +194,6 @@ if [ "$distribution" == "CSI" ]; then
 fi
 
 # Installation steps
-preRun
 create_navi_group
 delete_navi
 copy_navi
@@ -167,6 +201,7 @@ set_permissions_All
 cleanup_install_directory
 install_reqs
 fresh_clam
-echo
-echo "Navi> Good news $USER I have been installed on your $distribution system!"
-echo "Navi> [!!] - PLEASE RESTART YOUR TERMINAL OR SOURCE YOUR SHELL CONFIG."
+echo 
+echo "$COMPLETE"
+echo "Navi> Good news $USER I have been installed on your $distribution system!" | randtype -t 5,5000 -m 4
+echo "Navi> [!!] - PLEASE RESTART YOUR TERMINAL OR SOURCE YOUR SHELL CONFIG." | randtype -t 5,5000 -m 4
