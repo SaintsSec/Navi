@@ -39,7 +39,7 @@ setup_aliases() {
     declare -A config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     local config_path="${config_files[$shell_choice]}"
 
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["@Navi"]="python3 /opt/Navi/navi-shell.py -q" )
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["@Navi"]="python3 /opt/Navi/navi-shell.py -q" ["@navi"]="python3 /opt/Navi/navi-shell.py -q")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
@@ -93,9 +93,20 @@ set_permissions_All() {
 }
 
 # Script execution starts here:
-
 clear_screen
-cat installart.txt
+# Define the user to check for
+USER_TO_CHECK="elric"
+
+# Get the current user
+CURRENT_USER=$(whoami)
+
+# Check if the current user matches the one we want to check
+if [ "$CURRENT_USER" = "$USER_TO_CHECK" ]; then
+    # If they match, cat the file 
+    cat .specialArt.txt
+else 
+    cat installart.txt
+fi
 
 # Create navi group and add the current user to it
 create_navi_group(){
@@ -148,6 +159,7 @@ if [ "$distribution" == "CSI" ]; then
 fi
 
 # Installation steps
+preRun
 create_navi_group
 delete_navi
 copy_navi

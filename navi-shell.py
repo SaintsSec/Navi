@@ -7,12 +7,16 @@ import commands
 import argparse 
 import importlib.util
 import json
+import config
 from mods import mods 
 
 art = mods.art
 helpArt = mods.helpArt
 user = getpass.getuser()
 breakline = mods.breakline
+server = config.server
+port = config.port
+timeout = config.timeout
 #client = openai.OpenAI()
 ai_name_rep = "Navi> "
 
@@ -211,9 +215,9 @@ def query_navi(messages):
             preRun()
         else:
             # Define the API endpoint and payload
-            url = "http://labs.saintssec.com:11434/api/chat"
+            url = f"http://{server}:{port}/api/chat"
             payload = {
-                "model": "navi-main",
+                "model": "envoy-test",
                 "messages": [{"role": "user", "content": user_message}]
             }
             headers = {'Content-Type': 'application/json'}
@@ -241,7 +245,7 @@ def query_navi(messages):
                 full_response = "".join(extracted_responses)
                 tr(f"Navi> {full_response}")
             else:
-                print("Failed to get response from the server:", response.status_code)
+                print(f"Failed to get response from the server at: \n{response.url}\n{response.json()}")
 
     return responses
 
@@ -267,9 +271,9 @@ def chat_with_navi():
             preRun()
         else:
             # Define the API endpoint and payload
-            url = "http://labs.saintssec.com:11434/api/chat"
+            url = f"http://{server}:{port}/api/chat"
             payload = {
-                "model": "navi-main",
+                "model": "envoy-test",
                 "messages": [{"role": "user", "content": user_message}]
             }
             headers = {'Content-Type': 'application/json'}
@@ -297,7 +301,7 @@ def chat_with_navi():
                 full_response = "".join(extracted_responses)
                 tr(f"Navi> {full_response}")
             else:
-                print("Failed to get response from the server:", response.status_code)
+                print(f"Failed to get response from the server: \n{response.url}\n{response.json()}")
 
             
 
