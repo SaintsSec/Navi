@@ -255,8 +255,10 @@ def chat_with_navi():
         try:
             user_message = input(f"\n{user}> ")
         except EOFError:
-            print("Encountered an unexpected end of input.")
+            tr("Navi> Encountered an unexpected end of input.")
             break
+        except KeyboardInterrupt:
+            tr("\nNavi> Keyboard interupt has been received, talk to you soon!")
 
         # Exit loop if the user types 'exit' or 'quit'
         if user_message.lower() in ['/stop', 'quit', 'exit', 'goodbye']:
@@ -306,13 +308,17 @@ def chat_with_navi():
             
 
 def main():
-    args = parse_arguments()
-    if handle_arguments(args):
-        return 
-    preRun()
-    checkVersion()
-    tr(f"{ai_name_rep} How can I help you {user}")
-    chat_with_navi()
+    try:
+        while True:
+            args = parse_arguments()
+            if handle_arguments(args):
+                return 
+            preRun()
+            checkVersion()
+            tr(f"{ai_name_rep} How can I help you {user}")
+            chat_with_navi()
+    except KeyboardInterrupt:
+        tr("\nNavi> Keyboard interupt has been recived, talk to you soon!")
 
 if __name__ == "__main__":
     main()
