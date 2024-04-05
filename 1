@@ -15,7 +15,8 @@ helpArt = mods.helpArt
 user = getpass.getuser()
 breakline = mods.breakline
 server = config.server
-port = config.port 
+port = config.port
+timeout = config.timeout 
 ai_name_rep = "Navi> "
 
 def tr(text):
@@ -317,5 +318,4 @@ if __name__ == "__main__":
         try:
             main()
         except KeyboardInterrupt:
-            tr(f"\n{ai_name_rep} Keyboard interupt has been registered, talk soon {user}!")
-            exit(0)
+            tr(f"{ai_name_rep} Keyboard interupt has been registered, talk soon {user}!")
