@@ -7,8 +7,7 @@ import getpass
 from mods import mods
 from fpdf import FPDF
 import pyfiglet
-import click
-
+import click 
 command = "/spectre"
 use = "Recon automation suite"
 

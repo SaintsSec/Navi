@@ -270,7 +270,7 @@ def chat_with_navi():
             # Define the API endpoint and payload
             url = f"http://{server}:{port}/api/chat"
             payload = {
-                "model": "envoy-8x7",
+                "model": "envoy",
                 "messages": [{"role": "user", "content": user_message}]
             }
             headers = {'Content-Type': 'application/json'}
