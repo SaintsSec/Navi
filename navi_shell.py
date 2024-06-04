@@ -1,40 +1,57 @@
-import requests 
+import requests
 import os
 import getpass
 import random
-import time 
+import time
 import commands
-import argparse 
+import argparse
 import importlib.util
 import json
 import config
-from mods import mods 
+import openai
+import re
+import spacy
+
+from mods import mods
 
 art = mods.art
 helpArt = mods.helpArt
 user = getpass.getuser()
 breakline = mods.breakline
-server = config.server
-port = config.port 
 ai_name_rep = "Navi> "
 
+server = config.server
+port = config.port
+
+# NLP setup
+nlp = spacy.load("en_core_web_sm") 
+ruler = nlp.add_pipe("entity_ruler")
+
+
+
+
+def get_ai_name():
+    return ai_name_rep
+
+
+def get_user():
+    return user
+
+
 def tr(text):
+    sleep_times = {
+        (0, 0.1): 0.0,
+        (0.1, 0.2): 0.05,
+        (0.2, 1.0): 0.01
+    }
     for char in text:
-        print(char, end="", flush=True,)
-        # generate a random number between 0 and 1
+        print(char, end="", flush=True)
         random_num = random.uniform(0, 1)
-        # if the random number is less than .1
-        if random_num < .1:
-            # sleep for 1 second
-            time.sleep(.0)
-        # else if the rando
-        elif random_num < .2:
-            # sleep for .5 seconds
-            time.sleep(.050)
-        # else
-        else:
-            # sleep for .1 seconds
-            time.sleep(.010)
+        for range_tuple, sleep_time in sleep_times.items():
+            if range_tuple[0] <= random_num < range_tuple[1]:
+                time.sleep(sleep_time)
+                break
+
 
 def parse_arguments():
     """Parse command-line arguments and return the parsed args object."""
@@ -70,12 +87,12 @@ def parse_arguments():
 
 def handle_arguments(args):
     """Handle the actions based on the provided arguments."""
-   
+
     if args.q:
         responses = query_navi(args.q)
         for response in responses:
             tr(response)
-        return True  
+        return True
 
     if args.r:
         # Handle the -r argument logic here
@@ -84,7 +101,7 @@ def handle_arguments(args):
                 f"{mods.breakline}\n{ai_name_rep} [\u2713] - Running command: '{args.r}'\n{mods.breakline}")
             commands.modules[args.r].run()
         return True
-    
+
     if args.nh:
         directory_path = '/opt/Navi/commands'
 
@@ -124,6 +141,7 @@ def handle_arguments(args):
         return True
 
     return False  # Indicate that no specific argument actions were handled
+
 
 # Navi Script Engine 
 def chip_engine_help():
@@ -186,7 +204,7 @@ def check_for_new_release(current_version, repo_owner, repo_name):
         return f"{ai_name_rep} - [!!] You are running the latest version"
 
 
-def checkVersion():
+def check_version():
     current_version = "0.1.5"  # Replace with your actual current version
     repo_owner = "SaintsSec"  # Replace with the actual owner name
     repo_name = "Navi"  # Replace with the actual repository name
@@ -194,58 +212,11 @@ def checkVersion():
     result = check_for_new_release(current_version, repo_owner, repo_name)
     print(result)
 
-def preRun():
+
+def pre_run():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(art)
 
-def query_navi(messages):
-    responses = []
-    for user_message in messages:
-        if user_message.lower() in ['/stop', 'quit', 'exit', 'goodbye']:
-            responses.append(f"{ai_name_rep} Thank you for stopping by! {user}")
-            break
-        if user_message.lower() in ['/clear', 'cls']:
-            preRun()
-            responses.append(f"{ai_name_rep} How can I help you {user}")
-            continue
-        if user_message.lower() in ['run', 'chips', 'execute', 'scripts', 'load']:
-            chip_engine()
-            preRun()
-        else:
-            # Define the API endpoint and payload
-            url = f"http://{server}:{port}/api/chat"
-            payload = {
-                "model": "envoy-8x7",
-                "messages": [{"role": "user", "content": user_message}]
-            }
-            headers = {'Content-Type': 'application/json'}
-
-            # Send the POST request
-            response = requests.post(url, headers=headers, json=payload)
-
-            # Check if the response is valid
-            if response.status_code == 200:
-                response_text = response.text
-
-                # Split the response into lines and parse each line as JSON
-                messages = [line for line in response_text.split('\n') if line]
-                extracted_responses = []
-
-                for msg in messages:
-                    try:
-                        json_msg = json.loads(msg)
-                        if json_msg.get('message', {}).get('role') == 'assistant':
-                            extracted_responses.append(json_msg['message']['content'])
-                    except json.JSONDecodeError as e:
-                        print("Error decoding JSON:", e)
-
-                # Concatenate the extracted messages
-                full_response = "".join(extracted_responses)
-                tr(f"Navi> {full_response}")
-            else:
-                print(f"Failed to get response from the server at: \n{response.url}\n{response.json()}")
-
-    return responses
 
 def chat_with_navi():
     while True:
@@ -254,18 +225,11 @@ def chat_with_navi():
             user_message = input(f"\n{user}> ")
         except EOFError:
             tr("Navi> Encountered an unexpected end of input.")
-            break 
-        # Exit loop if the user types 'exit' or 'quit'
-        if user_message.lower() in ['/stop', 'quit', 'exit', 'goodbye']:
-            tr(f"{ai_name_rep} Thank you for stopping by! {user}")
-            exit(0)
-        if user_message.lower() in ['/clear', 'cls']:
-            preRun()
-            tr(f"{ai_name_rep} How can I help you {user}")
-            continue
-        if user_message.lower() in ['run', 'chips', 'execute', 'scripts', 'load']:
-            chip_engine()
-            preRun()
+            break
+        processed_message = nlp(user_message.lower().strip())
+        navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
+        if navi_commands:
+            commands.modules[navi_commands[0].text].run()
         else:
             # Define the API endpoint and payload
             url = f"http://{server}:{port}/api/chat"
@@ -301,21 +265,25 @@ def chat_with_navi():
                 tr(f"Navi> {full_response}")
             else:
                 print(f"Failed to get response from the server: \n{response.url}\n{response.json()}")
-            
+
+
+def setup_navi_vocab():
+    for installed_commands in commands.modules.keys():
+        patterns = [{"label": "NAVI_COMMAND", "pattern": installed_commands}]
+        ruler.add_patterns(patterns)
+
 
 def main():
-    args = parse_arguments()
-    if handle_arguments(args):
-        return 
-    preRun()
-    checkVersion()
-    tr(f"{ai_name_rep} How can I help you {user}")
-    chat_with_navi()
+    try:
+        pre_run()
+        check_version()
+        tr(f"{ai_name_rep} How can I help you {user}")
+        setup_navi_vocab()
+        chat_with_navi()
+    except KeyboardInterrupt:
+        tr(f"\n{ai_name_rep} Keyboard interupt has been registered, talk soon {user}!")
+        exit(0)
+
 
 if __name__ == "__main__":
-    while True:
-        try:
-            main()
-        except KeyboardInterrupt:
-            tr(f"\n{ai_name_rep} Keyboard interupt has been registered, talk soon {user}!")
-            exit(0)
+    main()

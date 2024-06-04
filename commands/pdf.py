@@ -8,7 +8,7 @@ import pyfiglet
 # make ascii art for pdf converter using text "Pdf Converter" in figlet
 
 
-command = "/pdf"
+command = "pdf"
 use = "text to pdf conversion"
 
 

@@ -8,7 +8,7 @@ from mods import mods
 import pyfiglet
 import click 
 
-command = "/vbuster"
+command = "vbuster"
 use = "Virus removal suite"
 
 # global variables

@@ -3,7 +3,7 @@ import requests
 import pyfiglet
 import click 
 
-command = "/update"
+command = "update"
 use = "Updates navi"
 ai_name_rep = "Navi>"
 

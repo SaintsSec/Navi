@@ -3,7 +3,7 @@ import json
 
 #TODO Actually work this chip out.
 
-command = "/navicust"
+command = "navicust"
 use = "Navi customizer"
 
 file_path = "/opt/Navi/config/custmizer.json"

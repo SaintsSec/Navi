@@ -9,7 +9,7 @@ from fpdf import FPDF
 import pyfiglet
 import click
 
-command = "/spectre"
+command = "spectre"
 use = "Recon automation suite"
 
 # Global Vars
@@ -19,10 +19,12 @@ timestr = time.strftime("%m%d%Y-%H:%M")
 pdf = FPDF()
 user = getpass.getuser()
 
+
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
-def headerArt():
+
+def header_art():
     header = pyfiglet.figlet_format("Spectre Recon", font="slant")
     click.echo(click.style(header, fg="cyan", bold=True))
 
@@ -35,7 +37,7 @@ def run():
     """Do recon."""
     # Recon Setup
     clear_screen()
-    headerArt()
+    header_art()
     print("\nNmap Setup:")
     targetIP = input("Navi> [!] - Give me an IP or URL to scan => ")
     scanOptions = input(

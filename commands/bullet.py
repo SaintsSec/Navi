@@ -4,7 +4,7 @@ import os
 from tabulate import tabulate
 import pyfiglet
 
-command = "/bullet"
+command = "bullet"
 use = "Bullet Journal App"
 
 
