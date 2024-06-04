@@ -21,7 +21,7 @@ def headerArt():
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
-def run():
+def run(arguments = None):
     clear_screen()
     headerArt()
     # Setup

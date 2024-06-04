@@ -33,7 +33,7 @@ pdf.add_page()
 pdf.set_font("Arial", size=10)
 
 
-def run():
+def run(arguments = None):
     """Do recon."""
     # Recon Setup
     clear_screen()

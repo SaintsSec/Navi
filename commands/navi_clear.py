@@ -1,17 +1,11 @@
 #!/bin/python3
-# imports
-import os
-from navi_shell import get_ai_name, get_user, tr
+from navi_shell import get_ai_name, get_user, pre_run, tr
 
 command = "clear"
 use = "Clear the screen"
 aliases = ['cls']
 
 
-def clear_screen():
-    os.system("cls" if os.name == "nt" else "clear")
-
-
-def run():
-    clear_screen()
+def run(arguments=None):
+    pre_run()
     tr(f"{get_ai_name()} How can I help you, {get_user()}?")

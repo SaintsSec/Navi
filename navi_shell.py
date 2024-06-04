@@ -8,7 +8,6 @@ import argparse
 import importlib.util
 import json
 import config
-import openai
 import re
 import spacy
 
@@ -28,15 +27,12 @@ nlp = spacy.load("en_core_web_sm")
 ruler = nlp.add_pipe("entity_ruler")
 
 
-
-
 def get_ai_name():
     return ai_name_rep
 
 
 def get_user():
     return user
-
 
 def tr(text):
     sleep_times = {
@@ -110,7 +106,7 @@ def chat_with_navi():
         processed_message = nlp(user_message.lower().strip())
         navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
         if navi_commands:
-            commands.modules[navi_commands[0].text].run()
+            commands.modules[navi_commands[0].text].run(processed_message)
         else:
             # Define the API endpoint and payload
             url = f"http://{server}:{port}/api/chat"
@@ -147,7 +143,7 @@ def chat_with_navi():
             else:
                 print(f"Failed to get response from the server: \n{response.url}\n{response.json()}")
 
-
+# Add all known commands as patterns
 def setup_navi_vocab():
     for installed_commands in commands.modules.keys():
         patterns = [{"label": "NAVI_COMMAND", "pattern": installed_commands}]
