@@ -17,12 +17,12 @@ def run(arguments=None):
             if re.match(r'(\d{1,3}\.){3}\d{1,3}', token.text):
                 ip_address = token.text
 
-            # Find multiple port numbers
-        ports_pattern = re.compile(r'\bports?\s+(\d{1,5}(?:\s+and\s+\d{1,5})*)', re.IGNORECASE)
+        # Find multiple port numbers
+        ports_pattern = re.compile(r'\bports?\s+([\d\s,]+(?:\s*(?:and|,)\s*[\d\s,]*)*)', re.IGNORECASE)
         for match in ports_pattern.finditer(arguments.text):
             ports_text = match.group(1)
-            # Split ports by 'and' to handle multiple ports
-            for port in re.split(r'\s+and\s+', ports_text):
+            # Split ports by 'and', commas, and spaces to handle multiple ports
+            for port in re.split(r'\s*,\s*|\s+and\s+|\s+', ports_text):
                 if port.isdigit():
                     port_numbers.append(port)
 
