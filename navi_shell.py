@@ -34,6 +34,7 @@ def get_ai_name():
 def get_user():
     return user
 
+
 def tr(text):
     sleep_times = {
         (0, 0.1): 0.0,
@@ -95,6 +96,42 @@ def pre_run():
     print(art)
 
 
+def llm_chat(user_message):
+    # Define the API endpoint and payload
+    url = f"http://{server}:{port}/api/chat"
+    payload = {
+        "model": "envoy",
+        "messages": [{"role": "user", "content": user_message}]
+    }
+    headers = {'Content-Type': 'application/json'}
+    # Send the POST request
+    response = requests.post(url, headers=headers, json=payload)
+
+    # Check if the response is valid
+    if response.status_code == 200:
+        response_text = response.text
+
+        # Split the response into lines and parse each line as JSON
+        messages = [line for line in response_text.split('\n') if line]
+        extracted_responses = []
+
+        for msg in messages:
+            try:
+                json_msg = json.loads(msg)
+                if json_msg.get('message', {}).get('role') == 'assistant':
+                    extracted_responses.append(json_msg['message']['content'])
+            except json.JSONDecodeError as e:
+                print("Error decoding JSON:", e)
+            except KeyboardInterrupt:
+                tr(f"{ai_name_rep} Keyboard interupt registered, talk soon {user}!")
+
+        # Concatenate the extracted messages
+        full_response = "".join(extracted_responses)
+        return (full_response,200)
+    else:
+        return (f"{response.url} | {response.json()}", 400)
+    
+
 def chat_with_navi():
     while True:
         # Get user input
@@ -108,40 +145,9 @@ def chat_with_navi():
         if navi_commands:
             commands.modules[navi_commands[0].text].run(processed_message)
         else:
-            # Define the API endpoint and payload
-            url = f"http://{server}:{port}/api/chat"
-            payload = {
-                "model": "envoy-8x7",
-                "messages": [{"role": "user", "content": user_message}]
-            }
-            headers = {'Content-Type': 'application/json'}
-
-            # Send the POST request
-            response = requests.post(url, headers=headers, json=payload)
-
-            # Check if the response is valid
-            if response.status_code == 200:
-                response_text = response.text
-
-                # Split the response into lines and parse each line as JSON
-                messages = [line for line in response_text.split('\n') if line]
-                extracted_responses = []
-
-                for msg in messages:
-                    try:
-                        json_msg = json.loads(msg)
-                        if json_msg.get('message', {}).get('role') == 'assistant':
-                            extracted_responses.append(json_msg['message']['content'])
-                    except json.JSONDecodeError as e:
-                        print("Error decoding JSON:", e)
-                    except KeyboardInterrupt:
-                        tr(f"{ai_name_rep} Keyboard interupt registered, talk soon {user}!")
-
-                # Concatenate the extracted messages
-                full_response = "".join(extracted_responses)
-                tr(f"Navi> {full_response}")
-            else:
-                print(f"Failed to get response from the server: \n{response.url}\n{response.json()}")
+            response_message, http_status = llm_chat(user_message)
+            tr(f"{ai_name_rep} {response_message if http_status == 200 else some_other_message}")
+            
 
 # Add all known commands as patterns
 def setup_navi_vocab():
