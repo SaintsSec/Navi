@@ -6,4 +6,3 @@ pyopenssl
 tabulate
 cryptography
 spacy
-re

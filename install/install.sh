@@ -38,6 +38,7 @@ install_reqs() {
             sudo apt update
             sudo apt install -y python3 python3-pip
             pip install -r requirements.txt 
+            python3 -m spacy download en_core_web_sm
             sudo apt install clamav whois nmap randtype
             ;;
         "CSI") 
@@ -45,14 +46,16 @@ install_reqs() {
             sudo apt install -y python3 python3-pip randtype whois nmap 
             sudo apt install clamav
             python3 -m pip install --upgrade pip 
-            sudo pip install requests fpdf pyfiglet click tabulate openai
+            sudo pip install requests fpdf pyfiglet click tabulate spacy
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
+            python3 -m spacy download en_core_web_sm
             ;;
         "Arch") 
             sudo pacman -Sy python3 python3-pip whois nmap randtype 
-            sudo pacman -Sy python python-pip python-requests python-fpdf python-pyfiglet python-click python-tabulate python-openai clamav 
+            sudo pacman -Sy python python-pip python-requests python-fpdf python-pyfiglet python-click python-tabulate python-spacy clamav 
             python3 -m pip install --upgrade pip
+            python3 -m spacy download en_core_web_sm
             ;;
     esac
 }
@@ -71,11 +74,11 @@ setup_aliases() {
     declare -A config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     local config_path="${config_files[$shell_choice]}"
 
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["@Navi"]="python3 /opt/Navi/navi-shell.py -q" ["@navi"]="python3 /opt/Navi/navi-shell.py -q")
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi_shell.py" ["@Navi"]="python3 /opt/Navi/navi_shell.py -q" ["@navi"]="python3 /opt/Navi/navi_shell.py -q")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
-            echo "Navi> My alias $alias_name='${aliases[$alias_name]}'" >> "$config_path" |randtype -t 5,5000 -m 4
+            echo "alias $alias_name='${aliases[$alias_name]}'" >> "$config_path"
             echo "Navi> My alias '$alias_name' added. So you can quickly get to me!" | randtype -t 5,5000 -m 4
         else 
             echo "Navi> Oh my... My alias '$alias_name' already exists. Moving on..." | randtype -t 5,5000 -m 4 
