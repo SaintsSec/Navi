@@ -5,3 +5,4 @@ requests
 pyopenssl 
 tabulate
 cryptography
+spacy
