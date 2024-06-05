@@ -2,7 +2,7 @@ import json
 import click
 from tabulate import tabulate
 import pyfiglet
-from navi_shell import pre_run
+from navi_shell import pre_run, get_ai_name
 
 command = "bullet"
 use = "Bullet Journal App"
