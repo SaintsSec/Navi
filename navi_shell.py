@@ -129,7 +129,7 @@ def llm_chat(user_message):
         full_response = "".join(extracted_responses)
         return (full_response,200)
     else:
-        return (f"{response.url} | {response.json()}", 400)
+        return (f"{response.url},{response.json()}", 400)
     
 
 def chat_with_navi():
