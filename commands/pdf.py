@@ -17,12 +17,14 @@ def complete(text, state):
     options = [i for i in os.listdir('.') if i.startswith(text)]
     return options[state] if state < len(options) else None
 
-def headerArt():
+
+def header_art():
     header = pyfiglet.figlet_format("PDF Converter", font="slant")
     click.echo(click.style(header, fg="cyan", bold=True))
 
+
 def pdf_convert():
-    headerArt()
+    header_art()
     readline.set_completer_delims(' \t\n')
     readline.parse_and_bind("tab: complete")
     readline.set_completer(complete)
@@ -49,6 +51,7 @@ def pdf_convert():
         pdf_file.output(pdf_file_path)
         print("\nNavi> The text file was converted to a PDF file.")
         input("\nNavi> Press enter to return to main chat.")
+
 
 def run():
     pdf_convert()

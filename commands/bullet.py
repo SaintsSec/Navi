@@ -1,15 +1,11 @@
 import json
 import click
-import os
 from tabulate import tabulate
 import pyfiglet
+from navi_shell import pre_run
 
 command = "bullet"
 use = "Bullet Journal App"
-
-
-def clear_screen():
-    os.system("cls" if os.name == "nt" else "clear")
 
 
 # Load the journal from a file
@@ -25,7 +21,7 @@ except KeyError:
 # Add a fancy header
 
 
-def headerArt():
+def header_art():
     header = pyfiglet.figlet_format("Bullet Journal", font="slant")
     click.echo(click.style(header, fg="cyan", bold=True))
 
@@ -187,12 +183,11 @@ def save_journal():
     with open("journal.json", "w") as f:
         json.dump(journal, f)
 
+
 # Main loop
-
-
 def run():
-    clear_screen()
-    headerArt()
+    pre_run()
+    header_art()
     display_tasks()
     while True:
         click.echo(click.style("Menu: ", fg="cyan", bold=True), nl=False)
