@@ -58,10 +58,10 @@ def run(arguments=None):
         tr(f"\n{get_ai_name()} Running... hang tight!")
         target = ip_address if ip_address is not None else hostname
         pattern = re.compile(r"""
-        -p\s*[\d,-]+|                       # Match -p followed by digits, commas, or hyphens (port ranges)
-        -[A-Za-z0-9]{1,2}(?:\s|$)|          # Match short flags (e.g., -A, -sV) followed by a space or end of string
-        --\w+(?:=\S+)?|                     # Match long flags and their arguments (e.g., --script, --version-intensity=5)
-        \b-T[0-5]\b                         # Match timing templates (e.g., -T0 to -T5)
+        -p\s*[\d,-]+|                     # Match -p followed by digits, commas, or hyphens (port ranges)
+        -[A-Za-z0-9]{1,2}(?:\s|$)|        # Match short flags (e.g., -A, -sV) followed by a space or end of string
+        --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
+        \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
     """, re.VERBOSE)
 
         # Find all matches in the command string
@@ -69,11 +69,14 @@ def run(arguments=None):
         stdout, stderr = run_nmap_scan(target, port_numbers, matches)
 
         # Ask user how they want to handle the results
-        choice = input(f"\n{get_ai_name()} Scan done! Would you like me to analyze the results or just see the raw output? (type 'analyze' or 'raw'): ").strip().lower()
+        choice = input(f"\n{get_ai_name()} Scan done! Would you like me to analyze the results or just see the raw "
+                       f"output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
-            response_message, http_status = llm_chat(f"Please analyze and summarize the results of this nmap scan: {stdout}")
-            tr(f"{get_ai_name()} {response_message if http_status == 200 else f'Issue with server. Here are the results: {stdout}'}")
+            response_message, http_status = llm_chat(f"Please analyze and summarize the results of "
+                                                     f"this nmap scan: {stdout}")
+            tr(f"{get_ai_name()} {response_message if http_status == 200 else f'Issue with server. "'
+                                                                              f'Here are the results: {stdout}'}")
         elif choice == 'raw':
             tr(f"\n{get_ai_name()} Here are the raw results:\n{stdout}")
         else:
