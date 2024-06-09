@@ -1,8 +1,8 @@
 #!/bin/python3
 import re
-import os
+import subprocess
 from typing import List
-from navi_shell import tr
+from navi_shell import tr, get_ai_name, llm_chat
 
 command = "nmap"
 use = "Port scanning"
@@ -17,9 +17,17 @@ def run_nmap_scan(target, ports=None, arguments=None):
         command.extend(arguments)
     command.append(target)
 
+    # Ensure all elements in the command are strings and strip whitespace
+    command = [str(arg).strip() for arg in command]
+
     # Run the nmap command
-    result = os.system(" ".join(command))
-    return result
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True
+    )
+    return result.stdout, result.stderr
 
 
 def run(arguments=None):
@@ -45,9 +53,9 @@ def run(arguments=None):
                 if port.isdigit():
                     port_numbers.append(port)
     if ip_address is None and hostname is None:
-        tr("Sorry, you need to provide a valid IP address or hostname")
+        tr(f"\n{get_ai_name()} Sorry, you need to provide a valid IP address or hostname")
     else:
-        tr("Running... hang tight!\n")
+        tr(f"\n{get_ai_name()} Running... hang tight!")
         target = ip_address if ip_address is not None else hostname
         nmap_construction = f"nmap {'-p ' + ','.join(port_numbers) + ' ' if port_numbers else ''}{target}"
         pattern = re.compile(r"""
@@ -59,4 +67,16 @@ def run(arguments=None):
 
         # Find all matches in the command string
         matches = pattern.findall(arguments.text)
-        stdout = run_nmap_scan(target, port_numbers, matches)
+        stdout, stderr = run_nmap_scan(target, port_numbers, matches)
+
+        # Ask user how they want to handle the results
+        choice = input(f"\n{get_ai_name()} Scan done! Would you like the me to analyze the results or see the raw output? (type 'analyze' or 'raw'): ").strip().lower()
+
+        if choice == 'analyze':
+            response_message, http_status = llm_chat(f"Please analyze and summarize the results of this nmap scan: {stdout}")
+            tr(f"{get_ai_name()} {response_message if http_status == 200 else f'Issue with server. Here are the results: {stdout}'}")
+        elif choice == 'raw':
+            tr(f"\n{get_ai_name()} Here are the raw results:\n{stdout}")
+        else:
+            tr("Invalid choice. Showing raw results by default.\n")
+            tr(f"\n{get_ai_name()} Here are the raw results:\n{stdout}")
