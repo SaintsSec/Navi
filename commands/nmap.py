@@ -10,19 +10,19 @@ use = "Port scanning"
 
 def run_nmap_scan(target, ports=None, arguments=None):
     # Initialize the nmap command
-    command = ['nmap']
+    command_construction = ['nmap']
     if ports:
-        command.extend(['-p', ','.join(ports)])  # Join the ports list into a single string
+        command_construction.extend(['-p', ','.join(ports)])  # Join the ports list into a single string
     if arguments:
-        command.extend(arguments)
-    command.append(target)
+        command_construction.extend(arguments)
+    command_construction.append(target)
 
     # Ensure all elements in the command are strings and strip whitespace
-    command = [str(arg).strip() for arg in command]
+    command_construction = [str(arg).strip() for arg in command_construction]
 
     # Run the nmap command
     result = subprocess.run(
-        command,
+        command_construction,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True
@@ -57,7 +57,6 @@ def run(arguments=None):
     else:
         tr(f"\n{get_ai_name()} Running... hang tight!")
         target = ip_address if ip_address is not None else hostname
-        nmap_construction = f"nmap {'-p ' + ','.join(port_numbers) + ' ' if port_numbers else ''}{target}"
         pattern = re.compile(r"""
         -p\s*[\d,-]+|                       # Match -p followed by digits, commas, or hyphens (port ranges)
         -[A-Za-z0-9]{1,2}(?:\s|$)|          # Match short flags (e.g., -A, -sV) followed by a space or end of string
