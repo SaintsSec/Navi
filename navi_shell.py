@@ -140,7 +140,7 @@ def chat_with_navi():
         except EOFError:
             tr("Navi> Encountered an unexpected end of input.")
             break
-        processed_message = nlp(user_message.lower().strip())
+        processed_message = nlp(user_message.strip())
         navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
         if navi_commands:
             commands.modules[navi_commands[0].text].run(processed_message)
