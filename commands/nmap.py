@@ -70,7 +70,7 @@ def run(arguments=None):
         stdout, stderr = run_nmap_scan(target, port_numbers, matches)
 
         # Ask user how they want to handle the results
-        choice = input(f"\n{get_ai_name()} Scan done! Would you like the me to analyze the results or see the raw output? (type 'analyze' or 'raw'): ").strip().lower()
+        choice = input(f"\n{get_ai_name()} Scan done! Would you like me to analyze the results or just see the raw output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
             response_message, http_status = llm_chat(f"Please analyze and summarize the results of this nmap scan: {stdout}")
