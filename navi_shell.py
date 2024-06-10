@@ -1,6 +1,7 @@
 import requests
 import os
 import getpass
+import textwrap
 import random
 import time
 import commands
@@ -41,14 +42,30 @@ def tr(text):
         (0.1, 0.2): 0.05,
         (0.2, 1.0): 0.01
     }
-    for char in text:
-        print(char, end="", flush=True)
-        random_num = random.uniform(0, 1)
-        for range_tuple, sleep_time in sleep_times.items():
-            if range_tuple[0] <= random_num < range_tuple[1]:
-                time.sleep(sleep_time)
-                break
 
+    try:
+        terminal_width = os.get_terminal_size().columns
+    except OSError:
+        # If we cannot get the terminal size, use a default width
+        terminal_width = 80
+    # Adjust the wrap width based on 60% of the terminal width
+    wrap_width = int(terminal_width * 0.6)
+
+    # Split text into lines to preserve line breaks
+    lines = text.split('\n')
+
+    for line in lines:
+        # Wrap each line individually
+        wrapped_lines = textwrap.fill(line, width=wrap_width)
+        for char in wrapped_lines:
+            print(char, end="", flush=True)
+            random_num = random.uniform(0, 1)
+            for range_tuple, sleep_time in sleep_times.items():
+                if range_tuple[0] <= random_num < range_tuple[1]:
+                    time.sleep(sleep_time)
+                    break
+        # Print a newline character after each wrapped line
+        print()
 
 def get_latest_release(repo_owner, repo_name):
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
