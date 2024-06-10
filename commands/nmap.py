@@ -76,8 +76,6 @@ def run(arguments=None):
             response_message, http_status = llm_chat(f"Please analyze and summarize the results of "
                                                      f"this nmap scan: {stdout}")
             tr(f"{get_ai_name()} {response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
-            #tr(f"{get_ai_name()} {response_message if http_status == 200 else f'Issue with server. "'
-            #f'Here are the results: {stdout}'}")
         elif choice == 'raw':
             tr(f"\n{get_ai_name()} Here are the raw results:\n{stdout}")
         else:
