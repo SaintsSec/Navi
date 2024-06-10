@@ -146,7 +146,7 @@ def chat_with_navi():
             commands.modules[navi_commands[0].text].run(processed_message)
         else:
             response_message, http_status = llm_chat(user_message)
-            tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
+            tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}"))
             #tr(f"{ai_name_rep} {response_message if http_status == 200 else "Issue with server"}")
             
 
