@@ -162,9 +162,12 @@ def chat_with_navi():
         # Check if the message is a question
         question_keywords = {"is", "does", "do", "what", "when", "where", "who", "why", "what", "how"}
         is_question = any(token.text.lower() in question_keywords for token in processed_message if token.i == 0)
-        
+
         if navi_commands and not is_question:
-            commands.modules[navi_commands[0].text].run(processed_message)
+            command = navi_commands[0].text
+            main_command = commands.alias_to_command.get(command)
+            if main_command:
+                commands.modules[main_command].run(processed_message)
         else:
             response_message, http_status = llm_chat(user_message)
             tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
@@ -172,8 +175,12 @@ def chat_with_navi():
 
 # Add all known commands as patterns
 def setup_navi_vocab():
-    for installed_commands in commands.modules.keys():
-        patterns = [{"label": "NAVI_COMMAND", "pattern": installed_commands}]
+    # Register commands and aliases with the entity ruler
+    for command, module in commands.modules.items():
+        patterns = [{"label": "NAVI_COMMAND", "pattern": command}]
+        aliases = getattr(module, 'aliases', [])  # Safely get the aliases attribute, default to an empty list
+        for alias in aliases:
+            patterns.append({"label": "NAVI_COMMAND", "pattern": alias})
         ruler.add_patterns(patterns)
 
 
