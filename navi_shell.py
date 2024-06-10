@@ -28,8 +28,6 @@ nlp = spacy.load("en_core_web_sm")
 ruler = nlp.add_pipe("entity_ruler")
 
 
-
-
 def get_ai_name():
     return ai_name_rep
 
