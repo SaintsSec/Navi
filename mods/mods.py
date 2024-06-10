@@ -12,8 +12,11 @@ art = f"""{breakline}
 |             /  |/ / __ `/ | / / /                 |
 |            / /|  / /_/ /| |/ / /                  |
 |           /_/ |_/\__,_/ |___/_/ v{versionNum}            |
-|     Type 'run' for chips or '/stop' to exit       |
-|    Otherwise type a prompt to talk to the AI      |
+|===================================================|
+|  Disclaimer: Saints Security Group LLC does not   |
+|  condone or support illegal activity and assumes  |
+|  no responsibility for damages caused through     |
+|  the use of Navi.                                 |  
 {breakline}
 """
 vbusterArt = f"""{breakline}
