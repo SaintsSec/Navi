@@ -142,12 +142,15 @@ def chat_with_navi():
             break
         processed_message = nlp(user_message.strip())
         navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
-        if navi_commands:
+        # Check if the message is a question
+        question_keywords = {"is", "does", "do", "what", "when", "where", "who", "why", "what", "how"}
+        is_question = any(token.text.lower() in question_keywords for token in processed_message if token.i == 0)
+        
+        if navi_commands and not is_question:
             commands.modules[navi_commands[0].text].run(processed_message)
         else:
             response_message, http_status = llm_chat(user_message)
             tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
-            #tr(f"{ai_name_rep} {response_message if http_status == 200 else "Issue with server"}")
             
 
 # Add all known commands as patterns
