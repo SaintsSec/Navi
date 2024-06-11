@@ -11,12 +11,6 @@ import json
 import config
 import re
 import spacy
-import platform
-
-if (platform.python_version() >= "3.12"):
-    from shutil import which
-else:
-    from distutils.spawn import find_executable
 
 from mods import mods
 
@@ -121,10 +115,12 @@ def pre_run():
 
 def llm_chat(user_message):
     # Define the API endpoint and payload
+    message_amendment = "If the user message is has a command request, respond with 'TERMINAL OUTPUT {terminal output}' and NOTHING ELSE. User message: "
+    message_amendment += user_message
     url = f"http://{server}:{port}/api/chat"
     payload = {
         "model": "envoy",
-        "messages": [{"role": "user", "content": user_message}]
+        "messages": [{"role": "user", "content": message_amendment}]
     }
     headers = {'Content-Type': 'application/json'}
     # Send the POST request
@@ -176,7 +172,11 @@ def chat_with_navi():
                 commands.modules[main_command].run(processed_message)
         else:
             response_message, http_status = llm_chat(user_message)
-            tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
+
+            if response_message.startswith("TERMINAL OUTPUT"):
+                commands.modules["navi_sys"].run(response_message)
+            else:
+                tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
             
 
 # Add all known commands as patterns

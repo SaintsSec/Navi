@@ -1,4 +1,14 @@
 import re
+import platform
+
+
+def get_command_path(command):
+    if platform.python_version() >= "3.12":
+        from shutil import which
+        return which(command)
+    else:
+        from distutils.spawn import find_executable
+        return find_executable(command)
 
 
 def get_ip_address(input_str):
