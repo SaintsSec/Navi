@@ -115,7 +115,7 @@ def pre_run():
 
 def llm_chat(user_message):
     # Define the API endpoint and payload
-    message_amendment = "If the user message is has a command request, respond with 'TERMINAL OUTPUT {terminal output}' and NOTHING ELSE. User message: "
+    message_amendment = "If the user message is has a terminal command request, respond with 'TERMINAL OUTPUT {terminal output}' and NOTHING ELSE. Otherwise continue to communicate normally. User message: "
     message_amendment += user_message
     url = f"http://{server}:{port}/api/chat"
     payload = {
