@@ -13,3 +13,15 @@ def get_hostname(input_str):
         return input_str
     else:
         return None
+
+
+def get_parameters(input_str):
+    pattern = re.compile(r"""
+        -p\s*[\d,-]+|                     # Match -p followed by digits, commas, or hyphens (port ranges)
+        -[A-Za-z0-9]{1,2}(?:\s|$)|        # Match short flags (e.g., -A, -sV) followed by a space or end of string
+        --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
+        \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
+    """, re.VERBOSE)
+
+    # Find all matches in the command string
+    return pattern.findall(input_str)

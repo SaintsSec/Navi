@@ -3,7 +3,7 @@ import re
 import subprocess
 from typing import List
 from navi_shell import tr, get_ai_name, llm_chat
-from navi import get_ip_address, get_hostname
+from navi import get_ip_address, get_hostname, get_parameters
 
 command = "nmap"
 use = "Port scanning"
@@ -54,15 +54,7 @@ def run(arguments=None):
     else:
         tr(f"\n{get_ai_name()} Running... hang tight!")
         target = ip_address if ip_address is not None else hostname
-        pattern = re.compile(r"""
-        -p\s*[\d,-]+|                     # Match -p followed by digits, commas, or hyphens (port ranges)
-        -[A-Za-z0-9]{1,2}(?:\s|$)|        # Match short flags (e.g., -A, -sV) followed by a space or end of string
-        --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
-        \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
-    """, re.VERBOSE)
-
-        # Find all matches in the command string
-        matches = pattern.findall(arguments.text)
+        matches = get_parameters(arguments.text)
         stdout, stderr = run_nmap_scan(target, port_numbers, matches)
 
         # Ask user how they want to handle the results
