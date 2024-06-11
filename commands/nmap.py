@@ -3,6 +3,7 @@ import re
 import subprocess
 from typing import List
 from navi_shell import tr, get_ai_name, llm_chat
+from navi import get_ip_address, get_hostname
 
 command = "nmap"
 use = "Port scanning"
@@ -37,12 +38,8 @@ def run(arguments=None):
     port_numbers: List[str] = []
     if arguments:
         for token in arguments:
-            # Find IP address using regex match
-            if re.match(r'(\d{1,3}\.){3}\d{1,3}', token.text):
-                ip_address = token.text
-            # Find hostname using regex match
-            elif re.match(r'[a-zA-Z0-9\-]+\.[a-zA-Z]{2,3}', token.text):
-                hostname = token.text
+            if (ip_address := get_ip_address(token.text)) or (hostname := get_hostname(token.text)):
+                break
 
         # Find multiple port numbers
         ports_pattern = re.compile(r'\bports?\s+([\d\s,]+(?:\s*(?:and|,)\s*[\d\s,]*)*)', re.IGNORECASE)

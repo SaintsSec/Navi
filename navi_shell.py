@@ -11,6 +11,12 @@ import json
 import config
 import re
 import spacy
+import platform
+
+if (platform.python_version() >= "3.12"):
+    from shutil import which
+else:
+    from distutils.spawn import find_executable
 
 from mods import mods
 
