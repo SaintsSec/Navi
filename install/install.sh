@@ -46,14 +46,14 @@ install_reqs() {
             sudo apt install -y python3 python3-pip randtype whois nmap 
             sudo apt install clamav
             python3 -m pip install --upgrade pip 
-            sudo pip install requests fpdf pyfiglet click tabulate spacy
+            sudo pip install requests pyfiglet click tabulate spacy
             pip install -U pyopenssl cryptography
             sudo pip install -U pyopenssl cryptography
             python3 -m spacy download en_core_web_sm
             ;;
         "Arch") 
             sudo pacman -Sy python3 python3-pip whois nmap randtype 
-            sudo pacman -Sy python python-pip python-requests python-fpdf python-pyfiglet python-click python-tabulate python-spacy clamav 
+            sudo pacman -Sy python python-pip python-requests python-pyfiglet python-click python-tabulate python-spacy clamav 
             python3 -m pip install --upgrade pip
             python3 -m spacy download en_core_web_sm
             ;;

@@ -1,5 +1,3 @@
-fpdf
-json
 pyfiglet
 requests
 pyopenssl 
