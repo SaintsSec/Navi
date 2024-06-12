@@ -33,7 +33,7 @@ def run_nmap_scan(target, ports=None, arguments=None):
 
 def run(arguments=None):
     if get_command_path(command) is None:
-        tr(f"\n{get_ai_name()} Sorry! nmap is not currently installed on your device.")
+        tr(f"\n{get_ai_name()} Sorry! nmap is not currently installed on your system.")
         return
     ip_address = None
     hostname = None
