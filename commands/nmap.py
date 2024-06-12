@@ -3,7 +3,7 @@ import re
 import subprocess
 from typing import List
 from navi_shell import tr, get_ai_name, llm_chat
-from navi import get_ip_address, get_hostname, get_parameters
+from navi import get_ip_address, get_hostname, get_parameters, get_command_path
 
 command = "nmap"
 use = "Port scanning"
@@ -32,6 +32,9 @@ def run_nmap_scan(target, ports=None, arguments=None):
 
 
 def run(arguments=None):
+    if get_command_path(command) is None:
+        tr(f"\n{get_ai_name()} Sorry! nmap is not currently installed on your device.")
+        return
     ip_address = None
     hostname = None
 

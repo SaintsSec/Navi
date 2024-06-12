@@ -1,14 +1,42 @@
 import re
 import platform
+import subprocess
 
 
 def get_command_path(command):
+    windows_commands = get_windows_builtin_commands()
+
+    if windows_commands and is_windows_command(command, windows_commands):
+        return True
+
     if platform.python_version() >= "3.12":
         from shutil import which
         return which(command)
     else:
         from distutils.spawn import find_executable
         return find_executable(command)
+
+
+def is_windows_command(command, windows_commands):
+    return command.upper() in (cmd.upper() for cmd in windows_commands)
+
+
+def get_windows_builtin_commands():
+    if platform.system() != "Windows":
+        return []
+    result = subprocess.run(["help"], capture_output=True, text=True)
+    if result.stdout:
+        help_text = result.stdout
+        # Extract commands from help text
+        commands = []
+        lines = help_text.splitlines()
+        for line in lines:
+            # Command names are typically in uppercase and are single words
+            match = re.match(r'^[A-Z]+\b', line.strip())
+            if match:
+                commands.append(match.group(0))
+        return commands
+    return []
 
 
 def get_ip_address(input_str):

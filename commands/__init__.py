@@ -37,11 +37,14 @@ __all__ = [
 for module_name in __all__:
     mod = load_module(module_name)
     if mod:
-        modules[mod.command] = mod
-        alias_to_command[mod.command] = mod.command  # Map the command to itself
-        aliases = getattr(mod, 'aliases', [])  # Safely get the aliases attribute, default to an empty list
-        for alias in aliases:
-            alias_to_command[alias] = mod.command  # Map each alias to the main command
+        if hasattr(mod, 'command'):
+            modules[mod.command] = mod
+            alias_to_command[mod.command] = mod.command  # Map the command to itself
+            aliases = getattr(mod, 'aliases', [])  # Safely get the aliases attribute, default to an empty list
+            for alias in aliases:
+                alias_to_command[alias] = mod.command  # Map each alias to the main command
+        else:
+            print(f"Warning: The module '{module_name}' is not installed correctly. Ignoring module.")
 
 # Export modules and alias_to_command for use in other scripts
 __all__.extend(['modules', 'alias_to_command'])
