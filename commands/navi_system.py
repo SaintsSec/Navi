@@ -27,4 +27,4 @@ def run(arguments=None):
         else:
             tr(f"\n{get_ai_name()} Understood! I will not execute the command.")
     else:
-        tr(f"\n{get_ai_name()} Sorry, it looks like {command} is not installed on your system.")
+        tr(f"\n{get_ai_name()} Sorry, it looks like {base_command} is not installed on your system.")

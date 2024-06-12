@@ -11,6 +11,7 @@ import json
 import config
 import re
 import spacy
+import platform
 
 from mods import mods
 
@@ -24,7 +25,7 @@ server = config.server
 port = config.port
 
 # NLP setup
-nlp = spacy.load("en_core_web_sm") 
+nlp = spacy.load("en_core_web_sm")
 ruler = nlp.add_pipe("entity_ruler")
 
 
@@ -67,6 +68,7 @@ def tr(text):
         # Print a newline character after each wrapped line
         print()
 
+
 def get_latest_release(repo_owner, repo_name):
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
     response = requests.get(api_url)
@@ -84,8 +86,8 @@ def get_latest_release(repo_owner, repo_name):
         }
     else:
         return None
-    
-    
+
+
 def is_new_release(current_version, latest_version):
     return current_version < latest_version
 
@@ -115,7 +117,11 @@ def pre_run():
 
 def llm_chat(user_message):
     # Define the API endpoint and payload
-    message_amendment = "If the user message is has a terminal command request, respond with 'TERMINAL OUTPUT {terminal output}' and NOTHING ELSE. Otherwise continue to communicate normally. User message: "
+    message_amendment = (("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
+                          "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
+                          "ELSE. Otherwise continue to communicate"
+                          "normally.") +
+                         f"The user's OS is {platform.system()}" + ". User message:")
     message_amendment += user_message
     url = f"http://{server}:{port}/api/chat"
     payload = {
@@ -146,10 +152,10 @@ def llm_chat(user_message):
 
         # Concatenate the extracted messages
         full_response = "".join(extracted_responses)
-        return (full_response,200)
+        return (full_response, 200)
     else:
         return (f"{response.url},{response.json()}", 400)
-    
+
 
 def chat_with_navi():
     while True:
@@ -177,7 +183,7 @@ def chat_with_navi():
                 commands.modules["navi_sys"].run(response_message)
             else:
                 tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
-            
+
 
 # Add all known commands as patterns
 def setup_navi_vocab():
