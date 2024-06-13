@@ -76,29 +76,28 @@ def tr(text):
 def get_latest_release(repo_owner, repo_name, edge=False):
     if edge:
         api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases"
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            releases = response.json()
-            for release in releases:
+    else:
+        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
+
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        if edge:
+            for release in data:
                 if release['prerelease']:
                     return {
                         'tag_name': release.get('tag_name'),
                         'release_name': release.get('name'),
                         'html_url': release.get('zipball_url')
                     }
-        return None
-    else:
-        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            data = response.json()
+        else:
             return {
                 'tag_name': data.get('tag_name'),
                 'release_name': data.get('name'),
                 'html_url': data.get('zipball_url')
             }
-        else:
-            return None
+    return None
 
 
 def is_new_release(current_version, latest_version):
