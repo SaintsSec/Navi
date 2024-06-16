@@ -74,14 +74,14 @@ setup_aliases() {
     declare -A config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     local config_path="${config_files[$shell_choice]}"
 
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi_shell.py" ["@Navi"]="python3 /opt/Navi/navi_shell.py -q" ["@navi"]="python3 /opt/Navi/navi_shell.py -q")
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi_shell.py")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
             echo "alias $alias_name='${aliases[$alias_name]}'" >> "$config_path"
-            echo "Navi> My alias '$alias_name' added. So you can quickly get to me!" | randtype -t 5,5000 -m 4
+            echo "Navi> My alias has been added. So you can quickly get to me!" | randtype -t 5,5000 -m 4
         else 
-            echo "Navi> Oh my... My alias '$alias_name' already exists. Moving on..." | randtype -t 5,5000 -m 4 
+            echo "Navi> Oh my... My alias already exists. Moving on..." | randtype -t 5,5000 -m 4 
         fi
     done
 }
