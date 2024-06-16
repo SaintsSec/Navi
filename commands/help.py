@@ -5,9 +5,9 @@ from navi_shell import tr, get_ai_name, llm_chat, get_user
 from navi import get_ip_address, get_hostname, get_parameters, get_command_path
 
 
-command = "Chip List"
-use = "Displays the currently installed custom scripts"
-aliases = ['scripts', 'installed', 'chips']
+command = "Navi Help"
+use = "Displays the help screen"
+aliases = ['help']
 
 
 def run(arguments=None):
@@ -64,7 +64,7 @@ def run(arguments=None):
     for command, use_desc, aliases in commands_and_uses:
 
         print(f"{command:<{max_command_length}} \t {use_desc:<{max_use_length}} {aliases}")
-    print("\nHELP: To use any of these commands simply type the alias into the user prompt and run the coresponding script!")
+    print("\nHELP: To use any of these commands simply type the alias into \nthe user prompt and run the coresponding script!")
     print("-" * (max_command_length + max_use_length + 2) + "-" * (max_alias_length + 1))  # Add separator
 
     return None
