@@ -7,7 +7,7 @@ from navi import get_ip_address, get_hostname, get_parameters, get_command_path
 
 command = "Navi Help"
 use = "Displays the help screen"
-aliases = ['help']
+aliases = ['--help']
 
 
 def run(arguments=None):
