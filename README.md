@@ -20,7 +20,8 @@
 ### **Commands**  
 Commands have been completely reworked in this version. Allowing for a feature we have been waiting for. **Chat Execution**, through this new system
 Navi is able to use ML to take user input and execute system commands based on user provided context. Here its better to just show you.  
-![image](https://github.com/SaintsSec/Navi/assets/89718570/f2d5d3ca-332b-476c-90fb-a2b2f89af32f)
+![image](https://github.com/SaintsSec/Navi/assets/89718570/4cdfb719-4bb5-48e4-9da0-e8d255a13ec8)
+
 
 
 ### **Work In Progress**  
