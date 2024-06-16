@@ -21,8 +21,8 @@ def run(arguments=None):
                 stderr=subprocess.PIPE,
                 universal_newlines=True
             )
-            output = f"Output: {result.stdout}" if result.stdout else ""
-            tr(f"\n{get_ai_name()} Done! \n{output}")
+            output = f"Output: \n{result.stdout}" if result.stdout else ""
+            tr(f"\n{get_ai_name()} Done! {output}")
         else:
             tr(f"\n{get_ai_name()} Understood! I will not execute the command.")
     else:
