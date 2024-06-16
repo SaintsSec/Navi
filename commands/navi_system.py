@@ -11,8 +11,9 @@ def run(arguments=None):
     navi_command = arguments.replace("TERMINAL OUTPUT", "", 1).strip()
     base_command = navi_command.split()[0]
     if get_command_path(base_command) is not None:
-        tr(f"\n{get_ai_name()} Do I have your permission to use your **shell** to execute the following: \n\n{navi_command}\n")
-        user_input = input(f"Do you want me to continue (y/n): ").strip().lower()
+        tr(f"\n{get_ai_name()} To fulfill your request, I will have to utilize your **shell** to execute the following: {navi_command}."
+           f" Do you want me to proceed? (y/n): ")
+        user_input = input().strip().lower()
         if user_input == 'y':
             result = subprocess.run(
                 navi_command,
