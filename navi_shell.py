@@ -258,7 +258,7 @@ def main():
     parser.add_argument('--update', action='store_true', help='Update the script to the latest version if available')
     parser.add_argument('--skip-update', action='store_true', help='Skip the update check (used internally to prevent update loop)')
     parser.add_argument('--install', action='store_true', help='installs Navi based on the current downloaded version.')
-
+    
     args = parser.parse_args()
     if not args.noupdate and not args.skip_update:
         download_url = check_version(args.edge)
@@ -266,7 +266,6 @@ def main():
             update_script(download_url)
     if args.install: 
         os.system('cd ./install && ./install.sh')
-        
     try:
         pre_run()
         tr(f"{ai_name_rep} How can I help you {user}")
