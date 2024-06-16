@@ -1,6 +1,6 @@
 <div align="center">
-  <h1> Navi | An SSG Community Project</h1>
-  <h1>v0.1.3 "Reloaded" Released</h1>
+  <h1> Navi | CLI - An innovation in cybersec AI</h1>
+  <h1>v0.5 - "Integral" Pre-release</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
@@ -9,18 +9,19 @@
 <img src= https://github.com/SSGOrg/Navi/assets/89718570/5596418e-3fa3-4528-8a07-d00aeece1590 height=25% width=25%>
 </div>
 
-## ✨ **Key Features of Navi v0.1.5**
+## ✨ **Key Features of Navi v0.5**
 
-- **Navi Shell Interface** (`navi-shell.py`): A robust, full-featured shell for direct interactions.
-- **Simplified Installation Folder** (`install.sh` + `csi-install.sh`): An intuitive single-stop installation script streamlining the setup process.
-- **New CLI Macro** (`@Navi`): This one formed of a joke based on being able to @mention Navi on discord.
-- **Discord Integration**: Navi is now live on discord. We did this so we could test out Navi's core model as its being built out.
+- **Upgraded Navi Shell** - The shell can now execute system commands, without breaking the flow of conversation. See more below!
+- **Navi Chips Upgrade** - The new alias variable within the custom chips scripts allow for Navi to execute chips right from the chat. Once again not disrupting the flow.
+- **Wiki Re-write** - With new power comes new documentation
+- **Llama3 Integration** - We made the leap from GPT to the open source Llama AI on the backend - we also customized it giving Navi her own personality and lore.
+- **A ton of backend fixes** - This one more or less speaks for itself. 
 
-### **Commands**
+### **Commands**  
+Commands have been completely reworked in this version. Allowing for a feature we have been waiting for. **Chat Execution**, through this new system
+Navi is able to use ML to take user input and execute system commands based on user provided context. Here its better to just show you.  
+![image](https://github.com/SaintsSec/Navi/assets/89718570/f2d5d3ca-332b-476c-90fb-a2b2f89af32f)
 
-- **Reconnaissance Suite** (`/recon`): Automated tools and reporting for thorough digital exploration.
-- **Virus Protection** (`/vbuster`): Empower your digital space with ClamAV's robust antivirus defense mechanisms.
-- **Update** (`/update`): Now when Navi gets a new release it will tell you inside of the main cli program.
 
 ### **Work In Progress**  
 - **[Navi Roadmap](https://github.com/orgs/SaintsSec/projects/7)**
