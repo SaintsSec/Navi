@@ -4,9 +4,10 @@ import glob
 import importlib
 import logging
 
-# Initialize an empty dictionary for modules and alias-to-command mapping
+# Initialize an empty dictionary for modules, alias-to-command mapping, and command usage
 modules = {}
 alias_to_command = {}
+command_usage = {}
 
 
 def load_module(name):
@@ -43,8 +44,11 @@ for module_name in __all__:
             aliases = getattr(mod, 'aliases', [])  # Safely get the aliases attribute, default to an empty list
             for alias in aliases:
                 alias_to_command[alias] = mod.command  # Map each alias to the main command
+            use = getattr(mod, 'use', None)  # Safely get the use attribute, default to None
+            if use:
+                command_usage[mod.command] = use
         else:
             print(f"Warning: The module '{module_name}' is not installed correctly. Ignoring module.")
 
-# Export modules and alias_to_command for use in other scripts
-__all__.extend(['modules', 'alias_to_command'])
+# Export modules, alias_to_command, and command_usage for use in other scripts
+__all__.extend(['modules', 'alias_to_command', 'command_usage'])
