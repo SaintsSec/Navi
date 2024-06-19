@@ -60,7 +60,7 @@ def tr(text, include_ai_name=True):
     wrap_width = int(terminal_width * 0.6)
 
     # Split text into lines to preserve line breaks
-    lines = text.split('\n')
+    lines = to_print.split('\n')
 
     for line in lines:
         # Wrap each line individually
