@@ -1,9 +1,9 @@
 #!/bin/python3
 import commands
 
-command = "help"
+command = "navi_help"
 use = "Displays the help screen"
-aliases = ['--help']
+aliases = ['--nhelp', 'nhelp']
 
 
 def run(arguments=None):
@@ -26,15 +26,15 @@ def run(arguments=None):
 
     commands_bulk_text = ""
     for command_name, command_use, command_aliases in command_data:
-        commands_bulk_text += f"{command_name:<{max_command_length}} \t {command_use:<{max_use_length}} {command_aliases}\n"
+        commands_bulk_text += f"{command_name:<{max_command_length}} \t {command_use:<{max_use_length}} \t{command_aliases}\n"
 
     # Print the results
     print("\nCurrently installed Navi custom scripts:\n")
-    print(f"{'Command':<{max_command_length}} {'Description':^{max_use_length}} {'Aliases':^{max_alias_length}}")
-    print("-" * (max_command_length + max_use_length + 8 + max_alias_length))  # Add separator
+    print(f"{'Command':<{max_command_length}} {'Description':^{max_use_length}} \t\t{'Aliases':^{max_alias_length}}")
+    print("-" * (max_command_length + max_use_length + 40 + max_alias_length))  # Add separator
     print(commands_bulk_text)
     print("\nHELP: To use any of these commands simply type the alias into \nthe user prompt and run the "
           "corresponding script!")
-    print("-" * (max_command_length + max_use_length + 8 + max_alias_length))  # Add separator
+    print("-" * (max_command_length + max_use_length + 40 + max_alias_length))  # Add separator
 
     return None

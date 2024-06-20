@@ -8,9 +8,9 @@ from datetime import datetime
 from navi_shell import tr, llm_chat
 
 # Navi Command System Variables
-command = "GetSys"
+command = "navi_specs"
 use = "Prints out system information"
-aliases = ['sysinfo', 'sys']
+aliases = ['--nspecs', 'nspecs']
 
 # global variables
 breakline = "======="

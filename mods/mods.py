@@ -16,7 +16,7 @@ art = f"""{breakline}
 |  Disclaimer: Saints Security Group LLC does not   |
 |  condone or support illegal activity and assumes  |
 |  no responsibility for damages caused through     |
-|  the use of Navi. --help for more information     |  
+|  the use of Navi. --nhelp for more information    |  
 {breakline}
 """
 vbusterArt = f"""{breakline}
