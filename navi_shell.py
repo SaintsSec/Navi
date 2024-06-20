@@ -206,7 +206,7 @@ def llm_chat(user_message):
             except json.JSONDecodeError as e:
                 print("Error decoding JSON:", e)
             except KeyboardInterrupt:
-                tr(f"{ai_name_rep} Keyboard interupt registered, talk soon {user}!")
+                tr(f"Keyboard interupt registered, talk soon {user}!")
 
         # Concatenate the extracted messages
         full_response = "".join(extracted_responses)
@@ -221,7 +221,7 @@ def chat_with_navi():
         try:
             user_message = input(f"\n{user}> ")
         except EOFError:
-            tr("Navi> Encountered an unexpected end of input.")
+            tr("Encountered an unexpected end of input.")
             break
         processed_message = nlp(user_message.strip())
         navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
@@ -240,7 +240,7 @@ def chat_with_navi():
             if response_message.startswith("TERMINAL OUTPUT"):
                 commands.modules["navi_sys"].run(response_message)
             else:
-                tr(f"{ai_name_rep} {response_message if http_status == 200 else 'Issue with server'}")
+                tr(f"{response_message if http_status == 200 else 'Issue with server'}")
 
 
 # Add all known commands as patterns
@@ -271,11 +271,11 @@ def main():
         os.system('cd ./install && ./install.sh')
     try:
         pre_run()
-        tr(f"{ai_name_rep} How can I help you {user}")
+        tr(f"How can I help you {user}")
         setup_navi_vocab()
         chat_with_navi()
     except KeyboardInterrupt:
-        tr(f"\n{ai_name_rep} Keyboard interrupt has been registered, talk soon {user}!")
+        tr(f"\nKeyboard interrupt has been registered, talk soon {user}!")
         exit(0)
 
 
