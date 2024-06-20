@@ -3,3 +3,4 @@ __pycache__/
 /src/training-data.json
 /src/tlogs/
 .DS_Store
+*.log
