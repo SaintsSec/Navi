@@ -4,7 +4,7 @@ import sys
 from typing import List
 
 from colorama import Fore
-from vars import banner
+from .vars import banner
 
 
 class CLIManager:

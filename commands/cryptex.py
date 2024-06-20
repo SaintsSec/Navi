@@ -1,9 +1,12 @@
 import sys
-from cryptex.controller import Controller
-from cryptex.menusystem import MenuSystem
+from .app_cryptex.controller import Controller
+from .app_cryptex.menusystem import MenuSystem
+
+command = "cryptex"
+use = "An advanced command-line cryptography toolkit"
 
 
-def run():
+def run(arguments=None):
     # Check if there are args
     try:
         sys.argv[1]
@@ -13,8 +16,8 @@ def run():
         args_exist = True
 
     # Gather ciphers
-    import cryptex.cipher
-    cipher_list = {cls.__name__.lower(): cls for cls in cryptex.cipher.Cipher.__subclasses__()}
+    from .app_cryptex.cipher.cipher import Cipher
+    cipher_list = {cls.__name__.lower(): cls for cls in Cipher.__subclasses__()}
 
     # Initialize cipher
     controller = Controller(cipher_list)
