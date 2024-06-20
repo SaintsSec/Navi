@@ -1,7 +1,7 @@
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class Menc(Cipher):
-
     name = 'Menc'
     type = 'cipher'
 
@@ -16,37 +16,36 @@ class Menc(Cipher):
         if not outputs:
             return {'text': "No output text", 'success': False}
 
-        inputList = []
+        input_list = []
         for char in text:
             index = alphabet.index(char)
             if index == -1:
                 return {'text': "Invalid character in input text", 'success': False}
-            inputList.append(index)
+            input_list.append(index)
 
-        outputList = []
+        output_list = []
         for char in outputs:
             index = alphabet.index(char)
             if index == -1:
                 return {'text': "Invalid character in key", 'success': False}
-            outputList.append(index)
+            output_list.append(index)
 
         key = ""
-        for index, value in enumerate(inputList):
-            outputCharIndex = outputList[index % len(outputList)]
+        for index, value in enumerate(input_list):
+            output_char_index = output_list[index % len(output_list)]
 
-            if value == outputCharIndex:
+            if value == output_char_index:
                 difference = 0
-            elif value < outputCharIndex:
-                difference = outputCharIndex - value
-            else :
-                difference = len(alphabet) - (value - outputCharIndex)
+            elif value < output_char_index:
+                difference = output_char_index - value
+            else:
+                difference = len(alphabet) - (value - output_char_index)
 
-            if outputCharIndex != (value + difference) % len(alphabet):
-                return {'text': "Error, could not find the charIndex difference", 'success': False}
+            if output_char_index != (value + difference) % len(alphabet):
+                return {'text': "Error, could not find the char_index difference", 'success': False}
 
             key += "%0.2X" % difference
         return {'text': key, 'success': True}
-
 
     def decode(args):
         text = args.text
@@ -62,25 +61,25 @@ class Menc(Cipher):
         if len(key) % 2 != 0:
             return {'text': "Invalid key", 'success': False}
 
-        keyList = [key[i:i+2] for i in range(0, len(key), 2)]
-        for index, value in enumerate(keyList):
-            keyList[index] = int(value, 16)
+        key_list = [key[i:i + 2] for i in range(0, len(key), 2)]
+        for index, value in enumerate(key_list):
+            key_list[index] = int(value, 16)
 
-        encryptedList = []
+        encrypted_list = []
         for char in text:
             index = alphabet.index(char)
             if index == -1:
                 return {'text': "Invalid character in input text", 'success': False}
-            encryptedList.append(index)
+            encrypted_list.append(index)
 
         decrypted = ""
-        for index in range(len(keyList)):
-            charIndex = (encryptedList[index % len(encryptedList)] - keyList[index]) % len(alphabet)
-            decrypted += alphabet[charIndex]
+        for index in range(len(key_list)):
+            char_index = (encrypted_list[index % len(encrypted_list)] - key_list[index]) % len(alphabet)
+            decrypted += alphabet[char_index]
 
         return {'text': decrypted, 'success': True}
 
-    def print_options():
+    def print_options(self):
         print('''
         ### Modes
         -e / --encode ---- encode

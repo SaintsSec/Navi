@@ -1,7 +1,7 @@
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class MA(Cipher):
-
     name = 'MonoAlphabetic cipher'
     type = 'cipher'
 
@@ -20,13 +20,13 @@ class MA(Cipher):
         for char in text:
             lower_case = None
             if char.islower():
-                lower_case=True
+                lower_case = True
                 char = char.upper()
             if char.upper() not in alphabet:
                 output.append(char)
             else:
                 index = alphabet.index(char)
-                if lower_case == True:
+                if lower_case:
                     output.append(key[index].lower())
                 else:
                     output.append(key[index])
@@ -49,13 +49,13 @@ class MA(Cipher):
         for char in text:
             lower_case = None
             if char.islower():
-                lower_case=True
+                lower_case = True
                 char = char.upper()
             if char.upper() not in key:
                 output.append(char)
             else:
                 index = key.index(char)
-                if lower_case == True:
+                if lower_case:
                     output.append(alphabet[index].lower())
                 else:
                     output.append(alphabet[index])
@@ -63,8 +63,8 @@ class MA(Cipher):
         output = ''.join(output)
         return {'text': output, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

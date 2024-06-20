@@ -1,4 +1,3 @@
-
 """
 Author: @marvhus
 Instructions:
@@ -7,22 +6,21 @@ Instructions:
     make sure you add the following to __init__.py: from cipherfile import *
     Doing this will link the code to main.py 
 """
-from cipher import Cipher
+from ..cipher import Cipher
 
-class XOR(Cipher): #make sure you change this from text to your cipher
 
-    name = 'XOR (Exclusive Or) Cipher' #change the name
+class XOR(Cipher):
+    name = 'XOR (Exclusive Or) Cipher'
     type = 'cipher'
 
     def str_xor(text, key):
         from itertools import cycle
         output = ''.join(
             chr(ord(c) ^ ord(k))
-            for c,k in zip(text, cycle(key))
+            for c, k in zip(text, cycle(key))
         )
 
         return output
-
 
     def encode(args):
         text = args.text
@@ -52,9 +50,8 @@ class XOR(Cipher): #make sure you change this from text to your cipher
 
         return {'text': output, 'success': True}
 
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -84,5 +81,5 @@ class XOR(Cipher): #make sure you change this from text to your cipher
         if not out['success'] or out['text'] != expect:
             return {'status': False, 'msg': f'''Failed to decode "{args.text}"
             expected "{expect}" got "{out['text']}"'''}
-        
+
         return {'status': True, 'msg': f'Ran {total} tests'}

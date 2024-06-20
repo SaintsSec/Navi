@@ -1,11 +1,12 @@
 """
 Author: @marvhus
 """
-from cipher import Cipher
+from ..cipher import Cipher
 
-class Oct(Cipher): #make sure you change this from text to your cipher
 
-    name = 'Octal' #change the name
+class Oct(Cipher): # make sure you change this from text to your cipher
+
+    name = 'Octal' # change the name
     type = 'cipher'
 
     @staticmethod
@@ -31,9 +32,9 @@ class Oct(Cipher): #make sure you change this from text to your cipher
         return {'text': output, 'success': True}
 
     @staticmethod
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        # Edit this section as needed for your specific encoding / decoding.
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

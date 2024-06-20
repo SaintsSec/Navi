@@ -1,11 +1,12 @@
 """
 Author: @marvhus
 """
-from cipher import Cipher
+from ..cipher import Cipher
 
-class L33T(Cipher): #make sure you change this from text to your cipher
 
-    name = 'L33t Sp34k' #change the name
+class L33T(Cipher):  # make sure you change this from text to your cipher
+
+    name = 'L33t Sp34k'  # change the name
     type = 'cipher'
 
     leet_speak = {
@@ -25,9 +26,9 @@ class L33T(Cipher): #make sure you change this from text to your cipher
         'x': '*',
         'z': '2',
     }
-    inverse_leet_speak = dict((v, k) for k,v in leet_speak.items())
+    inverse_leet_speak = dict((v, k) for k, v in leet_speak.items())
 
-    convertWithDict = lambda dict, char : dict[char] if char in dict else char     
+    convertWithDict = lambda dict, char: dict[char] if char in dict else char
 
     @staticmethod
     def encode(args):
@@ -52,9 +53,9 @@ class L33T(Cipher): #make sure you change this from text to your cipher
         return {'text': output, 'success': True}
 
     @staticmethod
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        # Edit this section as needed for your specific encoding / decoding.
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

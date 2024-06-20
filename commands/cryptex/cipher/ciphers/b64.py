@@ -2,8 +2,9 @@
 Author: Alex Kollar | Project Manager: The Cryptex Project
 Description: Base64 Cryptex implimentation
 """
-from cipher import Cipher
+from ..cipher import Cipher
 import base64
+
 
 class B64(Cipher): #make sure you change this from text to your cipher
 
@@ -34,8 +35,8 @@ class B64(Cipher): #make sure you change this from text to your cipher
         output = b64_bytes.decode('ascii')
         return {'text': output, 'success': True}
 
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
+    def print_options(self):
+        # Edit this section as needed for your specific encoding / decoding.
         print(''' 
         ### Modes
         -d / --decode ---- decode

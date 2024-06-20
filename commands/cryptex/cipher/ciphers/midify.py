@@ -2,19 +2,19 @@
 Author: marvhus and Shawty
 Concept: Chilz
 """
-from cipher import Cipher
+from ..cipher import Cipher
 import mido
 
-class Midify(Cipher):
 
-    name = 'midify' 
+class Midify(Cipher):
+    name = 'midify'
     type = 'cipher'
 
     @staticmethod
     def encode(args):
         text = args.text
         path = args.output
-        
+
         if not text:
             return {'text': "No input text", 'success': False}
 
@@ -23,27 +23,27 @@ class Midify(Cipher):
 
         # List of ascii values of text
         vals = [ord(c) for c in text]
-        
+
         # pattern
         pattern = mido.MidiFile()
-        
+
         # track
         track = mido.MidiTrack()
         pattern.tracks.append(track)
-        
+
         # tempo
         tempo = mido.MetaMessage("set_tempo", tempo=mido.bpm2tempo(120))
         track.append(tempo)
-        
-        midoNoteMessage = lambda m, n, t : mido.Message(m, note=n, velocity=127, time=t)
-        
+
+        mido_note_message = lambda m, n, t: mido.Message(m, note=n, velocity=127, time=t)
+
         for val in vals:
-            on = midoNoteMessage("note_on", val, 0) 
-            off = midoNoteMessage("note_off", val, 100)
-            
+            on = mido_note_message("note_on", val, 0)
+            off = mido_note_message("note_off", val, 100)
+
             track.append(on)
             track.append(off)
-            
+
         pattern.save(path)
 
         return {'text': f"Saved midi file at {path}", 'success': True}
@@ -66,9 +66,9 @@ class Midify(Cipher):
         return {'text': text, 'success': True}
 
     @staticmethod
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        # Edit this section as needed for your specific encoding / decoding.
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

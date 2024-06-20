@@ -1,5 +1,6 @@
-from cipher import Cipher
+from ..cipher import Cipher
 import math
+
 
 def extended_euclidean_common_devisor(a, b): 
     if a == 0:
@@ -16,8 +17,9 @@ def mod_inv(a, m):
     else:
         return x % m
 
+
 class MC(Cipher):
-    
+
     name = 'Multiplicative Cipher'
     type = 'cipher'
 
@@ -75,8 +77,8 @@ class MC(Cipher):
                 output += char
         return {'text': output, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

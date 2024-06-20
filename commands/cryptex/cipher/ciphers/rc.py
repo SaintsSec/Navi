@@ -2,7 +2,8 @@
 Author: @marvhus
 Description: Reverse Cipher Cryptex Implementation
 """
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class RC(Cipher):
 
@@ -28,8 +29,8 @@ class RC(Cipher):
         output = text[::-1]
 
         return {'text': output, 'success': True}
-    
-    def print_options():
+
+    def print_options(self):
         print('''
         ### Modes
         -d / --decode ---- decode

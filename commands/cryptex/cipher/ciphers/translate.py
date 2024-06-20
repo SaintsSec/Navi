@@ -1,12 +1,12 @@
 """
 Author: @marvhus 
 """
-from cipher import Cipher
+from ..cipher import Cipher
 from googletrans import Translator, LANGUAGES
 
-class Translate(Cipher): #make sure you change this from text to your cipher
+class Translate(Cipher):
 
-    name = 'Google Translate' #change the name
+    name = 'Google Translate'
     type = 'tool'
 
     @staticmethod
@@ -34,7 +34,7 @@ class Translate(Cipher): #make sure you change this from text to your cipher
             return {'text': "No source language", 'success': False}
         if not dest_lang:
             return {'text': "No destination language", 'success': False}
-        
+
         output = Translate.translate(text, src_lang, dest_lang)
 
         return {'text': output, 'success': True}
@@ -44,9 +44,8 @@ class Translate(Cipher): #make sure you change this from text to your cipher
         return Translate.encode(args)
 
     @staticmethod
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

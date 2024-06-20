@@ -2,12 +2,13 @@
 Author: @marvhus
 Description: CryptexOOP Vignere Cipher ground up rewrite
 """
-from cipher import Cipher
+from ..cipher import Cipher
 from itertools import cycle
 
-class Vig(Cipher): #make sure you change this from text to your cipher
 
-    name = 'Vignere Cipher' #change the name
+class Vig(Cipher):
+
+    name = 'Vignere Cipher'
     type = 'cipher'
 
     alphabet = [chr(i).upper() for i in range(ord('a'), ord('z')+1)]
@@ -21,7 +22,7 @@ class Vig(Cipher): #make sure you change this from text to your cipher
 
         if not key:
             return {'text': "No key", 'success': False}
-       
+
         output = []
         for t,k in zip(text, cycle(key)):
             if t not in Vig.alphabet:
@@ -53,9 +54,8 @@ class Vig(Cipher): #make sure you change this from text to your cipher
 
         return {'text': "".join(output), 'success': True}
 
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -85,5 +85,5 @@ class Vig(Cipher): #make sure you change this from text to your cipher
         if not out['success'] or out['text'] != expect:
             return {'status': False, 'msg': f'''Failed to decode "{args.text}"
             expected "{expect}" got "{out['text']}"'''}
-            
+
         return {'status': True, 'msg': f'Ran {total} tests'}

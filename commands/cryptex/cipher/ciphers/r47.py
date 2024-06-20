@@ -6,13 +6,14 @@ Instructions:
     make sure you add the following to __init__.py: from cipherfile import *
     Doing this will link the code to main.py 
 """
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class R47(Cipher):
-
     name = 'Rot 47'
     type = 'cipher'
 
+    @property
     def encode(args):
         text = args.text
 
@@ -23,7 +24,7 @@ class R47(Cipher):
 
         for character in text:
             encoded = ord(character)
-            if encoded  >= 33 and encoded <= 126:
+            if 33 <= encoded <= 126:
                 output += chr(33 + ((encoded + 14) % 94))
             else:
                 output += character
@@ -40,15 +41,15 @@ class R47(Cipher):
 
         for character in text:
             encoded = ord(character)
-            if encoded >= 33 and encoded <= 126:
+            if 33 <= encoded <= 126:
                 output += chr(33 + ((encoded + 14) % 94))
             else:
                 output += character
 
         return {'text': output, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -66,7 +67,7 @@ class R47(Cipher):
 
         args.text = 'hello'
         expect = '96==@'
-        out = R47.encode(args)
+        out = R47.encode
         if not out['success'] or out['text'] != expect:
             return {'status': False, 'msg': f'''Failed to encode {args.text}
             expected {args.text} got {out['text']}'''}
@@ -78,4 +79,3 @@ class R47(Cipher):
             expected {args.text} got {out['text']}'''}
 
         return {'status': True, 'msg': f'Ran {total} tests'}
-        

@@ -1,11 +1,12 @@
 """
 Author: @marvhus
 """
-from cipher import Cipher
+from ..cipher import Cipher
 
-class str2int(Cipher): #make sure you change this from text to your cipher
 
-    name = 'str2int' #change the name
+class str2int(Cipher):
+
+    name = 'str2int'
     type = 'cipher'
 
     def encode(args):
@@ -40,9 +41,8 @@ class str2int(Cipher): #make sure you change this from text to your cipher
 
         return {'text': out, 'success': True}
 
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

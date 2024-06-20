@@ -1,6 +1,4 @@
 def banner():
-    localVersion = update.Update.getFullLocalVersion(update.Update.getFolder())
-
     version = localVersion[0]
     spacing = len(version) - 5
     spacing = ' ' * spacing if spacing > 0 else ''

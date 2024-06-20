@@ -2,7 +2,7 @@
 Author: @Iqrar99, @kailashchoudhary11
 Description: A basic Baconian Chiper encoder / decoder
 """
-from cipher import Cipher
+from ..cipher import Cipher
 
 class Bac(Cipher):
     """

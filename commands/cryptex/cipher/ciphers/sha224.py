@@ -1,8 +1,9 @@
 """
 Author: @oriapp 
 """
-from cipher import Cipher
+from ..cipher import Cipher
 import hashlib
+
 
 class sha224(Cipher):
 
@@ -16,13 +17,13 @@ class sha224(Cipher):
         if not text:
             return {'text': "No input text", 'success': False}
 
-        output = hashlib.sha224( text.encode('ascii') ).hexdigest()
+        output = hashlib.sha224(text.encode).hexdigest()
 
         return {'text': output, 'success': True}
 
     @staticmethod
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -e / --encode ---- encode
 

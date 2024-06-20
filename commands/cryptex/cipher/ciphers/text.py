@@ -1,4 +1,5 @@
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class Text(Cipher):
 
@@ -25,8 +26,8 @@ class Text(Cipher):
 
         return {'text': text, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -53,4 +54,4 @@ class Text(Cipher):
             expected {args.text} got {out['text']}'''}
 
         return {'status': True, 'msg': f'Ran {total} tests'}
-        
+

@@ -6,11 +6,12 @@ Instructions:
     make sure you add the following to __init__.py: from cipherfile import *
     Doing this will link the code to main.py 
 """
-from cipher import Cipher
+from ..cipher import Cipher
 
-class Template(Cipher): #make sure you change this from text to your cipher
 
-    name = 'Plain text cipher' #change the name
+class Template(Cipher):
+
+    name = 'Plain text cipher' 
     type = 'template'
 
     def encode(args):
@@ -29,13 +30,12 @@ class Template(Cipher): #make sure you change this from text to your cipher
         if not text:
             return {'text': "No input text", 'success': False}
 
-        #Here is where you put your decoding / decrypting code.
+        # Here is where you put your decoding / decrypting code.
 
         return {'text': text, 'success': True}
 
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode

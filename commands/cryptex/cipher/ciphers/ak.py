@@ -1,7 +1,7 @@
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class AK(Cipher):
-
     name = 'Autokey Cipher'
     type = 'cipher'
 
@@ -11,7 +11,7 @@ class AK(Cipher):
         key = args.key
         exclude = args.exclude if args.exclude else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
         new_key = ''
-        temp =  key + text
+        temp = key + text
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -29,7 +29,7 @@ class AK(Cipher):
             if c in exclude:
                 output.append(c)
             else:
-                x = ((ord(c) % 97) + (ord(new_key[i]) % 97)) % 26  
+                x = ((ord(c) % 97) + (ord(new_key[i]) % 97)) % 26
                 x += ord('a')
                 i += 1
                 output.append(chr(x))
@@ -59,14 +59,13 @@ class AK(Cipher):
             if c in exclude:
                 output.append(c)
             else:
-                x = ((ord(c) % 97) - (ord(new_key[i]) % 97)) % 26  
+                x = ((ord(c) % 97) - (ord(new_key[i]) % 97)) % 26
                 x += ord('a')
                 output.append(chr(x))
                 new_key += chr(x)
                 i += 1
 
         return {'text': "".join(output), 'success': True}
-
 
     def print_options():
         print(''' 

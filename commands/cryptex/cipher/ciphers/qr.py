@@ -5,7 +5,7 @@ Description: A QR Generator for Cryptex
 """
 
 import qrcode
-from cipher import Cipher
+from ..cipher import Cipher
 
 
 def validate_image_extension(file: str) -> str:
@@ -14,7 +14,7 @@ def validate_image_extension(file: str) -> str:
     """
 
     extensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif"]
-    
+
     # check if the file has an extension
     if "." not in file:
         return file + ".png"
@@ -28,7 +28,7 @@ def validate_image_extension(file: str) -> str:
     return file + ".png"
 
 
-class qr(Cipher):
+class qr(Cipher):  # I don't like that this doesn't follow the correct naming convention
 
     name = 'QR Code Generator'
     type = 'tool'
@@ -39,7 +39,7 @@ class qr(Cipher):
 
         if not filename:
             return {'text': "No output file", 'success': False}
-        
+
         if not text:
             return {'text': "No input text", 'success': False}
 
@@ -60,8 +60,8 @@ class qr(Cipher):
 
         return {'text': filename, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -e / --encode ---- encode
 

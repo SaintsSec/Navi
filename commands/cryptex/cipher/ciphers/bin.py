@@ -2,7 +2,8 @@
 Author: Alex Kollar | Project Manager: The Cryptex Project
 Description: Binary translation for Cryptex
 """
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class bin(Cipher): #make sure you change this from text to your cipher
 
@@ -32,8 +33,8 @@ class bin(Cipher): #make sure you change this from text to your cipher
             output += chr(int(binary, 2))
         return {'text': output, 'success': True}
 
-    def print_options():
-        #Edit this section as needed for your specific encoding / decoding.
+    def print_options(self):
+        # Edit this section as needed for your specific encoding / decoding.
         print(''' 
         ### Modes
         -d / --decode ---- decode

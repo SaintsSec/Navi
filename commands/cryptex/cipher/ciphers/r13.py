@@ -6,8 +6,9 @@ Instructions:
     make sure you add the following to __init__.py: from cipherfile import *
     Doing this will link the code to main.py 
 """
-from cipher import Cipher
-from cipher.ciphers import CC
+from ..cipher import Cipher
+from cc import CC
+
 
 class R13(Cipher):
 
@@ -30,7 +31,7 @@ class R13(Cipher):
 
         return CC.decode(args)
 
-    def print_options():
+    def print_options(self):
         print('''
         ### Modes
         -d / --decode ---- decode

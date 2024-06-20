@@ -1,4 +1,5 @@
-from cipher import Cipher
+from ..cipher import Cipher
+
 
 class CC(Cipher):
 
