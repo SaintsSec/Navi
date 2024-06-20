@@ -124,7 +124,6 @@ class ArgumentParser:
         return args
 
     def parse_string(self, string: List[str]) -> argparse.Namespace:
-        sys.argv = [" "] + string
         parsed_args = self.__run()
         return parsed_args
 
@@ -135,16 +134,16 @@ class Controller:
         self.parser = ArgumentParser()
         self.cli = CLIManager(self.cipher_list)
 
-    def run(self):
+    def run(self, user_args):
         output = None
 
         try:
-            first_text = sys.argv[sys.argv.index("-t") + 1]
-            sys.argv[sys.argv.index("-t") + 1] = f'"{first_text}"'
+            first_text = user_args[user_args.index("-t") + 1]
+            user_args[user_args.index("-t") + 1] = f'"{first_text}"'
         except ValueError:
             first_text = "N/A"
 
-        layers = [[s.replace('"', '') for s in list(y)] for x, y in itertools.groupby(sys.argv[1:], lambda z: z == "+") if not x]
+        layers = [[s.replace('"', '') for s in list(y)] for x, y in itertools.groupby(user_args[1:], lambda z: z == "+") if not x]
 
         for layer in layers:
             args = self.parser.parse_string(layer)
@@ -169,13 +168,13 @@ class Controller:
                             msg = "Failed: "
                         print(f"{color}{msg} {k} {'-' * (15 - len(k))} {out['msg']}{Fore.WHITE}")
 
-                total = status[0] + status[1] 
+                total = status[0] + status[1]
                 print(f"{Fore.GREEN}Success{Fore.WHITE}/{Fore.RED}Failed {Fore.WHITE}{status[0]}/{status[1]}")
                 percent = (status[0] / total) * 100
                 print(f"Success percentage {percent}%")
-                        
+
                 return
-            
+
             if not args.cipher:
                 sys.exit("No cipher selected.")
 
