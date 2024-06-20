@@ -33,7 +33,7 @@ def run_nmap_scan(target, ports=None, arguments=None):
 
 def run(arguments=None):
     if get_command_path(command) is None:
-        tr(f"\n{get_ai_name()} Sorry! nmap is not currently installed on your system.")
+        tr(f"\nSorry! nmap is not currently installed on your system.")
         return
     ip_address = None
     hostname = None
@@ -53,23 +53,23 @@ def run(arguments=None):
                 if port.isdigit():
                     port_numbers.append(port)
     if ip_address is None and hostname is None:
-        tr(f"\n{get_ai_name()} Sorry, you need to provide a valid IP address or hostname")
+        tr(f"\nSorry, you need to provide a valid IP address or hostname")
     else:
-        tr(f"\n{get_ai_name()} Running... hang tight!")
+        tr(f"\nRunning... hang tight!")
         target = ip_address if ip_address is not None else hostname
         matches = get_parameters(arguments.text)
         stdout, stderr = run_nmap_scan(target, port_numbers, matches)
 
         # Ask user how they want to handle the results
-        choice = input(f"\n{get_ai_name()} Scan done! Would you like me to analyze the results or just see the raw "
+        choice = input(f"\nScan done! Would you like me to analyze the results or just see the raw "
                        f"output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
             response_message, http_status = llm_chat(f"Please analyze and summarize the results of "
                                                      f"this nmap scan: {stdout}")
-            tr(f"{get_ai_name()} {response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
+            tr(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
         elif choice == 'raw':
-            tr(f"\n{get_ai_name()} Here are the raw results:\n{stdout}")
+            tr(f"\nHere are the raw results:\n{stdout}")
         else:
             tr("Invalid choice. Showing raw results by default.\n")
-            tr(f"\n{get_ai_name()} Here are the raw results:\n{stdout}")
+            tr(f"\nHere are the raw results:\n{stdout}")

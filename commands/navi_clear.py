@@ -8,4 +8,4 @@ aliases = ['cls']
 
 def run(arguments=None):
     pre_run()
-    tr(f"{get_ai_name()} How can I help you, {get_user()}?")
+    tr(f"How can I help you, {get_user()}?")

@@ -7,5 +7,5 @@ aliases = ['quit', 'exit', 'goodbye']
 
 
 def run(arguments=None):
-    tr(f"{get_ai_name()} Thank you for stopping by! {get_user()}")
+    tr(f"Thank you for stopping by! {get_user()}")
     exit(0)

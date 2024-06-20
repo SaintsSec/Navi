@@ -41,7 +41,10 @@ def get_user():
     return user
 
 
-def tr(text):
+def tr(text, include_ai_name=True):
+    to_print = text
+    if include_ai_name:
+        to_print = ai_name_rep + text
     sleep_times = {
         (0, 0.1): 0.0,
         (0.1, 0.2): 0.05,
@@ -57,7 +60,7 @@ def tr(text):
     wrap_width = int(terminal_width * 0.6)
 
     # Split text into lines to preserve line breaks
-    lines = text.split('\n')
+    lines = to_print.split('\n')
 
     for line in lines:
         # Wrap each line individually
