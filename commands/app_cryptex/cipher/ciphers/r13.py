@@ -7,7 +7,7 @@ Instructions:
     Doing this will link the code to main.py 
 """
 from ..cipher import Cipher
-from cc import CC
+from .cc import CC
 
 
 class R13(Cipher):

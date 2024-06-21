@@ -1,12 +1,12 @@
 from ..cipher import Cipher
 
-
 class CC(Cipher):
 
     name = 'Caesar Cipher'
     type = 'cipher'
 
     def encode(args):
+        from ....cryptex import check_argument
         output = ''
         text = args.text
         key = args.key
@@ -29,6 +29,7 @@ class CC(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
+        from ....cryptex import check_argument
         output = ''
         text = args.text
         key = args.key
@@ -50,8 +51,8 @@ class CC(Cipher):
 
         return {'text': output, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -69,6 +70,7 @@ class CC(Cipher):
        ''')
 
     def test(args):
+        from ....cryptex import check_argument
         total = 0
         expect = [
             'hello',
@@ -107,7 +109,7 @@ class CC(Cipher):
             if not out['success']:
                 return {'status': False, 'msg': f'''
             Encoding failed: "{out['text']}"'''}
-            
+
             if out['text'] not in expect[i]:
                 return {'status': False, 'msg': f'''Failed to encode "hello"
                 expected "{expect[i]}" with key {i} got {out['text']}'''}
@@ -120,7 +122,7 @@ class CC(Cipher):
             if not out['success']:
                 return {'status': False, 'msg': f'''
             Decoding failed: "{out['text']}"'''}
-            
+
             if out['text'] not in 'hello':
                 return {'status': False, 'msg': f'''Failed to decode "{args.text}"
                 expected "hello" with key {i} got {out['text']}'''}

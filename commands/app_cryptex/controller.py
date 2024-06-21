@@ -4,6 +4,8 @@ import sys
 from typing import List
 
 from colorama import Fore
+
+from navi_shell import tr
 from .vars import banner
 
 
@@ -43,6 +45,7 @@ class CLIManager:
         print("|" + self.line + "|" + self.__add_extra("", 20, "-") + "|")
 
     def print_output(self, output: str, args: argparse.Namespace):
+        from ..cryptex import check_argument
         if "languages" in output:
             return
 
@@ -55,7 +58,7 @@ class CLIManager:
         elif args.encode:
             mode = "Encode"
         elif args.brute:
-            mode="Brute"
+            mode = "Brute"
 
         banner()
 
@@ -91,50 +94,14 @@ class CLIManager:
                 f.write(f"{output['text']}")
 
 
-class ArgumentParser:
-    def __run(self) -> argparse.Namespace:
-        parser = argparse.ArgumentParser()
-
-        parser.add_argument("cipher", type=str, help="The cipher name", nargs="?")
-
-        # Modes
-        parser.add_argument("-e", "--encode", dest="encode", action="store_true", help="Encode mode")
-        parser.add_argument("-d", "--decode", dest="decode", action="store_true", help="Decode mode")
-        parser.add_argument("--test", dest="test", action="store_true", help="Run all tests")
-        parser.add_argument("-b", "--brute", dest="brute", action="store_true", help="Brute mode")
-
-        # Input
-        parser.add_argument("-t", "--text", dest="text", type=str, help="The input text")
-        parser.add_argument("-k", "--key", dest="key", type=str, help="The key")
-        parser.add_argument("-ex", "--exclude", dest="exclude", type=str, help="The exclude list")
-        parser.add_argument("-o", "--output", dest="output", type=str, help="output file")
-        parser.add_argument("-i", "--input", dest="input", type=str, help="input file")
-        parser.add_argument("-iw", "--imageWidth", dest="imageWidth", type=int, help="image width")
-        parser.add_argument("-m", "--monocromatic", dest="monocromatic", action="store_true", help="monocromatic")
-        parser.add_argument("-lang", dest="languages", action="store_true", help="show languages")
-        parser.add_argument("-src", dest="src_lang", type=str, help="source language")
-        parser.add_argument("-dest", dest="dest_lang", type=str, help="destination language")
-        parser.add_argument("-len", dest="length", type=int, help="length")
-        parser.add_argument("-ka", "--key_a", dest="key_a", type=int, help="Key -a")
-        parser.add_argument("-kb", "--key_b", dest="key_b", type=int, help="Key -b")
-        parser.add_argument("-r", "--range", dest="range", type=str, help="Range")
-
-        args = parser.parse_args()
-
-        return args
-
-    def parse_string(self, string: List[str]) -> argparse.Namespace:
-        parsed_args = self.__run()
-        return parsed_args
-
-
 class Controller:
+
     def __init__(self, cipher_list):
         self.cipher_list = cipher_list
-        self.parser = ArgumentParser()
         self.cli = CLIManager(self.cipher_list)
 
     def run(self, user_args):
+        from ..cryptex import check_argument
         output = None
 
         try:
@@ -143,75 +110,51 @@ class Controller:
         except ValueError:
             first_text = "N/A"
 
-        layers = [[s.replace('"', '') for s in list(y)] for x, y in itertools.groupby(user_args[1:], lambda z: z == "+") if not x]
+        # if not self.check_argument(user_args, "cipher"):
+        #     tr("No cipher selected.")
+        #     return
 
-        for layer in layers:
-            args = self.parser.parse_string(layer)
+        try:
+            for arg in user_args:
+                print(arg)
+                if arg.lower() in self.cipher_list:
+                    module = self.cipher_list[arg.lower()]
+                else:
+                    print(f'Cipher "{arg}" may not exist')
+        except ValueError as e:
+            print(e)
 
-            if args.test:
-                print('\n')
-                status = [0, 0]
-                for k, v in self.cipher_list.items():
-                    try:
-                        out = v.test(args)
-                    except Exception as e:
-                        print(f"{Fore.YELLOW}No test for {k}{Fore.WHITE}\n\t{e}")
-                    else:
-                        color = Fore.GREEN
-                        msg = "Success:"
+        func = None
 
-                        if out['status']:
-                            status[0] += 1
-                        else:
-                            status[1] += 1
-                            color = Fore.RED
-                            msg = "Failed: "
-                        print(f"{color}{msg} {k} {'-' * (15 - len(k))} {out['msg']}{Fore.WHITE}")
-
-                total = status[0] + status[1]
-                print(f"{Fore.GREEN}Success{Fore.WHITE}/{Fore.RED}Failed {Fore.WHITE}{status[0]}/{status[1]}")
-                percent = (status[0] / total) * 100
-                print(f"Success percentage {percent}%")
-
-                return
-
-            if not args.cipher:
-                sys.exit("No cipher selected.")
-
+        result = check_argument(user_args, "input")
+        if result:
+            index, value = result
+            arg = user_args[index + 1]  # Get the value following the argument
             try:
-                if not args.cipher.lower() in self.cipher_list:
-                    raise
-                module = self.cipher_list[args.cipher]
-            except:
-                sys.exit(f'Cipher "{args.cipher}" may not exist')
+                with open(arg, "r") as f:
+                    data = f.readlines()
+                    data = "".join(data)
+                    # Why the hell is file content being added to the user_args list?
+                    user_args[index + 1] = data  # Replace the value with the file content
+            except UnicodeDecodeError:
+                # can't read... probably because it's handled by cipher
+                pass
 
-            func = None
+        if check_argument(user_args, "encode"):
+            func = module.encode
+        elif check_argument(user_args, "decode"):
+            func = module.decode
+        elif check_argument(user_args, "brute"):
+            func = module.brute
+        else:
+            print("No mode selected. see the help menu for more info")
+            module.print_options()
+            sys.exit()
 
-            if args.input:
-                try:
-                    with open(args.input, "r") as f:
-                        data = f.readlines()
-                        data = "".join(data)
-                        args.text = data
-                except UnicodeDecodeError:
-                    # can't read... probably because it's handled by cipher
-                    pass
+        if output:
+            arg = output["text"]
 
-            if args.encode:
-                func = module.encode
-            elif args.decode:
-                func = module.decode
-            elif args.brute:
-                func =module.brute
-            else:
-                print("No mode selected. see the help menu for more info")
-                module.print_options()
-                sys.exit()
+        output = func(arg)
 
-            if output:
-                args.text = output["text"]
-
-            output = func(args)
-
-        args.text = first_text
-        self.cli.print_output(output, args)
+        arg = first_text
+        self.cli.print_output(output, arg)
