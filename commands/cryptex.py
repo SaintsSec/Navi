@@ -41,6 +41,13 @@ def check_argument(args, name):
     return False
 
 
+def get_argument_value(args, name):
+    result = check_argument(args, name)
+    if result:
+        index, _ = result
+        return args[index + 1] if index + 1 < len(args) else ""
+    return ""
+
 def run(arguments=None):
     # Check if there are args
     argv = get_parameters(arguments.text)
@@ -50,7 +57,6 @@ def run(arguments=None):
     from .app_cryptex.cipher.cipher import Cipher
 
     cipher_list = {cls.__name__.lower(): cls for cls in Cipher.__subclasses__()}
-
     # Initialize cipher
     controller = Controller(cipher_list)
 

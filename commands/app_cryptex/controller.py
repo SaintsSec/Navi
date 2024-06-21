@@ -116,11 +116,8 @@ class Controller:
 
         try:
             for arg in user_args:
-                print(arg)
                 if arg.lower() in self.cipher_list:
                     module = self.cipher_list[arg.lower()]
-                else:
-                    print(f'Cipher "{arg}" may not exist')
         except ValueError as e:
             print(e)
 
@@ -141,20 +138,13 @@ class Controller:
                 pass
 
         if check_argument(user_args, "encode"):
-            func = module.encode
+            func = module.encode(user_args)
         elif check_argument(user_args, "decode"):
-            func = module.decode
+            func = module.decode(user_args)
         elif check_argument(user_args, "brute"):
-            func = module.brute
+            func = module.brute(user_args)
         else:
             print("No mode selected. see the help menu for more info")
             module.print_options()
             sys.exit()
-
-        if output:
-            arg = output["text"]
-
-        output = func(arg)
-
-        arg = first_text
-        self.cli.print_output(output, arg)
+        print(f'func_encode: {func}')

@@ -6,12 +6,15 @@ class CC(Cipher):
     type = 'cipher'
 
     def encode(args):
-        from ....cryptex import check_argument
+        from ....cryptex import get_argument_value
         output = ''
-        text = args.text
-        key = args.key
-        exclude = args.exclude if args.exclude else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
-
+        text = get_argument_value(args, "text")
+        print(f'text: {text}')
+        key = get_argument_value(args, "key")
+        print(f'text: {key}')
+        exclude_options = get_argument_value(args, "exclude")
+        exclude = exclude_options if exclude_options else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
+        print(f'exclude: {exclude}')
         if not text:
             return {'text': "No input text", 'success': False}
 
@@ -25,7 +28,6 @@ class CC(Cipher):
                 output += chr((ord(character) + int(key) - 65) % 26 + 65)
             else:
                 output += chr((ord(character) + int(key) - 97) % 26 + 97)
-
         return {'text': output, 'success': True}
 
     def decode(args):
@@ -48,7 +50,7 @@ class CC(Cipher):
                 output += chr((ord(character) - int(key) - 65) % 26 + 65)
             else:
                 output += chr((ord(character) - int(key) - 97) % 26 + 97)
-
+        print(f'output: {output}')
         return {'text': output, 'success': True}
 
     def print_options(self):
