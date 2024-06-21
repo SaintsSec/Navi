@@ -1,6 +1,8 @@
+localVersion = (1,0,0)
+
 def banner():
     version = localVersion[0]
-    spacing = len(version) - 5
+    spacing = 3
     spacing = ' ' * spacing if spacing > 0 else ''
 
     tag = f"  {localVersion[1]}"

@@ -2,6 +2,7 @@ import sys
 from .app_cryptex.controller import Controller
 from .app_cryptex.menusystem import MenuSystem
 from navi import get_parameters
+from navi_shell import tr
 
 command = "cryptex"
 use = "An advanced command-line cryptography toolkit"
@@ -23,6 +24,7 @@ def run(arguments=None):
     if not argv:
         controller.cli.print_ciphers()
         tr("Please enter an argument when using this command.\nTry --help or -h for more information")
+        return
 
     # Start the menu if specified
     if '--tui' in argv[1] or '-tui' in argv[1]:
