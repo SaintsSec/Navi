@@ -5,28 +5,28 @@ Description: Binary translation for Cryptex
 from ..cipher import Cipher
 
 
-class bin(Cipher): #make sure you change this from text to your cipher
+class bin(Cipher):
 
-    name = 'Binary Translator' #change the name
+    name = 'Binary Translator'
     type = 'datatype'
 
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
 
-        # Here is where you put your encoding / encrypting code.
         output = ' '.join(format(ord(x), 'b') for x in text)
         return {'text': output, 'success': True}
 
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
 
-        #Here is where you put your decoding / decrypting code.
         binary_list = text.split(' ')
         output = ''
         for binary in binary_list:
@@ -34,8 +34,7 @@ class bin(Cipher): #make sure you change this from text to your cipher
         return {'text': output, 'success': True}
 
     def print_options(self):
-        # Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -49,21 +48,21 @@ class bin(Cipher): #make sure you change this from text to your cipher
         ''')
 
     def test(args):
-        total = 2
-
-        args.text = 'hello'
+        total_tests = 2
+        test_arg_list = ['bin', '--test', '-t', 'hello', '-k', '3']
+        text_index = 3
         expect = '1101000 1100101 1101100 1101100 1101111'
         # NOTE (marvhus): Should the binary output have a byte length of 7 or 8?
-        out = bin.encode(args)
+        out = bin.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to encode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        args.text, expect = expect, args.text
-        out = bin.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = bin.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to decode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
-            
+        return {'status': True, 'msg': f'Ran {total_tests} tests'}
+

@@ -4,6 +4,7 @@ Description: A basic Baconian Chiper encoder / decoder
 """
 from ..cipher import Cipher
 
+
 class Bac(Cipher):
     """
     This chiper uses 26 alphabets version.
@@ -12,11 +13,13 @@ class Bac(Cipher):
     type = 'cipher'
 
     def encode(args):
+        from ....cryptex import get_argument_value
         ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         char1 = 'a'
         char2 = 'b'
-        text = args.text
-        key = args.key
+
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -30,7 +33,7 @@ class Bac(Cipher):
                 if char1 == char2:
                     return {'text': f"Key '{char1}' and '{char2}' can't be similar", 'success': False}
 
-        # Ignore non alphabetic characters
+        # Ignore non-alphabetic characters
         text_split = [c.upper() for c in text if c.isalpha()]
 
         # Make a bacon code
@@ -51,12 +54,14 @@ class Bac(Cipher):
         return {'text': encoded_text, 'success': True}
 
     def decode(args):
+        from ....cryptex import get_argument_value
         ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         use_default_key = True
         char1 = 'A'  # Default key
         char2 = 'B'  # Default key
-        text = args.text
-        key = args.key
+
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -78,7 +83,7 @@ class Bac(Cipher):
         # Check if the characters are valid with the key
         clean_text = []
         for c in text:
-            # Ignore non alphabetic characters
+            # Ignore non-alphabetic characters
             if c.isalpha() and c in key:
                 clean_text.append(c)
             elif not c.isalpha():
@@ -125,8 +130,8 @@ class Bac(Cipher):
 
         return {'text': decoded_text, 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
