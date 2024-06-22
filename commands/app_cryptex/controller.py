@@ -40,55 +40,6 @@ class CLIManager:
                 print("|      " + self.__add_extra(item[0], 30, " ") + f" |      {item[1]} \t   |")
         print("|" + self.line + "|" + self.__add_extra("", 20, "-") + "|")
 
-    def print_output(self, output: str, args: argparse.Namespace):
-        from ..cryptex import check_argument
-        if "languages" in output:
-            return
-
-        if not output["success"]:
-            sys.exit(f'Failed to run cipher "{args.cipher}"\nError: {output["text"]}')
-
-        mode = ""
-        if args.decode:
-            mode = "Decode"
-        elif args.encode:
-            mode = "Encode"
-        elif args.brute:
-            mode = "Brute"
-
-        banner()
-
-        if args.cipher == "pswd":
-            print(
-                f"""
-        ------ Cipher: {args.cipher} -- Mode: {mode} ------
-        Length   | {args.length}
-        Password | {output['text']}
-        ----
-        """
-            )
-            return
-
-        print(
-            f"""
-        ------ Cipher: {args.cipher} -- Mode: {mode} ------
-        Input      | {args.text}
-        Output     | {output['text']}
-
-        Read File  | {args.input if args.input else "N/A"}
-        Wrote File | {args.output if args.output else "N/A"}
-        """
-        )
-
-        # remove output file from args for ciphers that manually write a file
-        if args.cipher in ['qr', 'se', 'midify']:
-            args.output = None
-
-        # if output then output
-        if args.output:
-            with open(args.output, "w") as f:
-                f.write(f"{output['text']}")
-
 
 class Controller:
 
@@ -157,7 +108,6 @@ class Controller:
                 with open(arg, "r") as f:
                     data = f.readlines()
                     data = "".join(data)
-                    # Why the hell is file content being added to the user_args list?
                     user_args[index + 1] = data  # Replace the value with the file content
             except UnicodeDecodeError:
                 # can't read... probably because it's handled by cipher
@@ -170,6 +120,7 @@ class Controller:
         elif check_argument(user_args, "brute"):
             func = module.brute(user_args)
         else:
-            print("No mode selected. see the help menu for more info")
+            tr("No mode selected. see the help menu for more info")
             module.print_options()
+            return
         tr(f"Done!\n{func['text']}")
