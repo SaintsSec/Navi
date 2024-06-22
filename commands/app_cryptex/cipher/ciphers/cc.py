@@ -70,14 +70,10 @@ class CC(Cipher):
        ''')
 
     def test(args):
-        from ....cryptex import check_argument
 
-        text_index, _ = check_argument(args, "text")
-        key_index, _ = check_argument(args, "key")
-        text_index += 1
-        key_index += 1
-
-        new_arg_list = args
+        test_arg_list = ['cc', '--test', '-t', 'May Walla guide you! ', '-k', '3']
+        text_index = 3
+        key_index = 5
 
         total = 0
         expect = [
@@ -111,9 +107,9 @@ class CC(Cipher):
         ]
         for i in range(1, 26):
             total += 1
-            new_arg_list[text_index] = 'hello'
-            new_arg_list[key_index] = i
-            out = CC.encode(new_arg_list)
+            test_arg_list[text_index] = 'hello'
+            test_arg_list[key_index] = i
+            out = CC.encode(test_arg_list)
             if not out['success']:
                 return {'status': False, 'msg': f'''
             Encoding failed: "{out['text']}"'''}
@@ -124,9 +120,9 @@ class CC(Cipher):
 
         for i in range(1, 26):
             total += 1
-            new_arg_list[text_index] = expect[i]
-            new_arg_list[key_index] = i
-            out = CC.decode(new_arg_list)
+            test_arg_list[text_index] = expect[i]
+            test_arg_list[key_index] = i
+            out = CC.decode(test_arg_list)
             if not out['success']:
                 return {'status': False, 'msg': f'''
             Decoding failed: "{out['text']}"'''}

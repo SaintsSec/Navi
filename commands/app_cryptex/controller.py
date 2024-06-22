@@ -143,8 +143,12 @@ class Controller:
 
             total = status[0] + status[1]
             print(f"{Fore.GREEN}Success{Fore.WHITE}/{Fore.RED}Failed {Fore.WHITE}{status[0]}/{status[1]}")
-            percent = (status[0] / total) * 100
-            print(f"Success percentage {percent}%")
+
+            if total != 0:
+                percent = (status[0] / total) * 100
+                print(f"Success percentage {percent}%")
+            else:
+                print("Total is zero, cannot compute success percentage.")
             return
 
         func = None

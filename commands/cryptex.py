@@ -66,9 +66,8 @@ def run(arguments=None):
         controller.cli.print_ciphers()
         tr("Please enter an argument when using this command.\nTry --help or -h for more information")
         return
-
     # Start the menu if specified
-    if '--tui' in argv[1] or '-tui' in argv[1]:
+    if len(argv) > 1 and ('--tui' in argv[1] or '-tui' in argv[1]):
         MenuSystem(cipher_list)
         return
 

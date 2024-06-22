@@ -2,42 +2,45 @@
 Author: Alex Kollar | Project Manager: The Cryptex Project
 Description: Base64 Cryptex implimentation
 """
-from ..cipher import Cipher
 import base64
+from ..cipher import Cipher
 
 
-class B64(Cipher): #make sure you change this from text to your cipher
+class B64(Cipher):
 
-    name = 'Base 64' #change the name
+    name = 'Base 64'
     type = 'cipher'
 
+    @staticmethod
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
 
-        # Here is where you put your encoding / encrypting code.
-        text = args.text.encode('ascii')
+        text = text.encode('ascii')
         b64_bytes = base64.b64encode(text)
         output = b64_bytes.decode('ascii')
         return {'text': output, 'success': True}
 
+    @staticmethod
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
 
-        #Here is where you put your decoding / decrypting code.
-        text = args.text.encode('ascii')
-        b64_bytes = base64.b64decode(text)
-        output = b64_bytes.decode('ascii')
-        return {'text': output, 'success': True}
+        try:
+            b64_bytes = base64.b64decode(text)
+            output = b64_bytes.decode('ascii')
+            return {'text': output, 'success': True}
+        except (base64.binascii.Error, ValueError) as e:
+            return {'text': str(e), 'success': False}
 
     def print_options(self):
-        # Edit this section as needed for your specific encoding / decoding.
-        print(''' 
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
@@ -51,19 +54,20 @@ class B64(Cipher): #make sure you change this from text to your cipher
         ''')
 
     def test(args):
-        total = 2
-
-        args.text = 'hello'
+        total_tests = 2
+        test_arg_list = ['b64', '--test', '-t', 'May Walla guide you! ', '-k', '3']
+        text_index = 3
+        test_arg_list[text_index] = 'hello'
         expect = 'aGVsbG8='
-        out = B64.encode(args)
+        out = B64.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode {args.text}
-            expected "{args.text}" got "{out['text']}"'''}
+            return {'status': False, 'msg': f'''Failed to encode {test_arg_list[text_index]}
+            expected "{test_arg_list[text_index]}" got "{out['text']}"'''}
 
-        args.text, expect = expect, args.text
-        out = B64.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = B64.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode {args.text}
-            expected "{args.text}" got "{out['text']}"'''}
-        
-        return {'status': True, 'msg': f'Ran {total} tests'} 
+            return {'status': False, 'msg': f'''Failed to decode {test_arg_list[text_index]}
+            expected "{test_arg_list[text_index]}" got "{out['text']}"'''}
+
+        return {'status': True, 'msg': f'Ran {total_tests} tests'}

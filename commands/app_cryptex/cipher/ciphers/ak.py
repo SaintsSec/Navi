@@ -7,9 +7,11 @@ class AK(Cipher):
 
     def encode(args):
         output = ''
-        text = args.text.lower()
-        key = args.key
-        exclude = args.exclude if args.exclude else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text").lower()
+        key = get_argument_value(args, "key")
+        exclude_options = get_argument_value(args, "exclude")
+        exclude = exclude_options if exclude_options else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
         new_key = ''
         temp = key + text
 
@@ -38,9 +40,11 @@ class AK(Cipher):
 
     def decode(args):
         output = ''
-        text = args.text
-        key = args.key
-        exclude = args.exclude if args.exclude else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text").lower()
+        key = get_argument_value(args, "key")
+        exclude_options = get_argument_value(args, "exclude")
+        exclude = exclude_options if exclude_options else "\n\t .?!,/\\<>|[]{}@#$%^&*()-_=+`~:;\"'0123456789"
         new_key = ''
 
         if not text:
@@ -67,8 +71,8 @@ class AK(Cipher):
 
         return {'text': "".join(output), 'success': True}
 
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
