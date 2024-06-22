@@ -110,16 +110,16 @@ class Controller:
         except ValueError:
             first_text = "N/A"
 
-        # if not self.check_argument(user_args, "cipher"):
-        #     tr("No cipher selected.")
-        #     return
-
+        module = None
         try:
             for arg in user_args:
                 if arg.lower() in self.cipher_list:
                     module = self.cipher_list[arg.lower()]
         except ValueError as e:
             print(e)
+        if module is None:
+            tr("No cipher selected. see the help menu for more info")
+            return
 
         if check_argument(user_args, "test"):
             print('\n')
