@@ -48,6 +48,7 @@ def get_argument_value(args, name):
         return args[index + 1] if index + 1 < len(args) else ""
     return ""
 
+
 def run(arguments=None):
     # Check if there are args
     argv = get_parameters(arguments.text)

@@ -8,7 +8,7 @@ class Menc(Cipher):
     def encode(args):
         text = args.text
         outputs = args.key
-        alphabet = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+        alphabet = r" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -18,7 +18,7 @@ class Menc(Cipher):
 
         input_list = []
         for char in text:
-            index = alphabet.index(char)
+            index = self.alphabet.index(char)
             if index == -1:
                 return {'text': "Invalid character in input text", 'success': False}
             input_list.append(index)
@@ -50,7 +50,7 @@ class Menc(Cipher):
     def decode(args):
         text = args.text
         key = args.key
-        alphabet = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+        alphabet = r" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 
         if not text:
             return {'text': "No input text", 'success': False}

@@ -121,6 +121,32 @@ class Controller:
         except ValueError as e:
             print(e)
 
+        if check_argument(user_args, "test"):
+            print('\n')
+            status = [0, 0]
+            for k, v in self.cipher_list.items():
+                try:
+                    out = v.test(user_args)
+                except Exception as e:
+                    print(f"{Fore.YELLOW}No test for {k}{Fore.WHITE}\n\t{e}")
+                else:
+                    color = Fore.GREEN
+                    msg = "Success:"
+
+                    if out['status']:
+                        status[0] += 1
+                    else:
+                        status[1] += 1
+                        color = Fore.RED
+                        msg = "Failed: "
+                    print(f"{color}{msg} {k} {'-' * (15 - len(k))} {out['msg']}{Fore.WHITE}")
+
+            total = status[0] + status[1]
+            print(f"{Fore.GREEN}Success{Fore.WHITE}/{Fore.RED}Failed {Fore.WHITE}{status[0]}/{status[1]}")
+            percent = (status[0] / total) * 100
+            print(f"Success percentage {percent}%")
+            return
+
         func = None
 
         result = check_argument(user_args, "input")
