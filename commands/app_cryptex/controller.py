@@ -34,7 +34,6 @@ class CLIManager:
         # print cryptex banner
         banner()
 
-        # Printing magic
         for key in self.cipher_types:
             print("|" + self.__add_extra(f"-- {key}s", len(self.line), "-") + "|-- short name ------|")
             for item in self.cipher_types[key]:
@@ -173,5 +172,4 @@ class Controller:
         else:
             print("No mode selected. see the help menu for more info")
             module.print_options()
-            sys.exit()
-        print(f'func_encode: {func}')
+        tr(f"Done!\n{func['text']}")
