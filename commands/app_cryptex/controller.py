@@ -1,10 +1,7 @@
 import argparse
-import itertools
 import sys
-from typing import List
 
 from colorama import Fore
-
 from navi_shell import tr
 from .vars import banner
 

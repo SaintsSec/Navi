@@ -1,4 +1,3 @@
-import sys
 from .app_cryptex.controller import Controller
 from .app_cryptex.menusystem import MenuSystem
 from navi import get_parameters

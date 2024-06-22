@@ -5,10 +5,10 @@ class GC(Cipher):
 
     name = 'Gaderypoluki Cipher'
     type = 'cipher'
-    
-    def code(args):
 
-        text = args.text
+    def code(args):
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -54,7 +54,7 @@ class GC(Cipher):
             else:
                 encode_text += char
 
-        return {'text': encode_text, 'success': True} 
+        return {'text': encode_text, 'success': True}
 
     def encode(args):
         output = GC.code(args)
@@ -64,9 +64,8 @@ class GC(Cipher):
         output = GC.code(args)
         return output
 
-
-    def print_options():
-        print(''' 
+    def print_options(self):
+        print('''
         ### Modes
         -d / --decode ---- decode
         -e / --encode ---- encode
