@@ -7,8 +7,9 @@ class Pb(Cipher):
     type = 'cipher'
 
     def brute(args):
-        text = args.text.strip()
-        range_split = [i.strip() for i in args.range.split(',') if i.strip()]
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text").strip()
+        range_split = [i.strip() for i in get_argument_value(args, "range").split(',') if i.strip()]
         range_int = [int(i) for i in range_split if i.isdigit()]
         step = 1
 

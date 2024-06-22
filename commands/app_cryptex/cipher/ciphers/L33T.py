@@ -32,7 +32,8 @@ class L33T(Cipher):  # make sure you change this from text to your cipher
 
     @staticmethod
     def encode(args):
-        text = args.text.lower()
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text").lower()
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -43,7 +44,8 @@ class L33T(Cipher):  # make sure you change this from text to your cipher
 
     @staticmethod
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -69,19 +71,20 @@ class L33T(Cipher):  # make sure you change this from text to your cipher
         ''')
 
     def test(args):
-        total = 2
-
-        args.text = 'hello'
+        total_tests = 2
+        test_arg_list = ['hex', '--test', '-t', 'hello', '-k', '3']
+        text_index = 3
+        
         expect = 'H3ll0'
-        out = L33T.encode(args)
+        out = L33T.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to encode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        args.text, expect = expect, args.text
-        out = L33T.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = L33T.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to decode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {total_tests} tests'}

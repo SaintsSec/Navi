@@ -12,8 +12,9 @@ class Midify(Cipher):
 
     @staticmethod
     def encode(args):
-        text = args.text
-        path = args.output
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        path = get_argument_value(args, "output")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -50,7 +51,8 @@ class Midify(Cipher):
 
     @staticmethod
     def decode(args):
-        path = args.input
+        from ....cryptex import get_argument_value
+        path = get_argument_value(args, "input")
 
         if not path:
             return {'text': "No input file path", 'success': False}
@@ -67,7 +69,6 @@ class Midify(Cipher):
 
     @staticmethod
     def print_options(self):
-        # Edit this section as needed for your specific encoding / decoding.
         print('''
         ### Modes
         -d / --decode ---- decode

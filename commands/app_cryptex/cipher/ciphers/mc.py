@@ -2,12 +2,12 @@ from ..cipher import Cipher
 import math
 
 
-def extended_euclidean_common_devisor(a, b): 
+def extended_euclidean_common_devisor(a, b):
     if a == 0:
-        return (b, 0, 1)
+        return b, 0, 1
     else:
         gcd, x, y = extended_euclidean_common_devisor(b % a, a)
-        return (gcd, y - (b // a) * x, x)
+        return gcd, y - (b // a) * x, x
 
 
 def mod_inv(a, m):
@@ -24,6 +24,7 @@ class MC(Cipher):
     type = 'cipher'
 
     def encode(args):
+        from ....cryptex import get_argument_value
         lookup_table={}
         for i in range(26):
             lookup_table[chr(ord('a') + i)] = i
@@ -32,9 +33,9 @@ class MC(Cipher):
         inv_lookup_table = dict(zip(lookup_table.values(), lookup_table.keys()))
 
         output = ''
-        text = args.text
+        text = get_argument_value(args, "text")
         try:
-            key = int(args.key)
+            key = int(get_argument_value(args, "key"))
         except ValueError:
             return {'text': "Key has to be a whole number", 'success': False}
 
@@ -55,6 +56,7 @@ class MC(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
+        from ....cryptex import get_argument_value
         lookup_table = {}
         for i in range(26):
             lookup_table[chr(ord('a') + i)] = i
@@ -62,8 +64,8 @@ class MC(Cipher):
         inv_lookup_table = dict(zip(lookup_table.values(), lookup_table.keys()))
 
         output = ''
-        text = args.text
-        key = args.key
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
 
         if not text:
             return {'text': "No input text", 'success': False}

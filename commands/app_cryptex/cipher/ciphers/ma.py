@@ -6,8 +6,9 @@ class MA(Cipher):
     type = 'cipher'
 
     def encode(args):
-        text = args.text
-        key = args.key
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
         if not text:
@@ -35,8 +36,9 @@ class MA(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
-        text = args.text
-        key = args.key
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
         if not text:

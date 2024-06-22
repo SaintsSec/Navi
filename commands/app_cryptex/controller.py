@@ -66,7 +66,6 @@ class Controller:
             print(e)
         if module is None:
             tr("No cipher selected. see the help menu for more info")
-            return
 
         if check_argument(user_args, "test"):
             print('\n')

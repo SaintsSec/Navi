@@ -5,14 +5,15 @@ from ..cipher import Cipher
 import hashlib
 
 
-class MD5(Cipher):  # make sure you change this from text to your cipher
+class MD5(Cipher):
 
-    name = 'MD5'  # change the name
+    name = 'MD5'
     type = 'hash function'
 
     @staticmethod
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -23,7 +24,6 @@ class MD5(Cipher):  # make sure you change this from text to your cipher
 
     @staticmethod
     def print_options(self):
-        # Edit this section as needed for your specific encoding / decoding.
         print('''
         ### Modes
         -e / --encode ---- encode

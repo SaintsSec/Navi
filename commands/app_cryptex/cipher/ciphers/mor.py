@@ -84,7 +84,8 @@ class Mor(Cipher):  # make sure you change this from text to your cipher
     get_dict_var = lambda dict, char: char if not char in dict else dict[char]
 
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -97,7 +98,8 @@ class Mor(Cipher):  # make sure you change this from text to your cipher
         return {'text': " ".join(output), 'success': True}
 
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -111,7 +113,6 @@ class Mor(Cipher):  # make sure you change this from text to your cipher
         return {'text': output, 'success': True}
 
     def print_options(self):
-        # Edit this section as needed for your specific encoding / decoding.
         print('''
         ### Modes
         -d / --decode ---- decode
@@ -126,19 +127,20 @@ class Mor(Cipher):  # make sure you change this from text to your cipher
         ''')
 
     def test(args):
-        total = 2
+        test_total = 2
+        test_arg_list = ['mor', '--test', '-t', 'HELLO', '-k', '3']
+        text_index = 3
 
-        args.text = 'HELLO'
         expect = '.... . .-.. .-.. ---'
-        out = Mor.encode(args)
+        out = Mor.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to encode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        args.text, expect = expect, args.text
-        out = Mor.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = Mor.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to decode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {test_total} tests'}
