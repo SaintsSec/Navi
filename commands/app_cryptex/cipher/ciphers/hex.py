@@ -6,9 +6,9 @@ Description: A basic hexadecimal encoder / decoder
 from ..cipher import Cipher
 
 
-class Hex(Cipher):  # make sure you change this from text to your cipher
+class Hex(Cipher):
 
-    name = 'Hex Encoder / Decoder'  #change the name
+    name = 'Hex Encoder / Decoder'
     type = 'datatype'
 
     def encode(args):
@@ -18,7 +18,6 @@ class Hex(Cipher):  # make sure you change this from text to your cipher
         if not text:
             return {'text': "No input text", 'success': False}
 
-        # Here is where you put your encoding / encrypting code.
         # encode to hex
         output = text.encode("utf-8").hex()
         return {'text': output, 'success': True}

@@ -38,10 +38,11 @@ class SE(Cipher):
 
     @staticmethod
     def encode(args):
-        text = args.text
-        image_width = SE.default_check(args.imageWidth, 1)
-        monocromatic = SE.default_check(args.monocromatic, False)
-        output = SE.default_check(args.output, 'test.png')
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        image_width = SE.default_check(get_argument_value(args, "imageWidth"), 1)
+        monocromatic = SE.default_check(get_argument_value(args, "monocromatic"), False)
+        output = SE.default_check(get_argument_value(args, "output"), 'test.png')
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -54,7 +55,8 @@ class SE(Cipher):
             for i in range(0, len(row), 3):
                 # The group of 3 chars
                 chars = row[i:i + 3]
-                # If there are not enough chars to make only groups of 3, then ths will say how many extra we will need (2, or 3)
+                # If there are not enough chars to make only groups of 3, then ths will say how many extra we will 
+                # need (2, or 3)
                 extra = 3 - len(chars)
                 # Empty pixel array
                 pixel = []
@@ -88,8 +90,9 @@ class SE(Cipher):
 
     @staticmethod
     def decode(args):
-        monocromatic = SE.default_check(args.monocromatic, False)
-        input = SE.default_check(args.input, 'test.py')
+        from ....cryptex import get_argument_value
+        monocromatic = SE.default_check(get_argument_value(args, "monocromatic"), False)
+        input = SE.default_check(get_argument_value(args, "input"), 'test.py')
 
         try:
             # Get the pixel data
