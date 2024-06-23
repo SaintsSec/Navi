@@ -11,11 +11,12 @@ from ..cipher import Cipher
 
 class Template(Cipher):
 
-    name = 'Plain text cipher' 
+    name = 'Plain text cipher'
     type = 'template'
 
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -25,7 +26,8 @@ class Template(Cipher):
         return {'text': text, 'success': True}
 
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}

@@ -23,8 +23,9 @@ class XOR(Cipher):
         return output
 
     def encode(args):
-        text = args.text
-        key = args.key
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -37,8 +38,9 @@ class XOR(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
-        text = args.text
-        key = args.key
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -66,20 +68,19 @@ class XOR(Cipher):
         ''')
 
     def test(args):
-        total = 2
-
-        args.text = 'HELLO'
-        args.key = 'asd'
+        test_total = 2
+        test_arg_list = ['xor', '--test', '-t', 'HELLO', '-k', 'asd']
+        text_index = 3
         expect = ')6(-<'
-        out = XOR.encode(args)
+        out = XOR.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to encode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        args.text, expect = expect, args.text
-        out = XOR.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = XOR.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to decode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {test_total} tests'}

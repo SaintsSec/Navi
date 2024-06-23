@@ -4,8 +4,8 @@ Author: @marvhus
 from ..cipher import Cipher
 from googletrans import Translator, LANGUAGES
 
-class Translate(Cipher):
 
+class Translate(Cipher):
     name = 'Google Translate'
     type = 'tool'
 
@@ -17,11 +17,12 @@ class Translate(Cipher):
 
     @staticmethod
     def encode(args):
-        text = args.text
-        src_lang = args.src_lang
-        dest_lang = args.dest_lang
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        src_lang = get_argument_value(args, "src_lang")
+        dest_lang = get_argument_value(args, "dest_lang")
 
-        if args.languages:
+        if get_argument_value(args, "languages"):
             print('--- Languages ---')
             for _, lang in enumerate(LANGUAGES):
                 print(f" - {lang} \t- {LANGUAGES[lang]}")
@@ -34,8 +35,10 @@ class Translate(Cipher):
             return {'text': "No source language", 'success': False}
         if not dest_lang:
             return {'text': "No destination language", 'success': False}
-
-        output = Translate.translate(text, src_lang, dest_lang)
+        try:
+            output = Translate.translate(text, src_lang, dest_lang)
+        except Exception as e:
+            return {'text': f"Error translating: {e}", 'success': False}
 
         return {'text': output, 'success': True}
 
@@ -63,24 +66,21 @@ class Translate(Cipher):
         ''')
 
     def test(args):
-        total = 2
+        total_tests = 2
+        test_arg_list = ['translate', '-e', '-t', 'hello', '-src', 'en', '-dest', 'no']
+        text_index = 3
 
-        args.text = 'hello'
-        args.src_lang = 'en'
-        args.dest_lang = 'no'
         expect = 'Hallo'
-        out = Translate.encode(args)
+        out = Translate.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to encode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        args.text = 'hallo'
-        args.src_lang = 'no'
-        args.dest_lang = 'en'
+        test_arg_list = ['translate', '-e', '-t', 'hallo', '-src', 'no', '-dest', 'en']
         expect = 'hello'
-        out = Translate.decode(args)
+        out = Translate.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to decode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {total_tests} tests'}

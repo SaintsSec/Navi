@@ -12,12 +12,13 @@ class sha256(Cipher):
 
     @staticmethod
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
 
-        output = hashlib.sha256(text.encode).hexdigest()
+        output = hashlib.sha256(text.encode()).hexdigest()
 
         return {'text': output, 'success': True}
 

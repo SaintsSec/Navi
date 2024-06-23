@@ -10,7 +10,8 @@ class str2int(Cipher):
     type = 'cipher'
 
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -25,7 +26,8 @@ class str2int(Cipher):
         return {'text': out, 'success': True}
 
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
