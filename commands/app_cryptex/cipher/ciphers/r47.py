@@ -13,9 +13,9 @@ class R47(Cipher):
     name = 'Rot 47'
     type = 'cipher'
 
-    @property
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -32,7 +32,8 @@ class R47(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -63,19 +64,20 @@ class R47(Cipher):
         ''')
 
     def test(args):
-        total = 2
+        test_total = 2
+        test_arg_list = ['r47', '--test', '-t', 'hello', '-k', '3']
+        text_index = 3
 
-        args.text = 'hello'
         expect = '96==@'
-        out = R47.encode
+        out = R47.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode {args.text}
-            expected {args.text} got {out['text']}'''}
+            return {'status': False, 'msg': f'''Failed to encode {test_arg_list[text_index]}
+            expected {test_arg_list[text_index]} got {out['text']}'''}
 
-        args.text, expect = expect, args.text
-        out = R47.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = R47.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode {args.text}
-            expected {args.text} got {out['text']}'''}
+            return {'status': False, 'msg': f'''Failed to decode {test_arg_list[text_index]}
+            expected {test_arg_list[text_index]} got {out['text']}'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {test_total} tests'}

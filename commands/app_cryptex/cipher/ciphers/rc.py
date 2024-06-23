@@ -11,7 +11,8 @@ class RC(Cipher):
     type = 'cipher'
 
     def encode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -21,7 +22,8 @@ class RC(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
-        text = args.text
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
 
         if not text:
             return {'text': "No input text", 'success': False}
@@ -45,19 +47,21 @@ class RC(Cipher):
         ''')
 
     def test(args):
-        total = 2
+        test_total = 2
 
-        args.text = 'hello'
+        test_arg_list = ['r47', '--test', '-t', 'hello', '-k', '3']
+        text_index = 3
+
         expect = 'olleh'
-        out = RC.encode(args)
+        out = RC.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode {args.text}
+            return {'status': False, 'msg': f'''Failed to encode {test_arg_list[text_index]}
             expected {args.text} got {out['text']}'''}
 
-        args.text, expect = expect, args.text
-        out = RC.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = RC.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode {args.text}
-            expected {args.text} got {out['text']}'''}
+            return {'status': False, 'msg': f'''Failed to decode {test_arg_list[text_index]}
+            expected {test_arg_list[text_index]} got {out['text']}'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {test_total} tests'}

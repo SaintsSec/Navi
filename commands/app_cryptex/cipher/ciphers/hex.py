@@ -25,7 +25,7 @@ class Hex(Cipher):  # make sure you change this from text to your cipher
 
     def decode(args):
         from ....cryptex import get_argument_value
-        text = get_argument_value(args, "text")
+        text = get_argument_value(args, "text").replace('"', '').replace("'", '')
 
         if not text:
             return {'text': "No input text", 'success': False}
