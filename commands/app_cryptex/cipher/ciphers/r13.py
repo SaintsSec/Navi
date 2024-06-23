@@ -16,20 +16,29 @@ class R13(Cipher):
     type = 'cipher'
 
     def encode(args):
-        if not args.text:
+        from ....cryptex import get_argument_value, check_argument
+        text = get_argument_value(args, "text")
+        index, _ = check_argument(args, "key")
+        index += 1
+        if not text:
             return {'text': "No input text", 'success': False}
+        modified_arg = args
+        modified_arg[index] = 13
 
-        args.key = 13
-
-        return CC.encode(args)
+        return CC.encode(modified_arg)
 
     def decode(args):
-        if not args.text:
+        from ....cryptex import get_argument_value, check_argument
+        text = get_argument_value(args, "text")
+        index, _ = check_argument(args, "key")
+        index += 1
+        if not text:
             return {'text': "No input text", 'success': False}
 
-        args.key = 13
+        modified_arg = args
+        modified_arg[index] = 13
 
-        return CC.decode(args)
+        return CC.decode(modified_arg)
 
     def print_options(self):
         print('''
@@ -46,19 +55,19 @@ class R13(Cipher):
         ''')
 
     def test(args):
-        total = 2
-
-        args.text = 'hello'
+        test_total = 2
+        test_arg_list = ['r13', '--test', '-t', 'hello', '-k', '3']
+        text_index = 3
         expect = 'uryyb'
-        out = R13.encode(args)
+        out = R13.encode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to encode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to encode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        args.text, expect = expect, args.text
-        out = R13.decode(args)
+        test_arg_list[text_index], expect = expect, test_arg_list[text_index]
+        out = R13.decode(test_arg_list)
         if not out['success'] or out['text'] != expect:
-            return {'status': False, 'msg': f'''Failed to decode "{args.text}"
+            return {'status': False, 'msg': f'''Failed to decode "{test_arg_list[text_index]}"
             expected "{expect}" got "{out['text']}"'''}
 
-        return {'status': True, 'msg': f'Ran {total} tests'}
+        return {'status': True, 'msg': f'Ran {test_total} tests'}

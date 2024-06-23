@@ -122,4 +122,4 @@ class Controller:
             tr("No mode selected. see the help menu for more info")
             module.print_options()
             return
-        tr(f"Done!\n{func['text']}")
+        tr(f"Done!\n{func['text']}" if func['success'] else f"Ah! Something went wrong: {func['text']}")

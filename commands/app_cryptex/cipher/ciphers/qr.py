@@ -34,8 +34,9 @@ class qr(Cipher):  # I don't like that this doesn't follow the correct naming co
     type = 'tool'
 
     def encode(args):
-        text = args.text
-        filename = args.output
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        filename = get_argument_value(args, "output")
 
         if not filename:
             return {'text': "No output file", 'success': False}
@@ -54,9 +55,10 @@ class qr(Cipher):  # I don't like that this doesn't follow the correct naming co
 
         img = qr.make_image(fill_color="black", back_color="white")
         filename = validate_image_extension(filename)
-        img.save(filename)
-
-        args.output = filename
+        try:
+            img.save(filename)
+        except Exception as e:
+            return {'text': f"Error saving image: {e}", 'success': False}
 
         return {'text': filename, 'success': True}
 

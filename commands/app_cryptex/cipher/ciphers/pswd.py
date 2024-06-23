@@ -6,14 +6,15 @@ import string
 import random
 
 
-class PSWD(Cipher):  # make sure you change this from text to your cipher
+class PSWD(Cipher):
 
-    name = 'Password generator'  # change the name
+    name = 'Password generator'
     type = 'tool'
 
     @staticmethod
     def encode(args):
-        len = args.length
+        from ....cryptex import get_argument_value
+        len = get_argument_value(args, "length")
 
         if not len:
             return {'text': "No password length", 'success': False}
@@ -35,7 +36,6 @@ class PSWD(Cipher):  # make sure you change this from text to your cipher
 
     @staticmethod
     def print_options(self):
-        # Edit this section as needed for your specific encoding / decoding.
         print('''
         ### Modes
         -e / --encode ---- encode

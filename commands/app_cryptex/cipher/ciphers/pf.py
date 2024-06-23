@@ -6,8 +6,9 @@ class PF(Cipher):
     type = 'cipher'
 
     def encode(args):
-        text = args.text
-        key = args.key
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
         bogus = 'x'
         ignore = 'i'
 
@@ -80,8 +81,9 @@ class PF(Cipher):
         return {'text': output, 'success': True}
 
     def decode(args):
-        text = args.text
-        key = args.key
+        from ....cryptex import get_argument_value
+        text = get_argument_value(args, "text")
+        key = get_argument_value(args, "key")
         ignore = 'i'
         bogus = 'x'
 
