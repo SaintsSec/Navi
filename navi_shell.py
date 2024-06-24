@@ -147,7 +147,15 @@ def update_script(download_url):
         shutil.rmtree("latest_version")
         os.remove(zip_path)
 
+        print("Installing any new packages...")
+
+        # Install new packages from requirements.txt
+        requirements_path = os.path.join("install", "requirements.txt")
+        if os.path.exists(requirements_path):
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
+
         print("Update successful. Restarting the script...")
+
 
         # Restart the script with a flag to skip the update check
         os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
@@ -261,13 +269,13 @@ def main():
     parser.add_argument('--update', action='store_true', help='Update the script to the latest version if available')
     parser.add_argument('--skip-update', action='store_true', help='Skip the update check (used internally to prevent update loop)')
     parser.add_argument('--install', action='store_true', help='installs Navi based on the current downloaded version.')
-    
+
     args = parser.parse_args()
     if not args.noupdate and not args.skip_update:
         download_url = check_version(args.edge)
         if download_url:
             update_script(download_url)
-    if args.install: 
+    if args.install:
         os.system('cd ./install && ./install.sh')
     try:
         pre_run()
