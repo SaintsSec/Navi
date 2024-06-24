@@ -6,16 +6,14 @@ pregame(){
 }
 
 install_reqs() {
-    sudo apt update
-    sudo apt install -y python3 python3-pip
-    python3 -m pip install --upgrade pip 
-    pip install -r requirements.txt 
-    sudo apt install clamav whois nmap    
+    sudo apt install randtype nmap python3 python3-pip
+    pip install -r requirements.txt --break-system-packages
+    python3 -m spacy download en_core_web_sm --break-system-packages
 }
 
 setup_aliases() {
     local config_path="/home/$USER/.bashrc"
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py")
+    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi-shell.py" ["@Navi"]="python3 /opt/Navi/navi-shell.py -q" ["@navi"]="python3 /opt/Navi/navi-shell.py -q")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
@@ -63,8 +61,8 @@ fresh_clam() {
 }
 
 # Execution starts here
-pregame 
 install_reqs
+pregame 
 setup_aliases
 create_navi_group
 delete_navi

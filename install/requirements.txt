@@ -1,7 +1,15 @@
-fpdf
-openai
 pyfiglet
 requests
 pyopenssl 
 tabulate
 cryptography
+spacy
+qrcode
+googletrans==4.0.0-rc1
+colorama
+pillow
+numpy
+image
+hashcat
+mido
+psutil

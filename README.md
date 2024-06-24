@@ -1,6 +1,6 @@
 <div align="center">
-  <h1> Navi | An SSG Community Project</h1>
-  <h1>v0.1.3 "Reloaded" Released</h1>
+  <h1> Navi | CLI - An innovation in cybersec AI</h1>
+  <h1>v0.5 - "Integral" Pre-release</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
@@ -8,16 +8,26 @@
 <div align="center">
 <img src= https://github.com/SSGOrg/Navi/assets/89718570/5596418e-3fa3-4528-8a07-d00aeece1590 height=25% width=25%>
 </div>
+  
+## ⚠️ HEADS UP!:  
+#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.  
 
-## ✨ **Key Features of Navi v0.1.3**
+## ⚠️ HEADS UP!:  
+#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.  
 
-- **Navi Shell Interface** (`navi-shell.py`): A robust, full-featured shell for direct interactions.
-- **Simplified Installation Folder** (`install.sh` + `csi-install.sh`): An intuitive single-stop installation script streamlining the setup process.
+## ✨ **Key Features of Navi v0.5**
 
-### **Commands**
+- **Upgraded Navi Shell** - The shell can now execute system commands, without breaking the flow of conversation. See more below!
+- **Navi Scripts Upgrade** - The new alias variable within the custom scripts allow for Navi to execute scripts right from the chat. Once again not disrupting the flow.
+- **Navi Cryptex Integration** - Thats right you heared it here. Cryptex is officially part of Navi as an example of how powerful its integration can be. 
+- **Wiki Re-write** - With new power comes new documentation
+- **Llama3 Integration** - We made the leap from GPT to the open source Llama AI on the backend - we also customized it giving Navi her own personality and lore.
+- **A ton of backend fixes** - This one more or less speaks for itself. 
 
-- **Reconnaissance Suite** (`/recon`): Automated tools and reporting for thorough digital exploration.
-- **Virus Protection** (`/vbuster`): Empower your digital space with ClamAV's robust antivirus defense mechanisms.
+### **Commands**  
+Commands have been completely reworked in this version. Allowing for a feature we have been waiting for. **Chat Execution**, through this new system
+Navi is able to use ML to take user input and execute system commands based on user provided context. Here its better to just show you.  
+![image](https://github.com/SaintsSec/Navi/assets/89718570/4cdfb719-4bb5-48e4-9da0-e8d255a13ec8)
 
 ### **Work In Progress**  
 - **[Navi Roadmap](https://github.com/orgs/SaintsSec/projects/7)**
