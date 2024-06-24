@@ -12,3 +12,4 @@ numpy
 image
 hashcat
 mido
+psutil
