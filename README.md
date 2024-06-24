@@ -10,10 +10,7 @@
 </div>
   
 ## ⚠️ HEADS UP!:  
-#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.  
-
-## ⚠️ HEADS UP!:  
-#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.  
+#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.    
 
 ## ✨ **Key Features of Navi v0.5**
 
