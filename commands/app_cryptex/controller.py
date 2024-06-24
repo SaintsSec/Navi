@@ -107,7 +107,12 @@ class Controller:
                 with open(arg, "r") as f:
                     data = f.readlines()
                     data = "".join(data)
-                    user_args[index + 1] = data  # Replace the value with the file content
+                    text_result = check_argument(user_args, "text")
+                    if text_result:
+                        user_args[text_result[0] + 1] = data  # Replace the value with the file content
+                    else:
+                        user_args.insert(index + 1, "-t")
+                        user_args.insert(user_args.index("-t") + 1, data)  # Replace the value with the file content
             except UnicodeDecodeError:
                 # can't read... probably because it's handled by cipher
                 pass
@@ -120,6 +125,6 @@ class Controller:
             func = module.brute(user_args)
         else:
             tr("No mode selected. see the help menu for more info")
-            module.print_options()
+            module.print_options(self)
             return
         tr(f"Done!\n{func['text']}" if func['success'] else f"Ah! Something went wrong: {func['text']}")
