@@ -1,6 +1,3 @@
-import argparse
-import sys
-
 from colorama import Fore
 from navi_shell import tr
 from .vars import banner
@@ -48,7 +45,7 @@ class Controller:
         self.cli = CLIManager(self.cipher_list)
 
     def run(self, user_args):
-        from ..cryptex import check_argument
+        from ..cryptex import check_argument, get_argument_value
         output = None
 
         try:
@@ -58,10 +55,12 @@ class Controller:
             first_text = "N/A"
 
         module = None
+        selected_cipher = None
         try:
             for arg in user_args:
                 if arg.lower() in self.cipher_list:
                     module = self.cipher_list[arg.lower()]
+                    selected_cipher = arg.lower()
         except ValueError as e:
             print(e)
         if module is None:
@@ -127,4 +126,29 @@ class Controller:
             tr("No mode selected. see the help menu for more info")
             module.print_options(self)
             return
+        if func['success']:
+            print(selected_cipher)
+            if check_argument(user_args, "output") and selected_cipher not in ['qr', 'se', 'midify']:
+                try:
+                    output_location = get_argument_value(user_args, "output")
+                    with open(output_location, "w") as f:
+                        f.write(func['text'])
+                        # Open the file in the default text editor
+                        import subprocess
+                        import platform
+                        import os
+                        tr(f"Done! Attempting to open {output_location} in default text editor")
+                        if platform.system() == 'Linux':
+                            # For Unix-like operating systems
+                            subprocess.call(["xdg-open", output_location])
+                        elif platform.system() == 'Windows':
+                            # For Windows
+                            os.startfile(output_location)
+                        elif platform.system() == 'Darwin':
+                            # For macOS
+                            subprocess.call(["open", output_location])
+                        return
+                except Exception as e:
+                    tr(f"Error writing to file: {e}")
+                    return
         tr(f"Done!\n{func['text']}" if func['success'] else f"Ah! Something went wrong: {func['text']}")
