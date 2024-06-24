@@ -40,7 +40,7 @@ class SE(Cipher):
     def encode(args):
         from ....cryptex import get_argument_value
         text = get_argument_value(args, "text")
-        image_width = SE.default_check(get_argument_value(args, "imageWidth"), 1)
+        image_width = int(SE.default_check(get_argument_value(args, "imageWidth"), 1))
         monocromatic = SE.default_check(get_argument_value(args, "monocromatic"), False)
         output = SE.default_check(get_argument_value(args, "output"), 'test.png')
 
