@@ -16,57 +16,24 @@ CLEANING='+---------------------------------------------------------------------
 |░█░░░█░░░█▀▀░█▀█░█░█░░█░░█░█░█░█░░░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░░░█▀▀░█░█░█░░░█░█░█▀▀░█▀▄|
 |░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░░░▀░░░▀▀▀░▀▀▀░▀▀░░▀▀▀░▀░▀|
 +----------------------------------------------------------------------------------------+'
-UPDATE='+----------------------------------------------------------+
-|░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀░░░█▀▀░█▀█░█▄█░█▀█░█░░░█▀▀░▀█▀░█▀▀|
-|░█░█░█▀▀░█░█░█▀█░░█░░█▀▀░░░█░░░█░█░█░█░█▀▀░█░░░█▀▀░░█░░█▀▀|
-|░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀░░▀░░▀▀▀|
-+----------------------------------------------------------+'
-CLAM='+--------------------------------------------------------------+
-|░█▀█░█░█░░░█▀▀░█▀▀░▀█▀░█░█░█▀█░░░░░█░░░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀|
-|░█▀█░▀▄▀░░░▀▀█░█▀▀░░█░░█░█░█▀▀░░░▄▀░░░░█░█░█▀▀░█░█░█▀█░░█░░█▀▀|
-|░▀░▀░░▀░░░░▀▀▀░▀▀▀░░▀░░▀▀▀░▀░░░░░▀░░░░░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀|
-+--------------------------------------------------------------+'
+SHELL='+----------------------------------------------+
+|░█▀▀░█░█░█▀▀░█░░░█░░░░░█▀▀░█▀▀░█░░░█▀▀░█▀▀░▀█▀|
+|░▀▀█░█▀█░█▀▀░█░░░█░░░░░▀▀█░█▀▀░█░░░█▀▀░█░░░░█░|
+|░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░▀░|
++----------------------------------------------+'
+# Get the OS name and version
+OS_NAME=$(cat /etc/os-release | grep PRETTY_NAME | cut -d '=' -f 2-)
+VERSION=$(lsb_release -rcs)
+distribution = $OS_NAME $OS_VERSION
 
 clear_screen() {
     clear
 }
 
 install_reqs() {
-    local distribution="$1"
-    case "$distribution" in
-        "ubuntu" | "Pop!_OS") 
-            sudo apt update
-            sudo apt install -y python3 python3-pip
-            pip install -r requirements.txt 
-            python3 -m spacy download en_core_web_sm
-            sudo apt install clamav whois nmap randtype
-            ;;
-        "CSI") 
-            sudo apt update
-            sudo apt install -y python3 python3-pip randtype whois nmap 
-            sudo apt install clamav
-            python3 -m pip install --upgrade pip 
-            sudo pip install requests pyfiglet click tabulate spacy
-            pip install -U pyopenssl cryptography
-            sudo pip install -U pyopenssl cryptography
-            python3 -m spacy download en_core_web_sm
-            ;;
-        "Arch") 
-            sudo pacman -Sy python3 python3-pip whois nmap randtype 
-            sudo pacman -Sy python python-pip python-requests python-pyfiglet python-click python-tabulate python-spacy clamav 
-            python3 -m pip install --upgrade pip
-            python3 -m spacy download en_core_web_sm
-            ;;
-    esac
-}
-
-fresh_clam() {
-    echo "$CLAM"
-    echo 
-    echo "Navi> Lets update Clam AV so we can bust some viruses!" | randtype -t 5,5000 -m 4
-    echo 
-    sudo systemctl stop clamav-freshclam.service
-    sudo freshclam
+    sudo apt install randtype nmap python3 python3-pip
+    pip install -r requirements.txt --break-system-packages
+    python3 -m spacy download en_core_web_sm
 }
 
 setup_aliases() {
@@ -123,10 +90,12 @@ set_permissions_All() {
     sudo chown -R :navi /opt/Navi/
     sudo chmod -R 777 /opt/Navi/
     echo 
-    echo "Navi> Set permissions for $distribution." | randtype -t 5,500 -m 4
+    echo "Navi> Set permissions for $OS_NAME $OS_VERSION." | randtype -t 5,500 -m 4
 }
 
 # Script execution starts here:
+# pre-run requirements
+install_reqs
 clear_screen 
 # Define the user to check for
 USER_TO_CHECK="elric"
@@ -143,7 +112,8 @@ else
 fi
 
 echo "$INSTALLING"
-echo "Navi> Lets get these pesky requirements out of the way..." | randtype -t 5,5000 -m 4
+echo "Navi> Let's see here you are on $OS_NAME $OS_VERSION" | randtype -t 5,5000 -m 4
+echo "Navi> Lets get this party rolling!"
 
 # Create navi group and add the current user to it
 create_navi_group(){
@@ -154,22 +124,8 @@ create_navi_group(){
     echo "Navi> Added user '$USER' to group 'navi'." | randtype -t 5,5000 -m 4
 }
 
-# Distribution choice
-echo "Navi> Lets see what OS are you using:" | randtype -t 5,5000 -m 4
-options=("Ubuntu" "Pop!_OS" "CSI" "Arch")
-select distribution in "${options[@]}"; do
-    case $distribution in
-        "Ubuntu") install_reqs "ubuntu" ;;
-        "Pop!_OS") install_reqs "ubuntu" ;;
-        "Arch") install_reqs "arch" ;;
-        "CSI") install_reqs "CSI" ;;
-        *) echo "Invalid choice!"; exit 1 ;;
-    esac
-    break
-done
-
 # Shell choice
-echo "$UPDATE"
+echo "$SHELL"
 echo "Navi> Now what Shell do you prefer:" | randtype -t 5,5000 -m 4
 shells=("bash" "zsh")
 select shell_choice in "${shells[@]}"; do
@@ -202,9 +158,7 @@ delete_navi
 copy_navi
 set_permissions_All
 cleanup_install_directory
-install_reqs
-fresh_clam
 echo 
 echo "$COMPLETE"
-echo "Navi> Good news $USER I have been installed on your $distribution system!" | randtype -t 5,5000 -m 4
-echo "Navi> [!!] - PLEASE RESTART YOUR TERMINAL OR SOURCE YOUR SHELL CONFIG." | randtype -t 5,5000 -m 4
+echo "Navi> Good news $USER I have been installed on your $OS_NAME $OS_VERSION system!" | randtype -t 5,5000 -m 4
+echo "Navi> [!!] - Be sure you restart your terminal or source the config for your shell before running 'navi' in the cli." | randtype -t 5,5000 -m 4 

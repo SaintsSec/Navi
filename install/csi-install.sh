@@ -63,8 +63,8 @@ fresh_clam() {
 }
 
 # Execution starts here
-pregame 
 install_reqs
+pregame 
 setup_aliases
 create_navi_group
 delete_navi
