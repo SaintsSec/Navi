@@ -32,7 +32,9 @@ clear_screen() {
 
 install_reqs() {
     sudo apt install randtype nmap python3 python3-pip
+    python3 -m install pip install --upgrade pip --break-system-packages
     pip install -r requirements.txt --break-system-packages
+    pip install spacy --break-system-packages
     python3 -m spacy download en_core_web_sm --break-system-packages
 }
 

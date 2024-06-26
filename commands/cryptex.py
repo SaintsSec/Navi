@@ -6,7 +6,7 @@ from .app_cryptex.cipher.ciphers import *
 
 command = "cryptex"
 use = "An advanced command-line cryptography toolkit"
-
+aliases = ['ex: cryptex hex']
 
 args_dict = {
     "cipher": {"type": str, "help": "The cipher name", "nargs": "?"},
