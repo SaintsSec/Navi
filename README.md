@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Navi | CLI - An innovation in cybersec AI</h1>
-  <h1>v0.5 - "Integral" Pre-release</h1>
+  <h1>v0.5 - "Integral"</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
@@ -10,10 +10,8 @@
 </div>
   
 ## ⚠️ HEADS UP!:  
-#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.  
-
-## ⚠️ HEADS UP!:  
-#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.  
+#### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.   
+`sudo rm -rf /opt/Navi` should do the trick!
 
 ## ✨ **Key Features of Navi v0.5**
 
@@ -62,5 +60,5 @@ We value your input! Whether it's contributions, feedback, or bug reports, we're
 
 Your invaluable contributions propel the boundaries of innovation. Thank you!
 
-[![Contributors Image](https://contrib.rocks/image?repo=SSGorg/Navi)](https://github.com/SSGOrg/Navi/graphs/contributors)
+[![Contributors Image](https://contrib.rocks/image?repo=SSGorg/Navi)](https://github.com/SaintsSec/Navi/graphs/contributors)
 
