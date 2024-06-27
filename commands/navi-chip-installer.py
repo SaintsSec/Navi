@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import uuid
 
+from colorama import Fore
 from navi import get_parameters
 from navi_shell import print_message, restart_navi
 
@@ -48,7 +49,7 @@ def search_for_chips(topic, name=None, per_page=10, page=1):
 def search(name):
     repos = search_for_chips("navi-chips", name)
     if not repos:
-        print("No Navi Chips found.")
+        print(f"{Fore.RED}No Navi Chips found.{Fore.RESET}")
         return
     available_repos = 0
     for repo in repos:
@@ -139,7 +140,7 @@ def install_chip(name):
 
     repo = repos[0]
     if is_installed(repo['name']):
-        print(f"The package '{repo['name']}' is already installed.")
+        print(f"The chip '{repo['name']}' is already installed.")
         return
 
     release = get_latest_release(repo['owner']['login'], repo['name'])
@@ -152,7 +153,7 @@ def install_chip(name):
     installed_files = update_script(download_url)
 
     log_installation(repo, installed_files, version)
-    print(f"Package '{repo['name']}' installed successfully. Restarting Navi...")
+    print(f"Chip '{repo['name']}' installed successfully. Restarting Navi...")
     restart_navi()
 
 
@@ -161,7 +162,7 @@ def uninstall_chip(name):
 
     # Check if the chip is installed by reading the log file
     if not os.path.exists("installed_chips.txt"):
-        print(f"No chips installed.")
+        print(f"{Fore.RED}No chips installed.{Fore.RESET}")
         return
 
     # Read the installed chip log
@@ -176,7 +177,7 @@ def uninstall_chip(name):
             break
 
     if package_start is None:
-        print(f"The package '{name}' is not installed.")
+        print(f"The chip '{name}' is not installed.")
         return
 
     # Find the end of the chip entry in the log
@@ -204,7 +205,7 @@ def uninstall_chip(name):
     with open("installed_chips.txt", 'w') as log_file:
         log_file.writelines(new_lines)
 
-    print(f"The chip '{name}' has been uninstalled successfully.")
+    print(f"{Fore.GREEN}The chip {Fore.WHITE}'{name}' {Fore.GREEN}has been uninstalled successfully.{Fore.RESET}")
 
 
 def list_installed_chips():
