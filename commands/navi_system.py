@@ -1,6 +1,6 @@
 #!/bin/python3
 import subprocess
-from navi_shell import get_ai_name, tr
+from navi_shell import print_message
 from navi import get_command_path
 
 command = "navi_sys"
@@ -11,7 +11,7 @@ def run(arguments=None):
     navi_command = arguments.replace("TERMINAL OUTPUT", "", 1).strip()
     base_command = navi_command.split()[0]
     if get_command_path(base_command) is not None:
-        tr(f"\nDo I have your permission to use your **shell** to execute the following: \n\n{navi_command}\n")
+        print_message(f"\nDo I have your permission to use your **shell** to execute the following: \n\n{navi_command}\n")
         user_input = input(f"Do you want me to continue (y/n): ").strip().lower()
         if user_input == 'y':
             result = subprocess.run(
@@ -22,8 +22,8 @@ def run(arguments=None):
                 universal_newlines=True
             )
             output = f"Output: \n{result.stdout}" if result.stdout else ""
-            tr(f"\nDone! {output}")
+            print_message(f"\nDone! {output}")
         else:
-            tr(f"\nUnderstood! I will not execute the command.")
+            print_message(f"\nUnderstood! I will not execute the command.")
     else:
-        tr(f"\nSorry, it looks like {base_command} is not installed on your system.")
+        print_message(f"\nSorry, it looks like {base_command} is not installed on your system.")

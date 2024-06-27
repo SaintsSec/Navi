@@ -1,7 +1,7 @@
 from .app_cryptex.controller import Controller
 from .app_cryptex.menusystem import MenuSystem
 from navi import get_parameters
-from navi_shell import tr
+from navi_shell import print_message
 from .app_cryptex.cipher.ciphers import *
 
 command = "cryptex"

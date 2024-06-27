@@ -33,15 +33,11 @@ nlp = spacy.load("en_core_web_sm")
 ruler = nlp.add_pipe("entity_ruler")
 
 
-def get_ai_name():
-    return ai_name_rep
-
-
 def get_user():
     return user
 
 
-def tr(text, include_ai_name=True):
+def print_message(text, include_ai_name=True):
     to_print = text
     if include_ai_name:
         to_print = ai_name_rep + text
@@ -111,9 +107,11 @@ def check_for_new_release(current_version, repo_owner, repo_name, edge=False):
     latest_release = get_latest_release(repo_owner, repo_name, edge)
 
     if latest_release and is_new_release(current_version, latest_release['tag_name']):
-        return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", latest_release['html_url']
+        return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", \
+        latest_release['html_url']
     else:
         return "You are running the latest version", None
+
 
 def update_script(download_url):
     print("Updating the script...")
@@ -156,7 +154,6 @@ def update_script(download_url):
 
         print("Update successful. Restarting the script...")
 
-
         # Restart the script with a flag to skip the update check
         os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
 
@@ -164,9 +161,8 @@ def update_script(download_url):
         print(f"Update failed: {e}")
 
 
-
 def check_version(edge=False):
-    current_version = "0.5" # Note: This isn't a great way to check for updates
+    current_version = "0.5"  # Note: This isn't a great way to check for updates
     repo_owner = "SaintsSec"
     repo_name = "Navi"
 
@@ -176,7 +172,7 @@ def check_version(edge=False):
     return download_url
 
 
-def pre_run():
+def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(art)
 
@@ -214,13 +210,13 @@ def llm_chat(user_message):
             except json.JSONDecodeError as e:
                 print("Error decoding JSON:", e)
             except KeyboardInterrupt:
-                tr(f"Keyboard interupt registered, talk soon {user}!")
+                print_message(f"Keyboard interupt registered, talk soon {user}!")
 
         # Concatenate the extracted messages
         full_response = "".join(extracted_responses)
-        return (full_response, 200)
+        return full_response, 200
     else:
-        return (f"{response.url},{response.json()}", 400)
+        return f"{response.url},{response.json()}", 400
 
 
 def chat_with_navi():
@@ -229,7 +225,7 @@ def chat_with_navi():
         try:
             user_message = input(f"\n{user}> ")
         except EOFError:
-            tr("Encountered an unexpected end of input.")
+            print_message("Encountered an unexpected end of input.")
             break
         processed_message = nlp(user_message.strip())
         navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
@@ -248,7 +244,7 @@ def chat_with_navi():
             if response_message.startswith("TERMINAL OUTPUT"):
                 commands.modules["navi_sys"].run(response_message)
             else:
-                tr(f"{response_message if http_status == 200 else 'Issue with server'}")
+                print_message(f"{response_message if http_status == 200 else 'Issue with server'}")
 
 
 # Add all known commands as patterns
@@ -267,7 +263,8 @@ def main():
     parser.add_argument('--edge', action='store_true', help='Check for the edge version')
     parser.add_argument('--noupdate', action='store_true', help='Do not check for updates')
     parser.add_argument('--update', action='store_true', help='Update the script to the latest version if available')
-    parser.add_argument('--skip-update', action='store_true', help='Skip the update check (used internally to prevent update loop)')
+    parser.add_argument('--skip-update', action='store_true',
+                        help='Skip the update check (used internally to prevent update loop)')
     parser.add_argument('--install', action='store_true', help='installs Navi based on the current downloaded version.')
 
     args = parser.parse_args()
@@ -278,12 +275,12 @@ def main():
     if args.install:
         os.system('cd ./install && ./install.sh')
     try:
-        pre_run()
-        tr(f"How can I help you {user}")
+        clear_terminal()
+        print_message(f"How can I help you {user}")
         setup_navi_vocab()
         chat_with_navi()
     except KeyboardInterrupt:
-        tr(f"\nKeyboard interrupt has been registered, talk soon {user}!")
+        print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
         exit(0)
 
 
