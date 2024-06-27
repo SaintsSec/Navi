@@ -26,12 +26,6 @@ def get_latest_release(owner, repo):
         return 'No release found'
 
 
-def truncate_string(input_string, max_length=10):
-    if len(input_string) > max_length:
-        return input_string[:max_length] + "..."
-    return input_string
-
-
 def search_for_chips(topic, name=None, per_page=10, page=1):
     base_url = "https://api.github.com/search/repositories"
     query = f"topic:{topic}"
@@ -137,7 +131,7 @@ def is_installed(repo_name):
         return repo_name in log_file.read()
 
 
-def install_package(name):
+def install_chip(name):
     repos = search_for_chips("navi-chips", name)
     if not repos:
         print("No repositories found.")
@@ -162,19 +156,19 @@ def install_package(name):
     restart_navi()
 
 
-def uninstall_package(name):
+def uninstall_chip(name):
     install_path = "commands"
 
-    # Check if the package is installed by reading the log file
+    # Check if the chip is installed by reading the log file
     if not os.path.exists("installed_chips.txt"):
         print(f"No chips installed.")
         return
 
-    # Read the installed packages log
+    # Read the installed chip log
     with open("installed_chips.txt", 'r') as log_file:
         lines = log_file.readlines()
 
-    # Find the package entry in the log
+    # Find the chip entry in the log
     package_start = None
     for i, line in enumerate(lines):
         if line.strip() == f"Repo Name: {name}":
@@ -185,7 +179,7 @@ def uninstall_package(name):
         print(f"The package '{name}' is not installed.")
         return
 
-    # Find the end of the package entry in the log
+    # Find the end of the chip entry in the log
     package_end = package_start
     while package_end < len(lines) and lines[package_end].strip() != "":
         package_end += 1
@@ -213,7 +207,7 @@ def uninstall_package(name):
     print(f"The chip '{name}' has been uninstalled successfully.")
 
 
-def list_installed_modules():
+def list_installed_chips():
     log_file_path = "installed_chips.txt"
 
     if not os.path.exists(log_file_path):
@@ -276,18 +270,18 @@ def run(arguments=None):
     command = argv[0]
 
     if command == "list":
-        list_installed_modules()
+        list_installed_chips()
         return
     if len(argv) == 1:
         print("ABOUT THE CHIP")
         return
 
     if command == "install" and len(argv) > 1:
-        install_package(argv[1])
+        install_chip(argv[1])
         return
 
     if command == "uninstall" and len(argv) > 1:
-        uninstall_package(argv[1])
+        uninstall_chip(argv[1])
         return
 
     if command == "search" and len(argv) > 1:
