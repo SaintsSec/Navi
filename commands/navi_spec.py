@@ -5,7 +5,7 @@ import requests
 import socket
 from datetime import datetime
 
-from navi_shell import tr, llm_chat
+from navi_shell import print_message, llm_chat
 
 # Navi Command System Variables
 command = "navi_specs"

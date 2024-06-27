@@ -1,5 +1,5 @@
 from colorama import Fore
-from navi_shell import tr
+from navi_shell import print_message
 from .vars import banner
 
 
@@ -123,7 +123,7 @@ class Controller:
         elif check_argument(user_args, "brute"):
             func = module.brute(user_args)
         else:
-            tr("No mode selected. see the help menu for more info")
+            print_message("No mode selected. see the help menu for more info")
             module.print_options(self)
             return
         if func['success']:
@@ -149,6 +149,6 @@ class Controller:
                             subprocess.call(["open", output_location])
                         return
                 except Exception as e:
-                    tr(f"Error writing to file: {e}")
+                    print_message(f"Error writing to file: {e}")
                     return
-        tr(f"Done!\n{func['text']}" if func['success'] else f"Ah! Something went wrong: {func['text']}")
+        print_message(f"Done!\n{func['text']}" if func['success'] else f"Ah! Something went wrong: {func['text']}")
