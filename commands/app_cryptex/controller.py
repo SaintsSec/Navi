@@ -64,7 +64,7 @@ class Controller:
         except ValueError as e:
             print(e)
         if module is None:
-            tr("No cipher selected. see the help menu for more info")
+            print_message("No cipher selected. see the help menu for more info")
 
         if check_argument(user_args, "test"):
             print('\n')
@@ -137,7 +137,7 @@ class Controller:
                         import subprocess
                         import platform
                         import os
-                        tr(f"Done! Attempting to open {output_location} in default text editor")
+                        print_message(f"Done! Attempting to open {output_location} in default text editor")
                         if platform.system() == 'Linux':
                             # For Unix-like operating systems
                             subprocess.call(["xdg-open", output_location])
