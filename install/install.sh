@@ -7,6 +7,14 @@ VERSION=$(lsb_release -rcs)
 USER=$(whoami)
 SHELL=$(id -p $USER | cut -d: -f7)
 
+# Navi auto launch option:
+while getopts ":l" opt; do
+  case $opt in
+    l) LAUNCH_NAVI="true";;
+    \?) echo "Invalid option: -$OPTARG"; exit 1;;
+  esac
+done
+
 clear_screen() {
     clear
 }
@@ -42,7 +50,7 @@ delete_navi() {
     fi
 }
 
-post_install_run(){
+source_shell_config(){
     echo
     echo "Installation for ${OS_NAME} ${OS_VERSION} complete!"
     echo "Attempting to source ${config_path}"
@@ -53,7 +61,6 @@ post_install_run(){
         source ~/.bashrc
     fi
     echo "config has been sourced."
-    exec python3 /opt/Navi/navi_shell.py
 }
 
 copy_navi() {
@@ -105,4 +112,7 @@ copy_navi
 setup_aliases
 set_permissions_All
 cleanup_install_directory
-post_install_run
+source_shell_config
+if [ "$LAUNCH_NAVI" = "true" ]; then
+  exec python3 /opt/Navi/navi_shell.py
+fi 
