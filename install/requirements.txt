@@ -8,7 +8,7 @@ qrcode
 googletrans==4.0.0-rc1
 colorama
 pillow
-numpy
+numpy==1.26.4
 image
 hashcat
 mido
