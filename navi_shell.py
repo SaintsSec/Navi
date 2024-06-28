@@ -161,6 +161,10 @@ def update_script(download_url):
         print(f"Update failed: {e}")
 
 
+def restart_navi():
+    os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
+
+
 def check_version(edge=False):
     current_version = "0.5"  # Note: This isn't a great way to check for updates
     repo_owner = "SaintsSec"
