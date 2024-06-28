@@ -200,12 +200,13 @@ def uninstall_chip(name):
             else:
                 os.remove(file_path)
 
-    # Remove the package entry from the log
+    # Remove the chip entry from the log
     new_lines = lines[:package_start] + lines[package_end:]
     with open("installed_chips.txt", 'w') as log_file:
         log_file.writelines(new_lines)
 
     print(f"{Fore.GREEN}The chip {Fore.WHITE}'{name}' {Fore.GREEN}has been uninstalled successfully.{Fore.RESET}")
+    restart_navi()
 
 
 def list_installed_chips():
@@ -253,9 +254,121 @@ def list_installed_chips():
         print("No chips are installed.")
 
 
+def about_chip(name):
+    log_file_path = "installed_chips.txt"
+
+    if not os.path.exists(log_file_path):
+        print("No chips are installed.")
+        return None
+
+    with open(log_file_path, 'r') as log_file:
+        lines = log_file.readlines()
+
+    if not lines:
+        print("No chips are installed.")
+        return None
+
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith("Repo Name:") and line.split("Repo Name: ")[1] == name:
+            module_name = line.split("Repo Name: ")[1]
+            description = lines[i+1].split("Description: ")[1].strip()
+            html_url = lines[i+2].split("HTML URL: ")[1].strip()
+            owner = lines[i+3].split("Owner: ")[1].strip()
+            version = lines[i+4].split("Version: ")[1].strip()
+            installed_files = []
+
+            j = i + 5
+            while j < len(lines) and lines[j].strip() != "":
+                installed_files.append(lines[j].strip())
+                j += 1
+
+            # Check for the latest version
+            latest_release = get_latest_release(owner, module_name)
+            if latest_release:
+                latest_version = latest_release['tag_name']
+                if latest_version != version:
+                    print(f"A later version is available: {latest_version}")
+                else:
+                    print("You have the latest version installed.")
+            else:
+                latest_version = "Unknown"
+
+            module_info = {
+                "name": module_name,
+                "description": description,
+                "html_url": html_url,
+                "owner": owner,
+                "version": version,
+                "installed_files": installed_files,
+                "latest_version": latest_version
+            }
+            return module_info
+        i += 1
+
+    print(f"The chip '{name}' is not installed.")
+    return None
+
+
+def remove_old_log_entry(chip_name):
+    log_file_path = "installed_chips.txt"
+
+    if not os.path.exists(log_file_path):
+        return
+
+    with open(log_file_path, 'r') as log_file:
+        lines = log_file.readlines()
+
+    new_lines = []
+    skip = False
+    for line in lines:
+        if line.startswith("Repo Name:") and line.split("Repo Name: ")[1].strip() == chip_name:
+            skip = True
+        if skip and line.strip() == "":
+            skip = False
+            continue
+        if not skip:
+            new_lines.append(line)
+
+    with open(log_file_path, 'w') as log_file:
+        log_file.writelines(new_lines)
+
+
+def update_chip(chip_name):
+    chip_info = about_chip(chip_name)
+    if not chip_info:
+        print(f"The chip '{chip_name}' is not installed.")
+        return
+
+    if chip_info['latest_version'] != chip_info['version']:
+        print(f"Updating chip '{chip_name}' to version {chip_info['latest_version']}...")
+        release = get_latest_release(chip_info['owner'], chip_info['name'])
+        if not release:
+            print(f"Failed to get the latest release for {chip_name}.")
+            return
+
+        download_url = release['zipball_url']
+        installed_files = update_script(download_url)
+
+        # Remove the old log entry
+        remove_old_log_entry(chip_name)
+
+        # Log the new installation
+        repo = {
+            'name': chip_info['name'],
+            'description': chip_info['description'],
+            'html_url': chip_info['html_url'],
+            'owner': {'login': chip_info['owner']}
+        }
+        log_installation(repo, installed_files, chip_info['latest_version'])
+        print(f"Chip '{chip_name}' updated successfully. Restarting Navi...")
+        restart_navi()
+
+
 def help_text():
     print_message("Chip Manager\n"
-                  "chips [install | uninstall | search]\n\n"
+                  "chips [install | uninstall | search | update] [app/query]\n\n"
                   "List currently installed chips\n"
                   "chips list")
 
@@ -274,7 +387,14 @@ def run(arguments=None):
         list_installed_chips()
         return
     if len(argv) == 1:
-        print("ABOUT THE CHIP")
+        chip_info = about_chip(argv[1])
+        if chip_info:
+            print(f"Name: {chip_info['name']}")
+            print(f"Description: {chip_info['description']}")
+            print(f"URL: {chip_info['html_url']}")
+            print(f"Owner: {chip_info['owner']}")
+            print(f"Your Version: {chip_info['version']}")
+            print(f"Latest Version: {chip_info['latest_version']}")
         return
 
     if command == "install" and len(argv) > 1:
@@ -283,6 +403,10 @@ def run(arguments=None):
 
     if command == "uninstall" and len(argv) > 1:
         uninstall_chip(argv[1])
+        return
+
+    if command == "update" and len(argv) > 1:
+        update_chip(argv[1])
         return
 
     if command == "search" and len(argv) > 1:
