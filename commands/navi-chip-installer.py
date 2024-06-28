@@ -71,7 +71,7 @@ def download_and_extract(download_url):
         return None, None
 
 
-def copy_files_to_install_path(extracted_dir, install_path="commands"):
+def copy_files_to_install_path(extracted_dir, install_path="/commands"):
     installed_files = []
     try:
         for item in os.listdir(extracted_dir):
@@ -86,10 +86,10 @@ def copy_files_to_install_path(extracted_dir, install_path="commands"):
     return installed_files
 
 
-def install_requirements(install_path):
-    requirements_path = os.path.join(install_path, "chip-requirements.txt")
+def install_requirements(extracted_dir):
+    requirements_path = os.path.join(extracted_dir, "chip-requirements.txt")
     if os.path.exists(requirements_path):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path, "--break-system-packages"])
         os.remove(requirements_path)
 
 
