@@ -124,7 +124,7 @@ def is_installed(repo_name):
         return repo_name in log_file.read()
 
 
-def install_chip(name):
+def install_chip(name, restart_app=True):
     repos = search_for_chips("navi-chips", name)
     if not repos:
         print("No repositories found.")
@@ -143,10 +143,11 @@ def install_chip(name):
     installed_files = update_script(release['zipball_url'])
     log_installation(repo, installed_files, release['tag_name'])
     print(f"Chip '{repo['name']}' installed successfully. Restarting Navi...")
-    restart_navi()
+    if restart_app:
+        restart_navi()
 
 
-def uninstall_chip(name):
+def uninstall_chip(name, restart_app=True):
     if not os.path.exists("installed_chips.txt"):
         print(f"{Fore.RED}No chips installed.{Fore.RESET}")
         return
@@ -173,7 +174,8 @@ def uninstall_chip(name):
         log_file.writelines(lines[:package_start] + lines[package_end+1:])
 
     print(f"{Fore.GREEN}The chip {Fore.WHITE}'{name}' {Fore.GREEN}has been uninstalled successfully.{Fore.RESET}")
-    restart_navi()
+    if restart_app:
+        restart_navi()
 
 
 def list_installed_chips():
@@ -268,30 +270,6 @@ def about_chip(name):
     return None
 
 
-def remove_old_log_entry(chip_name):
-    log_file_path = "installed_chips.txt"
-
-    if not os.path.exists(log_file_path):
-        return
-
-    with open(log_file_path, 'r') as log_file:
-        lines = log_file.readlines()
-
-    new_lines = []
-    skip = False
-    for line in lines:
-        if line.startswith("Repo Name:") and line.split("Repo Name: ")[1].strip() == chip_name:
-            skip = True
-        if skip and line.strip() == "":
-            skip = False
-            continue
-        if not skip:
-            new_lines.append(line)
-
-    with open(log_file_path, 'w') as log_file:
-        log_file.writelines(new_lines)
-
-
 def update_chip(chip_name):
     chip_info = about_chip(chip_name)
     if not chip_info:
@@ -300,25 +278,8 @@ def update_chip(chip_name):
 
     if chip_info['latest_version'] != chip_info['version']:
         print(f"Updating chip '{chip_name}' to version {chip_info['latest_version']}...")
-        release = get_latest_release(chip_info['owner'], chip_info['name'])
-        if not release:
-            print(f"Failed to get the latest release for {chip_name}.")
-            return
-
-        download_url = release['zipball_url']
-        installed_files = update_script(download_url)
-
-        # Remove the old log entry
-        remove_old_log_entry(chip_name)
-
-        # Log the new installation
-        repo = {
-            'name': chip_info['name'],
-            'description': chip_info['description'],
-            'html_url': chip_info['html_url'],
-            'owner': {'login': chip_info['owner']}
-        }
-        log_installation(repo, installed_files, chip_info['latest_version'])
+        uninstall_chip(chip_name, False)
+        install_chip(chip_name, False)
         print(f"Chip '{chip_name}' updated successfully. Restarting Navi...")
         restart_navi()
 
