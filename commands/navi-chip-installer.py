@@ -289,7 +289,7 @@ def about_chip(name):
             if latest_release:
                 latest_version = latest_release['tag_name']
                 if latest_version != version:
-                    print(f"A later version is available: {latest_version}")
+                    print(f"{Fore.GREEN}A later version is available: {latest_version}.{Fore.RESET} To update type {Fore.YELLOW}'chips update {name}'{Fore.RESET}")
                 else:
                     print("You have the latest version installed.")
             else:
@@ -387,7 +387,7 @@ def run(arguments=None):
         list_installed_chips()
         return
     if len(argv) == 1:
-        chip_info = about_chip(argv[1])
+        chip_info = about_chip(argv[0])
         if chip_info:
             print(f"Name: {chip_info['name']}")
             print(f"Description: {chip_info['description']}")
