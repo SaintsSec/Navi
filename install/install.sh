@@ -31,7 +31,7 @@ setup_aliases() {
     local config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     config_path="${config_files[$SHELL]}"
     
-    declare -A aliases=( ["navi"]="python3 /opt/Navi/navi_shell.py")
+    declare -A aliases=( ["navi"]="cd /opt/Navi/ && python3 ./navi_shell.py")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
@@ -114,5 +114,5 @@ set_permissions_All
 cleanup_install_directory
 source_shell_config
 if [ "$LAUNCH_NAVI" = "true" ]; then
-  exec python3 /opt/Navi/navi_shell.py
+  exec cd /opt/Navi/ && python3 ./navi_shell.py
 fi 
