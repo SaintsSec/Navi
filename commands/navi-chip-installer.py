@@ -84,6 +84,8 @@ def copy_files_to_install_path(extracted_dir, install_path="/commands"):
     installed_files = []
     try:
         for item in os.listdir(extracted_dir):
+            if item == "LICENSE" or item.endswith(".md"):
+                continue
             s, d = os.path.join(extracted_dir, item), os.path.join(install_path, item)
             if os.path.isdir(s):
                 shutil.copytree(s, d, dirs_exist_ok=True)
@@ -135,7 +137,7 @@ def is_installed(repo_name):
 
 
 def install_chip(name, restart_app=True):
-    repos = search_for_chips("navi-chips", name)
+    repos = search_for_chips(name)
     if not repos:
         print("No repositories found.")
         return
