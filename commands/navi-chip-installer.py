@@ -21,8 +21,8 @@ def get_latest_release(owner, repo):
     return response.json() if response.status_code == 200 else 'No release found'
 
 
-def search_for_chips(topic, name=None, per_page=10, page=1):
-    query = f"topic:{topic}" + (f"+{name} in:name" if name else "")
+def search_for_chips(name=None, per_page=10, page=1):
+    query = f"topic:navi-chips" + (f"+{name} in:name" if name else "")
     url = f"https://api.github.com/search/repositories?q={query}&per_page={per_page}&page={page}"
     response = requests.get(url)
     if response.status_code == 200:
@@ -32,8 +32,18 @@ def search_for_chips(topic, name=None, per_page=10, page=1):
         return []
 
 
-def search(name):
-    repos = search_for_chips("navi-chips", name)
+def search(command):
+    try:
+        _, name, page_size, page_num = command + [None, 10, 1][len(command)-1:]
+        page_size = int(page_size)
+        page_num = int(page_num)
+    except ValueError:
+        print(f"{Fore.RED}Invalid command{Fore.RESET}\n"
+              f"{Fore.YELLOW}chips search [*query] [*page size] [*page number]{Fore.RESET}\n"
+              f"* = optional")
+        return
+
+    repos = search_for_chips(name, page_size, page_num)
     if not repos:
         print(f"{Fore.RED}No Navi Chips found.{Fore.RESET}")
         return
@@ -48,7 +58,6 @@ def search(name):
 
     if available_repos == 0:
         print("No Navi Chips found with releases.")
-
 
 def download_and_extract(download_url):
     download_guid = str(uuid.uuid4())
@@ -89,7 +98,8 @@ def copy_files_to_install_path(extracted_dir, install_path="/commands"):
 def install_requirements(extracted_dir):
     requirements_path = os.path.join(extracted_dir, "chip-requirements.txt")
     if os.path.exists(requirements_path):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path, "--break-system-packages"])
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "-r", requirements_path, "--break-system-packages"])
         os.remove(requirements_path)
 
 
@@ -161,7 +171,8 @@ def uninstall_chip(name, restart_app=True):
         return
 
     package_end = next((i for i in range(package_start, len(lines)) if lines[i].strip() == ""), len(lines))
-    installed_files = [line.strip() for line in lines[package_start:package_end] if not line.startswith("Installed Files:")]
+    installed_files = [line.strip() for line in lines[package_start:package_end] if
+                       not line.startswith("Installed Files:")]
 
     for file_path in installed_files:
         if os.path.exists(file_path):
@@ -171,7 +182,7 @@ def uninstall_chip(name, restart_app=True):
                 os.remove(file_path)
 
     with open("installed_chips.txt", 'w') as log_file:
-        log_file.writelines(lines[:package_start] + lines[package_end+1:])
+        log_file.writelines(lines[:package_start] + lines[package_end + 1:])
 
     print(f"{Fore.GREEN}The chip {Fore.WHITE}'{name}' {Fore.GREEN}has been uninstalled successfully.{Fore.RESET}")
     if restart_app:
@@ -200,10 +211,10 @@ def list_installed_chips():
         line = lines[i].strip()
         if line.startswith("Repo Name:"):
             module_name = line.split("Repo Name: ")[1]
-            description = lines[i+1].split("Description: ")[1].strip()
-            html_url = lines[i+2].split("HTML URL: ")[1].strip()
-            owner = lines[i+3].split("Owner: ")[1].strip()
-            version = lines[i+4].split("Version: ")[1].strip()
+            description = lines[i + 1].split("Description: ")[1].strip()
+            html_url = lines[i + 2].split("HTML URL: ")[1].strip()
+            owner = lines[i + 3].split("Owner: ")[1].strip()
+            version = lines[i + 4].split("Version: ")[1].strip()
 
             module_info = {
                 "name": module_name,
@@ -252,7 +263,8 @@ def about_chip(name):
             latest_version = latest_release['tag_name'] if latest_release else "Unknown"
 
             if latest_version != version:
-                print(f"{Fore.GREEN}A later version is available: {latest_version}.{Fore.RESET} To update type {Fore.YELLOW}'chips update {name}'{Fore.RESET}")
+                print(
+                    f"{Fore.GREEN}A later version is available: {latest_version}.{Fore.RESET} To update type {Fore.YELLOW}'chips update {name}'{Fore.RESET}")
             else:
                 print("You have the latest version installed.")
 
@@ -304,6 +316,11 @@ def run(arguments=None):
     if command == "list":
         list_installed_chips()
         return
+
+    if command == "search":
+        search(argv)
+        return
+
     if len(argv) == 1:
         chip_info = about_chip(argv[0])
         if chip_info:
@@ -325,10 +342,6 @@ def run(arguments=None):
 
     if command == "update" and len(argv) > 1:
         update_chip(argv[1])
-        return
-
-    if command == "search" and len(argv) > 1:
-        search(argv[1])
         return
 
     help_text()
