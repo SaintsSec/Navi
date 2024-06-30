@@ -21,10 +21,10 @@ clear_screen() {
 
 install_reqs() {
     sudo apt install python3 python3-pip
-    python3 -m install pip install --upgrade pip --break-system-packages
-    pip install -r requirements.txt --break-system-packages
+    python3 -m install pip install --upgrade pip 
+    pip install -r requirements.txt 
     pip install spacy --break-system-packages
-    python3 -m spacy download en_core_web_sm --break-system-packages
+    python3 -m spacy download en_core_web_sm 
 }
 
 setup_aliases() {

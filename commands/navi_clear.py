@@ -1,5 +1,5 @@
 #!/bin/python3
-from navi_shell import get_ai_name, get_user, pre_run, tr
+from navi_shell import get_user, clear_terminal, print_message
 
 command = "clear"
 use = "Clear the screen"
@@ -7,5 +7,5 @@ aliases = ['cls']
 
 
 def run(arguments=None):
-    pre_run()
-    tr(f"How can I help you, {get_user()}?")
+    clear_terminal()
+    print_message(f"How can I help you, {get_user()}?")

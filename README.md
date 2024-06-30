@@ -60,5 +60,6 @@ We value your input! Whether it's contributions, feedback, or bug reports, we're
 
 Your invaluable contributions propel the boundaries of innovation. Thank you!
 
-[![Contributors Image](https://contrib.rocks/image?repo=SSGorg/Navi)](https://github.com/SaintsSec/Navi/graphs/contributors)
+[![Contributors Image](https://contrib.rocks/image?repo=SaintsSec/Navi)](https://github.com/SaintsSec/Navi/graphs/contributors)
+
 
