@@ -1,6 +1,5 @@
 __pycache__/
 .vscode/settings.json
-/src/training-data.json
-/src/tlogs/
 .DS_Store
 *.log
+navienv/
