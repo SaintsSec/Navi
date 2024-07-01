@@ -24,22 +24,29 @@ install_reqs() {
 }
 
 set_venv(){
-    python3 -m venv navienv
-    source ./navienv/bin/activate
+    python3 -m venv ../navienv
+    source ../navienv/bin/activate
+    echo 
+    echo Venv has been set.
+    echo 
 }
 
 pip_install(){
+    echo Installing Pip requirements
     python3 -m install pip install --upgrade pip
     pip install -r requirements.txt 
     pip install spacy 
     python3 -m spacy download en_core_web_sm 
+    echo
+    echo Pip requirements have been installed.
+    echo 
 }
 
 setup_aliases() {
     local config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
     config_path="${config_files[$SHELL]}"
     
-    declare -A aliases=( ["navi"]="cd /opt/Navi/ && source ./navienv/bin/activate && python3 ./navi_shell.py")
+    declare -A aliases=( ["navi"]="source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && python3 ./navi_shell.py")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" "$config_path"; then
@@ -124,5 +131,5 @@ set_permissions_All
 cleanup_install_directory
 source_shell_config
 if [ "$LAUNCH_NAVI" = "true" ]; then
-  exec cd /opt/Navi/ && python3 ./navi_shell.py
+  source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && python3 ./navi_shell.py
 fi 
