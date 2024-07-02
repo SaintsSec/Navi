@@ -166,7 +166,7 @@ def restart_navi():
 
 
 def check_version(edge=False):
-    current_version = "0.5.1"  # Note: This isn't a great way to check for updates
+    current_version = "0.5.2"  # Note: This isn't a great way to check for updates
     repo_owner = "SaintsSec"
     repo_name = "Navi"
 
