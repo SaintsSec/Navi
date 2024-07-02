@@ -9,4 +9,4 @@ aliases = ['quit', 'exit', 'goodbye']
 
 def run(arguments=None):
     print_message(f"Thank you for stopping by! {get_user()}")
-    input("press a button to exit...")
+    exit(0)
