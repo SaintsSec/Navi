@@ -85,27 +85,27 @@ def run(arguments=None):
     tr(clean_text)
 
     print(breakline)
-    tr(f"System Information:\n")
+    print_message(f"System Information:\n")
     for key, value in system_info.items():
-        tr(f"{key}: {value}")
+        print_message(f"{key}: {value}")
 
     print(breakline)
-    tr(f"Memory Information:\n")
+    print_message(f"Memory Information:\n")
     for key, value in memory_info.items():
-        tr(f"{key}: {value}")
+        print_message(f"{key}: {value}")
 
     print(breakline)
-    tr(f"Disk Space Information:\n")
+    print_message(f"Disk Space Information:\n")
     for key, value in disk_info.items():
-        tr(f"{key}: {value}")
+        print_message(f"{key}: {value}")
 
     print(breakline)
-    tr(f"Uptime Information:\n")
+    print_message(f"Uptime Information:\n")
     for key, value in uptime_info.items():
-        tr(f"{key}: {value}")
+        print_message(f"{key}: {value}")
 
     print(breakline)
-    tr(f"Network Information: \n")
-    tr(f"Your local ip is: {local_ip}")
-    tr(f"Your public ip is: redacted -- Nice try")
+    print_message(f"Network Information: \n")
+    print_message(f"Your local ip is: {local_ip}")
+    print_message(f"Your public ip is: redacted -- Nice try")
     print(breakline)
