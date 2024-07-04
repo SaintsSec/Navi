@@ -101,7 +101,7 @@ def install_requirements(extracted_dir):
     requirements_path = os.path.join(extracted_dir, "chip-requirements.txt")
     if os.path.exists(requirements_path):
         subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "-r", requirements_path, "--break-system-packages"])
+            [sys.executable, "-m", "pip", "install", "-r", requirements_path])
         os.remove(requirements_path)
 
 

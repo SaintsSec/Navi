@@ -1,5 +1,6 @@
 #!/bin/python3
 from navi_shell import get_user, print_message
+import os   
 
 command = "exit"
 use = "Exit Navi"

@@ -17,7 +17,7 @@
 
 - **Upgraded Navi Shell** - The shell can now execute system commands, without breaking the flow of conversation. See more below!
 - **Navi Scripts Upgrade** - The new alias variable within the custom scripts allow for Navi to execute scripts right from the chat. Once again not disrupting the flow.
-- **Navi Cryptex Integration** - Thats right you heared it here. Cryptex is officially part of Navi as an example of how powerful its integration can be. 
+- **Navi Cryptex Chip** - Thats right you heared it here. Cryptex is officially part of the Navi chip ecosystem as an example of how powerful its chips can be. 
 - **Wiki Re-write** - With new power comes new documentation
 - **Llama3 Integration** - We made the leap from GPT to the open source Llama AI on the backend - we also customized it giving Navi her own personality and lore.
 - **A ton of backend fixes** - This one more or less speaks for itself. 
