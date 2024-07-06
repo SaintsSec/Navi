@@ -6,7 +6,7 @@ use = "Displays the help screen"
 aliases = ['--nhelp', 'nhelp']
 
 
-def run(arguments=None):
+def run(self, arguments=None):
     max_command_length = 0
     max_use_length = 0
     max_alias_length = 0

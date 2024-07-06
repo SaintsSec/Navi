@@ -8,11 +8,12 @@ import uuid
 
 from colorama import Fore
 from navi import get_parameters
-from navi_shell import print_message, restart_navi
+from navi_shell import restart_navi
 
 command = "chips"
 use = "Manage Navi chips"
 aliases = ['chip']
+navi = None
 
 
 def get_latest_release(owner, repo):
@@ -34,7 +35,7 @@ def search_for_chips(name=None, per_page=10, page=1):
 
 def search(command):
     try:
-        _, name, page_size, page_num = command + [None, 10, 1][len(command)-1:]
+        _, name, page_size, page_num = command + [None, 10, 1][len(command) - 1:]
         page_size = int(page_size)
         page_num = int(page_num)
     except ValueError:
@@ -58,6 +59,7 @@ def search(command):
 
     if available_repos == 0:
         print("No Navi Chips found with releases.")
+
 
 def download_and_extract(download_url):
     download_guid = str(uuid.uuid4())
@@ -299,13 +301,15 @@ def update_chip(chip_name):
 
 
 def help_text():
-    print_message("Chip Manager\n"
+    navi.print_message("Chip Manager\n"
                   "chips [install | uninstall | search | update] [app/query]\n\n"
                   "List currently installed chips\n"
                   "chips list")
 
 
-def run(arguments=None):
+def run(navi_instance, arguments=None):
+    global navi
+    navi = navi_instance
     argv = get_parameters(arguments.text)
     argv.pop(0)
 
