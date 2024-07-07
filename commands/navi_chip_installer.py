@@ -193,24 +193,21 @@ def uninstall_chip(name, restart_app=True):
         restart_navi()
 
 
-def list_installed_chips():
+def get_installed_chips():
     log_file_path = "installed_chips.txt"
 
     if not os.path.exists(log_file_path):
-        print("No chips are installed.")
         return
 
     with open(log_file_path, 'r') as log_file:
         lines = log_file.readlines()
 
     if not lines:
-        print("No chips are installed.")
         return
 
     modules = []
     module_info = {}
     i = 0
-
     while i < len(lines):
         line = lines[i].strip()
         if line.startswith("Repo Name:"):
@@ -229,10 +226,14 @@ def list_installed_chips():
             }
             modules.append(module_info)
         i += 1
+    return modules
 
-    if modules:
+
+def list_installed_chips():
+    chips = get_installed_chips()
+    if chips:
         print("Installed Chips:")
-        for module in modules:
+        for module in chips:
             print(f"- {module['name']} (Owner: {module['owner']}, Version: {module['version']})")
     else:
         print("No chips are installed.")

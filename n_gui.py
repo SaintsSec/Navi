@@ -1,8 +1,7 @@
-import sys
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea, \
     QTextEdit, QLineEdit, QDialog, QListWidget
 from PyQt5.QtGui import QPixmap
-from .commands.navi_chip_installer import about_chip
+from commands.navi_chip_installer import get_installed_chips, about_chip
 
 navi = None
 
@@ -23,7 +22,7 @@ class NaviGUI(QWidget):
         # Image placeholder
         self.image_label = QLabel()
         self.image_label.setFixedSize(100, 100)
-        pixmap = QPixmap('images/Logo_SaintSec.png')  # Replace 'image.png' with your image file path
+        pixmap = QPixmap('images/Logo_SaintSec.png')
         self.image_label.setPixmap(pixmap.scaled(self.image_label.size()))
         top_layout.addWidget(self.image_label)
 
@@ -78,7 +77,7 @@ class NaviGUI(QWidget):
 
     def submitText(self):
         global navi
-        response = navi.chat_with_navi(self.user_input.text())
+        navi.chat_with_navi(self.user_input.text())
         self.user_input.clear()
 
     def append_text(self, text):
@@ -101,7 +100,12 @@ class ChipsDialog(QDialog):
         layout = QVBoxLayout()
 
         self.list_widget = QListWidget()
-        self.list_widget.addItems([f"Item {i + 1}" for i in range(10)])
+        chips = get_installed_chips()
+        if chips:
+            self.list_widget.addItems([f"{module['name']}" for module in chips])
+        else:
+            no_chip_label = QLabel(f"No chips installed")
+            self.list_widget.addWidget(no_chip_label)
         self.list_widget.itemClicked.connect(self.showItemDetails)
         layout.addWidget(self.list_widget)
 
@@ -110,16 +114,30 @@ class ChipsDialog(QDialog):
     def showItemDetails(self, item):
         # Create a dialog for item details
         details_dialog = QDialog(self)
-        details_dialog.setWindowTitle("Item Details")
+        details_dialog.setWindowTitle("Chip Details")
         details_layout = QVBoxLayout()
 
-        info_label = QLabel(f"Details for {item.text()}")
-        details_layout.addWidget(info_label)
+        chip_info = about_chip(item.text())
 
-        button1 = QPushButton("Button 1")
-        button2 = QPushButton("Button 2")
-        details_layout.addWidget(button1)
-        details_layout.addWidget(button2)
+        chip_name = QLabel(f"<b>Name: </b>{chip_info["name"]}")
+        chip_owner = QLabel(f"<b>Owner: </b>{chip_info["owner"]}")
+        chip_description = QLabel(f"<b>Description: </b>{chip_info["description"]}")
+        chip_version = QLabel(f"<b>Installed version: </b>{chip_info["version"]}")
+        chip_url = QLabel(f"<b>URL: </b>{chip_info["html_url"]}")
+
+        details_layout.addWidget(chip_name)
+        details_layout.addWidget(chip_owner)
+        details_layout.addWidget(chip_description)
+        details_layout.addWidget(chip_url)
+        details_layout.addWidget(chip_version)
+        if chip_info['latest_version'] != chip_info['version']:
+            chip_update_label = QLabel(f"<center><font color='green'>A later version is available: {chip_info["latest_version"]}.</font></center>")
+            details_layout.addWidget(chip_update_label)
+            button_chip_update = QPushButton("Update chip")
+            details_layout.addWidget(button_chip_update)
+
+        button_chip_uninstall = QPushButton("Uninstall chip")
+        details_layout.addWidget(button_chip_uninstall)
 
         details_dialog.setLayout(details_layout)
         details_dialog.exec_()
