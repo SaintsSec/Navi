@@ -18,6 +18,7 @@ import zipfile
 import shutil
 
 from mods import mods
+from PyQt5.QtWidgets import QApplication
 
 user = getpass.getuser()
 
@@ -134,6 +135,7 @@ class NaviApp():
     port = config.port
     
     gui_enabled = False
+    gui_instance = None
     
     
     # NLP setup
@@ -147,6 +149,9 @@ class NaviApp():
     
     def set_gui_enabled(self, enabled):
         self.gui_enabled = enabled
+        
+    def set_gui_instance(self, gui_instance):
+        self.gui_instance = gui_instance
     
     
     def print_message(self,text, include_ai_name=True):
@@ -184,7 +189,7 @@ class NaviApp():
                 # Print a newline character after each wrapped line
                 print()
         else:
-            return text
+            self.gui_instance.append_text(text)
     
     
     def clear_terminal(self):
@@ -303,8 +308,13 @@ def main():
         navi_instance.setup_navi_vocab()
         if (args.gui):
             navi_instance.set_gui_enabled(True)
-            from n_gui import launch_gui
-            launch_gui(navi_instance)
+            from n_gui import NaviGUI
+            app = QApplication(sys.argv)
+            gui_instance = NaviGUI()
+            gui_instance.set_navi_instance(navi_instance)
+            navi_instance.set_gui_instance(gui_instance)
+            gui_instance.show()
+            sys.exit(app.exec_())
         else:
             navi_instance.clear_terminal()
             navi_instance.chat_with_navi()
