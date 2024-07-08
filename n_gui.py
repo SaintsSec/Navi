@@ -106,7 +106,7 @@ class ChipsDialog(QDialog):
         if chips:
             self.list_widget.addItems([f"{module['name']}" for module in chips])
         else:
-            no_chip_label = "No chips installed\nUse the `chips` command for help."
+            no_chip_label = "No chips installed"
             self.list_widget.addItem(no_chip_label)
         self.list_widget.itemClicked.connect(self.showItemDetails)
         layout.addWidget(self.list_widget)
