@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButt
     QTextEdit, QLineEdit, QDialog, QListWidget
 from PyQt5.QtGui import QPixmap
 from commands.navi_chip_installer import get_installed_chips, about_chip
-
+import webbrowser
 navi = None
 
 
@@ -30,9 +30,12 @@ class NaviGUI(QWidget):
         self.chips_button = QPushButton("Chips")
         self.chips_button.clicked.connect(self.showChipsDialog)
         self.settings_button = QPushButton("Settings")
+        self.wiki_button = QPushButton("Wiki")
+        self.wiki_button.clicked.connect(lambda: webbrowser.open('https://github.com/SaintsSec/Navi/wiki'))
         top_layout.addWidget(self.chips_button)
         top_layout.addWidget(self.settings_button)
-
+        top_layout.addWidget(self.wiki_button)
+        
         main_layout.addLayout(top_layout)
 
         # Layout for Queries and Options
@@ -87,7 +90,6 @@ class NaviGUI(QWidget):
         global navi
         navi = navi_instance
 
-
 class ChipsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -104,8 +106,8 @@ class ChipsDialog(QDialog):
         if chips:
             self.list_widget.addItems([f"{module['name']}" for module in chips])
         else:
-            no_chip_label = QLabel(f"No chips installed")
-            self.list_widget.addWidget(no_chip_label)
+            no_chip_label = "No chips installed\nUse the `chips` command for help."
+            self.list_widget.addItem(no_chip_label)
         self.list_widget.itemClicked.connect(self.showItemDetails)
         layout.addWidget(self.list_widget)
 
