@@ -38,6 +38,8 @@ def get_nmap_parameters(input_str):
         --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
         \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
     """, re.VERBOSE)
+    matches = pattern.findall(input_str)
+    return matches
 
 
 def run(arguments=None):
@@ -75,7 +77,7 @@ def run(arguments=None):
 
         if choice == 'analyze':
             response_message, http_status = llm_chat(f"Please analyze and summarize the results of "
-                                                     f"this nmap scan: {stdout}")
+                                                     f"this nmap scan: {stdout}", True)
             print_message(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
         elif choice == 'raw':
             print_message(f"\nHere are the raw results:\n{stdout}")

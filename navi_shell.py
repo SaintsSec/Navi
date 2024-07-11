@@ -181,14 +181,16 @@ def clear_terminal():
     print(art)
 
 
-def llm_chat(user_message):
+def llm_chat(user_message, called_from_app=False):
     # Define the API endpoint and payload
-    message_amendment = (("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
-                          "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
-                          "ELSE. Otherwise continue to communicate"
-                          "normally.") +
-                         f"The user's OS is {platform.system()}" + ". User message:")
-    message_amendment += user_message
+    message_amendment = user_message
+    if not called_from_app:
+        message_amendment = (("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
+                              "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
+                              "ELSE. Otherwise continue to communicate"
+                              "normally.") +
+                             f"The user's OS is {platform.system()}" + ". User message:")
+        message_amendment += user_message
     url = f"http://{server}:{port}/api/chat"
     payload = {
         "model": "envoy",
