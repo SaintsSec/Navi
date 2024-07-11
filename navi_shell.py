@@ -136,9 +136,6 @@ class NaviApp():
     server = config.server
     port = config.port
 
-    gui_enabled = False
-    gui_instance = None
-
     # NLP setup
     nlp = spacy.load("en_core_web_sm")
     ruler = nlp.add_pipe("entity_ruler")
@@ -148,61 +145,53 @@ class NaviApp():
     def get_user(self):
         return user
 
-    def set_gui_enabled(self, enabled):
-        self.gui_enabled = enabled
-
-    def set_gui_instance(self, gui_instance):
-        self.gui_instance = gui_instance
-
     def print_message(self, text, include_ai_name=True):
-        if not self.gui_enabled:
-            to_print = text
-            if include_ai_name:
-                to_print = self.ai_name_rep + text
-            sleep_times = {
-                (0, 0.1): 0.0,
-                (0.1, 0.2): 0.05,
-                (0.2, 1.0): 0.01
-            }
+        to_print = text
+        if include_ai_name:
+            to_print = self.ai_name_rep + text
+        sleep_times = {
+            (0, 0.1): 0.0,
+            (0.1, 0.2): 0.05,
+            (0.2, 1.0): 0.01
+        }
 
-            try:
-                terminal_width = os.get_terminal_size().columns
-            except OSError:
-                # If we cannot get the terminal size, use a default width
-                terminal_width = 80
-            # Adjust the wrap width based on 60% of the terminal width
-            wrap_width = int(terminal_width * 0.6)
+        try:
+            terminal_width = os.get_terminal_size().columns
+        except OSError:
+            # If we cannot get the terminal size, use a default width
+            terminal_width = 80
+        # Adjust the wrap width based on 60% of the terminal width
+        wrap_width = int(terminal_width * 0.6)
 
-            # Split text into lines to preserve line breaks
-            lines = to_print.split('\n')
+        # Split text into lines to preserve line breaks
+        lines = to_print.split('\n')
 
-            for line in lines:
-                # Wrap each line individually
-                wrapped_lines = textwrap.fill(line, width=wrap_width)
-                for char in wrapped_lines:
-                    print(char, end="", flush=True)
-                    random_num = random.uniform(0, 1)
-                    for range_tuple, sleep_time in sleep_times.items():
-                        if range_tuple[0] <= random_num < range_tuple[1]:
-                            time.sleep(sleep_time)
-                            break
-                # Print a newline character after each wrapped line
-                print()
-        else:
-            self.gui_instance.append_text(text)
+        for line in lines:
+            # Wrap each line individually
+            wrapped_lines = textwrap.fill(line, width=wrap_width)
+            for char in wrapped_lines:
+                print(char, end="", flush=True)
+                random_num = random.uniform(0, 1)
+                for range_tuple, sleep_time in sleep_times.items():
+                    if range_tuple[0] <= random_num < range_tuple[1]:
+                        time.sleep(sleep_time)
+                        break
+            # Print a newline character after each wrapped line
+            print()
 
     def clear_terminal(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         print(self.art)
 
-    def llm_chat(self, user_message):
+    def llm_chat(self, user_message, called_from_app=False):
         # Define the API endpoint and payload
-        message_amendment = (
-                ("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
-                 "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
-                 "ELSE. Otherwise continue to communicate"
-                 "normally.") +
-                f"The user's OS is {platform.system()}" + ". User message:")
+        message_amendment = user_message
+        if not called_from_app:
+            message_amendment = (("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
+                                  "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
+                                  "ELSE. Otherwise continue to communicate"
+                                  "normally.") +
+                                 f"The user's OS is {platform.system()}" + ". User message:")
         message_amendment += user_message
         url = f"http://{self.server}:{self.port}/api/chat"
         payload = {
@@ -229,7 +218,7 @@ class NaviApp():
                 except json.JSONDecodeError as e:
                     print("Error decoding JSON:", e)
                 except KeyboardInterrupt:
-                    print_message(f"Keyboard interupt registered, talk soon {user}!")
+                    self.print_message(f"Keyboard interupt registered, talk soon {user}!")
 
             # Concatenate the extracted messages
             full_response = "".join(extracted_responses)
@@ -251,19 +240,12 @@ class NaviApp():
                 commands.modules[main_command].run(self, processed_message)
         else:
             response_message, http_status = self.llm_chat(user_message)
-            # TEMP BLOCK
-            if not self.gui_enabled:
-                if response_message.startswith("TERMINAL OUTPUT"):
-                    commands.modules["navi_sys"].run(self, response_message)
-                else:
-                    self.print_message(f"{response_message if http_status == 200 else 'Issue with server'}")
+            if response_message.startswith("TERMINAL OUTPUT"):
+                commands.modules["navi_sys"].run(self, response_message)
             else:
-                self.print_message("System executions temporarily not supported in GUI mode")
+                self.print_message(f"{response_message if http_status == 200 else 'Issue with server'}")
 
-    def chat_with_navi(self, gui_message=False):
-        if gui_message:
-            self.process_message(gui_message)
-            return
+    def chat_with_navi(self):
         while True:
             # Get user input
             try:
@@ -293,7 +275,6 @@ def main():
     parser.add_argument('--skip-update', action='store_true',
                         help='Skip the update check (used internally to prevent update loop)')
     parser.add_argument('--install', action='store_true', help='installs Navi based on the current downloaded version.')
-    parser.add_argument('--gui', action='store_true', help='Launches the GUI')
 
     args = parser.parse_args()
     if not args.noupdate and not args.skip_update:
@@ -304,19 +285,9 @@ def main():
         os.system('cd ./install && ./install.sh')
     try:
         navi_instance.setup_navi_vocab()
-        if args.gui:
-            navi_instance.set_gui_enabled(True)
-            from n_gui import NaviGUI
-            app = QApplication(sys.argv)
-            gui_instance = NaviGUI()
-            gui_instance.set_navi_instance(navi_instance)
-            navi_instance.set_gui_instance(gui_instance)
-            gui_instance.show()
-            sys.exit(app.exec_())
-        else:
-            navi_instance.clear_terminal()
-            navi_instance.chat_with_navi()
-            navi_instance.print_message(f"How can I help you {user}")
+        navi_instance.clear_terminal()
+        navi_instance.chat_with_navi()
+        navi_instance.print_message(f"How can I help you {user}")
     except KeyboardInterrupt:
         navi_instance.print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
         exit(0)

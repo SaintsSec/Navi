@@ -77,7 +77,7 @@ def run(navi_instance, arguments=None):
 
     # Main functions
     response_message = navi_instance.llm_chat(
-        "Give me a really simple quip about getting my systems specs. Dont include commands or references to operating systems.")
+        "Give me a really simple quip about getting my systems specs. Dont include commands or references to operating systems.", True)
     clean_text = str(response_message).replace("(", "").replace(")", "").replace(", 200", "").replace("\"", "").replace(
         "\\n", "")
     output = clean_text + "\n"

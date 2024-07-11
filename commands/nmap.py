@@ -37,10 +37,11 @@ def get_nmap_parameters(input_str):
         --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
         \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
     """, re.VERBOSE)
-    return pattern
+    matches = pattern.findall(input_str)
+    return matches
 
 
-def run(navi_instance,arguments=None):
+def run(navi_instance, arguments=None):
     if get_command_path(command) is None:
         navi_instance.print_message(f"\nSorry! nmap is not currently installed on your system.")
         return
@@ -75,7 +76,7 @@ def run(navi_instance,arguments=None):
 
         if choice == 'analyze':
             response_message, http_status = navi_instance.llm_chat(f"Please analyze and summarize the results of "
-                                                     f"this nmap scan: {stdout}")
+                                                     f"this nmap scan: {stdout}", True)
             navi_instance.print_message(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
         elif choice == 'raw':
             navi_instance.print_message(f"\nHere are the raw results:\n{stdout}")
