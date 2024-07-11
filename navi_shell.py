@@ -258,7 +258,7 @@ class NaviApp():
                 else:
                     self.print_message(f"{response_message if http_status == 200 else 'Issue with server'}")
             else:
-                self.print_message("System executions not supported in GUI mode")
+                self.print_message("System executions temporarily not supported in GUI mode")
 
     def chat_with_navi(self, gui_message=False):
         if gui_message:

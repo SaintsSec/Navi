@@ -37,6 +37,7 @@ def get_nmap_parameters(input_str):
         --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
         \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
     """, re.VERBOSE)
+    return pattern
 
 
 def run(navi_instance,arguments=None):
