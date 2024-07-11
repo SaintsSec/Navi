@@ -79,7 +79,7 @@ def run(arguments=None):
 
     # Main functions
     response_message = llm_chat(
-        "Give me a really simple quip about getting my systems specs. Dont include commands or references to operating systems.")
+        "Give me a really simple quip about getting my systems specs. Dont include commands or references to operating systems.", True)
     clean_text = str(response_message).replace("(", "").replace(")", "").replace(", 200", "").replace("\"", "").replace(
         "\\n", "")
     tr(clean_text)
