@@ -1,9 +1,0 @@
-Repo Name: navi-app-test
-Description: This is a description
-HTML URL: https://github.com/hullabaloo-vincent/navi-app-test
-Owner: hullabaloo-vincent
-Version: 2.5
-Installed Files:
-commands\chip-requirements.txt
-commands\say_hello.py
-
