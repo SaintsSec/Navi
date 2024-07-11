@@ -13,4 +13,3 @@ image
 hashcat
 mido
 psutil
-pyqt5

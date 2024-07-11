@@ -18,7 +18,6 @@ import zipfile
 import shutil
 
 from mods import mods
-from PyQt5.QtWidgets import QApplication
 
 user = getpass.getuser()
 
