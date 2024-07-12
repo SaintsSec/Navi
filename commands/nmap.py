@@ -3,6 +3,7 @@ import re
 import subprocess
 from typing import List
 from navi import get_ip_address, get_hostname, get_command_path
+import navi_internal
 
 command = "nmap"
 use = "Port scanning"
@@ -41,7 +42,8 @@ def get_nmap_parameters(input_str):
     return matches
 
 
-def run(navi_instance, arguments=None):
+def run(arguments=None):
+    navi_instance = navi_internal.navi_instance
     if get_command_path(command) is None:
         navi_instance.print_message(f"\nSorry! nmap is not currently installed on your system.")
         return
