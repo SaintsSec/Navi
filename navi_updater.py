@@ -16,6 +16,7 @@ def check_version(edge=False):
 
     return download_url
 
+
 def get_latest_release(repo_owner, repo_name, edge=False):
     if edge:
         api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases"

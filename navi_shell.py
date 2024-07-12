@@ -12,7 +12,6 @@ def restart_navi():
     os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
 
 
-
 def main():
     navi_instance = navi_internal.navi_instance
     parser = argparse.ArgumentParser(description='Check for new releases and handle updates.')
