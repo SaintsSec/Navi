@@ -3,6 +3,7 @@ import platform
 import psutil
 import requests
 import socket
+import navi_internal
 from datetime import datetime
 
 # Navi Command System Variables
@@ -66,9 +67,9 @@ def get_local_ip():
         return None
 
 
-def run(navi_instance, arguments=None):
+def run(arguments=None):
+    navi_instance = navi_internal.navi_instance
     # setup variables
-    public_ip = get_public_ip()
     local_ip = get_local_ip()
     system_info = get_system_info()
     memory_info = get_memory_info()

@@ -12,7 +12,7 @@ import platform
 from mods import mods
 
 
-class NaviApp():
+class NaviApp:
     art = mods.art
     helpArt = mods.helpArt
     breakline = mods.breakline

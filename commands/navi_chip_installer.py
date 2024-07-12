@@ -5,6 +5,7 @@ import zipfile
 import shutil
 import subprocess
 import uuid
+import navi_internal
 
 from colorama import Fore
 from navi import get_parameters
@@ -308,9 +309,9 @@ def help_text():
                   "chips list")
 
 
-def run(navi_instance, arguments=None):
+def run(arguments=None):
     global navi
-    navi = navi_instance
+    navi = navi_internal.navi_instance
     argv = get_parameters(arguments.text)
     argv.pop(0)
 

@@ -1,12 +1,14 @@
 #!/bin/python3
 import subprocess
+import navi_internal
 from navi import get_command_path
 
 command = "navi_sys"
 use = "Execute system command created by Navi"
 
 
-def run(navi_instance, arguments=None):
+def run(arguments=None):
+    navi_instance = navi_internal.navi_instance
     navi_command = str(arguments).replace("TERMINAL OUTPUT", "", 1).strip()
     base_command = navi_command.split()[0]
     if get_command_path(base_command) is not None:
