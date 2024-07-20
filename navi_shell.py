@@ -1,169 +1,15 @@
-import requests
 import os
 import sys
 import getpass
-import textwrap
-import random
-import time
-import commands
 import argparse
-import importlib.util
-import json
-import config
-import re
-import spacy
-import platform
-import subprocess
-import zipfile
-import shutil
+import navi_internal
+from navi_updater import check_version, update_script
 
-from mods import mods
-
-art = mods.art
-helpArt = mods.helpArt
 user = getpass.getuser()
-breakline = mods.breakline
-ai_name_rep = "Navi> "
-
-server = config.server
-port = config.port
-
-# NLP setup
-nlp = spacy.load("en_core_web_sm")
-ruler = nlp.add_pipe("entity_ruler")
-
-
-def get_user():
-    return user
-
-
-def print_message(text, include_ai_name=True):
-    to_print = text
-    if include_ai_name:
-        to_print = ai_name_rep + text
-    sleep_times = {
-        (0, 0.1): 0.0,
-        (0.1, 0.2): 0.05,
-        (0.2, 1.0): 0.01
-    }
-
-    try:
-        terminal_width = os.get_terminal_size().columns
-    except OSError:
-        # If we cannot get the terminal size, use a default width
-        terminal_width = 80
-    # Adjust the wrap width based on 60% of the terminal width
-    wrap_width = int(terminal_width * 0.6)
-
-    # Split text into lines to preserve line breaks
-    lines = to_print.split('\n')
-
-    for line in lines:
-        # Wrap each line individually
-        wrapped_lines = textwrap.fill(line, width=wrap_width)
-        for char in wrapped_lines:
-            print(char, end="", flush=True)
-            random_num = random.uniform(0, 1)
-            for range_tuple, sleep_time in sleep_times.items():
-                if range_tuple[0] <= random_num < range_tuple[1]:
-                    time.sleep(sleep_time)
-                    break
-        # Print a newline character after each wrapped line
-        print()
-
-
-def get_latest_release(repo_owner, repo_name, edge=False):
-    if edge:
-        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases"
-    else:
-        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
-
-    response = requests.get(api_url)
-
-    if response.status_code == 200:
-        data = response.json()
-        if edge:
-            for release in data:
-                if release['prerelease']:
-                    return {
-                        'tag_name': release.get('tag_name'),
-                        'release_name': release.get('name'),
-                        'html_url': release.get('zipball_url')
-                    }
-        else:
-            return {
-                'tag_name': data.get('tag_name'),
-                'release_name': data.get('name'),
-                'html_url': data.get('zipball_url')
-            }
-    return None
-
-
-def is_new_release(current_version, latest_version):
-    return current_version < latest_version
-
-
-def check_for_new_release(current_version, repo_owner, repo_name, edge=False):
-    latest_release = get_latest_release(repo_owner, repo_name, edge)
-
-    if latest_release and is_new_release(current_version, latest_release['tag_name']):
-        return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", \
-        latest_release['html_url']
-    else:
-        return "You are running the latest version", None
-
-
-def update_script(download_url):
-    print("Updating the script...")
-    try:
-        # Download the latest version
-        response = requests.get(download_url)
-        zip_path = "latest_version.zip"
-
-        with open(zip_path, 'wb') as file:
-            file.write(response.content)
-
-        # Unzip the downloaded file
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            zip_ref.extractall("latest_version")
-
-        # Find the path of the current script
-        current_script_path = os.path.abspath(sys.argv[0])
-        print(f"Current script path: {current_script_path}")
-
-        # Copy all files from the extracted archive to the current directory
-        extracted_dir = os.path.join("latest_version", os.listdir("latest_version")[0])
-        for item in os.listdir(extracted_dir):
-            s = os.path.join(extracted_dir, item)
-            d = os.path.join(os.getcwd(), item)
-            if os.path.isdir(s):
-                shutil.copytree(s, d, dirs_exist_ok=True)
-            else:
-                shutil.copy2(s, d)
-
-        # Clean up
-        shutil.rmtree("latest_version")
-        os.remove(zip_path)
-
-        print("Installing any new packages...")
-
-        # Install new packages from requirements.txt
-        requirements_path = os.path.join("install", "requirements.txt")
-        if os.path.exists(requirements_path):
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
-
-        print("Update successful. Restarting the script...")
-
-        # Restart the script with a flag to skip the update check
-        os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
-
-    except Exception as e:
-        print(f"Update failed: {e}")
 
 
 def restart_navi():
     os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
-
 
 def check_version(edge=False):
     current_version = "0.5.2"  # Note: This isn't a great way to check for updates
@@ -263,8 +109,8 @@ def setup_navi_vocab():
             patterns.append({"label": "NAVI_COMMAND", "pattern": alias})
         ruler.add_patterns(patterns)
 
-
 def main():
+    navi_instance = navi_internal.navi_instance
     parser = argparse.ArgumentParser(description='Check for new releases and handle updates.')
     parser.add_argument('--edge', action='store_true', help='Check for the edge version')
     parser.add_argument('--noupdate', action='store_true', help='Do not check for updates')
@@ -281,12 +127,13 @@ def main():
     if args.install:
         os.system('cd ./install && ./install.sh')
     try:
-        clear_terminal()
-        print_message(f"How can I help you {user}")
-        setup_navi_vocab()
-        chat_with_navi()
+        navi_instance.setup_navi_vocab()
+        navi_instance.set_user(user)
+        navi_instance.clear_terminal()
+        navi_instance.chat_with_navi()
+        navi_instance.print_message(f"How can I help you {user}")
     except KeyboardInterrupt:
-        print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
+        navi_instance.print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
         exit(0)
 
 

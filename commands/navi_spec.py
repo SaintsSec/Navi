@@ -3,9 +3,8 @@ import platform
 import psutil
 import requests
 import socket
+import navi_internal
 from datetime import datetime
-
-from navi_shell import print_message, llm_chat
 
 # Navi Command System Variables
 command = "navi_specs"
@@ -69,8 +68,8 @@ def get_local_ip():
 
 
 def run(arguments=None):
+    navi_instance = navi_internal.navi_instance
     # setup variables
-    public_ip = get_public_ip()
     local_ip = get_local_ip()
     system_info = get_system_info()
     memory_info = get_memory_info()
@@ -78,34 +77,32 @@ def run(arguments=None):
     uptime_info = get_uptime_info()
 
     # Main functions
-    response_message = llm_chat(
+    response_message = navi_instance.llm_chat(
         "Give me a really simple quip about getting my systems specs. Dont include commands or references to operating systems.", True)
     clean_text = str(response_message).replace("(", "").replace(")", "").replace(", 200", "").replace("\"", "").replace(
         "\\n", "")
-    tr(clean_text)
-
-    print(breakline)
-    print_message(f"System Information:\n")
+    output = clean_text + "\n"
+    output += breakline
+    output += "System Information:\n"
     for key, value in system_info.items():
-        print_message(f"{key}: {value}")
+        output += f"{key}: {value}\n"
 
-    print(breakline)
-    print_message(f"Memory Information:\n")
+    output += breakline
+    output += "Memory Information:\n"
     for key, value in memory_info.items():
-        print_message(f"{key}: {value}")
+        output += f"{key}: {value}\n"
 
-    print(breakline)
-    print_message(f"Disk Space Information:\n")
+    output += breakline
+    output += "Disk Space Information:\n"
     for key, value in disk_info.items():
-        print_message(f"{key}: {value}")
+        output += f"{key}: {value}\n"
 
-    print(breakline)
-    print_message(f"Uptime Information:\n")
+    output += breakline
+    output += "Uptime Information:\n"
     for key, value in uptime_info.items():
-        print_message(f"{key}: {value}")
-
-    print(breakline)
-    print_message(f"Network Information: \n")
-    print_message(f"Your local ip is: {local_ip}")
-    print_message(f"Your public ip is: redacted -- Nice try")
-    print(breakline)
+        output += f"{key}: {value}\n"
+    output += breakline
+    output += "Network Information: \n"
+    output += f"Your local ip is: {local_ip}\n"
+    output += f"Your public ip is: redacted -- Nice try\n"
+    navi_instance.print_message(output)

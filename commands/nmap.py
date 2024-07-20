@@ -2,8 +2,8 @@
 import re
 import subprocess
 from typing import List
-from navi_shell import print_message, llm_chat
 from navi import get_ip_address, get_hostname, get_command_path
+import navi_internal
 
 command = "nmap"
 use = "Port scanning"
@@ -43,8 +43,9 @@ def get_nmap_parameters(input_str):
 
 
 def run(arguments=None):
+    navi_instance = navi_internal.navi_instance
     if get_command_path(command) is None:
-        print_message(f"\nSorry! nmap is not currently installed on your system.")
+        navi_instance.print_message(f"\nSorry! nmap is not currently installed on your system.")
         return
     ip_address = None
     hostname = None
@@ -64,9 +65,9 @@ def run(arguments=None):
                 if port.isdigit():
                     port_numbers.append(port)
     if ip_address is None and hostname is None:
-        print_message(f"\nSorry, you need to provide a valid IP address or hostname")
+        navi_instance.print_message(f"\nSorry, you need to provide a valid IP address or hostname")
     else:
-        print_message(f"\nRunning... hang tight!")
+        navi_instance.print_message(f"\nRunning... hang tight!")
         target = ip_address if ip_address is not None else hostname
         matches = get_nmap_parameters(arguments.text)
         stdout, stderr = run_nmap_scan(target, port_numbers, matches)
@@ -76,11 +77,11 @@ def run(arguments=None):
                        f"output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
-            response_message, http_status = llm_chat(f"Please analyze and summarize the results of "
+            response_message, http_status = navi_instance.llm_chat(f"Please analyze and summarize the results of "
                                                      f"this nmap scan: {stdout}", True)
-            print_message(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
+            navi_instance.print_message(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
         elif choice == 'raw':
-            print_message(f"\nHere are the raw results:\n{stdout}")
+            navi_instance.print_message(f"\nHere are the raw results:\n{stdout}")
         else:
-            print_message("Invalid choice. Showing raw results by default.\n")
-            print_message(f"\nHere are the raw results:\n{stdout}")
+            navi_instance.print_message("Invalid choice. Showing raw results by default.\n")
+            navi_instance.print_message(f"\nHere are the raw results:\n{stdout}")

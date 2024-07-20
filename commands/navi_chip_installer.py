@@ -5,14 +5,16 @@ import zipfile
 import shutil
 import subprocess
 import uuid
+import navi_internal
 
 from colorama import Fore
 from navi import get_parameters
-from navi_shell import print_message, restart_navi
+from navi_shell import restart_navi
 
 command = "chips"
 use = "Manage Navi chips"
 aliases = ['chip']
+navi = None
 
 
 def get_latest_release(owner, repo):
@@ -34,7 +36,7 @@ def search_for_chips(name=None, per_page=10, page=1):
 
 def search(command):
     try:
-        _, name, page_size, page_num = command + [None, 10, 1][len(command)-1:]
+        _, name, page_size, page_num = command + [None, 10, 1][len(command) - 1:]
         page_size = int(page_size)
         page_num = int(page_num)
     except ValueError:
@@ -58,6 +60,7 @@ def search(command):
 
     if available_repos == 0:
         print("No Navi Chips found with releases.")
+
 
 def download_and_extract(download_url):
     download_guid = str(uuid.uuid4())
@@ -191,24 +194,21 @@ def uninstall_chip(name, restart_app=True):
         restart_navi()
 
 
-def list_installed_chips():
+def get_installed_chips():
     log_file_path = "installed_chips.txt"
 
     if not os.path.exists(log_file_path):
-        print("No chips are installed.")
         return
 
     with open(log_file_path, 'r') as log_file:
         lines = log_file.readlines()
 
     if not lines:
-        print("No chips are installed.")
         return
 
     modules = []
     module_info = {}
     i = 0
-
     while i < len(lines):
         line = lines[i].strip()
         if line.startswith("Repo Name:"):
@@ -227,10 +227,14 @@ def list_installed_chips():
             }
             modules.append(module_info)
         i += 1
+    return modules
 
-    if modules:
+
+def list_installed_chips():
+    chips = get_installed_chips()
+    if chips:
         print("Installed Chips:")
-        for module in modules:
+        for module in chips:
             print(f"- {module['name']} (Owner: {module['owner']}, Version: {module['version']})")
     else:
         print("No chips are installed.")
@@ -299,13 +303,15 @@ def update_chip(chip_name):
 
 
 def help_text():
-    print_message("Chip Manager\n"
+    navi.print_message("Chip Manager\n"
                   "chips [install | uninstall | search | update] [app/query]\n\n"
                   "List currently installed chips\n"
                   "chips list")
 
 
 def run(arguments=None):
+    global navi
+    navi = navi_internal.navi_instance
     argv = get_parameters(arguments.text)
     argv.pop(0)
 
