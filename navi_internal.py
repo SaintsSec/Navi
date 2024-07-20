@@ -34,7 +34,7 @@ class NaviApp:
             cls._instance = super(NaviApp, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-    def get_user(self):
+    def get_user(self) -> str:
         return self.user
 
     def set_user(self, sys_user):

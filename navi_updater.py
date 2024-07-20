@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 import requests
 import os
 import sys
@@ -6,7 +8,7 @@ import zipfile
 import shutil
 
 
-def check_version(edge=False):
+def check_version(edge: bool = False) -> str:
     current_version = "0.5.2"  # Note: This isn't a great way to check for updates
     repo_owner = "SaintsSec"
     repo_name = "Navi"
@@ -17,7 +19,7 @@ def check_version(edge=False):
     return download_url
 
 
-def get_latest_release(repo_owner, repo_name, edge=False):
+def get_latest_release(repo_owner: str, repo_name: str, edge: bool = False) -> dict[str, Any] | None:
     if edge:
         api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases"
     else:
@@ -44,11 +46,11 @@ def get_latest_release(repo_owner, repo_name, edge=False):
     return None
 
 
-def is_new_release(current_version, latest_version):
+def is_new_release(current_version: str, latest_version: str) -> bool:
     return current_version < latest_version
 
 
-def check_for_new_release(current_version, repo_owner, repo_name, edge=False):
+def check_for_new_release(current_version, repo_owner, repo_name, edge=False) -> tuple[str, str | None]:
     latest_release = get_latest_release(repo_owner, repo_name, edge)
     if latest_release and is_new_release(current_version, latest_release['tag_name']):
         return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", \
@@ -57,7 +59,7 @@ def check_for_new_release(current_version, repo_owner, repo_name, edge=False):
         return "You are running the latest version", None
 
 
-def update_script(download_url):
+def update_script(download_url: str) -> None:
     print("Updating the script...")
     try:
         # Download the latest version
