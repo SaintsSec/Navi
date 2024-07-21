@@ -8,11 +8,11 @@ from navi_updater import check_version, update_script
 user = getpass.getuser()
 
 
-def restart_navi():
+def restart_navi() -> None:
     os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
 
 
-def main():
+def main() -> None:
     navi_instance = navi_internal.navi_instance
     parser = argparse.ArgumentParser(description='Check for new releases and handle updates.')
     parser.add_argument('--edge', action='store_true', help='Check for the edge version')

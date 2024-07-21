@@ -3,7 +3,7 @@ import platform
 import subprocess
 
 
-def get_command_path(command):
+def get_command_path(command: str) -> bool | str:
     windows_commands = get_windows_builtin_commands()
 
     if windows_commands and is_windows_command(command, windows_commands):
@@ -17,11 +17,11 @@ def get_command_path(command):
         return find_executable(command)
 
 
-def is_windows_command(command, windows_commands):
+def is_windows_command(command: str, windows_commands: list[str]) -> bool:
     return command.upper() in (cmd.upper() for cmd in windows_commands)
 
 
-def get_windows_builtin_commands():
+def get_windows_builtin_commands() -> list[str]:
     if platform.system() != "Windows":
         return []
     result = subprocess.run(["help"], capture_output=True, text=True)
@@ -39,21 +39,21 @@ def get_windows_builtin_commands():
     return []
 
 
-def get_ip_address(input_str):
+def get_ip_address(input_str: str) -> str | None:
     if re.match(r'(\d{1,3}\.){3}\d{1,3}', input_str):
         return input_str
     else:
         return None
 
 
-def get_hostname(input_str):
+def get_hostname(input_str: str) -> str | None:
     if re.match(r'[a-zA-Z0-9\-]+\.[a-zA-Z]{2,3}', input_str):
         return input_str
     else:
         return None
 
 
-def get_parameters(input_str):
+def get_parameters(input_str: str) -> list[str]:
     pattern = re.compile(r'''
         "([^"]*)"|       # Capture text within quotes
         (\S+)            # Capture other non-whitespace sequences

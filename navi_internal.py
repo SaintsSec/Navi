@@ -13,19 +13,19 @@ from mods import mods
 
 
 class NaviApp:
-    art = mods.art
-    helpArt = mods.helpArt
-    breakline = mods.breakline
-    ai_name_rep = "Navi> "
+    art: str = mods.art
+    helpAr: str = mods.helpArt
+    breakline: str = mods.breakline
+    ai_name_rep: str = "Navi> "
 
-    server = config.server
-    port = config.port
+    server: str = config.server
+    port: int = config.port
 
     # NLP setup
-    nlp = spacy.load("en_core_web_sm")
-    ruler = nlp.add_pipe("entity_ruler")
+    nlp: spacy.language.Language = spacy.load("en_core_web_sm")
+    ruler: spacy.pipeline.EntityRuler = nlp.add_pipe("entity_ruler")
 
-    user = None
+    user: str = None
 
     _instance = None
 
@@ -34,13 +34,13 @@ class NaviApp:
             cls._instance = super(NaviApp, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-    def get_user(self):
+    def get_user(self) -> str:
         return self.user
 
-    def set_user(self, sys_user):
+    def set_user(self, sys_user: str) -> None:
         self.user = sys_user
 
-    def print_message(self, text, include_ai_name=True):
+    def print_message(self, text: str, include_ai_name: bool = True) -> None:
         to_print = text
         if include_ai_name:
             to_print = self.ai_name_rep + text
@@ -74,11 +74,11 @@ class NaviApp:
             # Print a newline character after each wrapped line
             print()
 
-    def clear_terminal(self):
+    def clear_terminal(self) -> None:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(self.art)
 
-    def llm_chat(self, user_message, called_from_app=False):
+    def llm_chat(self, user_message: str, called_from_app: bool = False) -> tuple[str, int]:
         # Define the API endpoint and payload
         message_amendment = user_message
         if not called_from_app:
@@ -122,7 +122,7 @@ class NaviApp:
         else:
             return f"{response.url},{response.json()}", 400
 
-    def process_message(self, user_message):
+    def process_message(self, user_message: str) -> None:
         processed_message = self.nlp(user_message.strip())
         navi_commands = [ent for ent in processed_message.ents if ent.label_ == "NAVI_COMMAND"]
         # Check if the message is a question
@@ -141,7 +141,7 @@ class NaviApp:
             else:
                 self.print_message(f"{response_message if http_status == 200 else 'Issue with server'}")
 
-    def chat_with_navi(self):
+    def chat_with_navi(self) -> None:
         while True:
             # Get user input
             try:
@@ -151,7 +151,7 @@ class NaviApp:
                 break
             self.process_message(user_message)
 
-    def setup_navi_vocab(self):
+    def setup_navi_vocab(self) -> None:
         # Register commands and aliases with the entity ruler
         for command, module in commands.modules.items():
             patterns = [{"label": "NAVI_COMMAND", "pattern": command}]
