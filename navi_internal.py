@@ -13,19 +13,19 @@ from mods import mods
 
 
 class NaviApp:
-    art = mods.art
-    helpArt = mods.helpArt
-    breakline = mods.breakline
-    ai_name_rep = "Navi> "
+    art: str = mods.art
+    helpAr: str = mods.helpArt
+    breakline: str = mods.breakline
+    ai_name_rep: str = "Navi> "
 
-    server = config.server
-    port = config.port
+    server: str = config.server
+    port: int = config.port
 
     # NLP setup
-    nlp = spacy.load("en_core_web_sm")
-    ruler = nlp.add_pipe("entity_ruler")
+    nlp: spacy.language.Language = spacy.load("en_core_web_sm")
+    ruler: spacy.pipeline.EntityRuler = nlp.add_pipe("entity_ruler")
 
-    user = None
+    user: str = None
 
     _instance = None
 
