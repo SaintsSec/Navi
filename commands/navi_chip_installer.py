@@ -132,14 +132,14 @@ def log_installation(repo, installed_files, version):
         log_file.write(log_entry)
 
 
-def is_installed(repo_name):
+def is_installed(repo_name: str) -> bool | str:
     if not os.path.exists("installed_chips.txt"):
         return False
     with open("installed_chips.txt", 'r') as log_file:
         return repo_name in log_file.read()
 
 
-def install_chip(name, restart_app=True):
+def install_chip(name: str, restart_app: bool = True) -> None:
     repos = search_for_chips(name)
     if not repos:
         print("No repositories found.")
@@ -162,7 +162,7 @@ def install_chip(name, restart_app=True):
         restart_navi()
 
 
-def uninstall_chip(name, restart_app=True):
+def uninstall_chip(name: str, restart_app: bool = True) -> None:
     if not os.path.exists("installed_chips.txt"):
         print(f"{Fore.RED}No chips installed.{Fore.RESET}")
         return
@@ -194,7 +194,7 @@ def uninstall_chip(name, restart_app=True):
         restart_navi()
 
 
-def get_installed_chips():
+def get_installed_chips() -> list[dict[str, str]] | None:
     log_file_path = "installed_chips.txt"
 
     if not os.path.exists(log_file_path):
@@ -230,7 +230,7 @@ def get_installed_chips():
     return modules
 
 
-def list_installed_chips():
+def list_installed_chips() -> None:
     chips = get_installed_chips()
     if chips:
         print("Installed Chips:")
@@ -240,7 +240,7 @@ def list_installed_chips():
         print("No chips are installed.")
 
 
-def about_chip(name):
+def about_chip(name) -> dict[str, str] | None:
     log_file_path = "installed_chips.txt"
 
     if not os.path.exists(log_file_path):
@@ -288,7 +288,7 @@ def about_chip(name):
     return None
 
 
-def update_chip(chip_name):
+def update_chip(chip_name: str) -> None:
     chip_info = about_chip(chip_name)
     if not chip_info:
         print(f"The chip '{chip_name}' is not installed.")
@@ -302,14 +302,14 @@ def update_chip(chip_name):
         restart_navi()
 
 
-def help_text():
+def help_text() -> None:
     navi.print_message("Chip Manager\n"
                   "chips [install | uninstall | search | update] [app/query]\n\n"
                   "List currently installed chips\n"
                   "chips list")
 
 
-def run(arguments=None):
+def run(arguments=None) -> None:
     global navi
     navi = navi_internal.navi_instance
     argv = get_parameters(arguments.text)

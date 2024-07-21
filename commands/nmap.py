@@ -9,7 +9,7 @@ command = "nmap"
 use = "Port scanning"
 
 
-def run_nmap_scan(target, ports=None, arguments=None):
+def run_nmap_scan(target: str, ports: str = None, arguments: list[str] = None) -> tuple[str, str]:
     # Initialize the nmap command
     command_construction = ['nmap']
     if ports:
@@ -31,7 +31,7 @@ def run_nmap_scan(target, ports=None, arguments=None):
     return result.stdout, result.stderr
 
 
-def get_nmap_parameters(input_str):
+def get_nmap_parameters(input_str: str) -> list[str]:
     pattern = re.compile(r"""
         -p\s*[\d,-]+|                     # Match -p followed by digits, commas, or hyphens (port ranges)
         -[A-Za-z0-9]{1,2}(?:\s|$)|        # Match short flags (e.g., -A, -sV) followed by a space or end of string

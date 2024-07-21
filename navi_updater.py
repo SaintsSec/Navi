@@ -50,7 +50,7 @@ def is_new_release(current_version: str, latest_version: str) -> bool:
     return current_version < latest_version
 
 
-def check_for_new_release(current_version, repo_owner, repo_name, edge=False) -> tuple[str, str | None]:
+def check_for_new_release(current_version: str, repo_owner: str, repo_name: str, edge: bool = False) -> tuple[str, str | None]:
     latest_release = get_latest_release(repo_owner, repo_name, edge)
     if latest_release and is_new_release(current_version, latest_release['tag_name']):
         return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", \
