@@ -87,7 +87,7 @@ def copy_files_to_install_path(extracted_dir, install_path="/commands"):
     installed_files = []
     try:
         for item in os.listdir(extracted_dir):
-            if item == "LICENSE" or item.endswith(".md"):
+            if item == "LICENSE" or item.endswith(".md") or item == ".gitignore":
                 continue
             s, d = os.path.join(extracted_dir, item), os.path.join(install_path, item)
             if os.path.isdir(s):
