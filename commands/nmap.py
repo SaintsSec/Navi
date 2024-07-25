@@ -45,7 +45,7 @@ def get_nmap_parameters(input_str: str) -> list[str]:
 def run(arguments=None):
     navi_instance = navi_internal.navi_instance
     if get_command_path(command) is None:
-        navi_instance.print_message(f"\nSorry! nmap is not currently installed on your system.")
+        navi_instance.print_message("\nSorry! nmap is not currently installed on your system.")
         return
     ip_address = None
     hostname = None
@@ -65,9 +65,9 @@ def run(arguments=None):
                 if port.isdigit():
                     port_numbers.append(port)
     if ip_address is None and hostname is None:
-        navi_instance.print_message(f"\nSorry, you need to provide a valid IP address or hostname")
+        navi_instance.print_message("\nSorry, you need to provide a valid IP address or hostname")
     else:
-        navi_instance.print_message(f"\nRunning... hang tight!")
+        navi_instance.print_message("\nRunning... hang tight!")
         target = ip_address if ip_address is not None else hostname
         matches = get_nmap_parameters(arguments.text)
         stdout, stderr = run_nmap_scan(target, port_numbers, matches)

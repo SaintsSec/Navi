@@ -104,5 +104,5 @@ def run(arguments=None):
     output += breakline
     output += "Network Information: \n"
     output += f"Your local ip is: {local_ip}\n"
-    output += f"Your public ip is: redacted -- Nice try\n"
+    output += "Your public ip is: redacted -- Nice try\n"
     navi_instance.print_message(output)

@@ -25,6 +25,6 @@ def run(arguments=None):
             output = f"Output: \n{result.stdout}" if result.stdout else ""
             navi_instance.print_message(f"\nDone! {output}")
         else:
-            navi_instance.print_message(f"\nUnderstood! I will not execute the command.")
+            navi_instance.print_message("\nUnderstood! I will not execute the command.")
     else:
         navi_instance.print_message(f"\nSorry, it looks like {base_command} is not installed on your system.")
