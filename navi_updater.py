@@ -100,8 +100,8 @@ def update_script(download_url: str) -> None:
 
         print("Update successful. Restarting the script...")
 
-        # Restart the script with a flag to skip the update check
-        os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])
+        from navi_shell import restart_navi
+        restart_navi()
 
     except Exception as e:
         print(f"Update failed: {e}")
