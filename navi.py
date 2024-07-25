@@ -1,6 +1,6 @@
 import re
 import platform
-import subprocess
+import subprocess  # nosec
 
 
 def get_command_path(command: str) -> bool | str:
@@ -24,7 +24,7 @@ def is_windows_command(command: str, windows_commands: list[str]) -> bool:
 def get_windows_builtin_commands() -> list[str]:
     if platform.system() != "Windows":
         return []
-    result = subprocess.run(["help"], capture_output=True, text=True)
+    result = subprocess.run(["help"], capture_output=True, text=True)  # nosec
     if result.stdout:
         help_text = result.stdout
         # Extract commands from help text

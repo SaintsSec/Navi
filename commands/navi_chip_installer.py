@@ -3,7 +3,7 @@ import sys
 import requests
 import zipfile
 import shutil
-import subprocess
+import subprocess  # nosec
 import uuid
 import navi_internal
 

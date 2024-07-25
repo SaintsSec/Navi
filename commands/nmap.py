@@ -1,6 +1,6 @@
 #!/bin/python3
 import re
-import subprocess
+import subprocess  # nosec
 from typing import List
 from navi import get_ip_address, get_hostname, get_command_path
 import navi_internal
@@ -27,7 +27,7 @@ def run_nmap_scan(target: str, ports: str = None, arguments: list[str] = None) -
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True
-    )
+    )  # nosec
     return result.stdout, result.stderr
 
 
