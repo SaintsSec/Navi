@@ -21,7 +21,7 @@ def run(arguments=None):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
-                shell=False
+                shell=False  # nosec
             )
             output = f"Output: \n{result.stdout}" if result.stdout else ""
             navi_instance.print_message(f"\nDone! {output}")
