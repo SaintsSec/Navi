@@ -158,7 +158,6 @@ class NaviApp:
             aliases = getattr(module, 'aliases', [])  # Safely get the aliases attribute, default to an empty list
             for alias in aliases:
                 patterns.append({"label": "NAVI_COMMAND", "pattern": alias})
-            global ruler
             self.ruler.add_patterns(patterns)
 
 
