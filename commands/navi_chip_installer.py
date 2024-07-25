@@ -109,7 +109,7 @@ def install_requirements(extracted_dir):
                 check=True, capture_output=True, text=True)  # nosec
             print(result.stdout)
         except subprocess.CalledProcessError as e:
-            print(f"Error occurred: {e}")  # Prevent the program from crashing from pip install erros
+            print(f"Error occurred: {e}")  # Prevent the program from crashing from pip install errors
             print(e.stderr)
         os.remove(requirements_path)
 
