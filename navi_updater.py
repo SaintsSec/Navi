@@ -3,7 +3,7 @@ from typing import Any
 import requests
 import os
 import sys
-import subprocess
+import subprocess  # nosec
 import zipfile
 import shutil
 

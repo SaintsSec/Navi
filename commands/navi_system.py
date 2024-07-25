@@ -1,6 +1,7 @@
 #!/bin/python3
-import subprocess
+import subprocess  # nosec
 import navi_internal
+import shlex
 from navi import get_command_path
 
 command = "navi_sys"
@@ -16,11 +17,11 @@ def run(arguments=None):
         user_input = input("Do you want me to continue (y/n): ").strip().lower()
         if user_input == 'y':
             result = subprocess.run(
-                navi_command,
-                shell=True,
+                shlex.split(navi_command, comments=False, posix=True),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                universal_newlines=True
+                universal_newlines=True,
+                shell=False
             )
             output = f"Output: \n{result.stdout}" if result.stdout else ""
             navi_instance.print_message(f"\nDone! {output}")
