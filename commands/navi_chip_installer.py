@@ -103,8 +103,14 @@ def copy_files_to_install_path(extracted_dir, install_path="/commands"):
 def install_requirements(extracted_dir):
     requirements_path = os.path.join(extracted_dir, "chip-requirements.txt")
     if os.path.exists(requirements_path):
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "-r", requirements_path])
+        try:
+            result = subprocess.run(
+                [sys.executable, "-m", "pip", "install", "-r", requirements_path],
+                check=True, capture_output=True, text=True)
+            print(result.stdout)
+        except subprocess.CalledProcessError as e:
+            print(f"Error occurred: {e}")  # Prevent the program from crashing from pip install erros
+            print(e.stderr)
         os.remove(requirements_path)
 
 
@@ -250,7 +256,7 @@ def about_chip(name) -> dict[str, str] | None:
     with open(log_file_path, 'r') as log_file:
         lines = log_file.readlines()
 
-    for i in range(len(lines)):
+    for i, _ in enumerate(lines):
         if lines[i].startswith("Repo Name:") and lines[i].split(": ")[1].strip() == name:
             module_name = lines[i].split(": ")[1].strip()
             description = lines[i + 1].split(": ")[1].strip()

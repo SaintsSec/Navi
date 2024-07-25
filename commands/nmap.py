@@ -70,10 +70,10 @@ def run(arguments=None):
         navi_instance.print_message("\nRunning... hang tight!")
         target = ip_address if ip_address is not None else hostname
         matches = get_nmap_parameters(arguments.text)
-        stdout, stderr = run_nmap_scan(target, port_numbers, matches)
+        stdout, _ = run_nmap_scan(target, port_numbers, matches)
 
         # Ask user how they want to handle the results
-        choice = input(f"\nScan done! Would you like me to analyze the results or just see the raw "
+        choice = input("\nScan done! Would you like me to analyze the results or just see the raw "
                        f"output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
