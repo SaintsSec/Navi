@@ -13,7 +13,7 @@ def run(arguments=None):
     base_command = navi_command.split()[0]
     if get_command_path(base_command) is not None:
         navi_instance.print_message(f"\nDo I have your permission to use your **shell** to execute the following: \n\n{navi_command}\n")
-        user_input = input(f"Do you want me to continue (y/n): ").strip().lower()
+        user_input = input("Do you want me to continue (y/n): ").strip().lower()
         if user_input == 'y':
             result = subprocess.run(
                 navi_command,
