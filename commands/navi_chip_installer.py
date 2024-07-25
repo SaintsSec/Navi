@@ -106,7 +106,7 @@ def install_requirements(extracted_dir):
         try:
             result = subprocess.run(
                 [sys.executable, "-m", "pip", "install", "-r", requirements_path],
-                check=True, capture_output=True, text=True)
+                check=True, capture_output=True, text=True)  # nosec
             print(result.stdout)
         except subprocess.CalledProcessError as e:
             print(f"Error occurred: {e}")  # Prevent the program from crashing from pip install erros

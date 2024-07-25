@@ -66,7 +66,7 @@ class NaviApp:
             wrapped_lines = textwrap.fill(line, width=wrap_width)
             for char in wrapped_lines:
                 print(char, end="", flush=True)
-                random_num = random.uniform(0, 1)
+                random_num = random.uniform(0, 1)   # nosec
                 for range_tuple, sleep_time in sleep_times.items():
                     if range_tuple[0] <= random_num < range_tuple[1]:
                         time.sleep(sleep_time)

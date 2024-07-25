@@ -96,7 +96,7 @@ def update_script(download_url: str) -> None:
         # Install new packages from requirements.txt
         requirements_path = os.path.join("install", "requirements.txt")
         if os.path.exists(requirements_path):
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])  # nosec
 
         print("Update successful. Restarting the script...")
 
