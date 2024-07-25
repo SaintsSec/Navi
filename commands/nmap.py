@@ -74,12 +74,16 @@ def run(arguments=None):
 
         # Ask user how they want to handle the results
         choice = input("\nScan done! Would you like me to analyze the results or just see the raw "
-                       f"output? (type 'analyze' or 'raw'): ").strip().lower()
+                       "output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
-            response_message, http_status = navi_instance.llm_chat(f"Please analyze and summarize the results of "
-                                                     f"this nmap scan: {stdout}", True)
-            navi_instance.print_message(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
+            response_message, http_status = navi_instance.llm_chat(
+                f"Please analyze and summarize the results of this nmap scan: {stdout}",
+                True
+            )
+            navi_instance.print_message(
+                f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}"
+            )
         elif choice == 'raw':
             navi_instance.print_message(f"\nHere are the raw results:\n{stdout}")
         else:
