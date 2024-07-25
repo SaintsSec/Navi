@@ -256,7 +256,7 @@ def about_chip(name) -> dict[str, str] | None:
     with open(log_file_path, 'r') as log_file:
         lines = log_file.readlines()
 
-    for i, line in enumerate(lines):
+    for i, _ in enumerate(lines):
         if lines[i].startswith("Repo Name:") and lines[i].split(": ")[1].strip() == name:
             module_name = lines[i].split(": ")[1].strip()
             description = lines[i + 1].split(": ")[1].strip()
