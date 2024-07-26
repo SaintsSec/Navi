@@ -32,8 +32,10 @@ def load_module(name):
             datefmt="%Y-%m-%d %H:%M:%S",
             filename=join(logs_dir, "error.log"),
         )
-        logging.error(f"Module '{name}' not found: {e}")
-        # exit(1)
+        logging.error(f"Chip '{name}' not found: {e}")
+    except Exception as generic:
+        logging.error(f"Issue loading Chip '{name}': {generic}")
+        return
     else:
         return module
 
@@ -59,9 +61,9 @@ for module_name in __all__:
             if use:
                 command_usage[mod.command] = use
         else:
-            print(f"Warning: The module '{module_name}' is not installed correctly. Ignoring module.")
+            print(f"Warning: The Chip '{module_name}' is not installed correctly. Ignoring module.")
     else:
-        print(f"Module '{module_name}' could not be loaded.")
+        print(f"Chip '{module_name}' could not be loaded.")
 
 # Export modules, alias_to_command, and command_usage for use in other scripts
 __all__.extend(['modules', 'alias_to_command', 'command_usage'])

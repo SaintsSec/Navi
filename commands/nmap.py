@@ -1,15 +1,15 @@
 #!/bin/python3
 import re
-import subprocess
+import subprocess  # nosec
 from typing import List
-from navi_shell import print_message, llm_chat
 from navi import get_ip_address, get_hostname, get_command_path
+import navi_internal
 
 command = "nmap"
 use = "Port scanning"
 
 
-def run_nmap_scan(target, ports=None, arguments=None):
+def run_nmap_scan(target: str, ports: str = None, arguments: list[str] = None) -> tuple[str, str]:
     # Initialize the nmap command
     command_construction = ['nmap']
     if ports:
@@ -27,22 +27,25 @@ def run_nmap_scan(target, ports=None, arguments=None):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True
-    )
+    )  # nosec
     return result.stdout, result.stderr
 
 
-def get_nmap_parameters(input_str):
+def get_nmap_parameters(input_str: str) -> list[str]:
     pattern = re.compile(r"""
         -p\s*[\d,-]+|                     # Match -p followed by digits, commas, or hyphens (port ranges)
         -[A-Za-z0-9]{1,2}(?:\s|$)|        # Match short flags (e.g., -A, -sV) followed by a space or end of string
         --\w+(?:=\S+)?|                   # Match long flags and their arguments (e.g., --script, --version-intensity=5)
         \b-T[0-5]\b                       # Match timing templates (e.g., -T0 to -T5)
     """, re.VERBOSE)
+    matches = pattern.findall(input_str)
+    return matches
 
 
 def run(arguments=None):
+    navi_instance = navi_internal.navi_instance
     if get_command_path(command) is None:
-        print_message(f"\nSorry! nmap is not currently installed on your system.")
+        navi_instance.print_message("\nSorry! nmap is not currently installed on your system.")
         return
     ip_address = None
     hostname = None
@@ -62,23 +65,27 @@ def run(arguments=None):
                 if port.isdigit():
                     port_numbers.append(port)
     if ip_address is None and hostname is None:
-        print_message(f"\nSorry, you need to provide a valid IP address or hostname")
+        navi_instance.print_message("\nSorry, you need to provide a valid IP address or hostname")
     else:
-        print_message(f"\nRunning... hang tight!")
+        navi_instance.print_message("\nRunning... hang tight!")
         target = ip_address if ip_address is not None else hostname
         matches = get_nmap_parameters(arguments.text)
-        stdout, stderr = run_nmap_scan(target, port_numbers, matches)
+        stdout, _ = run_nmap_scan(target, port_numbers, matches)
 
         # Ask user how they want to handle the results
-        choice = input(f"\nScan done! Would you like me to analyze the results or just see the raw "
-                       f"output? (type 'analyze' or 'raw'): ").strip().lower()
+        choice = input("\nScan done! Would you like me to analyze the results or just see the raw "
+                       "output? (type 'analyze' or 'raw'): ").strip().lower()
 
         if choice == 'analyze':
-            response_message, http_status = llm_chat(f"Please analyze and summarize the results of "
-                                                     f"this nmap scan: {stdout}")
-            print_message(f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}")
+            response_message, http_status = navi_instance.llm_chat(
+                f"Please analyze and summarize the results of this nmap scan: {stdout}",
+                True
+            )
+            navi_instance.print_message(
+                f"{response_message if http_status == 200 else f'Issue with server. '}{f'Here are the results: {stdout}'}"
+            )
         elif choice == 'raw':
-            print_message(f"\nHere are the raw results:\n{stdout}")
+            navi_instance.print_message(f"\nHere are the raw results:\n{stdout}")
         else:
-            print_message("Invalid choice. Showing raw results by default.\n")
-            print_message(f"\nHere are the raw results:\n{stdout}")
+            navi_instance.print_message("Invalid choice. Showing raw results by default.\n")
+            navi_instance.print_message(f"\nHere are the raw results:\n{stdout}")
