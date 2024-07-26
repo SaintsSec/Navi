@@ -91,7 +91,7 @@ class NaviApp:
         message_amendment += user_message
         url = f"http://{self.server}:{self.port}/api/chat"
         payload = {
-            "model": "envoy",
+            "model": "navi",
             "messages": [{"role": "user", "content": message_amendment}]
         }
         headers = {'Content-Type': 'application/json'}
@@ -114,7 +114,7 @@ class NaviApp:
                 except json.JSONDecodeError as e:
                     print("Error decoding JSON:", e)
                 except KeyboardInterrupt:
-                    self.print_message(f"Keyboard interupt registered, talk soon {self.user}!")
+                    self.print_message(f"Keyboard interrupt registered, talk soon {self.user}!")
 
             # Concatenate the extracted messages
             full_response = "".join(extracted_responses)
