@@ -5,7 +5,7 @@
 OS_NAME=$(cat /etc/os-release | grep PRETTY_NAME | cut -d '=' -f 2-)
 VERSION=$(lsb_release -rcs)
 USER=$(whoami)
-SHELL=$(id -p $USER | cut -d: -f7)
+SHELL=$SHELL #<-- Tested to be removed or implimented for better control later
 
 # Navi auto launch option:
 while getopts ":l" opt; do
@@ -20,7 +20,7 @@ clear_screen() {
 }
 
 install_reqs() {
-    sudo apt install python3 python3-pip python3-venv
+    sudo apt install -y python3 python3-pip python3-venv nmap
 }
 
 set_venv(){
@@ -42,6 +42,7 @@ pip_install(){
     echo 
 }
 
+#TODO - Figure out how to make it so Navi does not create the .zshrc if user is not using ZSH 
 setup_aliases() {
     declare -A aliases=( ["navi"]="source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && exec python3 ./navi_shell.py")
 
