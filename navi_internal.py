@@ -91,7 +91,7 @@ class NaviApp:
         message_amendment += user_message
         url = f"http://{self.server}:{self.port}/api/chat"
         payload = {
-            "model": "navi",
+            "model": "navi-cli",
             "messages": [{"role": "user", "content": message_amendment}]
         }
         headers = {'Content-Type': 'application/json'}

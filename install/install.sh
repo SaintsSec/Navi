@@ -5,7 +5,7 @@
 OS_NAME=$(cat /etc/os-release | grep PRETTY_NAME | cut -d '=' -f 2-)
 VERSION=$(lsb_release -rcs)
 USER=$(whoami)
-SHELL=$(id -p $USER | cut -d: -f7)
+SHELL=$SHELL #<-- Tested to be removed or implimented for better control later
 
 # Navi auto launch option:
 while getopts ":l" opt; do
@@ -20,7 +20,7 @@ clear_screen() {
 }
 
 install_reqs() {
-    sudo apt install python3 python3-pip python3-venv
+    sudo apt install -y python3 python3-pip python3-venv nmap
 }
 
 set_venv(){
@@ -42,18 +42,24 @@ pip_install(){
     echo 
 }
 
+#TODO - Figure out how to make it so Navi does not create the .zshrc if user is not using ZSH 
 setup_aliases() {
-    local config_files=( ["bash"]="/home/$USER/.bashrc" ["zsh"]="/home/$USER/.zshrc" )
-    config_path="${config_files[$SHELL]}"
-    
     declare -A aliases=( ["navi"]="source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && exec python3 ./navi_shell.py")
 
     for alias_name in "${!aliases[@]}"; do
-        if ! grep -q "alias $alias_name=" "$config_path"; then
-            echo "alias $alias_name='${aliases[$alias_name]}'" >> "$config_path"
-            echo "Navi alias added..."
+        if ! grep -q "alias $alias_name=" ~/.bashrc; then
+            echo "alias $alias_name='${aliases[$alias_name]}'" >> ~/.bashrc
+            echo "Navi alias added for bash..."
         else
             echo "Navi alias exists. Moving on."
+        fi
+
+        # You might also want to add the same alias to .zshrc if it's not already there:
+        if ! grep -q "alias $alias_name=" ~/.zshrc; then
+            echo "alias $alias_name='${aliases[$alias_name]}'" >> ~/.zshrc
+            echo "Navi alias added for zsh..."
+        else
+            echo "Navi alias exists for zsh. Moving on."
         fi
     done
 }
