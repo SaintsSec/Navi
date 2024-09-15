@@ -26,7 +26,7 @@ def handle_exception(exc_type, exc_value, exc_traceback):
 
     log_file_path = os.path.abspath(log_file)
 
-    print(f"\nDang! Navi crashed. A crash log has been created at:\n{log_file_path}. Create a new Navi GitHub issue here: https://github.com/SaintsSec/Navi/issues.")
+    print(f"\nDang! Navi crashed. A crash log has been created at:\n{log_file_path}. \n\nYou can create a new Navi GitHub issue here: \nhttps://github.com/SaintsSec/Navi/issues. \n\nThank you for helping us make Navi better!")
 
     print("\nWould you like to:")
     print("1) Open the crash log")
