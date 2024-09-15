@@ -2,6 +2,7 @@ import os
 import sys
 import getpass
 import argparse
+import traceback
 import navi_internal
 from navi_updater import check_version, update_script
 
@@ -17,10 +18,8 @@ parser.add_argument('--install', action='store_true', help='installs Navi based 
 
 args = parser.parse_args()
 
-
 def restart_navi() -> None:
     os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])  # nosec
-
 
 def main() -> None:
     navi_instance = navi_internal.navi_instance
@@ -40,6 +39,15 @@ def main() -> None:
         navi_instance.print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
         exit(0)
 
+def handle_exception(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+    with open('crash.log', 'a') as f:
+        traceback.print_exception(exc_type, exc_value, exc_traceback, file=f)
+    sys.exit(1)
+
+sys.excepthook = handle_exception
 
 if __name__ == "__main__":
     main()
