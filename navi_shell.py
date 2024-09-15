@@ -7,7 +7,7 @@ import navi_internal
 from navi_updater import check_version, update_script
 
 
-def handle_exception(exc_type, exc_value, exc_traceback):
+def handle_exception(exc_type, exc_value, exc_traceback) -> None:
     from datetime import datetime
     
     if issubclass(exc_type, KeyboardInterrupt):
