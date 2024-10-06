@@ -17,7 +17,6 @@ parser.add_argument('--install', action='store_true', help='installs Navi based 
 
 args = parser.parse_args()
 
-
 def restart_navi() -> None:
     os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])  # nosec
 
@@ -34,6 +33,7 @@ def main() -> None:
         navi_instance.setup_navi_vocab()
         navi_instance.set_user(user)
         navi_instance.clear_terminal()
+        navi_instance.setup_history()
         navi_instance.chat_with_navi()
         navi_instance.print_message(f"How can I help you {user}")
     except KeyboardInterrupt:
