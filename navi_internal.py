@@ -9,6 +9,9 @@ import config
 import spacy
 import platform
 
+from prompt_toolkit import PromptSession
+from prompt_toolkit.history import FileHistory
+
 from mods import mods
 
 
@@ -20,6 +23,9 @@ class NaviApp:
 
     server: str = config.server
     port: int = config.port
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    hist_file = os.path.join(script_dir, ".navi_history")
 
     # NLP setup
     nlp: spacy.language.Language = spacy.load("en_core_web_sm")
@@ -33,6 +39,9 @@ class NaviApp:
         if not cls._instance:
             cls._instance = super(NaviApp, cls).__new__(cls, *args, **kwargs)
         return cls._instance
+
+    def setup_history(self) -> None:
+        self.session = PromptSession(history=FileHistory(self.hist_file))
 
     def get_user(self) -> str:
         return self.user
@@ -145,7 +154,7 @@ class NaviApp:
         while True:
             # Get user input
             try:
-                user_message = input(f"\n{self.user}> ")
+                user_message = self.session.prompt(f"\n{self.user}> ")
             except EOFError:
                 self.print_message("Encountered an unexpected end of input.")
                 break
