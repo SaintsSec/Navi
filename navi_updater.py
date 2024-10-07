@@ -9,18 +9,21 @@ import shutil
 
 
 global prime_navi_version
+navi_version_path = ".navi_version"
+
+
+def get_navi_version() -> str:
+    if not os.path.exists(navi_version_path):
+        return "Unknown"
+    with open(navi_version_path, 'r') as version_file:
+        return version_file.read()
 
 
 def check_version(edge: bool = False) -> str:
-    version = None
     repo_owner = "SaintsSec"
     repo_name = "Navi"
 
-    navi_version_path = ".navi_version"
-
-    if os.path.exists(navi_version_path):
-        with open(navi_version_path, 'r') as version_file:
-            version = version_file.read()
+    version = get_navi_version()
 
     result, download_url = check_for_new_release(version, repo_owner, repo_name, edge)
     print(result)
@@ -66,7 +69,7 @@ def update_version_number(version: str) -> None:
 
 def check_for_new_release(current_version: str, repo_owner: str, repo_name: str, edge: bool = False) -> tuple[str, str | None]:
     latest_release = get_latest_release(repo_owner, repo_name, edge)
-    if current_version is None or (latest_release and is_new_release(current_version, latest_release['tag_name'])):
+    if current_version is "Unknown" or (latest_release and is_new_release(current_version, latest_release['tag_name'])):
         global prime_navi_version
         prime_navi_version = latest_release['tag_name']
         return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", \
