@@ -9,7 +9,7 @@ import shutil
 
 
 def check_version(edge: bool = False) -> str:
-    current_version = "0.6.5"  # Note: This isn't a great way to check for updates
+    current_version = "0.6.6"  # Note: This isn't a great way to check for updates
     repo_owner = "SaintsSec"
     repo_name = "Navi"
 

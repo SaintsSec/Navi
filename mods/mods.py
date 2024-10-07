@@ -1,6 +1,6 @@
 breakline = "+===================================================+"
 
-versionNum = "0.6.0"
+versionNum = "0.6.6"
 
 
 # The cover art:
