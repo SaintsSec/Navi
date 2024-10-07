@@ -4,3 +4,4 @@ __pycache__/
 *.log
 navienv/
 verification_test
+.navi_version
