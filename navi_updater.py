@@ -69,7 +69,7 @@ def update_version_number(version: str) -> None:
 
 def check_for_new_release(current_version: str, repo_owner: str, repo_name: str, edge: bool = False) -> tuple[str, str | None]:
     latest_release = get_latest_release(repo_owner, repo_name, edge)
-    if current_version is "Unknown" or (latest_release and is_new_release(current_version, latest_release['tag_name'])):
+    if current_version == "Unknown" or (latest_release and is_new_release(current_version, latest_release['tag_name'])):
         global prime_navi_version
         prime_navi_version = latest_release['tag_name']
         return f"New release available!!\n{latest_release['release_name']} ({latest_release['tag_name']})\nURL: {latest_release['html_url']}\n", \
