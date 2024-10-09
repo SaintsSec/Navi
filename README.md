@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Navi | CLI - An innovation in cybersec AI</h1>
-  <h1>v0.6.0 - "Dissidence"</h1>
+  <h1>v0.6.5 - "CSI - Con"</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
@@ -13,26 +13,23 @@
 #### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.   
 `sudo rm -rf /opt/Navi` should do the trick!
 
-## ✨ **Key Features of Navi v0.6.0**
+## ✨ **Key Features of Navi v0.6.5**
 
 - **Upgraded Navi Shell** - The shell can now execute system commands, without breaking the flow of conversation. See more below!
 - **Navi chips Upgrade** - The new alias variable within the custom scripts allow for Navi to execute scripts right from the chat. Once again not disrupting the flow.
-- **Navi Cryptex Chip** - Thats right you heared it here. Cryptex is officially part of the Navi chip ecosystem as an example of how powerful its chips can be.
+- **Chip Kit v0.1** - We are in the process of streamlining the abilty to make custom chips. 
+- **Navi Nmap Chip** - We moved the Nmap Script over to being its own chip. 
 - **Wiki Re-write** - With new power comes new documentation
-- **Llama3.1 Integration** - We made the leap from GPT to the open source Llama AI on the backend - we also customized it giving Navi her own personality and lore.
-- **Complete overhaul of core systems** - One of the major things we wanted to do with this release was give developers the ability to make use of Navi's core features when building out custom chips. So we made it EASIER than ever with Navi now being its own class.
-- **A ton of backend fixes** - This one more or less speaks for itself.
-
-### **Commands**
-
-Commands have been completely reworked in this version. Allowing for a feature we have been waiting for. **Chat Execution**, through this new system
-Navi is able to use ML to take user input and execute system commands based on user provided context. Here its better to just show you.  
-![image](https://github.com/SaintsSec/Navi/assets/89718570/4cdfb719-4bb5-48e4-9da0-e8d255a13ec8)
+- **Llama3.2 Integration** - We are running Meta's Llama AI on the backend.
+- **[Navi Mind](https://github.com/SaintsSec/Navi-Mind)** - Planning phase of the first Navi AI Model we are calling *Navi Mind*.
+- **[Navi Public Training](https://github.com/SaintsSec/Navi-Training)** - We want to be transparent about the data going into Navi. So we are building out a whole repo just for that.
 
 ### **Work In Progress**
 
 - **[Navi Roadmap](https://github.com/orgs/SaintsSec/projects/7)**
 - **[Navi Issues](https://github.com/SaintsSec/Navi/issues)**
+- **[Navi Training](https://github.com/SaintsSec/Navi-Training)**
+- **[Navi Mind](https://github.com/SaintsSec/Navi-Mind)**
 
 ## 🚀 About Navi
 
