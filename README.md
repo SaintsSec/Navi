@@ -17,7 +17,7 @@
 
 - **Upgraded Navi Shell** - The shell can now execute system commands, without breaking the flow of conversation. See more below!
 - **Navi chips Upgrade** - The new alias variable within the custom scripts allow for Navi to execute scripts right from the chat. Once again not disrupting the flow.
-- **Chip Kit v0.1** - We are in the process of streamlining the abilty to make custom chips. 
+- **Chip Creators Guide** - We are in the process of streamlining documentation on making custom chips. 
 - **Navi Nmap Chip** - We moved the Nmap Script over to being its own chip. 
 - **Wiki Re-write** - With new power comes new documentation
 - **Llama3.2 Integration** - We are running Meta's Llama AI on the backend.
