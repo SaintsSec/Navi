@@ -78,7 +78,7 @@ def main() -> None:
             navi_instance.print_message(
                 f"{response_message if http_status == 200 else f'Trouble connecting to Navi server.'}"
             )
-            exit(0)
+            #exit(0)
         if not args.noupdate and not args.skip_update:
             download_url = check_version(args.edge)
             if download_url:
