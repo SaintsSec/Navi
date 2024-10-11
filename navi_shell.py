@@ -68,9 +68,9 @@ def restart_navi() -> None:
 
 def main() -> None:
     navi_instance = navi_internal.navi_instance
+    navi_instance.set_user(user)
     try:
         if args.q:
-            navi_instance.set_user(user)
             response_message, http_status = navi_instance.llm_chat(
                 f"{args.q}",
                 True
@@ -86,7 +86,6 @@ def main() -> None:
         if args.install:
             os.system('cd ./install && ./install.sh')
         navi_instance.setup_navi_vocab()
-        navi_instance.set_user(user)
         navi_instance.clear_terminal()
         navi_instance.setup_history()
         navi_instance.chat_with_navi()
