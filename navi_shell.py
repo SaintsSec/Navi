@@ -78,7 +78,7 @@ def main() -> None:
             navi_instance.print_message(
                 f"{response_message if http_status == 200 else f'Trouble connecting to Navi server.'}"
             )
-            return
+            exit(0)
         if not args.noupdate and not args.skip_update:
             download_url = check_version(args.edge)
             if download_url:
@@ -92,7 +92,7 @@ def main() -> None:
         navi_instance.print_message(f"How can I help you {user}")
     except KeyboardInterrupt:
         navi_instance.print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
-        return
+        exit(0)
 
 if __name__ == "__main__":
     main()
