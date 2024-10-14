@@ -7,14 +7,6 @@ VERSION=$(lsb_release -rcs)
 USER=$(whoami)
 SHELL=$SHELL #<-- Tested to be removed or implimented for better control later
 
-# Navi auto launch option:
-while getopts ":l" opt; do
-  case $opt in
-    l) LAUNCH_NAVI="true";;
-    \?) echo "Invalid option: -$OPTARG"; exit 1;;
-  esac
-done
-
 clear_screen() {
     clear
 }
@@ -44,7 +36,7 @@ pip_install(){
 
 #TODO - Figure out how to make it so Navi does not create the .zshrc if user is not using ZSH 
 setup_aliases() {
-    declare -A aliases=( ["navi"]="source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && exec python3 ./navi_shell.py")
+    declare -A aliases=( ["navi"]="source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && python3 ./navi_shell.py")
 
     for alias_name in "${!aliases[@]}"; do
         if ! grep -q "alias $alias_name=" ~/.bashrc; then
@@ -75,11 +67,11 @@ source_shell_config(){
     echo
     echo "Installation for ${OS_NAME} ${OS_VERSION} complete!"
     echo "Attempting to source ${config_path}"
-    exec ${SHELL}
+    #exec ${SHELL}
     if [ "$SHELL" = "/bin/zsh" ]; then
-        source ~/.zshrc
+        exec source ~/.zshrc
     elif [ "$SHELL" = "/bin/bash" ]; then
-        source ~/.bashrc
+        exec source ~/.bashrc
     fi
     echo "config has been sourced."
 }
@@ -103,14 +95,14 @@ cleanup_install_directory() {
 }
 
 set_permissions_csi(){
-    sudo chown -R :csi /opt/Navi
+    sudo chown -R "$USER":csi /opt/Navi
     sudo chmod 777 /opt/Navi
     echo
     echo "Permissions set for CSI"
 }
 
 set_permissions_All() {
-    sudo chown -R :navi /opt/Navi/
+    sudo chown -R "$USER":navi /opt/Navi/
     sudo chmod -R 777 /opt/Navi/
     echo 
     echo "Permissions set for: $OS_NAME $OS_VERSION."
@@ -136,7 +128,4 @@ setup_aliases
 set_permissions_All
 cleanup_install_directory
 source_shell_config
-if [ "$LAUNCH_NAVI" = "true" ]; then
-  source /opt/Navi/navienv/bin/activate && cd /opt/Navi/ && exec python3 ./navi_shell.py
-fi
 exit

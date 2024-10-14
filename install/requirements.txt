@@ -10,6 +10,6 @@ colorama
 pillow
 numpy==1.26.4
 image
-hashcat
 mido
 psutil
+prompt_toolkit==3.0.48

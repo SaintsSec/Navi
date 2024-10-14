@@ -1,6 +1,8 @@
+from navi_updater import get_navi_version
+
 breakline = "+===================================================+"
 
-versionNum = "0.6.0"
+versionNum = get_navi_version()
 
 
 # The cover art:
