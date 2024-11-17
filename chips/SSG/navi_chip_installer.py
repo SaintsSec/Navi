@@ -83,7 +83,7 @@ def download_and_extract(download_url):
         return None, None
 
 
-def copy_files_to_install_path(extracted_dir, install_path="/commands"):
+def copy_files_to_install_path(extracted_dir, install_path="/chips/Com"):
     installed_files = []
     try:
         for item in os.listdir(extracted_dir):
@@ -114,7 +114,7 @@ def install_requirements(extracted_dir):
         os.remove(requirements_path)
 
 
-def update_script(download_url, install_path="commands"):
+def update_script(download_url, install_path="chips/Com"):
     print("Downloading chip...")
     extracted_dir, download_guid = download_and_extract(download_url)
     if extracted_dir:

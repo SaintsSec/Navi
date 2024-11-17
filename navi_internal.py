@@ -3,7 +3,7 @@ import os
 import textwrap
 import random
 import time
-import commands
+import chips
 import json
 import config
 import spacy
@@ -140,13 +140,13 @@ class NaviApp:
 
         if navi_commands and not is_question:
             command = navi_commands[0].text
-            main_command = commands.alias_to_command.get(command)
+            main_command = chips.alias_to_command.get(command)
             if main_command:
-                commands.modules[main_command].run(processed_message)
+                chips.modules[main_command].run(processed_message)
         else:
             response_message, http_status = self.llm_chat(user_message)
             if response_message.startswith("TERMINAL OUTPUT"):
-                commands.modules["navi_sys"].run(response_message)
+                chips.modules["navi_sys"].run(response_message)
             else:
                 self.print_message(f"{response_message if http_status == 200 else 'Issue with server'}")
 
@@ -162,7 +162,7 @@ class NaviApp:
 
     def setup_navi_vocab(self) -> None:
         # Register commands and aliases with the entity ruler
-        for command, module in commands.modules.items():
+        for command, module in chips.modules.items():
             patterns = [{"label": "NAVI_COMMAND", "pattern": command}]
             aliases = getattr(module, 'aliases', [])  # Safely get the aliases attribute, default to an empty list
             for alias in aliases:
