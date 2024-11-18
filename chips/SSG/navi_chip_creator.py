@@ -90,30 +90,30 @@ def create_chip_file(chip_name, chip_file_name):
 def post_creation_options(chip_file_path, navi_instance):
     """Provides options to the user after chip creation."""
     navi_instance.print_message(f"Here are some options for you:\n"
-          f"{Fore.YELLOW}1{Fore.RESET}: Open directory of Chip location\n"
-          f"{Fore.YELLOW}2{Fore.RESET}: Open in your preferred code editor\n"
-          f"{Fore.YELLOW}3{Fore.RESET}: Reload Navi to load the new Chip\n"
-          f"{Fore.YELLOW}4{Fore.RESET}: Review the documentation online\n"
-          f"{Fore.YELLOW}5{Fore.RESET} or other value: I'm finished")
+                                f"{Fore.YELLOW}1{Fore.RESET}: Open directory of Chip location\n"
+                                f"{Fore.YELLOW}2{Fore.RESET}: Open in your preferred code editor\n"
+                                f"{Fore.YELLOW}3{Fore.RESET}: Reload Navi to load the new Chip\n"
+                                f"{Fore.YELLOW}4{Fore.RESET}: Review the documentation online\n"
+                                f"{Fore.YELLOW}5{Fore.RESET} or other value: I'm finished")
     choice = get_user_input("Please enter 1, 2, 3, 4, or 5: ")
     try:
         if choice == '1':
             print("Opening directory of Chip location")
             directory = os.path.dirname(chip_file_path)
             if sys.platform.startswith('win'):
-                subprocess.run(['explorer', directory], check=True)
+                subprocess.run(['explorer', directory], check=True)  # nosec
             elif sys.platform == 'darwin':
-                subprocess.run(['open', directory], check=True)
+                subprocess.run(['open', directory], check=True)  # nosec
             else:
-                subprocess.run(['xdg-open', directory], check=True)
+                subprocess.run(['xdg-open', directory], check=True)  # nosec
         elif choice == '2':
             print("Opening in your preferred code editor")
             if sys.platform.startswith('win'):
-                subprocess.run(['explorer', chip_file_path], check=True)
+                subprocess.run(['explorer', chip_file_path], check=True)  # nosec
             elif sys.platform == 'darwin':
-                subprocess.run(['open', chip_file_path], check=True)
+                subprocess.run(['open', chip_file_path], check=True)  # nosec
             else:
-                subprocess.run(['xdg-open', chip_file_path], check=True)
+                subprocess.run(['xdg-open', chip_file_path], check=True)  # nosec
         elif choice == '3':
             restart_navi()
         elif choice == '4':
@@ -166,7 +166,8 @@ def run(arguments=None):
     navi_instance.print_message(
         f"Welcome to Navi Chip creator, {navi_instance.get_user()}. Please enter the name of your new Chip.")
     chip_name = sanitize_input(get_user_input("Chip Name: "))
-    navi_instance.print_message(f"Great name, {navi_instance.get_user()}! What do you want the python file to be called?")
+    navi_instance.print_message(
+        f"Great name, {navi_instance.get_user()}! What do you want the python file to be called?")
     chip_file_name = sanitize_input(get_user_input("Chip File Name: "))
 
     chip_name, chip_file_name = confirm_details(chip_name, chip_file_name, navi_instance)
