@@ -2,7 +2,7 @@ import navi_internal
 import sys
 import os
 from colorama import Fore
-import subprocess
+import subprocess  # nosec
 import webbrowser
 
 command: str = "chip-create"
@@ -97,23 +97,24 @@ def post_creation_options(chip_file_path, navi_instance):
     if choice == '1':
         print("Opening directory of Chip location")
         try:
+            directory = os.path.dirname(chip_file_path)
             if sys.platform.startswith('win'):
-                os.startfile(os.path.dirname(chip_file_path))
+                subprocess.run(['explorer', directory], check=True)
             elif sys.platform == 'darwin':
-                subprocess.call(['open', os.path.dirname(chip_file_path)])
+                subprocess.run(['open', directory], check=True)
             else:
-                subprocess.call(['xdg-open', os.path.dirname(chip_file_path)])
+                subprocess.run(['xdg-open', directory], check=True)
         except Exception as e:
             print(f"Failed to open the directory: {e}")
     elif choice == '2':
         print("Opening in your preferred code editor")
         try:
-            if sys.platform == 'win32':
-                os.startfile(chip_file_path)
+            if sys.platform.startswith('win'):
+                subprocess.run(['explorer', chip_file_path], check=True)
             elif sys.platform == 'darwin':
-                subprocess.call(['open', chip_file_path])
+                subprocess.run(['open', chip_file_path], check=True)
             else:
-                subprocess.call(['xdg-open', chip_file_path])
+                subprocess.run(['xdg-open', chip_file_path], check=True)
         except Exception as e:
             print(f"Failed to open the file: {e}")
     elif choice == '3':
