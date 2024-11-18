@@ -23,6 +23,7 @@ class NaviApp:
 
     server: str = config.server
     port: int = config.port
+    local: str = config.local
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     hist_file = os.path.join(script_dir, ".navi_history")
