@@ -15,6 +15,18 @@ install_reqs() {
     sudo apt install -y python3 python3-pip python3-venv nmap
 }
 
+navi3b_local() {
+    sudo rm -rf ./navi3b 
+    git clone https://github.com/saintssec/navi3b.git
+    if command -v ollama &> /dev/null; then
+        echo "ollama exists. Moving on..."
+        ollama create navi-cli -f ./navi3b/navi3b.modelfile
+    else
+        echo "ollama does not exist. Installing ollama + Navi3b ..."
+        sh ./navi3b/install.sh
+    fi
+}
+
 set_venv(){
     python3 -m venv ../navienv
     source ../navienv/bin/activate
@@ -121,6 +133,7 @@ create_navi_group(){
 install_reqs
 set_venv
 pip_install
+navi3b_local
 create_navi_group
 delete_navi
 copy_navi
