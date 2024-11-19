@@ -60,6 +60,7 @@ parser.add_argument('--update', action='store_true', help='Update the script to 
 parser.add_argument('--skip-update', action='store_true',
                     help='Skip the update check (used internally to prevent update loop)')
 parser.add_argument('--install', action='store_true', help='installs Navi based on the current downloaded version.')
+parser.add_argument('--remote', action='store_true', help='Use remote server instead of local server')
 
 args = parser.parse_args()
 
@@ -73,7 +74,8 @@ def main() -> None:
         if args.q:
             response_message, http_status = navi_instance.llm_chat(
                 f"{args.q}",
-                True
+                True,
+                args.remote
             )
             navi_instance.print_message(
                 f"{response_message if http_status == 200 else f'Trouble connecting to Navi server.'}"

@@ -88,7 +88,7 @@ class NaviApp:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(self.art)
 
-    def llm_chat(self, user_message: str, called_from_app: bool = False) -> tuple[str, int]:
+    def llm_chat(self, user_message: str, called_from_app: bool = False, use_remote: bool = False) -> tuple[str, int]:
         # Define the API endpoint and payload
         message_amendment = user_message
         if not called_from_app:
@@ -99,7 +99,8 @@ class NaviApp:
                          "normally.") +
                         f"The user's OS is {platform.system()}" + ". User message:")
         message_amendment += user_message
-        url = f"http://{self.server}:{self.port}/api/chat"
+        server_to_use = self.server if use_remote else self.local
+        url = f"http://{server_to_use}:{self.port}/api/chat"
         payload = {
             "model": "navi-cli",
             "messages": [{"role": "user", "content": message_amendment}]
