@@ -21,7 +21,7 @@ class NaviApp:
     breakline: str = mods.breakline
     ai_name_rep: str = "Navi> "
 
-    server: str = config.server
+    remote: str = config.remote
     port: int = config.port
     local: str = config.local
 
@@ -99,7 +99,7 @@ class NaviApp:
                          "normally.") +
                         f"The user's OS is {platform.system()}" + ". User message:")
         message_amendment += user_message
-        server_to_use = self.server if use_remote else self.local
+        server_to_use = self.remote if use_remote else self.local
         url = f"http://{server_to_use}:{self.port}/api/chat"
         payload = {
             "model": "navi-cli",
