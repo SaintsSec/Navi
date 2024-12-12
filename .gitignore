@@ -5,3 +5,5 @@ __pycache__/
 navienv/
 verification_test
 .navi_version
+.navi_history
+

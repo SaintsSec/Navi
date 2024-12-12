@@ -14,14 +14,15 @@ from prompt_toolkit.history import FileHistory
 
 from mods import mods
 
-# TODO - Figure out the Navi local install stuff.
+
 class NaviApp:
     art: str = mods.art
+    three_b_art: str = mods.three_b_art
     helpAr: str = mods.helpArt
     breakline: str = mods.breakline
     ai_name_rep: str = "Navi> "
 
-    server: str = config.server
+    server: str = config.remote
     port: int = config.port
     local: str = config.local
 
@@ -86,7 +87,7 @@ class NaviApp:
 
     def clear_terminal(self) -> None:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(self.art)
+        print(self.three_b_art)
 
     def llm_chat(self, user_message: str, called_from_app: bool = False) -> tuple[str, int]:
         # Define the API endpoint and payload
@@ -141,14 +142,9 @@ class NaviApp:
 
         if navi_commands and not is_question:
             command = navi_commands[0].text
-            if command == "custom_command":
-                self.custom_method()
-            elif command in ["Install navi3b", "install local", "navi3b install"]:
-                self.install_3b()
-            else:
-                main_command = chips.alias_to_command.get(command)
-                if main_command:
-                    chips.modules[main_command].run(processed_message)
+            main_command = chips.alias_to_command.get(command)
+            if main_command:
+                chips.modules[main_command].run(processed_message)
         else:
             response_message, http_status = self.llm_chat(user_message)
             if response_message.startswith("TERMINAL OUTPUT"):
@@ -174,15 +170,6 @@ class NaviApp:
             for alias in aliases:
                 patterns.append({"label": "NAVI_COMMAND", "pattern": alias})
             self.ruler.add_patterns(patterns)
-        # Add custom patterns
-        custom_patterns = [
-            {"label": "NAVI_COMMAND", "pattern": "custom_command"},
-            {"label": "NAVI_COMMAND", "pattern": "navi3b install"}
-        ]
-        self.ruler.add_patterns(custom_patterns)
-
-    def install_3b(self) -> None:
-        self.print_message("Oh yay! you want to install me Locally! Let's get started!")
 
 
 navi_instance = NaviApp()
