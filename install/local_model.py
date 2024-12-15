@@ -9,20 +9,40 @@ from typing import Tuple
 def install_ollama() -> bool:
     import platform
     try:
-        if platform.system() in ["Linux", "Darwin"]:
-            print("Installing Ollama on macOS/Linux...")
-            subprocess.run(
-                ["curl", "-fsSL", "https://ollama.com/install.sh", "|", "sh"],
-                shell=True,
+        if platform.system() in ["Linux"]:
+            print("Installing Ollama for Linux...")
+            curl_process = subprocess.run(
+                ["curl", "-fsSL", "https://ollama.com/install.sh"],
                 check=True,
                 capture_output=True,
                 text=True,
             )
+
+            subprocess.run(
+                ["sh"],
+                input=curl_process.stdout,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        elif platform.system() in ["Darwin"]:
+            print("Installing Ollama for macOS...")
+            print("Checking for Homebrew...")
+            brew_check = subprocess.run(["brew", "--version"], capture_output=True, text=True)
+            if brew_check.returncode != 0:
+                print("Homebrew is not installed. Please install Homebrew first:")
+                print("Visit: https://brew.sh/")
+                return False
+
+            print("Installing Ollama via Homebrew...")
+            subprocess.run(["brew", "install", "ollama"], check=True)
+            print("Ollama installed successfully on macOS!")
+            start_ollama_service()
         elif platform.system() == "Windows":
-            print("Installing Ollama on Windows...")
+            print("Installing Ollama for Windows...")
             subprocess.run(
                 ["powershell", "-Command",
-                 "Invoke-WebRequest -Uri https://ollama.com/install.exe -OutFile ollama_installer.exe; Start-Process -FilePath ./ollama_installer.exe -Wait"],
+                 "Invoke-WebRequest -Uri https://ollama.com/download/OllamaSetup.exe -OutFile ollama_installer.exe; Start-Process -FilePath ./ollama_installer.exe -Wait"],
                 shell=True,
                 check=True,
                 capture_output=True,
@@ -76,14 +96,17 @@ def is_ollama_service_running() -> bool:
 
 def start_ollama_service():
     try:
-        subprocess.run(
+        # Start Ollama serve in the background
+        process = subprocess.Popen(
             ["ollama", "serve"],
-            check=True,
-            capture_output=True,
-            text=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
-    except subprocess.CalledProcessError as e:
-        print("Ollama service already running or could not start.")
+        print(f"Ollama service started with PID: {process.pid}")
+        return process
+    except Exception as e:
+        print(f"Failed to start Ollama service: {e}")
+        return None
 
 
 def check_and_start_ollama_service():
@@ -120,7 +143,10 @@ def install_model():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     repo_dir = os.path.join(script_dir, "navi3b")
     os.mkdir(repo_dir)
-
+    if not ollama_installed():
+        if not install_ollama():
+            print("Failed to install Ollama. Visit https://ollama.com and install Ollama manually.")
+            return
     if not is_windows:
         # Get sudo password for macOS/Linux
         password = getpass("Enter your sudo password: ")
@@ -147,6 +173,7 @@ def install_model():
         print("stderr:", e.stderr)
         if temp_script_path:
             os.remove(temp_script_path)
+        shutil.rmtree(repo_dir, ignore_errors=True)
         return
 
     print("Verifying model...")
@@ -187,4 +214,4 @@ def install_model():
         # Cleanup: Remove the temporary script and cloned directory
         if temp_script_path:
             os.remove(temp_script_path)
-        shutil.rmtree("./navi3b", ignore_errors=True)
+        shutil.rmtree(repo_dir, ignore_errors=True)
