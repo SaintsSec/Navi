@@ -8,23 +8,23 @@ import json
 import config
 import spacy
 import platform
+import navi_banner
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
 
-from mods import mods
-
-
 class NaviApp:
-    art: str = mods.art
-    three_b_art: str = mods.three_b_art
-    helpAr: str = mods.helpArt
-    breakline: str = mods.breakline
+    art: str = navi_banner.art
+    three_b_art: str = navi_banner.three_b_art
+    helpAr: str = navi_banner.helpArt
+    breakline: str = navi_banner.breakline
     ai_name_rep: str = "Navi> "
 
     server: str = config.remote
     port: int = config.port
     local: str = config.local
+
+    is_local: bool = True
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     hist_file = os.path.join(script_dir, ".navi_history")
@@ -50,6 +50,9 @@ class NaviApp:
 
     def set_user(self, sys_user: str) -> None:
         self.user = sys_user
+
+    def set_local(self, local_state) -> None:
+        self.is_local = local_state
 
     def print_message(self, text: str, include_ai_name: bool = True) -> None:
         to_print = text
@@ -87,9 +90,12 @@ class NaviApp:
 
     def clear_terminal(self) -> None:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(self.three_b_art)
+        if self.is_local:
+            print(self.three_b_art)
+        else:
+            print(self.art)
 
-    def llm_chat(self, user_message: str, called_from_app: bool = False) -> tuple[str, int]:
+    def llm_chat(self, user_message: str, called_from_app: bool = False, call_remote: bool = False) -> tuple[str, int]:
         # Define the API endpoint and payload
         message_amendment = user_message
         if not called_from_app:
@@ -100,7 +106,9 @@ class NaviApp:
                          "normally.") +
                         f"The user's OS is {platform.system()}" + ". User message:")
         message_amendment += user_message
-        url = f"http://{self.server}:{self.port}/api/chat"
+        url = f"http://{self.local}:{self.port}/api/chat"
+        if call_remote or not self.is_local:
+            url = f"https://{self.server}:{self.port}/api/chat"
         payload = {
             "model": "navi-cli",
             "messages": [{"role": "user", "content": message_amendment}]

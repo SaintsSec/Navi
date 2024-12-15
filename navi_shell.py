@@ -5,7 +5,7 @@ import argparse
 import traceback
 import navi_internal
 from navi_updater import check_version, update_script
-
+from install import local_model
 
 def handle_exception(exc_type, exc_value, exc_traceback) -> None:
     from datetime import datetime
@@ -64,8 +64,39 @@ parser.add_argument('--remote', action='store_true', help='Use remote server ins
 
 args = parser.parse_args()
 
-def restart_navi() -> None:
-    os.execv(sys.executable, [sys.executable] + sys.argv + ["--skip-update"])  # nosec
+def restart_navi(custom_flag: bool = False, flag: str = "") -> None:
+    import subprocess  # nosec
+    command = [sys.executable] + sys.argv + (["--skip-update"] if not custom_flag else [flag])
+    subprocess.run(command, check=True)
+
+    sys.exit()
+
+
+def local_model_check():
+    if local_model.ollama_installed():
+        is_installed, has_unexpected_error = local_model.check_model_installed()
+        if is_installed:
+            local_model.start_ollama_service()
+            # continue...
+        else:
+            if has_unexpected_error:
+                print("Warning: We can't verify that the local navi model is installed.")
+                install_decision()
+            else:
+                print("The local Navi model not installed.")
+                install_decision()
+    else:
+        print("Warning: Ollama is required to run the local Navi model.")
+        install_decision()
+
+
+def install_decision():
+    user_decision = input("(C)ontinue with --remote flag or begin (i)nstallation: ")
+    if user_decision == "c" or user_decision == "C":
+        restart_navi(True, "--remote")
+    if user_decision == "i" or user_decision == "I":
+        print("Beginning installation")
+        local_model.install_model()
 
 def main() -> None:
     navi_instance = navi_internal.navi_instance
@@ -87,6 +118,11 @@ def main() -> None:
                 update_script(download_url)
         if args.install:
             os.system('cd ./install && ./install.sh')
+        # if --remote flag is not set, make sure that its configured correctly
+        if args.remote:
+            navi_instance.set_local(False)
+        if not args.remote:
+            local_model_check()
         navi_instance.setup_navi_vocab()
         navi_instance.clear_terminal()
         navi_instance.setup_history()
