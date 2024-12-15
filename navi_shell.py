@@ -1,15 +1,19 @@
+import argparse
+import getpass
 import os
 import sys
-import getpass
-import argparse
 import traceback
+
 import navi_internal
-from navi_updater import check_version, update_script
+from chips import SSG
 from install import local_model
+from navi_updater import check_version, update_script
+from colorama import Fore
+
 
 def handle_exception(exc_type, exc_value, exc_traceback) -> None:
     from datetime import datetime
-    
+
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return
@@ -26,7 +30,8 @@ def handle_exception(exc_type, exc_value, exc_traceback) -> None:
 
     log_file_path = os.path.abspath(log_file)
 
-    print(f"\nDang! Navi crashed. A crash log has been created at:\n{log_file_path}. \n\nYou can create a new Navi GitHub issue here: \nhttps://github.com/SaintsSec/Navi/issues. \n\nThank you for helping us make Navi better!")
+    print(
+        f"\nDang! Navi crashed. A crash log has been created at:\n{log_file_path}. \n\nYou can create a new Navi GitHub issue here: \nhttps://github.com/SaintsSec/Navi/issues. \n\nThank you for helping us make Navi better!")
 
     print("\nWould you like to:")
     print("1) Open the crash log")
@@ -48,6 +53,7 @@ def handle_exception(exc_type, exc_value, exc_traceback) -> None:
 
     sys.exit(1)
 
+
 sys.excepthook = handle_exception
 
 user = getpass.getuser()
@@ -64,6 +70,7 @@ parser.add_argument('--remote', action='store_true', help='Use remote server ins
 
 args = parser.parse_args()
 
+
 def restart_navi(custom_flag: bool = False, flag: str = "") -> None:
     import subprocess  # nosec
     command = [sys.executable] + sys.argv + (["--skip-update"] if not custom_flag else [flag])
@@ -77,30 +84,37 @@ def local_model_check():
         is_installed, has_unexpected_error = local_model.check_model_installed()
         if is_installed:
             local_model.start_ollama_service()
-            # continue...
         else:
             if has_unexpected_error:
-                print("Warning: We can't verify that the local navi model is installed.")
+                print(f"{Fore.YELLOW}Warning: We can't verify that the local navi model is installed.{Fore.RESET}")
                 install_decision()
             else:
-                print("The local Navi model not installed.")
+                print(f"{Fore.YELLOW}The local Navi model not installed.{Fore.RESET}")
                 install_decision()
     else:
-        print("Warning: Ollama is required to run the local Navi model.")
+        print(f"{Fore.YELLOW}Warning: Ollama is required to run the local Navi model.{Fore.RESET}")
         install_decision()
 
 
 def install_decision():
     user_decision = input("(C)ontinue with --remote flag or begin (i)nstallation: ")
     if user_decision == "c" or user_decision == "C":
+        print("To never see this prompt again, set 'use_local_model' to False using the 'settings'"
+              "command.")
+        default_input = input("Would you like us to set it for you? (Y)es, (N)o, please restart: ")
+        if default_input.lower() == "y" or default_input.lower() == "yes":
+            SSG.navi_settings.modify_config("use_local_model", False)
         restart_navi(True, "--remote")
     if user_decision == "i" or user_decision == "I":
         print("Beginning installation")
         local_model.install_model()
 
+
 def main() -> None:
     navi_instance = navi_internal.navi_instance
-    navi_instance.set_user(user)
+    navi_settings = SSG.navi_settings.settings_init()
+    navi_instance.set_user(navi_settings["username"])
+    navi_instance.set_navi_name(navi_settings["navi_name"])
     try:
         if args.q:
             response_message, http_status = navi_instance.llm_chat(
@@ -112,25 +126,25 @@ def main() -> None:
                 f"{response_message if http_status == 200 else f'Trouble connecting to Navi server.'}"
             )
             exit(0)
-        if not args.noupdate and not args.skip_update:
+        if not args.noupdate and not args.skip_update and not navi_settings["dont_check_for_updates"]:
             download_url = check_version(args.edge)
             if download_url:
                 update_script(download_url)
         if args.install:
             os.system('cd ./install && ./install.sh')
-        # if --remote flag is not set, make sure that its configured correctly
-        if args.remote:
+        if args.remote or not navi_settings["use_local_model"]:
             navi_instance.set_local(False)
-        if not args.remote:
+        if not args.remote and navi_settings["use_local_model"]:
             local_model_check()
         navi_instance.setup_navi_vocab()
         navi_instance.clear_terminal()
         navi_instance.setup_history()
         navi_instance.chat_with_navi()
-        navi_instance.print_message(f"How can I help you {user}")
+        navi_instance.print_message(f"How can I help you, {user}")
     except KeyboardInterrupt:
         navi_instance.print_message(f"\nKeyboard interrupt has been registered, talk soon {user}!")
         exit(0)
+
 
 if __name__ == "__main__":
     main()

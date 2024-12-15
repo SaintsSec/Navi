@@ -1,24 +1,26 @@
-import requests
-import os
-import textwrap
-import random
-import time
-import chips
 import json
-import config
-import spacy
+import os
 import platform
-import navi_banner
+import random
+import textwrap
+import time
 
+import requests
+import spacy
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
+
+import chips
+import config
+import navi_banner
+
 
 class NaviApp:
     art: str = navi_banner.art
     three_b_art: str = navi_banner.three_b_art
     helpAr: str = navi_banner.helpArt
     breakline: str = navi_banner.breakline
-    ai_name_rep: str = "Navi> "
+    ai_name_rep: str = "Navi"
 
     server: str = config.remote
     port: int = config.port
@@ -54,10 +56,13 @@ class NaviApp:
     def set_local(self, local_state) -> None:
         self.is_local = local_state
 
+    def set_navi_name(self, navi_name: str) -> None:
+        self.ai_name_rep = navi_name
+
     def print_message(self, text: str, include_ai_name: bool = True) -> None:
         to_print = text
         if include_ai_name:
-            to_print = self.ai_name_rep + text
+            to_print = self.ai_name_rep + "> " + text
         sleep_times = {
             (0, 0.1): 0.0,
             (0.1, 0.2): 0.05,
@@ -80,7 +85,7 @@ class NaviApp:
             wrapped_lines = textwrap.fill(line, width=wrap_width)
             for char in wrapped_lines:
                 print(char, end="", flush=True)
-                random_num = random.uniform(0, 1)   # nosec
+                random_num = random.uniform(0, 1)  # nosec
                 for range_tuple, sleep_time in sleep_times.items():
                     if range_tuple[0] <= random_num < range_tuple[1]:
                         time.sleep(sleep_time)
@@ -100,15 +105,15 @@ class NaviApp:
         message_amendment = user_message
         if not called_from_app:
             message_amendment = (
-                        ("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
-                         "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
-                         "ELSE. Otherwise continue to communicate"
-                         "normally.") +
-                        f"The user's OS is {platform.system()}" + ". User message:")
+                    ("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
+                     "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
+                     "ELSE. Otherwise continue to communicate"
+                     "normally.") +
+                    f"The user's OS is {platform.system()}" + ". User message:")
         message_amendment += user_message
         url = f"http://{self.local}:{self.port}/api/chat"
         if call_remote or not self.is_local:
-            url = f"https://{self.server}:{self.port}/api/chat"
+            url = f"http://{self.server}:{self.port}/api/chat"
         payload = {
             "model": "navi-cli",
             "messages": [{"role": "user", "content": message_amendment}]
