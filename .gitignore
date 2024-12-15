@@ -8,3 +8,4 @@ verification_test
 .navi_version
 .navi_history
 config
+qodana.yaml
