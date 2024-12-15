@@ -1,7 +1,7 @@
 import os
 
 import navi_internal
-from navi import get_parameters
+from navi_shell import restart_navi
 
 command = "settings"
 use = "Review and modify the Navi settings"
@@ -81,6 +81,33 @@ def settings_init():
 
 def run(arguments=None):
     navi_instance = navi_internal.navi_instance
-    argv = get_parameters(arguments.text)
-    argv.pop(0)
-    # TODO: Show and modify settings
+
+    current_settings = settings_init()
+
+    while True:
+        navi_instance.clear_terminal()
+        print("\nCurrent Settings:")
+        for key, value in current_settings.items():
+            print(f"  {key}: {value}")
+
+        print("\nOptions:")
+        print("  [1] Update a setting")
+        print("  [2] Exit")
+
+        choice = input("\nEnter your choice: ").strip()
+
+        if choice == "1":
+            key_to_modify = input("Enter the setting key to update: ").strip()
+            if key_to_modify in current_settings:
+                new_value = input(
+                    f"Enter the new value for '{key_to_modify}' (current: {current_settings[key_to_modify]}): ").strip()
+                modify_config(key_to_modify, new_value)
+                print(f"'{key_to_modify}' updated successfully!")
+                current_settings = settings_init()
+            else:
+                print(f"Error: '{key_to_modify}' is not a valid setting.")
+        elif choice == "2":
+            restart_navi()
+            break
+        else:
+            print("Invalid choice. Please try again.")
