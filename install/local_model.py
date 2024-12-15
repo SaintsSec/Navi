@@ -143,10 +143,12 @@ def install_model():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     repo_dir = os.path.join(script_dir, "navi3b")
     os.mkdir(repo_dir)
+
     if not ollama_installed():
         if not install_ollama():
             print("Failed to install Ollama. Visit https://ollama.com and install Ollama manually.")
             return
+
     if not is_windows:
         # Get sudo password for macOS/Linux
         password = getpass("Enter your sudo password: ")
@@ -155,7 +157,6 @@ def install_model():
         with tempfile.NamedTemporaryFile("w", delete=False) as temp_script:
             temp_script.write(f"#!/bin/bash\necho {password}\n")
             temp_script_path = temp_script.name
-        os.remove(temp_script_path)
 
     try:
         print("Cloning model from github.com/saintssec/navi3b...")
@@ -171,8 +172,6 @@ def install_model():
         print("Return code:", e.returncode)
         print("stdout:", e.stdout)
         print("stderr:", e.stderr)
-        if temp_script_path:
-            os.remove(temp_script_path)
         shutil.rmtree(repo_dir, ignore_errors=True)
         return
 
@@ -180,9 +179,8 @@ def install_model():
     model_file_path = os.path.join(repo_dir, "navi3b.modelfile")
     if not os.path.exists(model_file_path):
         print(f"Error: {model_file_path} not found.")
-        if temp_script_path:
-            os.remove(temp_script_path)
         return
+
     # Create the model using Ollama
     try:
         print("Creating model... this may take a while...")
@@ -212,6 +210,6 @@ def install_model():
         print("stderr:", e.stderr)
     finally:
         # Cleanup: Remove the temporary script and cloned directory
-        if temp_script_path:
+        if temp_script_path and os.path.exists(temp_script_path):
             os.remove(temp_script_path)
         shutil.rmtree(repo_dir, ignore_errors=True)

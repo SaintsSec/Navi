@@ -81,6 +81,8 @@ def restart_navi(custom_flag: bool = False, flag: str = "") -> None:
 
 def local_model_check():
     if local_model.ollama_installed():
+        if not local_model.is_ollama_service_running():
+            local_model.start_ollama_service()
         is_installed, has_unexpected_error = local_model.check_model_installed()
         if is_installed:
             local_model.start_ollama_service()
