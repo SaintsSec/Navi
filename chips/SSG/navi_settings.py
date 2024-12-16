@@ -46,13 +46,13 @@ def modify_config(key, value):
             file.write(f"{key}={value}\n")
 
 
-def read_config(config_path):
-    if not os.path.exists(config_path):
-        print(f"Config file not found at {config_path}.")
+def read_config(path_to_config):
+    if not os.path.exists(path_to_config):
+        print(f"Config file not found at {path_to_config}.")
         return {}
 
     config = {}
-    with open(config_path, "r") as file:
+    with open(path_to_config, "r") as file:
         for line in file:
             if line.startswith("#") or not line.strip():
                 continue

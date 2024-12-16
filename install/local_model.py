@@ -71,9 +71,9 @@ def ollama_installed() -> bool:
             text=True,
         )
         return True
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         return False
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         return False
 
 
@@ -120,7 +120,7 @@ def check_and_start_ollama_service():
 def check_model_installed() -> Tuple[bool, bool]:
     try:
         # Run the command to check if the model exists
-        process = subprocess.run(
+        subprocess.run(
             ["ollama", "show", "navi-cli"],
             check=True,
             capture_output=True,
