@@ -11,7 +11,7 @@ art = rf"""{breakline}
 |              / | / /___ __   __(_)                |
 |             /  |/ / __ `/ | / / /                 |
 |            / /|  / /_/ /| |/ / /                  |
-|           /_/ |_/\__,_/ |___/_/ v{versionNum}             |
+|           /_/ |_/\__,_/ |___/_/ v{versionNum}            |
 |===================================================|
 |  Disclaimer: Saints Security Group LLC does not   |
 |  condone or support illegal activity and assumes  |

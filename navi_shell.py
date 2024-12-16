@@ -4,11 +4,12 @@ import os
 import sys
 import traceback
 
+from colorama import Fore
+
 import navi_internal
 from chips import SSG
 from install import local_model
 from navi_updater import check_version, update_script
-from colorama import Fore
 
 
 def handle_exception(exc_type, exc_value, exc_traceback) -> None:
@@ -105,16 +106,24 @@ def install_decision():
               "command.")
         default_input = input("Would you like us to set it for you? (Y)es, (N)o, please restart: ")
         if default_input.lower() == "y" or default_input.lower() == "yes":
-            SSG.navi_settings.modify_config("use_local_model", False)
+            modify_navi_settings("use_local_model", False)
         restart_navi(True, "--remote")
     if user_decision == "i" or user_decision == "I":
         print("Beginning installation")
         local_model.install_model()
 
 
+def get_navi_settings() -> dict:
+    return SSG.navi_settings.settings_init()
+
+
+def modify_navi_settings(key, value) -> None:
+    SSG.navi_settings.modify_config(key, value)
+
+
 def main() -> None:
     navi_instance = navi_internal.navi_instance
-    navi_settings = SSG.navi_settings.settings_init()
+    navi_settings = get_navi_settings()
     navi_instance.set_user(navi_settings["username"])
     navi_instance.set_navi_name(navi_settings["navi_name"])
     try:
