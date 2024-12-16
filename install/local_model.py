@@ -6,8 +6,11 @@ from getpass import getpass
 from typing import Tuple
 
 
+import subprocess
+import platform
+import os
+
 def install_ollama() -> bool:
-    import platform
     try:
         if platform.system() in ["Linux"]:
             print("Installing Ollama for Linux...")
@@ -37,17 +40,48 @@ def install_ollama() -> bool:
             print("Installing Ollama via Homebrew...")
             subprocess.run(["brew", "install", "ollama"], check=True)
             print("Ollama installed successfully on macOS!")
-            start_ollama_service()
         elif platform.system() == "Windows":
             print("Installing Ollama for Windows...")
+
+            # Download the installer
             subprocess.run(
                 ["powershell", "-Command",
-                 "Invoke-WebRequest -Uri https://ollama.com/download/OllamaSetup.exe -OutFile ollama_installer.exe; Start-Process -FilePath ./ollama_installer.exe -Wait"],
+                 "Invoke-WebRequest -Uri https://ollama.com/download/OllamaSetup.exe -OutFile ollama_installer.exe"],
                 shell=True,
                 check=True,
                 capture_output=True,
                 text=True,
             )
+
+            # Run the installer
+            subprocess.run(
+                ["powershell", "-Command",
+                 "Start-Process -FilePath ./ollama_installer.exe"],
+                shell=True,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            # Prompt the user to continue. Really tried to wait for installer but it kept detaching
+            print("Please complete the Ollama installation. Once done, type 'c' and press Enter to continue.")
+            while input("Type 'c' to continue: ").strip().lower() != 'c':
+                print("Invalid input. Please type 'c' to continue.")
+
+            # Verify the installation
+            print("Verifying Ollama installation...")
+            result = subprocess.run(
+                ["ollama", "--version"],
+                capture_output=True,
+                text=True,
+            )
+
+            if result.returncode == 0:
+                print(f"Ollama installed successfully: {result.stdout.strip()}")
+            else:
+                print("Ollama installation verification failed!")
+                print("stderr:", result.stderr.strip())
+                return False
         else:
             print("Unsupported platform for Ollama installation.")
             return False
@@ -60,6 +94,13 @@ def install_ollama() -> bool:
         print("stdout:", e.stdout)
         print("stderr:", e.stderr)
         return False
+    finally:
+        if platform.system() == "Windows" and os.path.exists("ollama_installer.exe"):
+            try:
+                os.remove("ollama_installer.exe")
+            except Exception as e:
+                print(f"Failed to remove installer: {e}")
+
 
 
 def ollama_installed() -> bool:
@@ -142,7 +183,11 @@ def install_model():
     temp_script_path = None
     script_dir = os.path.dirname(os.path.abspath(__file__))
     repo_dir = os.path.join(script_dir, "navi3b")
-    os.mkdir(repo_dir)
+    if not os.path.exists(repo_dir):
+        os.mkdir(repo_dir)
+    else:
+        shutil.rmtree(repo_dir, ignore_errors=True)
+        os.mkdir(repo_dir)
 
     if not ollama_installed():
         if not install_ollama():
