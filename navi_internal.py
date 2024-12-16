@@ -105,7 +105,7 @@ class NaviApp:
         message_amendment = user_message
         if not called_from_app:
             message_amendment = (
-                    ("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
+                    ("If the user message has a request that requires the terminal to execute, provide the following 'TERMINAL OUTPUT {"
                      "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
                      "ELSE. Otherwise continue to communicate"
                      "normally.") +
@@ -125,7 +125,6 @@ class NaviApp:
         # Check if the response is valid
         if response.status_code == 200:
             response_text = response.text
-
             # Split the response into lines and parse each line as JSON
             messages = [line for line in response_text.split('\n') if line]
             extracted_responses = []
