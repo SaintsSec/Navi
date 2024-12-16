@@ -138,6 +138,8 @@ def main() -> None:
             )
             exit(0)
         if not args.noupdate and not args.skip_update and not navi_settings["dont_check_for_updates"]:
+            if navi_settings["update_branch"] == "edge":
+                args.edge = True
             download_url = check_version(args.edge)
             if download_url:
                 update_script(download_url)
