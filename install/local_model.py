@@ -67,25 +67,12 @@ def install_ollama() -> bool:
             print("Please complete the Ollama installation. Once done, type 'c' and press Enter to continue.")
             while input("Type 'c' to continue: ").strip().lower() != 'c':
                 print("Invalid input. Please type 'c' to continue.")
-
-            # Verify the installation
-            print("Verifying Ollama installation...")
-            result = subprocess.run(
-                ["ollama", "--version"],
-                capture_output=True,
-                text=True,
-            )
-
-            if result.returncode == 0:
-                print(f"Ollama installed successfully: {result.stdout.strip()}")
-            else:
-                print("Ollama installation verification failed!")
-                print("stderr:", result.stderr.strip())
-                return False
         else:
             print("Unsupported platform for Ollama installation.")
             return False
-
+        if not ollama_installed():
+            print("Oh dear, something went wrong installing Ollama.")
+            return False
         print("Ollama installation succeeded!")
         return True
     except subprocess.CalledProcessError as e:
