@@ -1,29 +1,32 @@
-import requests
-import os
-import textwrap
-import random
-import time
-import chips
 import json
-import config
-import spacy
+import os
 import platform
+import random
+import textwrap
+import time
 
+import requests
+import spacy
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
 
-from mods import mods
+import chips
+import config
+import navi_banner
 
 
 class NaviApp:
-    art: str = mods.art
-    helpAr: str = mods.helpArt
-    breakline: str = mods.breakline
-    ai_name_rep: str = "Navi> "
+    art: str = navi_banner.art
+    three_b_art: str = navi_banner.three_b_art
+    helpAr: str = navi_banner.helpArt
+    breakline: str = navi_banner.breakline
+    ai_name_rep: str = "Navi"
 
-    server: str = config.server
+    server: str = config.remote
     port: int = config.port
     local: str = config.local
+
+    is_local: bool = True
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     hist_file = os.path.join(script_dir, ".navi_history")
@@ -50,10 +53,16 @@ class NaviApp:
     def set_user(self, sys_user: str) -> None:
         self.user = sys_user
 
+    def set_local(self, local_state) -> None:
+        self.is_local = local_state
+
+    def set_navi_name(self, navi_name: str) -> None:
+        self.ai_name_rep = navi_name
+
     def print_message(self, text: str, include_ai_name: bool = True) -> None:
         to_print = text
         if include_ai_name:
-            to_print = self.ai_name_rep + text
+            to_print = self.ai_name_rep + "> " + text
         sleep_times = {
             (0, 0.1): 0.0,
             (0.1, 0.2): 0.05,
@@ -76,7 +85,7 @@ class NaviApp:
             wrapped_lines = textwrap.fill(line, width=wrap_width)
             for char in wrapped_lines:
                 print(char, end="", flush=True)
-                random_num = random.uniform(0, 1)   # nosec
+                random_num = random.uniform(0, 1)  # nosec
                 for range_tuple, sleep_time in sleep_times.items():
                     if range_tuple[0] <= random_num < range_tuple[1]:
                         time.sleep(sleep_time)
@@ -86,20 +95,25 @@ class NaviApp:
 
     def clear_terminal(self) -> None:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(self.art)
+        if self.is_local:
+            print(self.three_b_art)
+        else:
+            print(self.art)
 
-    def llm_chat(self, user_message: str, called_from_app: bool = False) -> tuple[str, int]:
+    def llm_chat(self, user_message: str, called_from_app: bool = False, call_remote: bool = False) -> tuple[str, int]:
         # Define the API endpoint and payload
         message_amendment = user_message
         if not called_from_app:
             message_amendment = (
-                        ("If the user message has a terminal command request, provide the following 'TERMINAL OUTPUT {"
-                         "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
-                         "ELSE. Otherwise continue to communicate"
-                         "normally.") +
-                        f"The user's OS is {platform.system()}" + ". User message:")
+                    ("If the user message has a request that requires the terminal to execute, provide the following 'TERMINAL OUTPUT {"
+                     "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
+                     "ELSE. Otherwise continue to communicate"
+                     "normally.") +
+                    f"The user's OS is {platform.system()}" + ". User message:")
         message_amendment += user_message
-        url = f"http://{self.server}:{self.port}/api/chat"
+        url = f"http://{self.local}:{self.port}/api/chat"
+        if call_remote or not self.is_local:
+            url = f"http://{self.server}:{self.port}/api/chat"
         payload = {
             "model": "navi-cli",
             "messages": [{"role": "user", "content": message_amendment}]
@@ -111,7 +125,6 @@ class NaviApp:
         # Check if the response is valid
         if response.status_code == 200:
             response_text = response.text
-
             # Split the response into lines and parse each line as JSON
             messages = [line for line in response_text.split('\n') if line]
             extracted_responses = []

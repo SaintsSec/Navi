@@ -1,5 +1,9 @@
 import navi_internal
 
+# To get a dictionary of current navi settings, and modify dictionary. Some modifications
+# might require app restart.
+#from navi_shell import get_navi_settings, modify_navi_settings
+
 # Chip documentation: https://github.com/SaintsSec/Navi/wiki/4.-Developing-Chips-%E2%80%90-Indepth
 
 command: str = "{{CHIP_NAME}}"
