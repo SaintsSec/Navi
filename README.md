@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Navi | CLI - An innovation in cybersec AI</h1>
-  <h1>v0.6.5 - "CSI - Con"</h1>
+  <h1>v0.6.6 - "Specter"</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
