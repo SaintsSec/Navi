@@ -29,7 +29,7 @@ class NaviApp:
     memory_dir: str = "memories"
     default_session: str = "DEFAULT_SESSION"
     token_limit: int = 2048
-    active_session: str = "DEFAULT_SESSION"
+    active_session: str = default_session
 
     llm_chat_prompt: str = (
             (
