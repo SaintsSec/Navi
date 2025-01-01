@@ -3,3 +3,5 @@ navi_name=Navi
 use_local_model=True
 dont_check_for_updates=False
 update_branch=main
+session=DEFAULT_SESSION
+overwrite_session=True

@@ -26,6 +26,20 @@ class NaviApp:
     port: int = config.port
     local: str = config.local
 
+    memory_dir: str = "memories"
+    default_session: str = "default.json"
+    token_limit: int = 2048
+    active_session: str = "DEFAULT_SESSION"
+
+    llm_chat_prompt: str = (
+            (
+                "YOU ARE A CHATBOT. Communicate like a normal chatbot UNLESS the user has request that explicitly requires the terminal to perform, "
+                "in that case,provide the following 'TERMINAL OUTPUT {"
+                "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
+                "ELSE."
+                "normally.") +
+            f"The user's OS is {platform.system()}" + ". User message:")
+
     is_local: bool = True
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -104,19 +118,16 @@ class NaviApp:
         # Define the API endpoint and payload
         message_amendment = user_message
         if not called_from_app:
-            message_amendment = (
-                    ("If the user message has a request that requires the terminal to execute, provide the following 'TERMINAL OUTPUT {"
-                     "terminal code to execute request (no not encapsulate command in quotes)}' and NOTHING "
-                     "ELSE. Otherwise continue to communicate"
-                     "normally.") +
-                    f"The user's OS is {platform.system()}" + ". User message:")
+            message_amendment = self.llm_chat_prompt
         message_amendment += user_message
         url = f"http://{self.local}:{self.port}/api/chat"
         if call_remote or not self.is_local:
             url = f"http://{self.server}:{self.port}/api/chat"
+        chat_history = self.load_session(self.active_session)
+        chat_history = self.trim_history_to_token_limit(chat_history, self.token_limit)
         payload = {
             "model": "navi-cli",
-            "messages": [{"role": "user", "content": message_amendment}]
+            "messages": chat_history + [{"role": "user", "content": message_amendment}]
         }
         headers = {'Content-Type': 'application/json'}
 
@@ -141,6 +152,7 @@ class NaviApp:
 
             # Concatenate the extracted messages
             full_response = "".join(extracted_responses)
+            self.save_chat_to_session(self.active_session, chat_history, {"role": "user", "content": user_message}, {"role": "assistant", "content": full_response}),
             return full_response, 200
         else:
             return f"{response.url},{response.json()}", 400
@@ -173,6 +185,63 @@ class NaviApp:
                 self.print_message("Encountered an unexpected end of input.")
                 break
             self.process_message(user_message)
+
+    def setup_memory(self) -> None:
+        if not os.path.exists(self.memory_dir):
+            os.makedirs(self.memory_dir)
+        if not os.path.exists(self.get_session_path("DEFAULT_SESSION")):
+            self.create_new_session("DEFAULT_SESSION")
+
+    def get_session_path(self, session_name):
+        return os.path.join(self.memory_dir, f"{session_name}.json")
+
+    def trim_history_to_token_limit(self, chat_history, token_limit):
+        while chat_history and self.calculate_tokens(chat_history) > token_limit:
+            chat_history.pop(0)
+
+        return chat_history
+
+    def load_session(self, session_name):
+        path = self.get_session_path(session_name)
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                return json.load(f)
+        return []
+
+    def save_session(self,session_name, chat_history):
+        path = self.get_session_path(session_name)
+        with open(path, 'w') as f:
+            json.dump(chat_history, f, indent=4)
+
+    def calculate_tokens(self, chat_history):
+        return sum(len(entry['content'].split()) for entry in chat_history)
+
+    def create_new_session(self, session_name):
+        if not session_name.upper():
+            print("Session name cannot be empty.")
+            return
+        if os.path.exists(self.get_session_path(session_name.upper())):
+            print("Session with this name already exists.")
+            return
+        self.save_session(session_name.upper(), [])
+
+    def set_active_session(self, session_name):
+        if not os.path.exists(self.get_session_path(session_name)):
+            print(f"Session {session_name} does not exist.")
+            return None
+        self.active_session = session_name
+
+    def save_chat_to_session(self, session_name, history, chat_user, chat_assistant):
+        chat_history = history
+        chat_history.append(chat_user)
+        chat_history.append(chat_assistant)
+
+        # Handle token overflow
+        from navi_shell import get_navi_settings
+        if get_navi_settings()["overwrite_session"] and self.calculate_tokens(chat_history) > self.token_limit:
+            chat_history.pop(0)
+
+        self.save_session(session_name, chat_history)
 
     def setup_navi_vocab(self) -> None:
         # Register commands and aliases with the entity ruler
