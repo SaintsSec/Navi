@@ -260,6 +260,8 @@ class NaviApp:
                 from navi_shell import get_navi_settings, modify_navi_settings
                 if get_navi_settings()["session"] is session_name:
                     modify_navi_settings("session", self.default_session)
+        else:
+            print(f"{session_name} does not exist.")
 
     def setup_navi_vocab(self) -> None:
         # Register commands and aliases with the entity ruler
