@@ -124,10 +124,10 @@ class NaviApp:
         if call_remote or not self.is_local:
             url = f"http://{self.server}:{self.port}/api/chat"
         chat_history = self.load_session(self.active_session)
-        chat_history = self.trim_history_to_token_limit(chat_history, self.token_limit)
+        chat_history_trim = self.trim_history_to_token_limit(chat_history, self.token_limit)
         payload = {
             "model": "navi-cli",
-            "messages": chat_history + [{"role": "user", "content": message_amendment}]
+            "messages": chat_history_trim + [{"role": "user", "content": message_amendment}]
         }
         headers = {'Content-Type': 'application/json'}
 
