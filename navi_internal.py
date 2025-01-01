@@ -27,7 +27,7 @@ class NaviApp:
     local: str = config.local
 
     memory_dir: str = "memories"
-    default_session: str = "default.json"
+    default_session: str = "DEFAULT_SESSION"
     token_limit: int = 2048
     active_session: str = "DEFAULT_SESSION"
 
@@ -189,8 +189,8 @@ class NaviApp:
     def setup_memory(self) -> None:
         if not os.path.exists(self.memory_dir):
             os.makedirs(self.memory_dir)
-        if not os.path.exists(self.get_session_path("DEFAULT_SESSION")):
-            self.create_new_session("DEFAULT_SESSION")
+        if not os.path.exists(self.get_session_path(self.default_session)):
+            self.create_new_session(self.default_session)
 
     def get_session_path(self, session_name):
         return os.path.join(self.memory_dir, f"{session_name}.json")
@@ -242,6 +242,24 @@ class NaviApp:
             chat_history.pop(0)
 
         self.save_session(session_name, chat_history)
+
+    def get_active_session(self):
+        return self.active_session
+
+    def remove_session(self, session_name):
+        if os.path.exists(self.get_session_path(session_name)):
+            if session_name == self.default_session:
+                # Clear the default session
+                self.save_session(self.default_session, [])
+            else:
+                # Set active session to the default session
+                self.set_active_session(self.default_session)
+                # Remove the session file
+                os.remove(self.get_session_path(session_name))
+                # If the removed session was a config default, set it to the default session
+                from navi_shell import get_navi_settings, modify_navi_settings
+                if get_navi_settings()["session"] is session_name:
+                    modify_navi_settings("session", self.default_session)
 
     def setup_navi_vocab(self) -> None:
         # Register commands and aliases with the entity ruler
