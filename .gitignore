@@ -10,3 +10,4 @@ verification_test
 config
 qodana.yaml
 memories/
+data/
