@@ -1,9 +1,5 @@
 import navi_internal
 
-# To get a dictionary of current navi settings, and modify dictionary. Some modifications
-# might require app restart.
-#from navi_shell import get_navi_settings, modify_navi_settings
-
 # Chip documentation: https://github.com/SaintsSec/Navi/wiki/4.-Developing-Chips-%E2%80%90-Indepth
 
 command: str = "{{CHIP_NAME}}"
@@ -31,6 +27,10 @@ def run(arguments=None) -> None:
     # Get the instance of Navi. Required to access Navi-specific functions
     navi_instance = navi_internal.navi_instance
     navi_instance.print_message(f"How can I help you, {navi_instance.get_user()}?")
+
+    # To get a dictionary of current navi settings, and modify dictionary. Some modifications
+    # might require app restart. To prevent circular imports, keep this in a function or class.
+    #from navi_shell import get_navi_settings, modify_navi_settings
     
     # Optional: Converts argument tokens into a list
     arg_array = arguments.text.split()
