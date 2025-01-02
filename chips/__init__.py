@@ -1,10 +1,9 @@
 """Init commands."""
-from os.path import dirname, basename, isfile, join, exists
-import os
-import sys
-import glob
 import importlib
 import logging
+import os
+import sys
+from os.path import dirname, join, exists
 from pathlib import Path
 
 package_dir = Path(__file__).parent

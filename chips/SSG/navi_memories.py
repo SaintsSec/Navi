@@ -1,5 +1,6 @@
-import navi_internal
 import os
+
+import navi_internal
 
 command: str = "memory"
 use: str = "Manage chat memory sessions."
@@ -22,12 +23,14 @@ if not os.path.exists(memory_dir):
 
 help_params: tuple = ('-help', '-h')
 
+
 def print_params() -> None:
     """Print available parameters and descriptions."""
     print(f"{'Parameter':<20} | {'Description'}")
     print("-" * 50)
     for param, description in params.items():
         print(f"{param:<20} | {description}")
+
 
 def list_sessions(active_session) -> None:
     sessions = os.listdir(memory_dir)
@@ -39,11 +42,13 @@ def list_sessions(active_session) -> None:
         else:
             print(f"  {session_name}")
 
+
 def does_session_exist(session_name) -> bool:
     if not os.path.exists(os.path.join(memory_dir, f"{session_name}.json")):
         print(f"Session '{session_name}' does not exist.")
         return False
     return True
+
 
 def run(arguments=None) -> None:
     navi_instance = navi_internal.navi_instance

@@ -34,7 +34,7 @@ def modify_config(key, value):
                 file.write(line)
                 continue
 
-            current_key, current_value = line.strip().split("=", 1)
+            current_key, _ = line.strip().split("=", 1)
             if current_key == key:
                 file.write(f"{key}={value}\n")
                 modified = True

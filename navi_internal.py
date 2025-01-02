@@ -7,9 +7,9 @@ import time
 
 import requests
 import spacy
+from PyPDF2 import PdfReader
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
-from PyPDF2 import PdfReader
 from sentence_transformers import SentenceTransformer, util
 
 import chips
@@ -81,6 +81,12 @@ class NaviApp:
         self.knowledge_store = self.load_knowledge_store()
         self.setup_knowledge_input_dir()
 
+    '''
+    ---------------------------------------------------------------------------
+                                RAG MANAGEMENT
+    ---------------------------------------------------------------------------
+    '''
+
     def setup_knowledge_input_dir(self):
         os.makedirs(self.input_directory, exist_ok=True)
         os.makedirs(self.archive_directory, exist_ok=True)
@@ -94,25 +100,6 @@ class NaviApp:
     def save_knowledge_store(self):
         with open(self.knowledge_store_path, "w") as f:
             json.dump(self.knowledge_store, f, indent=4)
-
-    def extract_text_from_pdf(self, file_path):
-        try:
-            text = []
-            reader = PdfReader(file_path)
-            for page in reader.pages:
-                text.append(page.extract_text())
-            return "\n".join(text)
-        except Exception as e:
-            print(f"Error extracting text from {file_path}: {e}")
-            return ""
-
-    def extract_text_from_txt(self, file_path):
-        try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                return f.read()
-        except Exception as e:
-            print(f"Error reading text file {file_path}: {e}")
-            return ""
 
     def process_knowledge_files(self):
         for file_name in os.listdir(self.input_directory):
@@ -153,6 +140,121 @@ class NaviApp:
             for i in top_indices
         ]
         return "\n".join(retrieved_snippets)
+
+    def extract_text_from_pdf(self, file_path):
+        try:
+            text = []
+            reader = PdfReader(file_path)
+            for page in reader.pages:
+                text.append(page.extract_text())
+            return "\n".join(text)
+        except Exception as e:
+            print(f"Error extracting text from {file_path}: {e}")
+            return ""
+
+    def extract_text_from_txt(self, file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                return f.read()
+        except Exception as e:
+            print(f"Error reading text file {file_path}: {e}")
+            return ""
+
+    def trim_rag_to_token_limit(self, text, token_limit):
+        words = text.split()
+        if len(words) > token_limit:
+            trimmed_text = " ".join(words[:token_limit])
+            return trimmed_text + "..."
+        return text
+
+    '''
+        ---------------------------------------------------------------------------
+                                    MEMORY MANAGEMENT
+        ---------------------------------------------------------------------------
+    '''
+
+    def setup_memory(self) -> None:
+        if not os.path.exists(self.memory_dir):
+            os.makedirs(self.memory_dir)
+        if not os.path.exists(self.get_session_path(self.default_session)):
+            self.create_new_session(self.default_session)
+
+    def get_session_path(self, session_name):
+        return os.path.join(self.memory_dir, f"{session_name}.json")
+
+    def trim_history_to_token_limit(self, chat_history, token_limit):
+        while chat_history and self.calculate_tokens(chat_history) > token_limit:
+            chat_history.pop(0)
+
+        return chat_history
+
+    def load_session(self, session_name):
+        path = self.get_session_path(session_name)
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                return json.load(f)
+        return []
+
+    def save_session(self, session_name, chat_history):
+        path = self.get_session_path(session_name)
+        with open(path, 'w') as f:
+            json.dump(chat_history, f, indent=4)
+
+    def calculate_tokens(self, chat_history):
+        return sum(len(entry['content'].split()) for entry in chat_history)
+
+    def create_new_session(self, session_name):
+        if not session_name.upper():
+            print("Session name cannot be empty.")
+            return
+        if os.path.exists(self.get_session_path(session_name.upper())):
+            print("Session with this name already exists.")
+            return
+        self.save_session(session_name.upper(), [])
+
+    def set_active_session(self, session_name):
+        if not os.path.exists(self.get_session_path(session_name)):
+            print(f"Session {session_name} does not exist.")
+            return None
+        self.active_session = session_name
+
+    def save_chat_to_session(self, session_name, history, chat_user, chat_assistant):
+        chat_history = history
+        chat_history.append(chat_user)
+        chat_history.append(chat_assistant)
+
+        # Handle token overflow
+        from navi_shell import get_navi_settings
+        if get_navi_settings()["overwrite_session"] and self.calculate_tokens(chat_history) > self.token_limit_chat:
+            chat_history.pop(0)
+
+        self.save_session(session_name, chat_history)
+
+    def get_active_session(self):
+        return self.active_session
+
+    def remove_session(self, session_name):
+        if os.path.exists(self.get_session_path(session_name)):
+            if session_name == self.default_session:
+                # Clear the default session
+                self.save_session(self.default_session, [])
+            else:
+                # Set active session to the default session
+                self.set_active_session(self.default_session)
+                # Remove the session file
+                os.remove(self.get_session_path(session_name))
+                # If the removed session was a config default, set it to the default session
+                from navi_shell import get_navi_settings, modify_navi_settings
+                if get_navi_settings()["session"] is session_name:
+                    modify_navi_settings("session", self.default_session)
+        else:
+            print(f"{session_name} does not exist.")
+
+    '''
+        ---------------------------------------------------------------------------
+                                    CORE NAVI FUNCTIONS
+        ---------------------------------------------------------------------------
+    '''
 
     def setup_history(self) -> None:
         self.session = PromptSession(history=FileHistory(self.hist_file))
@@ -323,90 +425,6 @@ class NaviApp:
                 self.print_message("Encountered an unexpected end of input.")
                 break
             self.process_message(user_message)
-
-    def setup_memory(self) -> None:
-        if not os.path.exists(self.memory_dir):
-            os.makedirs(self.memory_dir)
-        if not os.path.exists(self.get_session_path(self.default_session)):
-            self.create_new_session(self.default_session)
-
-    def get_session_path(self, session_name):
-        return os.path.join(self.memory_dir, f"{session_name}.json")
-
-    def trim_rag_to_token_limit(self, text, token_limit):
-        words = text.split()
-        if len(words) > token_limit:
-            trimmed_text = " ".join(words[:token_limit])
-            return trimmed_text + "..."
-        return text
-
-    def trim_history_to_token_limit(self, chat_history, token_limit):
-        while chat_history and self.calculate_tokens(chat_history) > token_limit:
-            chat_history.pop(0)
-
-        return chat_history
-
-    def load_session(self, session_name):
-        path = self.get_session_path(session_name)
-        if os.path.exists(path):
-            with open(path, 'r') as f:
-                return json.load(f)
-        return []
-
-    def save_session(self,session_name, chat_history):
-        path = self.get_session_path(session_name)
-        with open(path, 'w') as f:
-            json.dump(chat_history, f, indent=4)
-
-    def calculate_tokens(self, chat_history):
-        return sum(len(entry['content'].split()) for entry in chat_history)
-
-    def create_new_session(self, session_name):
-        if not session_name.upper():
-            print("Session name cannot be empty.")
-            return
-        if os.path.exists(self.get_session_path(session_name.upper())):
-            print("Session with this name already exists.")
-            return
-        self.save_session(session_name.upper(), [])
-
-    def set_active_session(self, session_name):
-        if not os.path.exists(self.get_session_path(session_name)):
-            print(f"Session {session_name} does not exist.")
-            return None
-        self.active_session = session_name
-
-    def save_chat_to_session(self, session_name, history, chat_user, chat_assistant):
-        chat_history = history
-        chat_history.append(chat_user)
-        chat_history.append(chat_assistant)
-
-        # Handle token overflow
-        from navi_shell import get_navi_settings
-        if get_navi_settings()["overwrite_session"] and self.calculate_tokens(chat_history) > self.token_limit_chat:
-            chat_history.pop(0)
-
-        self.save_session(session_name, chat_history)
-
-    def get_active_session(self):
-        return self.active_session
-
-    def remove_session(self, session_name):
-        if os.path.exists(self.get_session_path(session_name)):
-            if session_name == self.default_session:
-                # Clear the default session
-                self.save_session(self.default_session, [])
-            else:
-                # Set active session to the default session
-                self.set_active_session(self.default_session)
-                # Remove the session file
-                os.remove(self.get_session_path(session_name))
-                # If the removed session was a config default, set it to the default session
-                from navi_shell import get_navi_settings, modify_navi_settings
-                if get_navi_settings()["session"] is session_name:
-                    modify_navi_settings("session", self.default_session)
-        else:
-            print(f"{session_name} does not exist.")
 
     def setup_navi_vocab(self) -> None:
         # Register commands and aliases with the entity ruler

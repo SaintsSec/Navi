@@ -1,10 +1,12 @@
-import navi_internal
-import sys
 import os
 import re
 import subprocess  # nosec
+import sys
 import webbrowser
+
 from colorama import Fore
+
+import navi_internal
 from navi_shell import restart_navi
 
 command: str = "chip-create"

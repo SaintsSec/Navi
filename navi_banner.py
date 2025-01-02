@@ -4,7 +4,6 @@ breakline = "+===================================================+"
 
 versionNum = get_navi_version()
 
-
 # The cover art:
 art = rf"""{breakline}
 |               _   __            _                 |
