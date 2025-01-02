@@ -81,11 +81,7 @@ class NaviApp:
         self.knowledge_store = self.load_knowledge_store()
         self.setup_knowledge_input_dir()
 
-    '''
-    ---------------------------------------------------------------------------
-                                RAG MANAGEMENT
-    ---------------------------------------------------------------------------
-    '''
+    # ------------------------------ RAG MANAGEMENT ------------------------------
 
     def setup_knowledge_input_dir(self):
         os.makedirs(self.input_directory, exist_ok=True)
@@ -167,11 +163,7 @@ class NaviApp:
             return trimmed_text + "..."
         return text
 
-    '''
-        ---------------------------------------------------------------------------
-                                    MEMORY MANAGEMENT
-        ---------------------------------------------------------------------------
-    '''
+    # ------------------------------ MEMORY MANAGEMENT ---------------------------
 
     def setup_memory(self) -> None:
         if not os.path.exists(self.memory_dir):
@@ -250,11 +242,7 @@ class NaviApp:
         else:
             print(f"{session_name} does not exist.")
 
-    '''
-        ---------------------------------------------------------------------------
-                                    CORE NAVI FUNCTIONS
-        ---------------------------------------------------------------------------
-    '''
+    # ------------------------------ CORE NAVI FUNCTIONS --------------------------
 
     def setup_history(self) -> None:
         self.session = PromptSession(history=FileHistory(self.hist_file))
