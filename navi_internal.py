@@ -31,8 +31,6 @@ class NaviApp:
     memory_dir: str = "memories"
     default_session: str = "DEFAULT_SESSION"
     token_limit_max: int = 4096
-    token_limit_rag: int = 2048
-    token_limit_chat: int = 2048
     active_session: str = default_session
 
     knowledge_store_path: str = "data/knowledge_store.json"
@@ -210,14 +208,14 @@ class NaviApp:
             return None
         self.active_session = session_name
 
-    def save_chat_to_session(self, session_name, history, chat_user, chat_assistant):
+    def save_chat_to_session(self, session_name, history, chat_user, chat_assistant, token_limit):
         chat_history = history
         chat_history.append(chat_user)
         chat_history.append(chat_assistant)
 
         # Handle token overflow
         from navi_shell import get_navi_settings
-        if get_navi_settings()["overwrite_session"] and self.calculate_tokens(chat_history) > self.token_limit_chat:
+        if get_navi_settings()["overwrite_session"] and self.calculate_tokens(chat_history) > token_limit:
             chat_history.pop(0)
 
         self.save_session(session_name, chat_history)
@@ -300,6 +298,33 @@ class NaviApp:
         else:
             print(self.art)
 
+    def fetch_token_limits(self):
+        from navi_shell import get_navi_settings
+        try:
+            navi_settings = get_navi_settings()
+
+            token_limit_rag = int(navi_settings["token_limit_rag"])
+            token_limit_chat = int(navi_settings["token_limit_chat"])
+
+            # Check if the combined total exceeds the maximum allowed
+            return_default = False
+            if token_limit_rag < 0 or token_limit_chat < 0:
+                print("Warning: Negative token values are invalid. Using default values")
+                return_default = True
+            if token_limit_rag + token_limit_chat > self.token_limit_max:
+                print("Warning: Combined token limits exceed the maximum allowed. Using default values")
+                return_default = True
+            if return_default:
+                return 2048, 2048
+            else:
+                return token_limit_rag, token_limit_chat
+        except (ValueError, TypeError, KeyError) as e:
+            print(f"Warning: Issue fetching token limits: {e}. Using default values.")
+            return 2048, 2048
+
+    def get_max_token_limit(self):
+        return self.token_limit_max
+
     def llm_chat(self, user_message: str, called_from_app: bool = False, call_remote: bool = False) -> tuple[str, int]:
         # Define the API endpoint and payload
         message_amendment = user_message
@@ -307,16 +332,18 @@ class NaviApp:
             message_amendment = self.llm_chat_prompt
         message_amendment += user_message
 
+        token_limit_rag, token_limit_chat = self.fetch_token_limits()
+
         # Check if RAG should be used
         retrieved_context = ""
         if self.is_local:
             # Retrieve context and trim to token limit
             retrieved_context = self.retrieve_context(user_message)
-            retrieved_context = self.trim_rag_to_token_limit(retrieved_context, self.token_limit_rag)
+            retrieved_context = self.trim_rag_to_token_limit(retrieved_context, token_limit_rag)
 
         # Load chat history and trim for token limit
         chat_history = self.load_session(self.active_session)
-        chat_submission = self.trim_history_to_token_limit(chat_history, self.token_limit_chat)
+        chat_submission = self.trim_history_to_token_limit(chat_history, token_limit_chat)
 
         # Create combined input for API call
         if retrieved_context:
@@ -358,7 +385,8 @@ class NaviApp:
                 self.active_session,
                 chat_history,
                 {"role": "user", "content": user_message},
-                {"role": "assistant", "content": full_response}
+                {"role": "assistant", "content": full_response},
+                token_limit_chat
             )
 
             return full_response, 200

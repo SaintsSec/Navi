@@ -5,3 +5,5 @@ dont_check_for_updates=False
 update_branch=main
 session=DEFAULT_SESSION
 overwrite_session=True
+token_limit_rag=2048
+token_limit_chat=2048
