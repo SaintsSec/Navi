@@ -1,14 +1,11 @@
 import os
+import platform
 import shutil
-import subprocess
+import subprocess  # nosec
 import tempfile
 from getpass import getpass
 from typing import Tuple
 
-
-import subprocess
-import platform
-import os
 
 def install_ollama() -> bool:
     try:
@@ -46,8 +43,8 @@ def install_ollama() -> bool:
             # Download the installer
             subprocess.run(
                 ["powershell", "-Command",
-                 "Invoke-WebRequest -Uri https://ollama.com/download/OllamaSetup.exe -OutFile ollama_installer.exe"],
-                shell=True,
+                 "Invoke-WebRequest", "-Uri", "https://ollama.com/download/OllamaSetup.exe",
+                 "-OutFile", "ollama_installer.exe"],
                 check=True,
                 capture_output=True,
                 text=True,
@@ -56,8 +53,7 @@ def install_ollama() -> bool:
             # Run the installer
             subprocess.run(
                 ["powershell", "-Command",
-                 "Start-Process -FilePath ./ollama_installer.exe"],
-                shell=True,
+                 "Start-Process", "-FilePath", "./ollama_installer.exe", "-Wait"],
                 check=True,
                 capture_output=True,
                 text=True,
@@ -87,7 +83,6 @@ def install_ollama() -> bool:
                 os.remove("ollama_installer.exe")
             except Exception as e:
                 print(f"Failed to remove installer: {e}")
-
 
 
 def ollama_installed() -> bool:

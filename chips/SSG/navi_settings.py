@@ -34,7 +34,7 @@ def modify_config(key, value):
                 file.write(line)
                 continue
 
-            current_key, current_value = line.strip().split("=", 1)
+            current_key, _ = line.strip().split("=", 1)
             if current_key == key:
                 file.write(f"{key}={value}\n")
                 modified = True
@@ -69,14 +69,28 @@ def read_config(path_to_config):
 
 
 def settings_init():
+    import getpass
+
+    default_config = read_config(default_config_path)
+
+    # Check if the config file exists
     if os.path.exists(config_path):
-        return read_config(config_path)
+        # Read the existing config
+        user_config = read_config(config_path)
+        # Add any missing keys from the default config
+        for key, default_value in default_config.items():
+            if key not in user_config:
+                print(f"Adding missing key: {key} with default value: {default_value}")
+                user_config[key] = default_value
+                modify_config(key, default_value)
+        return user_config
     else:
-        import getpass
-        default_config = read_config(default_config_path)
+        # If the config file doesn't exist, create it using defaults
+        print("Config file not found. Creating a new one with default settings.")
         create_config(default_config)
         modify_config("username", getpass.getuser())
-        return read_config(config_path)
+
+    return read_config(config_path)
 
 
 def run(arguments=None):

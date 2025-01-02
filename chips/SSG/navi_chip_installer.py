@@ -1,13 +1,14 @@
 ﻿import os
-import sys
-import requests
-import zipfile
 import shutil
 import subprocess  # nosec
+import sys
 import uuid
-import navi_internal
+import zipfile
 
+import requests
 from colorama import Fore
+
+import navi_internal
 from navi import get_parameters
 from navi_shell import restart_navi
 
@@ -328,9 +329,9 @@ def update_chip(chip_name: str) -> None:
 
 def help_text() -> None:
     navi.print_message("Chip Manager\n"
-                  "chips [install | uninstall | search | update] [app/query]\n\n"
-                  "List currently installed chips\n"
-                  "chips list")
+                       "chips [install | uninstall | search | update] [app/query]\n\n"
+                       "List currently installed chips\n"
+                       "chips list")
 
 
 def run(arguments=None) -> None:
