@@ -149,9 +149,13 @@ def main() -> None:
             navi_instance.set_local(False)
         if not args.remote and navi_settings["use_local_model"]:
             local_model_check()
+            # Only process files if local model is used
+            navi_instance.process_knowledge_files()
         navi_instance.setup_navi_vocab()
         navi_instance.clear_terminal()
         navi_instance.setup_history()
+        navi_instance.setup_memory()
+        navi_instance.set_active_session(navi_settings["session"])
         navi_instance.chat_with_navi()
         navi_instance.print_message(f"How can I help you, {user}")
     except KeyboardInterrupt:

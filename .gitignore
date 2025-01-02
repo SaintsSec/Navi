@@ -9,3 +9,5 @@ verification_test
 .navi_history
 config
 qodana.yaml
+memories/
+data/
