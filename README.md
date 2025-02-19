@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Navi | CLI - An innovation in cybersec AI</h1>
-  <h1>v0.6.6 - "Specter"</h1>
+  <h1>v1.0.0 - "Hello_Navi()"</h1>
 </div>
 
 ## 🤝 Sponsors / Endorsements: Thank you so much!
@@ -13,13 +13,15 @@
 #### If you have a previous copy of Navi it is a good idea to do a clean install so the automatic updater works properly going forward.   
 `sudo rm -rf /opt/Navi` should do the trick!
 
-## ✨ **Key Features of Navi v0.6.5**
+## ✨ **Key Features of Navi v1.0.0**
 
-- **Navi3b** - The first iteration of our local AI system. Currently running Llama3.2-3b with ollama in the background.
+- **Navi3b** - The first iteration of our local AI system. Currently running WhiteRabbitNeo with ollama in the background.
 - **Streamlined 3b install** - The install process is included the first time you launch navi (from edge currently) `navi --edge`   
 - **Navi chips Upgrade** - The chips system has been upgraded yet again with some qol, as well as a chip creator + template
 - **Chip Creators Guide** - The chip documentation has been updated to reflect recent changes to the sytem. 
 - **Wiki Re-write** - With new power comes new documentation
+- **Navi CLI Memory** - We can now have Navi pull converstational context *Local Only*
+- **Navi RAG** - We implimented a RAG System into Navi that will be take data from PDF's and allow the model to use it for knowledge augmentation.
 
 ### **Work In Progress**
 
