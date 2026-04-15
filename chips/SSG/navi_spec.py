@@ -53,7 +53,7 @@ def get_uptime_info():
 
 
 def get_public_ip():
-    response = requests.get('https://api.ipify.org')
+    response = requests.get('https://api.ipify.org', timeout=30)
     return response.text.strip()
 
 
