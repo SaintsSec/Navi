@@ -20,14 +20,14 @@ navi = None
 
 def get_latest_release(owner, repo):
     url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
     return response.json() if response.status_code == 200 else 'No release found'
 
 
 def search_for_chips(name=None, per_page=10, page=1):
     query = f"topic:navi-chips" + (f"+{name} in:name" if name else "")
     url = f"https://api.github.com/search/repositories?q={query}&per_page={per_page}&page={page}"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
     if response.status_code == 200:
         return response.json().get('items', [])
     else:
@@ -68,7 +68,7 @@ def download_and_extract(download_url):
     zip_path = f"{download_guid}.zip"
 
     try:
-        response = requests.get(download_url)
+        response = requests.get(download_url, timeout=30)
         with open(zip_path, 'wb') as file:
             file.write(response.content)
 

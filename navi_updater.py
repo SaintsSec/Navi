@@ -36,7 +36,7 @@ def get_latest_release(repo_owner: str, repo_name: str, edge: bool = False) -> d
     else:
         api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
 
-    response = requests.get(api_url)
+    response = requests.get(api_url, timeout=30)
 
     if response.status_code == 200:
         data = response.json()
@@ -82,7 +82,7 @@ def update_script(download_url: str) -> None:
     print("Updating the script...")
     try:
         # Download the latest version
-        response = requests.get(download_url)
+        response = requests.get(download_url, timeout=30)
         zip_path = "latest_version.zip"
 
         with open(zip_path, 'wb') as file:
